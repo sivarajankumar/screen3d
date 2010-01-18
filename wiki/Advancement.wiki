@@ -1,0 +1,43 @@
+#summary Global project advancement
+
+= Introduction =
+
+This page sums up the advancement of the different parts of Screen project.
+
+= Advancement levels =
+
+<font color="red">empty</font> : Development no longer started.
+
+<font color="purple>in development</font> : Development in progress.
+
+<font color="blue">development complete</font> : Development complete. Not stable
+
+<font color="green">delivered</font> : Stable and delivered in a new pack.
+
+= Screen main project =
+
+  * *Framework* (_Screen::Utils_)
+
+|| Any || <font color="purple>in development</font> || _N/A_ ||
+|| Debug call tracer || <font color="purple>in development</font> || _N/A_ ||
+|| Exceptions || <font color="purple>in development</font> || _N/A_ ||
+|| File and paths management || <font color="purple>in development</font> || _N/A_ ||
+|| Logger || <font color="blue">development complete</font> || _N/A_ ||
+|| Memory allocation debugger || <font color="red">empty</font> || _N/A_ ||
+|| Plug-in system (Windows) || <font color="blue">development complete</font> || _N/A_ ||
+|| Plug-in system (Linux) || <font color="red">empty</font> || _N/A_ ||
+|| Profiler || <font color="blue">development complete</font> || _N/A_ ||
+|| Resource management || <font color="purple>in development</font> || _N/A_ ||
+|| Smart pointer || <font color="blue">development complete</font> || _N/A_ ||
+|| Singleton || <font color="blue">development complete</font> || _N/A_ ||
+
+  * *Maths* (_Screen::Math_)
+
+|| Generic and compile time sized vector || <font color="purple>in development</font> || _N/A_ ||
+|| Generic and compile time sized matrix || <font color="purple>in development</font> || _N/A_ ||
+|| Matrices || <font color="purple>in development</font> || _N/A_ ||
+|| Plane || <font color="red">empty</font> || _N/A_ ||
+|| Rectangles || <font color="purple>in development</font> || _N/A_ ||
+|| Vectors || <font color="purple>in development</font> || _N/A_ ||
+
+  * *Core* (_Screen::Core_)
