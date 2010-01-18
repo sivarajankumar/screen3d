@@ -31,6 +31,7 @@ This page sums up the advancement of the different parts of Screen project.
 || Smart pointer || <font color="blue">development complete</font> || _N/A_ ||
 || Smart pointer policies || <font color="blue">development complete</font> || for 'classic' and resource based smart pointer ||
 || Singleton || <font color="blue">development complete</font> || _N/A_ ||
+
 == Maths (_Screen::Math_) ==
 
 || Generic and compile time sized vector || <font color="purple>in development</font> || _N/A_ ||
