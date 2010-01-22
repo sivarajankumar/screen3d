@@ -18,46 +18,51 @@ This page sums up the advancement of the different parts of Screen project.
 
 == Framework (_Screen::Utils_) ==
 
-|| Any || <font color="purple>in development</font> || must be test ||
-|| Debug call tracer || <font color="purple>in development</font> || already done (need attribute traces) ||
-|| Exceptions || <font color="purple>in development</font> || simplest exception implemented, need improvements ||
-|| File and paths management || <font color="purple>in development</font> || _N/A_ ||
-|| Logger || <font color="blue">development complete</font> || can process ERROR, WARNING, INFO and DEBUG logs ||
-|| Memory allocation debugger || <font color="red">empty</font> || TODO :) ||
-|| Plug-in system (Windows) || <font color="blue">development complete</font> || based on dynamic library load ||
-|| Plug-in system (Linux) || <font color="red">empty</font> || based on dynamic library load ||
-|| Profiler || <font color="blue">development complete</font> || _N/A_ ||
-|| Resource management || <font color="purple>in development</font> || need advance tests ||
-|| Smart pointer || <font color="blue">development complete</font> || _N/A_ ||
-|| Smart pointer policies || <font color="blue">development complete</font> || for 'classic' and resource based smart pointer ||
-|| Singleton || <font color="blue">development complete</font> || _N/A_ ||
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Any || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || must be test ||
+|| Debug call tracer || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || already done (need attribute traces) ||
+|| Exceptions || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || simplest exception implemented, need improvements ||
+|| File and paths management || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Logger || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || can process ERROR, WARNING, INFO and DEBUG logs ||
+|| Memory allocation debugger || <font color="red">empty</font> || Screen || 0.1 || _N/A_ || TODO :) ||
+|| Plug-in system (Windows) || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || based on dynamic library load ||
+|| Plug-in system (Linux) || <font color="red">empty</font> || Screen || 0.1 || _N/A_ || based on dynamic library load ||
+|| Profiler || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Resource management || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || need advance tests ||
+|| Smart pointer || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Smart pointer policies || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || for 'classic' and resource based smart pointer ||
+|| Singleton || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
 
 == Maths (_Screen::Math_) ==
 
-|| Generic and compile time sized vector || <font color="purple>in development</font> || _N/A_ ||
-|| Generic and compile time sized matrix || <font color="purple>in development</font> || _N/A_ ||
-|| Matrices || <font color="purple>in development</font> || _N/A_ ||
-|| Plane || <font color="red">empty</font> || _N/A_ ||
-|| Rectangles || <font color="purple>in development</font> || _N/A_ ||
-|| Vectors || <font color="purple>in development</font> || _N/A_ ||
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Generic and compile time sized vector || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Generic and compile time sized matrix || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Matrices || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Plane || <font color="red">empty</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Rectangles || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Vectors || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
 
 == Core (_Screen::Core_) ==
 
   * *Vertices and Indices*
 
-|| Index Buffer || <font color="blue">development complete</font> || 2 or 4 byte size index buffer ||
-|| Vertex Buffer || <font color="purple>in development</font> || missing vertex buffer with size compute at runtime ||
-|| Vertex Format || <font color="purple>in development</font> || missing lock system ||
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Index Buffer || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || 2 or 4 byte size index buffer ||
+|| Vertex Buffer || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || missing vertex buffer with size compute at runtime ||
+|| Vertex Format || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || missing lock system ||
 
   * *Color*
 
-|| Color || <font color="blue">development complete</font> || for vertex color ||
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Color || <font color="blue">development complete</font> || Screen || 0.1 || _N/A_ || for vertex color ||
 
   * *Textures*
 
-|| Texture || <font color="purple>in development</font> || _N/A_ ||
-|| Texture management || <font color="purple>in development</font> || _N/A_ ||
-|| Pixel format and convertion || <font color="purple>in development</font> || _N/A_ ||
-|| Image || <font color="purple>in development</font> || _N/A_ ||
-|| Image loading || <font color="purple>in development</font> || _N/A_ ||
-|| Image management || <font color="purple>in development</font> || _N/A_ ||
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Texture || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Texture management || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Pixel format and convertion || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Image || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Image loading || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
+|| Image management || <font color="purple>in development</font> || Screen || 0.1 || _N/A_ || _N/A_ ||
