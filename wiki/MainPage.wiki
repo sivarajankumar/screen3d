@@ -11,13 +11,17 @@ Welcome to Screen project wiki. This wiki is designed for developers who want to
   * How to use Screen in your project
   * _Hello world !!_
 
-= for Screen Developers =
+= Screen Developers =
 
   * Development environment
   * Tasks and bugs tracking
-
+  * Read and write specifications
   * Writing code
     * Coding rules
     * _Screen::Utils_ or How to use Screen framework
-  * Read and write specifications
+  * Writing tests
   * Make deliveries
+
+= Other documents =
+
+  * [Advancement Global Advancement]
