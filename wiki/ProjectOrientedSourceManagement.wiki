@@ -1,0 +1,90 @@
+#summary POSM : Project/Pack oriented source management
+
+= Introduction =
+
+This part intends to explain how Screen organizes its sources and its build system. 
+
+Screen is based on a plug-in architecture : each important pack of the Screen project is defined by a dynamic library (.dll/.so) that represents a plug-in.
+
+This architecture allows to parallelize developments and to minimize dependencies. Furthermore, it permits deferred publication of different plug-ins and simplifies patches.
+
+= Source architecture =
+
+Screen source management is designed in a very strict but extensive way in order to structure developments and unify all development under common concepts.
+
+All packs are designed in the same way :
+  * a root folder of the pack, placed at root of the repository. it contains 3 things :
+    * a *src* folder, that contains all pack sources
+    * a *test* folder , that contains all pack tests
+    * a *sbs.xml* file, that contains configurations of the pack
+
+This schema sums up the design :
+{{{
+trunk
+|
+---> <project name>
+|    |
+|    --> sbs.xml
+|    |
+|    ---> src
+|    |    |
+|    |    --->Screen
+|    |        |
+|    |        ...
+|    |
+|    ---> test
+|         |
+|         --->Screen
+|             |
+|             ...
+|
+---> <another project>
+|    |
+|    ...
+|
+...             
+}}}
+
+= SBS : Screen Build System =
+
+*SBS is under development and will be published soon*
+
+== Aims ==
+
+SBS is build system using CMake. It generates CMakeLists.txt and CMakeCache.txt files, generates makefile with these files with CMake and compile the pack.
+
+SBS uses 2 differents files in order to process :
+  * a *sbs.xml* file
+  * the *sbs.config* file, that contains all global configurations (paths, compiler choice, compiler options, ...). This file is placed in SBS root folder. 
+
+== Example ==
+
+  * sbs.xml :
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+   <properties>
+      <name>ScreenMain</name>
+      <version>0.1.0</version>
+      <buildtype>shared</buildtype>
+   </properties>
+   <dependencies>
+      <dependency name="boost">
+         <includes>
+            <path>${BOOST_INC_ROOT}</path>
+         </includes>
+         <libraries>
+            <path>${BOOST_LIB_ROOT}</path>
+            <lib>boost-thread</lib>
+         </libraries>
+      </dependency>
+   </dependencies>
+</project>
+}}}
+
+  * sbs.config :
+{{{
+BOOST_INC_ROOT=C:/boost-1_37/include
+BOOST_LIB_ROOT=C:/boost-1_37/stage/lib
+}}}
+
