@@ -93,3 +93,18 @@ sbs.config -----|            |----> CMakeCache.txt -----|
 BOOST_INC_ROOT=C:/boost-1_37/include
 BOOST_LIB_ROOT=C:/boost-1_37/stage/lib
 }}}
+
+== Commands ==
+
+|| *Generates makefiles* || ||
+|| generate makefiles || sbs `<path-to-pack>` generate ||
+|| *Compile* || ||
+|| compile the Pack sources || sbs `<path-to-pack>` compile ||
+|| compile the Pack tests || sbs `<path-to-pack>` compile -t ||
+|| compile the Pack sources and tests || sbs `<path-to-pack>` compile -b ||
+|| *Generates makefiles and compile* || ||
+|| generate makefiles and compile the Pack sources || sbs `<path-to-pack>` build ||
+|| generate makefiles and compile the Pack tests || sbs `<path-to-pack>` build -t ||
+|| generate makefiles and compile the Pack sources and tests || sbs `<path-to-pack>` build -b ||
+|| *Run tests* || ||
+|| run tests || sbs `<path-to-pack>` test ||
