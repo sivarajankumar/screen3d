@@ -24,7 +24,7 @@ trunk
 |
 ---> <project name>
 |    |
-|    --> sbs.xml
+|    ---> sbs.xml
 |    |
 |    ---> src
 |    |    |
