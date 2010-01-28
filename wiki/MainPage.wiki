@@ -14,6 +14,7 @@ Welcome to Screen project wiki. This wiki is designed for developers who want to
 = Screen Developers =
 
   * Development environment
+  * Project/Pack oriented source management
   * Read and write specifications
   * Tasks and bugs tracking
   * Writing code
