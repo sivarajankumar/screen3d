@@ -20,7 +20,7 @@ This page sums up the advancement of the different parts of Screen project.
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
 || Any || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || must be tested ||
-|| Debug call tracer || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || already done (need attribute traces) ||
+|| Debug call tracer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || Must add attributes debug trace in version 0.2  ||
 || Exceptions || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || simplest exception implemented, need improvements ||
 || File and paths management || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
 || Logger || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || can process ERROR, WARNING, INFO and DEBUG logs ||
