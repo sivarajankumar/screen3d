@@ -55,7 +55,13 @@ SBS is build system using CMake. It generates CMakeLists.txt and CMakeCache.txt 
 
 SBS uses 2 differents files in order to process :
   * a *sbs.xml* file
-  * the *sbs.config* file, that contains all global configurations (paths, compiler choice, compiler options, ...). This file is placed in SBS root folder. 
+  * the *sbs.config* file, that contains all global configurations (paths, compiler choice, compiler options, ...). This file is placed in SBS root folder.
+
+{{{
+sbs.xml --------|            |----> CMakeLists.txt -----|
+                |---> SBS ---|                          |---> cmake ---> makefile ---> make ---> Pack (dll/exe/...)
+sbs.config -----|            |----> CMakeCache.txt -----|
+}}}
 
 == Example ==
 
@@ -87,4 +93,3 @@ SBS uses 2 differents files in order to process :
 BOOST_INC_ROOT=C:/boost-1_37/include
 BOOST_LIB_ROOT=C:/boost-1_37/stage/lib
 }}}
-
