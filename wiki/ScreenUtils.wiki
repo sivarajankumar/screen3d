@@ -1,0 +1,63 @@
+#summary Screen::Utils or How to use Screen framework.
+
+= Introduction =
+
+In this part, I'll try to explain goals of different main parts of the Screen framework (contained in _Screen::Utils_) and how to use them.
+
+= Main concepts =
+
+== _Declaration.h_ : Automatic embedded debug call tracer and profiler ==
+
+=== Aims ===
+
+the _Declaration.h_ provides tools for debugging Screen application. Its provides 2 type of information :
+  * A call tracer through the DEBUG log messages. It indicates all begins and ends of constructors, destructors, methods and functions.
+  * A embedded profiler, in order to provide performance information.
+
+Warning : These tools degrades strongly performances of the application. In the case of the profiler, it can compute unexpected results.
+
+Warning : Don't use call tracer or profiler for long time executions. It uses many resources (memory can explode :))
+
+=== Usage ===
+
+First add the inclusion _Screen/Utils/Declaration.h_
+Then you can use several macros :
+  * *_SCREEN_DECL_CLASS(<class name>)_*. Must be placed in the class body. This macro doesn't process anything. It's only define a static method that returns the name of the class. _SCREEN_DECL_CONSTRUCTOR_, _SCREEN_DECL_DESTRUCTOR_ and _SCREEN_DECL_METHOD_ need to have _SCREEN_DECL_CLASS_ defined in the class to be used.
+  * *_SCREEN_DECL_CONSTRUCTOR(<constructor name>)_*. Must be placed at the beginning of the constructor.
+  * *_SCREEN_DECL_DESTRUCTOR(<destructor name>)_*. Must be placed at the beginning of the destructor.
+  * *_SCREEN_DECL_METHOD(<method name>)_*. Must be placed at the beginning of the method.
+  * *_SCREEN_DECL_FUNCTION(<function name>)_*. Must be placed at the beginning of the function.
+
+=== Example ===
+
+{{{
+
+}}}
+
+=== Outputs ===
+
+The output depends in the implementation of the logger and profiler reporters. These outputs show the results with the defaults reporters :
+
+log.txt
+{{{
+
+}}}
+
+profiler.txt
+{{{
+
+}}}
+
+== Unique shared logger for Screen ==
+
+== Profiler ==
+
+== Smart Pointers ==
+
+== Resource Management ==
+
+== Singleton ==
+
+== Exceptions ==
+
+= Secondary concepts =
