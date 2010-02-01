@@ -247,6 +247,10 @@ You will see how to configure logger and profiler outputs in the next chapters.
 
 === Logger Design ===
 
+The logger design is based on Strategy patterns :
+
+https://docs.google.com/uc?id=0B6E-trOwx6Z3ZjFkMjI2YzUtNjVjNS00Y2U2LTk0MDgtOTI4NTZlMDhmYzhi&hl=en
+
 === Default logger reporters ===
 
 == Profiler ==
