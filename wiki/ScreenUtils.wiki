@@ -6,7 +6,7 @@ In this part, I'll try to explain goals of different main parts of the Screen fr
 
 = Main concepts =
 
-== _Declaration.h_ : Automatic embedded debug call tracer and profiler ==
+== _Declaration.h_ : Automatic embedded call tracer and profiler ==
 
 === Aims ===
 
@@ -160,54 +160,54 @@ The output depends in the implementation of the logger and profiler reporters. T
 
 log.txt
 {{{
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fba0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fba0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fba0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fba0]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fb10]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fb10]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fb10]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fb10]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fb00]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fb00]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fb00]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fb00]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22faf0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22faf0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22faf0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22faf0]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fae0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fae0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fae0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fae0]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fad0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fad0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fad0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fad0]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fac0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fac0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fac0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fac0]
-[DEBUG] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fab0]
-[DEBUG] [end][constructor = Screen::Core::Color::Color()][address = 0x22fab0]
-[DEBUG] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fab0]
-[DEBUG] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fab0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fab0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fab0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fac0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fac0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fad0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fad0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fae0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fae0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22faf0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22faf0]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fb00]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fb00]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fb10]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fb10]
-[DEBUG] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fba0]
-[DEBUG] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fba0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fba0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fba0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fba0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fba0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fb10]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fb10]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fb10]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fb10]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fb00]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fb00]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fb00]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fb00]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22faf0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22faf0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22faf0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22faf0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fae0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fae0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fae0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fae0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fad0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fad0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fad0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fad0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fac0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fac0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fac0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fac0]
+[CALL] [begin][constructor = Screen::Core::Color::Color()][address = 0x22fab0]
+[CALL] [end][constructor = Screen::Core::Color::Color()][address = 0x22fab0]
+[CALL] [begin][method = Screen::Core::Color::convertABGR()][address = 0x22fab0]
+[CALL] [end][method = Screen::Core::Color::convertABGR()][address = 0x22fab0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fab0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fab0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fac0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fac0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fad0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fad0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fae0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fae0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22faf0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22faf0]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fb00]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fb00]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fb10]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fb10]
+[CALL] [begin][destructor = Screen::Core::Color::~Color()][address = 0x22fba0]
+[CALL] [end][destructor = Screen::Core::Color::~Color()][address = 0x22fba0]
 
 }}}
 
@@ -239,7 +239,15 @@ destructor | Screen::Core::Color::~Color() | 0x22fb10 | 37.3606 | 37.3623 | ende
 destructor | Screen::Core::Color::~Color() | 0x22fba0 | 37.3858 | 37.3877 | ended
 }}}
 
+Outputs can be huge and you will want to ignore some logs.
+
+You will see how to configure logger and profiler outputs in the next chapters.
+
 == Unique shared logger for Screen ==
+
+=== Logger Design ===
+
+=== Default logger reporters ===
 
 == Profiler ==
 
