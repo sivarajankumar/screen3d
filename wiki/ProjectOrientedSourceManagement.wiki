@@ -14,9 +14,12 @@ Screen source management is designed in a very strict but extensive way in order
 
 All packs are designed in the same way :
   * a root folder of the pack, placed at root of the repository. it contains 3 things :
+    * a *include* folder, that contains all pack headers
     * a *src* folder, that contains all pack sources
     * a *test* folder , that contains all pack tests
     * a *sbs.xml* file, that contains configurations of the pack
+
+Note : in some cases, you can find/add header files into src folder. It's the case then you don't want users to access to this header files. For example, in Screen/XML, _!XercesParser.h_ is in src because the library interface intends to be independant from the parsing library.
 
 This schema sums up the design :
 {{{
