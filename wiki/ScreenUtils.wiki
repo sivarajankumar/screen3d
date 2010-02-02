@@ -11,7 +11,7 @@ In this part, I'll try to explain goals of different main parts of the Screen fr
 === Aims ===
 
 the _Declaration.h_ provides tools for debugging Screen application. Its provides 2 type of information :
-  * A call tracer through the DEBUG log messages. It indicates all begins and ends of constructors, destructors, methods and functions.
+  * A call tracer through the CALL log messages. It indicates all begins and ends of constructors, destructors, methods and functions.
   * A embedded profiler, in order to provide performance information.
 
 Warning : These tools degrades strongly performances of the application. In the case of the profiler, it can compute unexpected results.
