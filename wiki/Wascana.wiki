@@ -1,0 +1,48 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Wascana is full environment based on Eclipse C++, MSYS and MingW compiler.
+This environment provides easily configurable environment with advance features (makefiles, auto-indentation, auto-completion, debugger, ...).
+
+= Wascana =
+
+== Download Wascana ==
+
+Download the installer at this link :
+
+http://sourceforge.net/projects/wascana/files/Wascana%2C%20MinGW%20Edition/0.9.3/wascana-mingw-0.9.3.exe/download
+
+== Install Wascana ==
+
+Launch the installer _wascana-mingw-0.9.3.exe_
+
+Continue until *Select Destination Location* window. Change the folder from _C:\Program Files\Wascana_ to _C:\Wascana_.
+
+We do this because there are some problems with spaces, notably during compilation of Xerces with MSYS.
+
+Then continue and finish the installation.
+
+== First launch ==
+
+Launch Wascana.
+
+The first thing Wascana asks is to choose a workspace. Enter a path in which you want the workspace to be placed. For all Screen developments, we will use this unique workspace.
+
+Then validate the workspace and you arrive on the main Wascana window.
+
+If it is not, select the C++ view.
+
+In next parts, we configure a project for Screen/Main pack. Other pack configuration are similar.
+
+== Project creation ==
+
+== Dependencies ==
+
+== Builds ==
+
+== Launch ==
+
+= MSYS =
+
+== Build Xerces ==
