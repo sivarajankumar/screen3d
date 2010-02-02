@@ -66,3 +66,34 @@ This page sums up the advancement of the different parts of Screen project.
 || Image || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
 || Image loading || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
 || Image management || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
+
+= Screen/OpenGL pack =
+
+  * *Vertices and Indices*
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Index Buffer || <font color="blue">development complete</font> || Screen/OpenGL || 0.1 || _N/A_ || 2 or 4 byte size index buffer ||
+|| Vertex Buffer || <font color="blue">development complete</font> || Screen/OpenGL || 0.1 || _N/A_ || _N/A_ ||
+|| Vertex Format || <font color="blue">development complete</font> || Screen/OpenGL || 0.1 || _N/A_ || _N/A_ ||
+
+  * *Textures*
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Texture || <font color="purple>in development</font> || Screen/OpenGL || 0.1 || _N/A_ || doesn't work yet ||
+
+  * *Other*
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Exceptions || <font color="purple>in development</font> || Screen/OpenGL || 0.1 || _N/A_ || need additional exceptions ||
+
+= Screen/XML pack =
+
+  * *General*
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Dom || <font color="blue">development complete</font> || Screen/XML || 0.1 || _N/A_ || Screen specific DOM implementation. ||
+|| Parser interface || <font color="blue">development complete</font> || Screen/XML || 0.1 || _N/A_ || _N/A_ ||
+
+  * *Xerces implementation*
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Xerces parser || <font color="purple>in development</font> || Screen/XML || 0.1 || _N/A_ || _N/A_ ||
