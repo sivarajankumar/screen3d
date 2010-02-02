@@ -22,9 +22,15 @@ This schema sums up the design :
 {{{
 trunk
 |
----> <project name>
+---> <pack name>
 |    |
 |    ---> sbs.xml
+|    |
+|    ---> include
+|    |    |
+|    |    --->Screen
+|    |        |
+|    |        ...
 |    |
 |    ---> src
 |    |    |
@@ -38,7 +44,7 @@ trunk
 |             |
 |             ...
 |
----> <another project>
+---> <another pack>
 |    |
 |    ...
 |
@@ -68,7 +74,7 @@ sbs.config -----|            |----> CMakeCache.txt -----|
   * sbs.xml :
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<pack>
    <properties>
       <name>ScreenMain</name>
       <version>0.1.0</version>
@@ -85,7 +91,7 @@ sbs.config -----|            |----> CMakeCache.txt -----|
          </libraries>
       </dependency>
    </dependencies>
-</project>
+</pack>
 }}}
 
   * sbs.config :
