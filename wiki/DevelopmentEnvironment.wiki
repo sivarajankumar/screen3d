@@ -1,0 +1,20 @@
+#summary Development environment
+
+= Introduction =
+
+In this part, we will introduce development environments under different configurations and how to use them on the project. It will provide tutorials for manual or *SBS* assisted configurations.
+
+= SBS =
+
+  * *SBS* Documentation 
+
+= Under Windows =
+
+  * Wascana
+  * Visual Studio
+  * Code::Blocks
+
+= Under Linux =
+
+  * Eclipse C++
+  * Code::Blocks
