@@ -251,12 +251,12 @@ The logger design is based on Strategy patterns :
 
 https://docs.google.com/uc?id=0B6E-trOwx6Z3ZjFkMjI2YzUtNjVjNS00Y2U2LTk0MDgtOTI4NTZlMDhmYzhi&hl=en&img=logger.png
 
-In order to create your own log format, implement the LoggerReporter interface and attach the reporter to the logger by using the SCREEN_ATTACH_LOGGER_REPORTER
+In order to create your own log format, implement the !LoggerReporter interface and attach the reporter to the logger by using the SCREEN_ATTACH_LOGGER_REPORTER
 
 Example :
 
 {{{
-SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileReporter("out.log"));
+SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"));
 }}}
 
 === Default logger reporters ===
