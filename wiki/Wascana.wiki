@@ -17,7 +17,7 @@ http://sourceforge.net/projects/wascana/files/Wascana%2C%20MinGW%20Edition/0.9.3
 
 Launch the installer _wascana-mingw-0.9.3.exe_
 
-Continue until *Select Destination Location* window. Change the folder from _C:\Program Files\Wascana_ to _C:\Wascana_.
+Continue until *Select Destination Location* window. Change the folder from *C:\Program Files\Wascana* to *C:\Wascana*.
 
 We do this because there are some problems with spaces, notably during compilation of Xerces with MSYS.
 
@@ -37,11 +37,32 @@ In next parts, we configure a project for Screen/Main pack. Other pack configura
 
 == Project creation ==
 
+first, if you didn't do it, check-out the sources of the pack (In our case Screen/Main)
+
+`File > New > C++ Project`
+
+Enter the name of the project (!ScreenMain), uncheck *Use default location* and enter in the field the root of the pack (the folder that contains src folder, include folder, etc ...), and choose the right type of the project (for shared library in case of Screen/Main).
+
+Finish the creation.
+
+After this you will have a project that will have a project that contains 3 folders :
+  * *src*
+  * *include*
+  * *test* (optional)
+
+The folder *test* contains the test sources. The goal of this tests is to generate a executable using the shared library we want to create. So tests mustn't be in this project but in another. So you must suppress the *test* folder from the project :
+
+`right click on test folder > Exclude from build ...`
+
+Select the configuration and validate.
+
 == Dependencies ==
 
 == Builds ==
 
 == Launch ==
+
+== Configure test project ==
 
 = MSYS =
 
