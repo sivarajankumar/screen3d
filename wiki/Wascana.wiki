@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary Wascana (Eclipse C++ environment for Windows) How to configure for Screen
 
 = Introduction =
 
