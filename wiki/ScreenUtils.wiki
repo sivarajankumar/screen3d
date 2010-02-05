@@ -26,6 +26,7 @@ Then you can use several macros :
   * *_SCREEN_DECL_CONSTRUCTOR(<constructor name>)_*. Must be placed at the beginning of the constructor.
   * *_SCREEN_DECL_DESTRUCTOR(<destructor name>)_*. Must be placed at the beginning of the destructor.
   * *_SCREEN_DECL_METHOD(<method name>)_*. Must be placed at the beginning of the method.
+  * *_SCREEN_DECL_STATIC_METHOD(<method name>)_*. Must be placed at the beginning of the static method.
   * *_SCREEN_DECL_FUNCTION(<function name>)_*. Must be placed at the beginning of the function.
 
 === Example ===
