@@ -49,7 +49,7 @@ This page sums up the advancement of the different parts of Screen project.
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
 || Index Buffer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || 2 or 4 byte size index buffer ||
-|| Vertex Buffer || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || missing vertex buffer with size compute at runtime ||
+|| Vertex Buffer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || vertex buffer with size compute at runtime or compile time ||
 || Vertex Format || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || added lock system ||
 
   * *Color*
