@@ -27,6 +27,8 @@
 
 #define XMLNSNAME "http://www.w3.org/2000/xmlns/"
 
+#pragma warning(disable:4290) 
+
 namespace Screen {
     namespace Xml {
         namespace Dom {

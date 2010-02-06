@@ -22,6 +22,12 @@
 #ifndef SCREEN_EXPORT_H
 #define SCREEN_EXPORT_H
 
+#if defined (_MSC_VER)
+# pragma warning(disable: 4251) //disable dll export warning
+# pragma warning(disable: 4275)//disable dll export warning
+# pragma warning(disable: 4996)//disable depreciated function warning
+#endif
+
 #ifdef WIN32
 #	ifdef SCREEN_BUILD_SHARED_LIBRARY
 #  		define SCREEN_EXPORT __declspec(dllexport)

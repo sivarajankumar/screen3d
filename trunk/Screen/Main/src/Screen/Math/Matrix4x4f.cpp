@@ -288,11 +288,16 @@ namespace Screen {
 			SCREEN_DECL_METHOD(operator())
 		    return operator float*()[i + 4 * j];
 		}
-		
+
+#pragma warning( push )
+#pragma warning( disable : 4717 )//disable a Visual Studio warning
+
 		const float& Matrix4x4f::operator ()(unsigned int i, unsigned int j) const{
 			SCREEN_DECL_METHOD(operator())
 			return operator ()(i, j);
 		}
+
+#pragma warning( pop ) 
 		
 		Matrix4x4f::operator float* (){
 			SCREEN_DECL_METHOD(operator float*)

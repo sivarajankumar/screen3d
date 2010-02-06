@@ -45,9 +45,9 @@ int main() {
 		
 		SCREEN_LOG_DEBUG("coucou")
 		
-		Screen::Core::Renderer::load("ScreenOpenGLRenderer");
+		Screen::Core::Renderer::load("ScreenOpenGL");
 		Screen::Core::TextureManager::instance()->registerLoader<Screen::Core::Objects::Image>(new Screen::Core::ImageLoader, "jpg|png");
-		Screen::Core::TextureManager::instance()->addPath("C:\\");
+		Screen::Core::TextureManager::instance()->addPath("./");
 		Screen::Core::Objects::Image::SmartPtr image = Screen::Core::TextureManager::instance()->loadImageFromFile("SCREEN.png");
 		
 		Screen::Utils::SmartPtr<Screen::Core::Root> root(new Screen::Core::Root());
