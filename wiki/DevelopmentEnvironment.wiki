@@ -11,7 +11,7 @@ In this part, we will introduce development environments under different configu
 = Under Windows =
 
   * [Wascana Wascana]
-  * Visual Studio
+  * [VisualStudio2008 Visual Studio 2008]
   * Code::Blocks
 
 = Under Linux =
