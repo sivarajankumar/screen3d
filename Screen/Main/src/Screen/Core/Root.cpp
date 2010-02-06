@@ -108,9 +108,9 @@ void Screen::Core::Root::startRendering() const {
 //        fpsCounter->count();
 //    }
 	while(renderer->isRunning()){
-		rotX.setRotationX(timer->getMilliseconds() * 0.05f / 180 * PI);
-		rotY.setRotationY(timer->getMilliseconds() * 0.03f / 180 * PI);
-		rotZ.setRotationZ(timer->getMilliseconds() * 0.09f / 180 * PI);
+		rotX.setRotationX((float)timer->getMilliseconds() * 0.05f / 180 * PI);
+		rotY.setRotationY((float)timer->getMilliseconds() * 0.03f / 180 * PI);
+		rotZ.setRotationZ((float)timer->getMilliseconds() * 0.09f / 180 * PI);
 		renderer->beginScene();
 		renderer->setTexture(texture);
 		renderer->setMatrix(Screen::Core::MATRIX_VIEW, (rotX*rotY*rotZ*view));

@@ -407,7 +407,7 @@ namespace Screen {
 		    	return pfdTable[pxf].nbBytes;
 		    }
 		    bool PixelFormatDescriptor::isCompressed(Screen::Core::PixelFormat pxf){
-		    	return pfdTable[pxf].flags & PXFF_COMPRESSED;
+		    	return (pfdTable[pxf].flags & PXFF_COMPRESSED)!=0;
 		    }
 		    
 		    PixelFormatDescriptor::PixelFormatDescriptor(Screen::Core::PixelFormat pxf)
