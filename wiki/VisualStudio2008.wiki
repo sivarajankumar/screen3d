@@ -1,0 +1,21 @@
+#summary Visual Studio 2008 (C++ IDE for Windows) How to configure for Screen
+
+= Introduction =
+
+= Visual Studio =
+
+== Download Visual Studio ==
+
+Download the installer at this link :
+
+
+== Install Visual Studio ==
+
+
+== Create project from sources ==
+
+=== Dependencies ===
+
+== Launch ==
+
+== Configure test project ==
