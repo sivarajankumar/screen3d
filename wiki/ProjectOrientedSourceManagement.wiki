@@ -67,44 +67,90 @@ SBS uses 2 differents files in order to process :
   * the *sbs.config* file, that contains all global configurations (paths, compiler choice, compiler options, ...). This file is placed in SBS root folder.
 
 {{{
-sbs.xml --------|            |----> CMakeLists.txt -----|
-                |---> SBS ---|                          |---> cmake ---> makefile ---> make ---> Pack (dll/exe/...)
-sbs.config -----|            |----> CMakeCache.txt -----|
+sbs.xml --------|
+                |            |----> CMakeLists.txt -----|              |-----> makefile ----|
+sbs.config -----|---> SBS ---|                          |---> cmake ---|                    |---> make ---> Pack (dll/exe/...)
+                |            |----> CMakeCache.txt -----|              |---> IDE configs ---|
+<env>.config----|
 }}}
 
 == Example ==
 
   * sbs.xml :
+
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
-   <properties>
-      <name>Screen/Main</name>
-      <version>0.1.0</version>
-      <buildtype>shared</buildtype>
-   </properties>
-   <dependencies>
-      <dependency name="boost">
-         <includes>
-            <path>${BOOST_INC_ROOT}</path>
-         </includes>
-         <libraries>
-            <path>${BOOST_LIB_ROOT}</path>
-            <lib>boost-thread</lib>
-         </libraries>
-      </dependency>
-   </dependencies>
+    <properties>
+        <name>Screen/Main</name>
+        <version>0.1.0</version>
+        <buildtype>shared</buildtype>
+    </properties>
+    <dependencies>
+        <dependency name="boost">
+            <includes>
+                <path>${BOOST_INC_ROOT}</path>
+            </includes>
+            <libraries>
+                <path>${BOOST_LIB_ROOT}</path>
+                <lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+            </libraries>
+        </dependency>
+        <dependency name="DevIL">
+            <includes>
+                <path>${DEVIL_INC_ROOT}</path>
+            </includes>
+            <libraries>
+                <path>${DEVIL_LIB_ROOT}</path>
+                <lib>DevIL</lib>
+            </libraries>
+        </dependency>
+    </dependencies>
+    <flags>
+        <flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
+    </flags>
 </pack>
+
 }}}
 
   * sbs.config :
 {{{
-BOOST_INC_ROOT=C:/boost-1_37/include
-BOOST_LIB_ROOT=C:/boost-1_37/stage/lib
+#global configuration file for SBS
+
+REPOSITORY_ROOT = C:/lib/sbs-repo
+RELEASE_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_INFO
+DEBUG_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_DEBUG SCREEN_AUTHORIZE_PROFILE SCREEN_AUTHORIZE_LOG_CALL_TRACER
+
+SCREEN_MAIN_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen/Screen/Main
+SCREEN_OPENGL_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen/Screen/OpenGL
+
+BOOST_INC_ROOT = C:/lib/boost_1_37_0
+BOOST_LIB_ROOT = C:/lib/boost_1_37_0/stage/lib
+
+DEVIL_INC_ROOT = C:/lib/DevIL-SDK-x86-1.7.8/include
+DEVIL_LIB_ROOT = C:/lib/DevIL-SDK-x86-1.7.8/lib
+
+SFML_INC_ROOT = C:/lib/SFML-1.5/include
+}}}
+
+   * wascana.config (i.e called `<env>`.config) :
+{{{
+#Wascana specific configuration file for SBS
+
+ENV_NAME = Wascana
+TARGET_ENV = Eclipse CDT4 - Unix Makefiles
+MAKE_PROGRAM = C:/Wascana/msys/bin/make.exe
+C_COMPILER = C:/Wascana/mingw/bin/gcc.exe
+CPP_COMPILER = C:/Wascana/mingw/bin/g++.exe
+
+BOOST_LIB_EXTENSION = mgw34-mt-1_37
+
+SFML_LIB_ROOT = C:/lib/SFML-1.5/lib/mingw
 }}}
 
 == Commands ==
 
+<wiki:comment>
 || *Generates makefiles* || ||
 || generate makefiles || sbs `<path-to-pack>` generate ||
 || *Compile* || ||
@@ -117,3 +163,4 @@ BOOST_LIB_ROOT=C:/boost-1_37/stage/lib
 || generate makefiles and compile the Pack sources and tests || sbs `<path-to-pack>` build -b ||
 || *Run tests* || ||
 || run tests || sbs `<path-to-pack>` test ||
+</wiki:comment>
