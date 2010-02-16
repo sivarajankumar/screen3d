@@ -114,6 +114,7 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 }}}
 
   * sbs.config :
+
 {{{
 #global configuration file for SBS
 
@@ -134,6 +135,7 @@ SFML_INC_ROOT = C:/lib/SFML-1.5/include
 }}}
 
    * wascana.config (i.e called `<env>`.config) :
+
 {{{
 #Wascana specific configuration file for SBS
 
@@ -149,6 +151,41 @@ SFML_LIB_ROOT = C:/lib/SFML-1.5/lib/mingw
 }}}
 
 == Commands ==
+
+SBS divides is functionalities into phases. Each phase processes only a little part of the tool capabilities.
+
+For now, there are only 4 available phases :
+  * LOAD_CONF (loads only general configuration file sbs.config)
+  * LOAD_XML (loads specified sbs.xml file)
+  * CHECK (verifies all fields)
+  * GENERATE (generates cmake files and specific makefiles and environment) 
+
+To use these phases, you must use specific commands :
+
+{{{
+sbs <path-to-sbs.xml> <phase> [options]
+}}}
+
+example :
+
+{{{
+sbs . generate -e wascana
+}}}
+generates makefile and project for Wascana environment.
+
+== Available phases ==
+
+||  || LOAD_CONF || LOAD_XML || CHECK || GENERATE ||
+|| check || X || X || X ||  ||
+|| generate || X || X || X || X ||
+
+== Options ==
+
+{{{
+-e <env> : set specific environment configurations
+-v : verbose (debug mode)
+-d : debug compile
+}}}
 
 <wiki:comment>
 || *Generates makefiles* || ||
