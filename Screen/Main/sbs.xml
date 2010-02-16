@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>Screen/Main</name>
+		<version>0.1.0</version>
+		<buildtype>shared</buildtype>
+	</properties>
+	<dependencies>
+		<dependency name="boost">
+			<includes>
+				<path>${BOOST_INC_ROOT}</path>
+			</includes>
+			<libraries>
+				<path>${BOOST_LIB_ROOT}</path>
+				<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+			</libraries>
+		</dependency>
+		<dependency name="DevIL">
+			<includes>
+				<path>${DEVIL_INC_ROOT}</path>
+			</includes>
+			<libraries>
+				<path>${DEVIL_LIB_ROOT}</path>
+				<lib>DevIL</lib>
+			</libraries>
+		</dependency>
+	</dependencies>
+	<flags>
+		<flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
+	</flags>
+</pack>

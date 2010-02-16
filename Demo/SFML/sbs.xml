@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>Demo/SFML</name>
+		<version>0.1.0</version>
+		<buildtype>executable</buildtype>
+	</properties>
+	<dependencies>
+		<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
+		<dependency name="boost">
+			<includes>
+				<path>${BOOST_INC_ROOT}</path>
+			</includes>
+			<libraries>
+				<path>${BOOST_LIB_ROOT}</path>
+				<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+			</libraries>
+		</dependency>
+		<dependency name="SFML">
+			<includes>
+				<path>${SFML_INC_ROOT}</path>
+			</includes>
+			<libraries>
+				<path>${SFML_LIB_ROOT}</path>
+				<lib>sfml-system</lib>
+				<lib>sfml-window</lib>
+				<lib>sfml-graphics</lib>
+			</libraries>
+		</dependency>
+	</dependencies>
+</pack>
