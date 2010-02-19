@@ -38,11 +38,11 @@ namespace Screen {
 			SCREEN_DECL_METHOD(format)
 #ifdef WIN32
 		    std::replace(path.begin(), path.end(), '/', '\\');
-			if(path.rbegin()[0]=='\\')
+			if(path.rbegin()[0]!='\\')
 				path += '\\';
 #else
 		    std::replace(path.begin(), path.end(), '\\', '/');
-			if(path.rbegin()[0]=='/')
+			if(path.rbegin()[0]!='/')
 				path += '/';
 #endif
 		}
