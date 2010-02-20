@@ -1,5 +1,11 @@
 #summary Wascana (Eclipse C++ environment for Windows) How to configure for Screen
 
+  * *Prerequisites*
+    * [ProjectOrientedSourceManagement Project/Pack oriented source management]
+    * [SBSInstall How to install SBS]
+  * *Back links*
+    * [DevelopmentEnvironment Development environment]
+
 = Introduction =
 
 Wascana is full environment based on Eclipse C++, MSYS and MingW compiler.
