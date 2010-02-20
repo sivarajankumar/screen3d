@@ -1,0 +1,43 @@
+#summary How to install SBS to compile Screen Project
+
+= Introduction =
+
+This part explains how you will install SBS, which is a mandatory part for all environment configuration tutorial (you can also create your dependencies by hand :s )
+
+= Install from download =
+
+TODO
+
+= Install from sources =
+
+This part is optional if you did _Install from download_.
+This part will allow you to have the benefits of latest snapshot versions of SBS.
+For Screen developers, you would modify SBS and commit your changes.
+
+First of all, you must install two softwares :
+  * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6)
+  * [http://maven.apache.org/download.html Maven2]
+
+Then, check out SBS trunk sources (on the repository, trunk/Tools/SBS/)
+
+In your environment variables, add and set SBS_ROOT to the SBS root folder (trunk/Tools/SBS), and add SBS_ROOT and the root to maven in PATH variable.
+
+Then open a command terminal and go into SBS_ROOT.
+
+verify maven is well installed by writing :
+{{{
+mvn --version
+}}}
+
+then install SBS by writing :
+{{{
+mvn install
+}}}
+
+= First launch =
+
+First, open a new command terminal and write :
+{{{
+sbs -h
+}}}
+You will see all commands available with SBS.
