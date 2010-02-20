@@ -102,7 +102,7 @@ namespace Screen {
 	           		}
 		        }
 		
-	        	Screen::Math::Vector2i size;
+	        	Screen::Math::Vector2i size = image.getSize();
 	        	if(!Screen::Core::Renderer::get().hasCapability(Screen::Core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE)){
 	        		Screen::Math::Vector2i size2(Screen::Math::nearestPowerOfTwo(image.getSize().getX()),
 	        									 Screen::Math::nearestPowerOfTwo(image.getSize().getY()));
@@ -115,10 +115,9 @@ namespace Screen {
 		           		}
 			        	size = size2;
 			        }
-			        else{
-			            size = image.getSize();
-			        }
 	        	}
+	        	
+	        	SCREEN_LOG_DEBUG("Texture size : ""[" << size.getX() << "," << size.getY() << "]");
 		
 		        texture = Renderer::get().createTexture(size, pxf, flags);
 		

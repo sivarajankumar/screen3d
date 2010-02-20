@@ -67,7 +67,7 @@ namespace Screen {
 		    	SCREEN_LOG_DEBUG("\t- Compressed format : " << Screen::Core::Objects::PixelFormatDescriptor::getName(image.getPixelFormat()));
 		        unsigned long dataSize = rect.getWidth() * rect.getHeight() * Screen::Core::Objects::PixelFormatDescriptor::getBytesPerPixels(image.getPixelFormat());
 		        if (rect.getWidth() == size.getX() && rect.getHeight() == size.getY()){
-		            //OpenGLRenderer::glCompressedTexSubImage2DARB(GL_TEXTURE_2D, 0, rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), imagePxf.format, dataSize, image.getData());
+		            OpenGLRenderer::glCompressedTexSubImage2DARB(GL_TEXTURE_2D, 0, rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), imagePxf.format, dataSize, image.getData());
 		        }
 		        else{
 		            //TODO : compressed subimage
@@ -84,11 +84,10 @@ namespace Screen {
 		            // mipmap level update
 		            gluBuild2DMipmaps(GL_TEXTURE_2D, texturePxf.fullFormat, size.getX(), size.getY(), imagePxf.format, imagePxf.type, image.getData());
 		        }
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
 		        else{
 		        	SCREEN_LOG_DEBUG("\t- has no mipmapping");
+		            gluBuild2DMipmaps(GL_TEXTURE_2D, texturePxf.fullFormat, size.getX(), size.getY(), imagePxf.format, imagePxf.type, image.getData());
 		        }
-#endif
 		    }
 
 		    // texture unbinding

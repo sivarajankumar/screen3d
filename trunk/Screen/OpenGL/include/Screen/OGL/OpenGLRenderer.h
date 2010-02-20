@@ -89,6 +89,7 @@ namespace Screen{
 	        static PFNGLUNMAPBUFFERARBPROC         glUnmapBufferARB;
 	        static PFNGLACTIVETEXTUREARBPROC       glActiveTextureARB;
 	        static PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
+	        static PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC  glCompressedTexSubImage2DARB;
 #ifdef WIN32
 	        static PFNWGLCHOOSEPIXELFORMATARBPROC  wglChoosePixelFormatARB;
 	        static PFNWGLCREATEPBUFFERARBPROC      wglCreatePbufferARB;
