@@ -1,12 +1,16 @@
 #summary Development environment
 
+  * *Back links*
+    * [MainPage Main page of Screen Wiki]
+
 = Introduction =
 
 In this part, we will introduce development environments under different configurations and how to use them on the project. It will provide tutorials for manual or *SBS* assisted configurations.
 
 = SBS =
 
-  * *SBS* Documentation 
+  * [ProjectOrientedSourceManagement POSM : Project/Pack oriented source management]
+  * [SBSInstall How to install SBS]
 
 = Under Windows =
 
