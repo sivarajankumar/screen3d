@@ -1,5 +1,8 @@
 #summary Global project advancement
 
+  * *Back links*
+    * [MainPage Main page of Screen Wiki]
+
 = Introduction =
 
 This page sums up the advancement of the different parts of Screen project.
