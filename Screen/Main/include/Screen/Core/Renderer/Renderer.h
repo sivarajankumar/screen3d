@@ -54,6 +54,8 @@ namespace Screen {
 			static void load(const std::string& fileName);
 			static Renderer& get();
 			static void destroy();
+			
+			virtual bool hasCapability(Screen::Core::ApiCapability caps) const = 0;
 
 			virtual void pushMatrix(Screen::Core::MatrixType type) = 0;
 			virtual void popMatrix(Screen::Core::MatrixType type) = 0;

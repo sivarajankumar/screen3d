@@ -96,6 +96,13 @@ namespace Screen{
 	    	RECT_INT_INTERSECT,
 	    	RECT_INT_OUT
 	    };
+	    
+	    enum ApiCapability{
+	    	CAPABILITY_NON_POWER_OF_TWO_TEXTURE,
+	    	CAPABILITY_COMPRESSED_TEXTURE,
+	    	CAPABILITY_HARDWARE_MIPMAP,
+	    	NB_CAP
+	    };
 	}
 }
 
