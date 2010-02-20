@@ -1,5 +1,9 @@
 #summary POSM : Project/Pack oriented source management
 
+  * *Back links*
+    * [MainPage Main page of Screen Wiki]
+    * [DevelopmentEnvironment Development environment]
+
 = Introduction =
 
 This part intends to explain how Screen organizes its sources and its build system. 
