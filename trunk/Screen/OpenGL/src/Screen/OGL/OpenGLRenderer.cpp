@@ -32,8 +32,8 @@
 namespace Screen {
     namespace OGL {
     	OpenGLRenderer::OpenGLRenderer()
-    		:Renderer()
-    	{}
+    		:Renderer(){
+    	}
     	
     	OpenGLRenderer::~OpenGLRenderer(){}
     	
@@ -54,7 +54,6 @@ namespace Screen {
     	    gluPerspective(90.f, 1.f, 1.f, 500.f);
     	    
     	    openGLExtensions = reinterpret_cast<const char*>(glGetString(GL_EXTENSIONS));
-    	    
     	    loadExtensions();
     	}
 
@@ -98,6 +97,10 @@ namespace Screen {
 #else
     	    
 #endif
+    	    //check OpenGL capabilities
+    	    capabilityTable[Screen::Core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE] = checkExtension("GL_ARB_texture_non_power_of_two");
+   	    	capabilityTable[Screen::Core::CAPABILITY_COMPRESSED_TEXTURE] = checkExtension("GL_ARB_texture_compression") && checkExtension("GL_EXT_texture_compression_s3tc");
+    		capabilityTable[Screen::Core::CAPABILITY_HARDWARE_MIPMAP] = checkExtension("GL_SGIS_generate_mipmap");
     	}
     	
 #undef LOAD_EXTENSION
@@ -109,6 +112,10 @@ namespace Screen {
     	
     	void OpenGLRenderer::endScene(){
 	        renderWindow->swapBuffers();
+    	}
+    	
+    	bool OpenGLRenderer::hasCapability(Screen::Core::ApiCapability caps) const{
+    		return capabilityTable[caps];
     	}
     	
     	void OpenGLRenderer::pushMatrix(Screen::Core::MatrixType type){

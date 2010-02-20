@@ -50,6 +50,8 @@ namespace Screen{
 			void beginScene();
 			void endScene();
 			
+			bool hasCapability(Screen::Core::ApiCapability caps) const;
+			
 			void pushMatrix(Screen::Core::MatrixType type);
 			void popMatrix(Screen::Core::MatrixType type);
 			void setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
@@ -69,6 +71,7 @@ namespace Screen{
 	        void setTextureBase(const Screen::Core::Objects::TextureBase* texture);
 		private:
 			std::string openGLExtensions;
+			bool capabilityTable[Screen::Core::NB_CAP];
 			bool checkExtension(const std::string& extension) const;
 			
 			unsigned long indexStride;
