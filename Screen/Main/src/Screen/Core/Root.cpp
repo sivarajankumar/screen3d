@@ -58,14 +58,22 @@ void Screen::Core::Root::startRendering() const {
 	// Création des vertices et des indices
 	TVertex1 Vertices1[] =
 	{
-		{-1.0f, -1.0f,  1.0f, renderer->convertColor(0xFF0000FF), 0.0f, 1.0f},
-		{-1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFF00FF), 0.0f, 0.0f},
-		{ 1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFF00), 1.0f, 0.0f},
-		{ 1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFF0000), 1.0f, 1.0f},
-		{-1.0f, -1.0f, -1.0f, renderer->convertColor(0xFF00FFFF), 0.0f, 1.0f},
+//		{-1.0f, -1.0f,  1.0f, renderer->convertColor(0xFF0000FF), 0.0f, 1.0f},
+//		{-1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFF00FF), 0.0f, 0.0f},
+//		{ 1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFF00), 1.0f, 0.0f},
+//		{ 1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFF0000), 1.0f, 1.0f},
+//		{-1.0f, -1.0f, -1.0f, renderer->convertColor(0xFF00FFFF), 0.0f, 1.0f},
+//		{-1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
+//		{ 1.0f,  1.0f, -1.0f, renderer->convertColor(0xFF00FF00), 1.0f, 0.0f},
+//		{ 1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFC0C0), 1.0f, 1.0f}
+		{-1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 1.0f},
+		{-1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
+		{ 1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 0.0f},
+		{ 1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 1.0f},
+		{-1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 1.0f},
 		{-1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
-		{ 1.0f,  1.0f, -1.0f, renderer->convertColor(0xFF00FF00), 1.0f, 0.0f},
-		{ 1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFC0C0), 1.0f, 1.0f}
+		{ 1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 0.0f},
+		{ 1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 1.0f}
 	};
 
 	unsigned short Indices[] =
@@ -112,9 +120,9 @@ void Screen::Core::Root::startRendering() const {
 		rotY.setRotationY((float)timer->getMilliseconds() * 0.03f / 180 * PI);
 		rotZ.setRotationZ((float)timer->getMilliseconds() * 0.09f / 180 * PI);
 		renderer->beginScene();
-		renderer->setTexture(texture);
 		renderer->setMatrix(Screen::Core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
 		renderer->setMatrix(Screen::Core::MATRIX_PROJECTION, proj);
+		renderer->setTexture(texture);
 		renderer->setVertexBuffer(vb1);
 		renderer->setIndexBuffer(ib);
 		renderer->drawIndexedPrimitives(PRIMITIVE_TRIANGLELIST, 0, 12);

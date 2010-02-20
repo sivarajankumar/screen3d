@@ -87,6 +87,7 @@ namespace Screen {
     	    LOAD_EXTENSION(glUnmapBufferARB);
     	    LOAD_EXTENSION(glActiveTextureARB);
     	    LOAD_EXTENSION(glClientActiveTextureARB);
+    	    LOAD_EXTENSION(glCompressedTexSubImage2DARB);
 #ifdef WIN32
     	    LOAD_EXTENSION(wglChoosePixelFormatARB);
     	    LOAD_EXTENSION(wglCreatePbufferARB);
@@ -310,12 +311,14 @@ namespace Screen {
             glActiveTextureARB(GL_TEXTURE0_ARB);
             const OpenGLTexture* glTexture = dynamic_cast<const OpenGLTexture*>(texture);
 
-            if (glTexture){
+            if (glTexture != NULL){
+            	SCREEN_LOG_DEBUG("Bind texture");
                 glEnable(GL_TEXTURE_2D);
                 glBindTexture(GL_TEXTURE_2D, glTexture->getTextureNumber());
             }
             else{
-                glDisable(GL_TEXTURE_2D);
+            	SCREEN_LOG_DEBUG("Unbind texture");
+            	glDisable(GL_TEXTURE_2D);
                 glBindTexture(GL_TEXTURE_2D, 0);
             }
         }
@@ -334,23 +337,24 @@ namespace Screen {
     		GL_DYNAMIC_DRAW_ARB
     	};
     	
-    	PFNGLBINDBUFFERARBPROC          OpenGLRenderer::glBindBufferARB;
-    	PFNGLDELETEBUFFERSARBPROC       OpenGLRenderer::glDeleteBuffersARB;
-    	PFNGLGENBUFFERSARBPROC          OpenGLRenderer::glGenBuffersARB;
-    	PFNGLBUFFERDATAARBPROC          OpenGLRenderer::glBufferDataARB;
-    	PFNGLBUFFERSUBDATAARBPROC       OpenGLRenderer::glBufferSubDataARB;
-    	PFNGLGETBUFFERSUBDATAARBPROC    OpenGLRenderer::glGetBufferSubDataARB;
-    	PFNGLMAPBUFFERARBPROC           OpenGLRenderer::glMapBufferARB;
-    	PFNGLUNMAPBUFFERARBPROC         OpenGLRenderer::glUnmapBufferARB;
-    	PFNGLACTIVETEXTUREARBPROC       OpenGLRenderer::glActiveTextureARB;
-    	PFNGLCLIENTACTIVETEXTUREARBPROC OpenGLRenderer::glClientActiveTextureARB;
+    	PFNGLBINDBUFFERARBPROC          	OpenGLRenderer::glBindBufferARB;
+    	PFNGLDELETEBUFFERSARBPROC       	OpenGLRenderer::glDeleteBuffersARB;
+    	PFNGLGENBUFFERSARBPROC          	OpenGLRenderer::glGenBuffersARB;
+    	PFNGLBUFFERDATAARBPROC          	OpenGLRenderer::glBufferDataARB;
+    	PFNGLBUFFERSUBDATAARBPROC       	OpenGLRenderer::glBufferSubDataARB;
+    	PFNGLGETBUFFERSUBDATAARBPROC    	OpenGLRenderer::glGetBufferSubDataARB;
+    	PFNGLMAPBUFFERARBPROC           	OpenGLRenderer::glMapBufferARB;
+    	PFNGLUNMAPBUFFERARBPROC         	OpenGLRenderer::glUnmapBufferARB;
+    	PFNGLACTIVETEXTUREARBPROC       	OpenGLRenderer::glActiveTextureARB;
+    	PFNGLCLIENTACTIVETEXTUREARBPROC 	OpenGLRenderer::glClientActiveTextureARB;
+        PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC OpenGLRenderer::glCompressedTexSubImage2DARB;
 #ifdef WIN32
-    	PFNWGLCHOOSEPIXELFORMATARBPROC  OpenGLRenderer::wglChoosePixelFormatARB;
-    	PFNWGLCREATEPBUFFERARBPROC      OpenGLRenderer::wglCreatePbufferARB;
-    	PFNWGLGETPBUFFERDCARBPROC       OpenGLRenderer::wglGetPbufferDCARB;
-    	PFNWGLRELEASEPBUFFERDCARBPROC   OpenGLRenderer::wglReleasePbufferDCARB;
-    	PFNWGLDESTROYPBUFFERARBPROC     OpenGLRenderer::wglDestroyPbufferARB;
-    	PFNWGLQUERYPBUFFERARBPROC       OpenGLRenderer::wglQueryPbufferARB;
+    	PFNWGLCHOOSEPIXELFORMATARBPROC  	OpenGLRenderer::wglChoosePixelFormatARB;
+    	PFNWGLCREATEPBUFFERARBPROC      	OpenGLRenderer::wglCreatePbufferARB;
+    	PFNWGLGETPBUFFERDCARBPROC       	OpenGLRenderer::wglGetPbufferDCARB;
+    	PFNWGLRELEASEPBUFFERDCARBPROC   	OpenGLRenderer::wglReleasePbufferDCARB;
+    	PFNWGLDESTROYPBUFFERARBPROC     	OpenGLRenderer::wglDestroyPbufferARB;
+    	PFNWGLQUERYPBUFFERARBPROC       	OpenGLRenderer::wglQueryPbufferARB;
 #else
     	
 #endif
