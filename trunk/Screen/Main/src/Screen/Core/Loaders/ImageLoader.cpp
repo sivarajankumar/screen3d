@@ -54,9 +54,10 @@ namespace Screen {
 		        throw Screen::Utils::LoadingException(filename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
 
 		    Screen::Math::Vector2i size(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
-		    unsigned char* pixels = reinterpret_cast<unsigned char*>(ilGetData());
+		    const unsigned char* pixels = ilGetData();
 		    Image* image = new Image(size, Screen::Core::PXF_A8R8G8B8, pixels);
 
+		    ilBindImage(0);
 		    ilDeleteImages(1, &texture);
 
 		    return image;

@@ -393,7 +393,7 @@ namespace Screen {
 		    	//PXF_A8R8G8B8
 		    	{
 		    		"PXF_A8R8G8B8",
-		    		1,
+		    		4,
 		    		PXFF_HAS_ALPHA | PXFF_HAS_COLOR,
 		    		8,8,8,8,0,
 		    		16,8,0,24,0
