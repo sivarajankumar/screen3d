@@ -103,6 +103,11 @@ namespace Screen {
 	
 			void Image::copy(const Image& src){
 				SCREEN_DECL_METHOD(copy)
+				SCREEN_LOG_DEBUG("Image copy :");
+				SCREEN_LOG_DEBUG("\t- Source Pixel Format : " << src.pxf);
+				SCREEN_LOG_DEBUG("\t- Target Pixel Format : " << pxf);
+				SCREEN_LOG_DEBUG("\t- Source Size : [ " << src.size.getX() << " , " << src.size.getY() << " ]");
+				SCREEN_LOG_DEBUG("\t- Target Size : [ " << size.getX() << " , " << size.getY() << " ]");
 				if (size == src.size){
 			        if (pxf == src.pxf){
 			        	//same size, same format

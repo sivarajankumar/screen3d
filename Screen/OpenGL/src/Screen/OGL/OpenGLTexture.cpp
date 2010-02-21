@@ -21,6 +21,7 @@
 
 #include <Screen/OGL/OpenGLTexture.h>
 #include <Screen/OGL/OpenGLRenderer.h>
+#include <Screen/OGL/OpenGLPixelFormat.h>
 #include <Screen/Math/Vector2i.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Core/Objects/PixelFormat.h>
@@ -30,19 +31,6 @@
 
 namespace Screen {
 	namespace OGL {
-		struct OpenGLPixelFormat{
-			GLenum format, fullFormat, type;
-		};
-	
-		OpenGLPixelFormat oglPxf[] = {
-		    {GL_LUMINANCE,       GL_LUMINANCE8,                    GL_UNSIGNED_BYTE},
-		    {GL_LUMINANCE_ALPHA, GL_LUMINANCE8_ALPHA8,             GL_UNSIGNED_BYTE},
-		    {GL_BGRA,            GL_RGB5_A1,                       GL_UNSIGNED_SHORT_1_5_5_5_REV},
-		    {GL_BGRA,            GL_RGBA4,                         GL_UNSIGNED_SHORT_4_4_4_4_REV},
-		    {GL_BGR,             GL_RGB8,                          GL_UNSIGNED_BYTE},
-		    {GL_BGRA,            GL_RGBA8,                         GL_UNSIGNED_BYTE}
-		};
-	
 		OpenGLTexture::OpenGLTexture(unsigned int texture, const Vector2i& size, PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap)
 			:TextureBase(size,pxf,hasMipMap), texture(texture)
 		{}
@@ -86,7 +74,16 @@ namespace Screen {
 		        }
 		        else{
 		        	SCREEN_LOG_DEBUG("\t- has no mipmapping");
-		            gluBuild2DMipmaps(GL_TEXTURE_2D, texturePxf.fullFormat, size.getX(), size.getY(), imagePxf.format, imagePxf.type, image.getData());
+		            //if ((rect.getWidth() == size.getX()) && (rect.getHeight() == size.getY()))
+		            //{	
+		                glTexImage2D(GL_TEXTURE_2D, 0, texturePxf.fullFormat, size.getX(), size.getY(), 0, imagePxf.format, imagePxf.type, image.getData());
+		            //}
+		            //else
+		            //{
+		                //CImage SubData = m_Data.SubImage(Rect);
+		                //glTexSubImage2D(GL_TEXTURE_2D, 0, Rect.Left(), Rect.Top(), Rect.Width(), Rect.Height(), ImgFmt.Format, ImgFmt.Type, SubData.GetData());
+		            //}
+		            //gluBuild2DMipmaps(GL_TEXTURE_2D, texturePxf.fullFormat, size.getX(), size.getY(), imagePxf.format, imagePxf.type, image.getData());
 		        }
 		    }
 

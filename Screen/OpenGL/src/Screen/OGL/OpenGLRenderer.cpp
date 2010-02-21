@@ -23,6 +23,7 @@
 #include <Screen/OGL/OpenGLException.h>
 #include <Screen/OGL/OpenGLBuffer.h>
 #include <Screen/OGL/OpenGLTexture.h>
+#include <Screen/OGL/OpenGLPixelFormat.h>
 #include <Screen/Core/Objects/TextureBase.h>
 #include <Screen/Math/Matrix4x4f.h>
 #include <Screen/Math/Vector2i.h>
@@ -297,6 +298,9 @@ namespace Screen {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+            
+            OpenGLPixelFormat texturePxf = oglPxf[pxf];
+            glTexImage2D(GL_TEXTURE_2D, 0, texturePxf.fullFormat, size.getX(), size.getY(), 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
             // mipmapping (0 for now)
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
