@@ -25,18 +25,18 @@ namespace Screen {
 	namespace Core {
 		namespace Objects {
 			template <class T>
-			IndexBuffer<T>::IndexBuffer(BufferBase* buffer)
+			SCREEN_EXPORT IndexBuffer<T>::IndexBuffer(BufferBase* buffer)
 				:Buffer<T>(buffer){
 				SCREEN_DECL_CONSTRUCTOR(IndexBuffer)
 			}
 			
 			template <class T>
-			IndexBuffer<T>::~IndexBuffer(){
+			SCREEN_EXPORT IndexBuffer<T>::~IndexBuffer(){
 				SCREEN_DECL_DESTRUCTOR(~IndexBuffer)
 			}
 			
-			template class IndexBuffer<unsigned short>;
-			template class IndexBuffer<unsigned long>;
+			template SCREEN_EXPORT class IndexBuffer<unsigned short>;
+			template SCREEN_EXPORT class IndexBuffer<unsigned long>;
 		}
 	}
 }

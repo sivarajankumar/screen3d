@@ -28,8 +28,6 @@
 
 #include <iostream>
 
-#define PI 3.141592654f
-
 Screen::Core::Root::Root()
 	:timer(new Timer()), renderer(NULL), renderWindow(NULL){
 	SCREEN_DECL_CONSTRUCTOR(Root)
@@ -52,89 +50,19 @@ void Screen::Core::Root::setFPSCounter(Screen::Core::FPSCounter* fpsCounter){
 	this->fpsCounter = fpsCounter;
 }
 
-void Screen::Core::Root::startRendering() const {
-	using Screen::Core::Objects::VertexFormat;
-	SCREEN_DECL_METHOD(startRendering)
-	// Création des vertices et des indices
-	TVertex1 Vertices1[] =
-	{
-//		{-1.0f, -1.0f,  1.0f, renderer->convertColor(0xFF0000FF), 0.0f, 1.0f},
-//		{-1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFF00FF), 0.0f, 0.0f},
-//		{ 1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFF00), 1.0f, 0.0f},
-//		{ 1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFF0000), 1.0f, 1.0f},
-//		{-1.0f, -1.0f, -1.0f, renderer->convertColor(0xFF00FFFF), 0.0f, 1.0f},
-//		{-1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
-//		{ 1.0f,  1.0f, -1.0f, renderer->convertColor(0xFF00FF00), 1.0f, 0.0f},
-//		{ 1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFC0C0), 1.0f, 1.0f}
-		{-1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 1.0f},
-		{-1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
-		{ 1.0f,  1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 0.0f},
-		{ 1.0f, -1.0f,  1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 1.0f},
-		{-1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 1.0f},
-		{-1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 0.0f, 0.0f},
-		{ 1.0f,  1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 0.0f},
-		{ 1.0f, -1.0f, -1.0f, renderer->convertColor(0xFFFFFFFF), 1.0f, 1.0f}
-	};
+void Screen::Core::Root::startRendering(){	
+    bool isRunning = true;
+	while(isRunning) {
+    	renderer->beginScene();
+        isRunning =  renderFrame();
+    	renderer->endScene();        
+        fpsCounter->count();
+    }
 
-	unsigned short Indices[] =
-	{
-		0, 1, 3,
-		1, 2, 3,
-		0, 4, 3,
-		4, 7, 3,
-		1, 5, 2,
-		5, 6, 2,
-		3, 7, 6,
-		3, 6, 2,
-		0, 4, 5,
-		0, 5, 1,
-		4, 5, 7,
-		5, 6, 7
-	};
-	
-	VertexFormat::SmartPtr vf1(new VertexFormat());
-	vf1->add(VERTEX_USAGE_POSITION,VERTEX_TYPE_FLOAT3);
-	vf1->add(VERTEX_USAGE_DIFFUSE,VERTEX_TYPE_COLOR);
-	vf1->add(VERTEX_USAGE_TEXCOORD0,VERTEX_TYPE_FLOAT2);
-	vf1->lock();
-	VertexBuffer<TVertex1> vb1 = renderer->createVertexBuffer<TVertex1>(8,STATIC_DRAW,Vertices1,vf1);
-	//VertexBuffer<void> vb1 = renderer->createVertexBuffer<void>(8,STATIC_DRAW,Vertices1,vf1);
-	IndexBuffer<unsigned short> ib = renderer->createIndexBuffer(12*3,STATIC_DRAW,Indices);
-	Screen::Core::Objects::Texture texture;
-	texture.createFromFile("SCREEN.png", Screen::Core::PXF_A8R8G8B8);
-	
-	
-	Screen::Math::Vector3f cam;
-	Screen::Math::Matrix4x4f view,proj,rotX,rotY,rotZ;
-	cam.set(0.0f, 2.5f, 2.5f);
-	view.lookAt(cam, cam + Screen::Math::Vector3f(0.0f, -1.0f, -1.0f));
-	proj.perspectiveFOV(PI/2, 800.0f / 600.0f, 0.1f, 1000.0f);
-	
-//    while(true) {
-//        if(!renderFrame())
-//            break;
-//        fpsCounter->count();
-//    }
-	while(renderer->isRunning()){
-		rotX.setRotationX((float)timer->getMilliseconds() * 0.05f / 180 * PI);
-		rotY.setRotationY((float)timer->getMilliseconds() * 0.03f / 180 * PI);
-		rotZ.setRotationZ((float)timer->getMilliseconds() * 0.09f / 180 * PI);
-		renderer->beginScene();
-		renderer->setMatrix(Screen::Core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
-		renderer->setMatrix(Screen::Core::MATRIX_PROJECTION, proj);
-		renderer->setTexture(texture);
-		renderer->setVertexBuffer(vb1);
-		renderer->setIndexBuffer(ib);
-		renderer->drawIndexedPrimitives(PRIMITIVE_TRIANGLELIST, 0, 12);
-		renderer->endScene();
-		fpsCounter->count();
-	}
 }
 
-bool Screen::Core::Root::renderFrame() const {
+bool Screen::Core::Root::renderFrame(){
 	SCREEN_DECL_METHOD(renderFrame)
-	renderer->beginScene();
-	renderer->endScene();
 	return renderer->isRunning();
 }
 

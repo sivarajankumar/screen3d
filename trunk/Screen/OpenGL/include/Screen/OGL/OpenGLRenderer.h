@@ -59,6 +59,7 @@ namespace Screen{
 			void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix);
 			
 			unsigned long convertColor(const Screen::Core::Color& color) const;
+			const Screen::Core::Color& retrieveColor(unsigned long color) const;
 			
 			Screen::Core::BufferBase* createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const;
 			Screen::Core::BufferBase* createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const; 

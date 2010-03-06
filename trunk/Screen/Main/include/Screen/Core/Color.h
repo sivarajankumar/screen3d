@@ -51,6 +51,7 @@ namespace Screen {
 		        void setRed(unsigned char r);
 		        void set(unsigned char b, unsigned char g, unsigned char r, unsigned char a);
 		        void set(unsigned char b, unsigned char g, unsigned char r);
+		        void set(unsigned long color);
 		        
 		private:
 			unsigned long color; //ABGR

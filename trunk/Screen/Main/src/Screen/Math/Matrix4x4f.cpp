@@ -294,7 +294,7 @@ namespace Screen {
 
 		const float& Matrix4x4f::operator ()(unsigned int i, unsigned int j) const{
 			SCREEN_DECL_METHOD(operator())
-			return operator ()(i, j);
+			return operator const float*()[i + 4 * j];
 		}
 
 #pragma warning( pop ) 
