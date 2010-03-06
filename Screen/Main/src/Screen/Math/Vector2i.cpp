@@ -137,7 +137,7 @@ namespace Screen {
 
         const int& Vector2i::operator()(unsigned int i) const{
         	SCREEN_DECL_METHOD(operator ())
-        	return operator()(i);
+        	return operator const int *()[i];
         }
  
 #pragma warning( pop ) 

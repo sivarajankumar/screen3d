@@ -22,9 +22,6 @@
 #ifndef SCREEN_ROOT_H
 #define SCREEN_ROOT_H
 
-#include <Screen/Core/Objects/VertexBuffer.h>
-#include <Screen/Core/Objects/IndexBuffer.h>
-#include <Screen/Math/Matrix4x4f.h>
 #include <Screen/Utils/Declaration.h>
 #include <Screen/Utils/Export.h>
 
@@ -39,26 +36,18 @@ namespace Screen {
         	SCREEN_DECL_CLASS(Screen::Core::Root)
         public:
             explicit Root();
-            ~Root();
+            virtual ~Root();
             void setRenderWindow(Screen::Core::RenderWindow* renderWindow);
             void setFPSCounter(Screen::Core::FPSCounter* fpsCounter);
             
-            void init();
-            void startRendering() const;
-        private:
-            bool renderFrame() const;
+            virtual void init();
+            void startRendering();
+        protected:
+            virtual bool renderFrame();
             Timer* timer;
             FPSCounter* fpsCounter;
             Renderer* renderer;
             RenderWindow* renderWindow;
-            
-            //tmp
-            struct TVertex1
-            {
-            	float x, y, z;
-            	unsigned long Color;
-            	float tu, tv;
-            };
         };
     }
 }

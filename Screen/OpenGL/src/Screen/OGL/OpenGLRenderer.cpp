@@ -163,6 +163,13 @@ namespace Screen {
     		return color.convertABGR();
     	}
     	
+    	const Screen::Core::Color& OpenGLRenderer::retrieveColor(unsigned long color) const{
+    		static Screen::Core::Color c;
+    		Screen::Core::Color tmp(color);
+    		c.set(tmp.convertABGR()); //convert * convert = Id
+    		return c;
+    	}
+    	
     	Screen::Core::BufferBase* OpenGLRenderer::createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{
     	    // buffer creation
     	    unsigned int vertexBuffer = 0;

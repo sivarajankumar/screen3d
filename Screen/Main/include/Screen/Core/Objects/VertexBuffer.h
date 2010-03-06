@@ -31,6 +31,15 @@
 #include <Screen/Utils/Exception.h>
 #include <string>
 
+#define CHECK_VERTEX_FORMAT(vf,T) \
+	if(sizeof(T) != vf->getSize()){ \
+		std::stringstream ss; \
+		ss << "different size between vertex element type and vertex format size\n" \
+		   << "\t- Element type size = " << sizeof(T) << "\n" \
+		   << "\t- Vertex format size = " << vf->getSize() << "\n"; \
+		throw Screen::Utils::Exception(ss.str()); \
+	}
+
 namespace Screen {
 	namespace Core {
 		namespace Objects {
@@ -47,27 +56,16 @@ namespace Screen {
 				VertexBuffer(BufferBase* buffer, const VertexFormat::SmartPtr& vf)
 					:Buffer<T>(buffer),vf(vf){
 					SCREEN_DECL_CONSTRUCTOR(VertexBuffer)
-					if(sizeof(T) != vf->getSize()){
-						std::stringstream ss;
-						ss << "different size between vertex element type and vertex format size\n"
-						   << "\t- Element type size = " << sizeof(T) << "\n"
-						   << "\t- Vertex format size = " << vf->getSize() << "\n";
-						throw Screen::Utils::Exception(ss.str());
-					}
+					CHECK_VERTEX_FORMAT(vf,T);
 				}
 				
 				~VertexBuffer(){
 					SCREEN_DECL_DESTRUCTOR(~VertexBuffer)
 				}
-				
-				void setVertexFormat(const VertexFormat::SmartPtr& vf){
-					SCREEN_DECL_METHOD(setVertexFormat)
-					this->vf = vf;
-				}
-				
-				const VertexFormat& getVertexFormat() const{
+								
+				const VertexFormat::SmartPtr& getVertexFormat() const{
 					SCREEN_DECL_METHOD(getVertexFormat)
-					return *vf;
+					return vf;
 				}
 				
 				typedef Screen::Utils::SmartPtr<VertexBuffer<T> > SmartPtr;
@@ -88,9 +86,9 @@ namespace Screen {
 					SCREEN_DECL_DESTRUCTOR(~VertexBuffer)
 				}
 				
-				const VertexFormat& getVertexFormat() const{
+				const VertexFormat::SmartPtr& getVertexFormat() const{
 					SCREEN_DECL_METHOD(getVertexFormat)
-					return *vf;
+					return vf;
 				}
 				
 				typedef Screen::Utils::SmartPtr<VertexBuffer<void> > SmartPtr;
@@ -100,5 +98,7 @@ namespace Screen {
 		}
 	}
 }
+
+#undef CHECK_VERTEX_FORMAT
 
 #endif

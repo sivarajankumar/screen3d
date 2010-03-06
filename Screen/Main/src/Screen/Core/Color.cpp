@@ -49,7 +49,7 @@ namespace Screen {
 		
 		void Color::setAlpha(unsigned char a){
 			SCREEN_DECL_METHOD(setAlpha)
-			color = (color & 0x00FFFFFF) | (a << 8);
+			color = (color & 0x00FFFFFF) | (a << 24);
 		}
         
 		unsigned char Color::getBlue() const{
@@ -91,5 +91,10 @@ namespace Screen {
         	SCREEN_DECL_METHOD(set)
         	color = (color & 0xFF000000) | (b << 16) | (g << 8) | (r << 0);
         }
+        
+        void Color::set(unsigned long color){
+        	SCREEN_DECL_METHOD(set)
+        	this->color = color;
+		}
 	}
 }

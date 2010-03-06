@@ -156,7 +156,7 @@ namespace Screen {
 
 	    const float& Vector3f::operator()(unsigned int i) const{
 	    	SCREEN_DECL_METHOD(operator ())
-	    	return operator()(i);
+	    	return operator const float*()[i];
 	    }
 
 #pragma warning( pop ) 

@@ -28,7 +28,9 @@
 #include <Screen/Core/Color.h>
 #include <Screen/Core/Objects/BufferBase.h>
 #include <Screen/Core/Objects/VertexBuffer.h>
+#include <Screen/Core/Objects/VertexBufferFiller.h>
 #include <Screen/Core/Objects/IndexBuffer.h>
+//#include <Screen/Core/Objects/IndexBufferFiller.h>
 #include <Screen/Core/Objects/TextureBase.h>
 #include <Screen/Core/Objects/Texture.h>
 #include <Screen/Core/Renderer/RenderWindow.h>
@@ -40,7 +42,9 @@
 namespace Screen {
     namespace Core {
 		using Screen::Core::Objects::VertexBuffer;
+		using Screen::Core::Objects::VertexBufferFiller;
 		using Screen::Core::Objects::IndexBuffer;
+//		using Screen::Core::Objects::IndexBufferFiller;
 		using Screen::Core::Objects::BufferBase;
 		using Screen::Core::Objects::VertexFormat;
 		using Screen::Core::Objects::Texture;
@@ -63,10 +67,13 @@ namespace Screen {
 			virtual void multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix) = 0;
 			virtual void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix) = 0;
 			
-			virtual unsigned long convertColor(const Color& color) const = 0;			
+			virtual unsigned long convertColor(const Color& color) const = 0;
+			virtual const Color& retrieveColor(unsigned long color) const = 0;
 
 			template <class T> inline VertexBuffer<T> createVertexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const;
+			template <class T> inline VertexBuffer<T> createVertexBuffer(const VertexBufferFiller& vbf, Screen::Core::BufferFlag flags) const;
 			template <class T> inline IndexBuffer<T> createIndexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data) const;
+//			template <class T> inline IndexBuffer<T> createIndexBuffer(const IndexBufferFiller& ibf, Screen::Core::BufferFlag flags) const;
 			template <class T> inline void setVertexBuffer(const VertexBuffer<T>& buffer, unsigned long minVertex = 0, unsigned long maxVertex = 0);
 			template <class T> inline void setIndexBuffer(const IndexBuffer<T>& buffer);
 	        
@@ -115,6 +122,12 @@ namespace Screen {
 		        buffer.fill(data, size);
 		    return buffer;
 		}
+		
+		template <class T>
+		inline VertexBuffer<T> Renderer::createVertexBuffer(const VertexBufferFiller& vbf, Screen::Core::BufferFlag flags) const{
+			SCREEN_DECL_METHOD(createVertexBuffer)
+			return createVertexBuffer(vbf.getSize(),flags,vbf.get<T>(),vbf.getVertexFormat());
+		}
 
 		template <class T>
 		inline IndexBuffer<T> Renderer::createIndexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data) const{
@@ -125,10 +138,16 @@ namespace Screen {
 		    return buffer;
 		}
 		
+//		template <class T>
+//		inline IndexBuffer<T> Renderer::createIndexBuffer(const IndexBufferFiller& ibf, Screen::Core::BufferFlag flags) const{
+//			SCREEN_DECL_METHOD(createIndexBuffer)
+//			return createIndexBuffer(ibf.getSize(),flags,ibf.get<T>());
+//		}
+		
 		template <class T>
 		inline void Renderer::setVertexBuffer(const VertexBuffer<T>& buffer, unsigned long minVertex, unsigned long maxVertex){
 			SCREEN_DECL_METHOD(setVertexBuffer)
-		    setVB(buffer.getBuffer(), buffer.getElementSize(), minVertex, (maxVertex!=0) ? maxVertex : buffer.getCount() - 1, buffer.getVertexFormat());
+		    setVB(buffer.getBuffer(), buffer.getElementSize(), minVertex, (maxVertex!=0) ? maxVertex : buffer.getCount() - 1, *(buffer.getVertexFormat()));
 		}
 		
 		template <class T>

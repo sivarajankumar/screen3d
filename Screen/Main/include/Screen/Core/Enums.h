@@ -60,7 +60,8 @@ namespace Screen{
 	        VERTEX_USAGE_TEXCOORD0, ///< Coordonnées de texture 0
 	        VERTEX_USAGE_TEXCOORD1, ///< Coordonnées de texture 1
 	        VERTEX_USAGE_TEXCOORD2, ///< Coordonnées de texture 2
-	        VERTEX_USAGE_TEXCOORD3  ///< Coordonnées de texture 3
+	        VERTEX_USAGE_TEXCOORD3, ///< Coordonnées de texture 3
+	        NB_VERTEX_USAGE
 	    };
 	
 	    enum VertexType{
@@ -68,7 +69,8 @@ namespace Screen{
 	    	VERTEX_TYPE_FLOAT2, ///< 2 floattants
 	    	VERTEX_TYPE_FLOAT3, ///< 3 floattants
 	    	VERTEX_TYPE_FLOAT4, ///< 4 floattants
-	    	VERTEX_TYPE_COLOR   ///< Couleur (entier long non signé)
+	    	VERTEX_TYPE_COLOR,  ///< Couleur (entier long non signé)
+	    	NB_VERTEX_TYPE
 	    };
 		
 	    enum PixelFormat{
