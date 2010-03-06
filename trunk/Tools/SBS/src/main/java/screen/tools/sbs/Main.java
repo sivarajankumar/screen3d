@@ -109,7 +109,7 @@ public class Main {
 			}
 			else if(phase == Phase.LOAD_XML){
 				Logger.info("-------- begin XML parsing --------");
-				Document doc = SBSDomParser.parserFile(new File("sbs.xml"));
+				Document doc = SBSDomParser.parserFile(new File(optHandler.getSbsXmlPath()+"sbs.xml"));
 				if(!checkErrors()) return;
 				Logger.info("--------- end XML parsing ---------");
 				
@@ -127,7 +127,7 @@ public class Main {
 			}
 			else if(phase == Phase.GENERATE){
 				Logger.info("----- begin generate makefile -----");
-				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(pack, "");
+				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(pack, optHandler.getSbsXmlPath());
 				generator.generate();
 				if(!checkErrors()) return;
 				SBSCMakeLauncher launcher = new SBSCMakeLauncher();

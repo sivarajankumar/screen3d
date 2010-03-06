@@ -1,6 +1,7 @@
 package screen.tools.sbs.cmake;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -44,7 +45,7 @@ public class SBSCMakeLauncher {
 
         try {
 
-        	String command ="cmake \""+sbsXmlPath+
+        	String command ="cmake \""+"."+
         					"\" -G \""+targetEnv+
         					"\" -DCMAKE_MAKE_PROGRAM=\""+makeProg+
         					"\" -DCMAKE_C_COMPILER=\""+cCompiler+
@@ -52,7 +53,7 @@ public class SBSCMakeLauncher {
         					"\"";
         	
         	Logger.info("command : "+command);
-        	Process p = Runtime.getRuntime().exec(command);
+        	Process p = Runtime.getRuntime().exec(command,null,new File(sbsXmlPath));
             
             BufferedReader stdInput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
