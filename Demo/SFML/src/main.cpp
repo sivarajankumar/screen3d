@@ -33,6 +33,7 @@
 #include "Screen/Core/Managers/TextureManager.h"
 
 #include "SFMLOpenGLRenderWindow.h"
+#include "SFMLRoot.h"
 
 #include <iostream>
 
@@ -46,11 +47,11 @@ int main() {
 		SCREEN_LOG_DEBUG("coucou")
 		
 		Screen::Core::Renderer::load("ScreenOpenGL");
-		Screen::Core::TextureManager::instance()->registerLoader<Screen::Core::Objects::Image>(new Screen::Core::ImageLoader, "jpg|png");
+		Screen::Core::TextureManager::instance()->registerLoader<Screen::Core::Objects::Image>(new Screen::Core::ImageLoader, "jpg|png|bmp|tga");
 		Screen::Core::TextureManager::instance()->addPath(".");
-		Screen::Core::Objects::Image::SmartPtr image = Screen::Core::TextureManager::instance()->loadImageFromFile("SCREEN.png");
+		//Screen::Core::Objects::Image::SmartPtr image = Screen::Core::TextureManager::instance()->loadImageFromFile("SCREEN.bmp");
 		
-		Screen::Utils::SmartPtr<Screen::Core::Root> root(new Screen::Core::Root());
+		Screen::Utils::SmartPtr<Screen::Core::Root> root(new SFMLRoot());
 		Screen::Utils::SmartPtr<Screen::Core::RenderWindow> rw(new Screen::Utils::SFMLOpenGLRenderWindow());
 		Screen::Utils::SmartPtr<Screen::Core::FPSCounter> fc(new Screen::Core::FPSCounter(2.0,std::cout));
 		root->setRenderWindow(rw);
@@ -58,7 +59,7 @@ int main() {
 		root->init();
 		root->startRendering();
 		
-		Screen::Core::TextureManager::instance()->unregisterLoader<Screen::Core::Objects::Image>("jpg|png|bmp");
+		Screen::Core::TextureManager::instance()->unregisterLoader<Screen::Core::Objects::Image>("jpg|png|bmp|tga");
 
 	}catch(const Screen::Utils::Exception& e){
 		SCREEN_LOG_ERROR("Exception controlée : " << std::endl << e.what())
