@@ -33,8 +33,6 @@ public class OptionHandler {
 		}
 		else{
 			sbsXmlPath = args[0];
-			if(".".equals(sbsXmlPath))
-				sbsXmlPath = "/";
 			if(!sbsXmlPath.endsWith("/"))
 				sbsXmlPath += "/";
 			String phase = args[1];
