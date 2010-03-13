@@ -7,13 +7,14 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import screen.tools.sbs.utils.FieldString;
 import screen.tools.sbs.utils.Logger;
 
 public class EnvironmentVariables {
-	private Hashtable<String, String> variableTable;
+	private Hashtable<String, FieldString> variableTable;
 	
 	public EnvironmentVariables() {
-		variableTable = new Hashtable<String, String>();
+		variableTable = new Hashtable<String, FieldString>();
 	}
 	
 	public void putFromFile(String filePath){
@@ -30,12 +31,12 @@ public class EnvironmentVariables {
 		while(en.hasMoreElements()){
 			String key = (String) en.nextElement();
 			String value = properties.getProperty(key);
-			variableTable.put(key, value);
+			variableTable.put(key, new FieldString(value));
 		}
 	}
 	
 	public void put(String variable, String value) {
-		variableTable.put(variable, value);
+		variableTable.put(variable, new FieldString(value));
 	}
 	
 	public boolean contains (String variable){
@@ -43,6 +44,10 @@ public class EnvironmentVariables {
 	}
 	
 	public String getValue(String variable){
+		return variableTable.get(variable).getString();
+	}
+	
+	public FieldString getFieldString(String variable){
 		return variableTable.get(variable);
 	}
 }

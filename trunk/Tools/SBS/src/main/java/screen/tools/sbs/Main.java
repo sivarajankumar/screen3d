@@ -96,6 +96,7 @@ public class Main {
 		
 		List<Phase> phaseList = optHandler.getPhaseList();
 		Pack pack = new Pack();
+		Pack testPack = new Pack();
 		
 		for(int i=0; i<phaseList.size(); i++){
 			Phase phase = phaseList.get(i);
@@ -114,7 +115,7 @@ public class Main {
 				Logger.info("--------- end XML parsing ---------");
 				
 				Logger.info("--------- begin data fill ---------");
-				SBSDomDataFiller dataFiller = new SBSDomDataFiller(pack);
+				SBSDomDataFiller dataFiller = new SBSDomDataFiller(pack,testPack);
 				dataFiller.fill(doc);
 				if(!checkErrors()) return;
 				Logger.info("---------- end data fill ----------");
@@ -127,7 +128,7 @@ public class Main {
 			}
 			else if(phase == Phase.GENERATE){
 				Logger.info("----- begin generate makefile -----");
-				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(pack, optHandler.getSbsXmlPath());
+				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(pack, optHandler.getSbsXmlPath(), false);
 				generator.generate();
 				if(!checkErrors()) return;
 				SBSCMakeLauncher launcher = new SBSCMakeLauncher();
@@ -144,10 +145,29 @@ public class Main {
 				Logger.info("----------- begin test ------------");
 				Logger.warning("TODO");
 				Logger.info("------------ end test -------------");
-				
+			}
+			else if(phase == Phase.CHECK_TEST){
+				Logger.info("----- begin check test fields -----");
+				checkFields(testPack);
+				if(!checkErrors()) return;
+				Logger.info("------ end check test fields ------");
+			}
+			else if(phase == Phase.GENERATE_TEST){
+				Logger.info("----- begin generate test makefile -----");
+				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(testPack, optHandler.getSbsXmlPath()+"test/", true);
+				generator.generate();
+				if(!checkErrors()) return;
+				SBSCMakeLauncher launcher = new SBSCMakeLauncher();
+				launcher.launch(optHandler.getSbsXmlPath()+"test/");
+				if(!checkErrors()) return;
+				Logger.info("------ end generate test makefile ------");
 			}
 		}
 		
 		Logger.info("------------- end SBS -------------");
+		Logger.info("");
+		Logger.info("-----------------------------------");
+		Logger.info("        COMMAND SUCCESSFUL         ");
+		Logger.info("-----------------------------------");
 	}
 }

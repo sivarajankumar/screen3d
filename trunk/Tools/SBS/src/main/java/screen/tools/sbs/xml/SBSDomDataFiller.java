@@ -18,13 +18,15 @@ import screen.tools.sbs.utils.Logger;
 
 public class SBSDomDataFiller {
 	private Pack pack;
+	private Pack testPack;
 	private static String propertyNameQuery = "//properties/name/text()";
 	private static String propertyVersionQuery = "//properties/version/text()";
 	private static String propertyBuildTypeQuery = "//properties/buildtype/text()";
 
 	
-	public SBSDomDataFiller(Pack pack) {
+	public SBSDomDataFiller(Pack pack, Pack testPack) {
 		this.pack = pack;
+		this.testPack = testPack;
 	}
 	
 	public void fill(Document doc){
@@ -52,12 +54,20 @@ public class SBSDomDataFiller {
 			Logger.debug("propertyBuildType : "+propertyBuildType);
 			pack.getProperties().setBuildType(new FieldString(propertyBuildType));
 			
-			
 			//main
 			NodeList main = root.getElementsByTagName("main");
 			if(main.getLength() == 1){
 				processDependencies((Element) main.item(0),pack);
-			}		
+			}
+			
+			//test
+			NodeList test = root.getElementsByTagName("test");
+			if(test.getLength() == 1){
+				testPack.getProperties().setName(new FieldString(propertyName+"/Test"));
+				testPack.getProperties().setVersion(new FieldString(propertyVersion));
+				testPack.getProperties().setBuildType(new FieldString("executable"));
+				processDependencies((Element) test.item(0),testPack);
+			}	
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
