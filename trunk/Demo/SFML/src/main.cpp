@@ -20,7 +20,7 @@
  *****************************************************************************/
 
 #include "Screen/Core/Root.h"
-#include "Screen/Core/Timer.h"
+#include "Screen/Utils/Timer.h"
 #include "Screen/Core/FPSCounter.h"
 #include "Screen/Core/Renderer/Renderer.h"
 #include "Screen/Utils/Profiler.h"

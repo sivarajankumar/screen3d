@@ -24,6 +24,7 @@
 
 #include <Screen/Utils/Policies.h>
 #include <Screen/Utils/Declaration.h>
+#include <Screen/Utils/Export.h>
 #include <string>
 
 namespace Screen {
@@ -35,7 +36,7 @@ namespace Screen {
 		 *   \date 20 sept. 09
 		 */
 
-		class ResourceBase {
+		class SCREEN_EXPORT ResourceBase {
 			SCREEN_DECL_CLASS(Screen::Utils::ResourceBase)
             friend class ResourceManager;
 		protected:
@@ -60,7 +61,7 @@ namespace Screen {
           */
 
         template<class LifeTimePolicy = ReferenceCountLifeTime>
-        class Resource : public ResourceBase {
+        class SCREEN_EXPORT Resource : public ResourceBase {
         	SCREEN_DECL_CLASS(Screen::Utils::Resource)
         public:
             Resource()

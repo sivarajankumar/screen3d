@@ -19,49 +19,61 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_RESOURCE_MANAGER_H
-#define SCREEN_RESOURCE_MANAGER_H
+#ifndef SCREEN_PROFILER_H
+#define SCREEN_PROFILER_H
 
+#include <vector>
 #include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
-#include <map>
+#include <Screen/Utils/Policies.h>
+#include <Screen/Utils/Export.h>
 
 namespace Screen {
-	namespace Utils {
-		/*!  \class ResourceManager
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 20 sept. 09
-		 */
+    namespace Utils {
+        class ProfilerReporter;
+        class Timer;
 
-		class ResourceManager : public UniqueSingleton<ResourceManager> {
-			SCREEN_DECL_CLASS(Screen::Utils::ResourceManager)
-			friend class CreationWithStatic<ResourceManager>;
-		public:
-			template <class T> T* get(const std::string& name) const;
-			void add(const std::string& name, ResourceBase* resource);
-			void remove(const std::string& name);
-		private:
-			ResourceManager();
-			~ResourceManager();
-			typedef std::map<std::string, ResourceBase*> ResourceMap;
-			ResourceMap resourceMap;
-		};
-		
-		template <class T>
-		inline T* ResourceManager::get(const std::string& name) const{
-			SCREEN_DECL_METHOD(get)
-		    ResourceMap::const_iterator i = resourceMap.find(name);
-		    if (i != resourceMap.end()){
-		        i->second->add();
-		        return dynamic_cast<T*>(i->second);
-		    }
-		    else{
-		        return NULL;
-		    }
-		}
-	}
+        struct SCREEN_EXPORT Profile {
+            std::string info;
+            double beginning;
+            double ending;
+            bool ended;
+        };
+
+        class SCREEN_EXPORT Profiler : public UniqueSingleton<Profiler> {
+        	SINGLETON_DECL(UniqueSingleton,Profiler)
+            friend class ProfileScope;
+        public:
+            void attachTimer(Screen::Utils::Timer* timer);
+            void attachReporter(ProfilerReporter* reporter);
+        private:
+            void attachProfile(Profile* profile);
+            Profiler();
+            ~Profiler();
+
+            Screen::Utils::Timer* timer;
+            typedef std::vector<Profile*> ProfileSet;
+            ProfileSet allProfiles;
+            ProfilerReporter* reporter;
+        };
+
+        class SCREEN_EXPORT ProfileScope {
+        public:
+            ProfileScope(const std::string& info);
+            ~ProfileScope();
+        private:
+            Profile* profile;
+        };
+    }
 }
+
+# ifdef SCREEN_AUTHORIZE_PROFILE
+#  define SCREEN_ATTACH_TIMER(t)    Screen::Utils::Profiler::instance()->attachTimer((t));
+#  define SCREEN_ATTACH_PROFILE_REPORTER(r) Screen::Utils::Profiler::instance()->attachReporter((r));
+#  define SCREEN_SCOPE_PROFILE(s)    Screen::Utils::ProfileScope _pScope((s));
+# else
+#  define SCREEN_ATTACH_TIMER(t)
+#  define SCREEN_ATTACH_PROFILE_REPORTER(r)
+#  define SCREEN_SCOPE_PROFILE(s)
+# endif
 
 #endif

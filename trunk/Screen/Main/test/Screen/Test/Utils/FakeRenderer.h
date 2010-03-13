@@ -41,6 +41,8 @@ namespace Screen {
 				FakeRenderer();
 				virtual ~FakeRenderer();
 				
+				virtual bool hasCapability(Screen::Core::ApiCapability caps) const;
+				
 				virtual void pushMatrix(Screen::Core::MatrixType type);
 				virtual void popMatrix(Screen::Core::MatrixType type);
 				virtual void setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
@@ -48,6 +50,7 @@ namespace Screen {
 				virtual void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix);
 				
 				virtual unsigned long convertColor(const Color& color) const;
+				virtual const Screen::Core::Color& retrieveColor(unsigned long color) const;
 				
 				virtual void drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
 					        

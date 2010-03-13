@@ -22,7 +22,7 @@
 #include "SFMLRoot.h"
 
 #include <Screen/Math/Vector2f.h>
-#include <Screen/Core/Timer.h>
+#include <Screen/Utils/Timer.h>
 #include <Screen/Core/Renderer/Renderer.h>
 #include <Screen/Core/Renderer/RenderWindow.h>
 #include <Screen/Utils/MediaManager.h>

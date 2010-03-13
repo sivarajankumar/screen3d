@@ -24,6 +24,8 @@
 
 namespace Screen {
 	namespace Core {
+		SINGLETON_IMPL(UniqueSingleton,TextureManager)
+	
 		using Screen::Core::Objects::Image;
 		using Screen::Core::Objects::TextureBase;
 	

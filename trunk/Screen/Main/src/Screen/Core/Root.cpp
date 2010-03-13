@@ -20,7 +20,7 @@
  *****************************************************************************/
 
 #include <Screen/Core/Root.h>
-#include <Screen/Core/Timer.h>
+#include <Screen/Utils/Timer.h>
 #include <Screen/Core/FPSCounter.h>
 #include <Screen/Core/Renderer/Renderer.h>
 #include <Screen/Core/Renderer/RenderWindow.h>
@@ -29,7 +29,7 @@
 #include <iostream>
 
 Screen::Core::Root::Root()
-	:timer(new Timer()), renderer(NULL), renderWindow(NULL){
+	:timer(new Screen::Utils::Timer()), renderer(NULL), renderWindow(NULL){
 	SCREEN_DECL_CONSTRUCTOR(Root)
 }
 

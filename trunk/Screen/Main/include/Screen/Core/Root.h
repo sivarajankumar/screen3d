@@ -26,8 +26,10 @@
 #include <Screen/Utils/Export.h>
 
 namespace Screen {
+	namespace Utils {
+		class Timer;
+	}
     namespace Core {
-	    class Timer;
 	    class FPSCounter;
 	    class Renderer;
 	    class RenderWindow;
@@ -44,7 +46,7 @@ namespace Screen {
             void startRendering();
         protected:
             virtual bool renderFrame();
-            Timer* timer;
+            Screen::Utils::Timer* timer;
             FPSCounter* fpsCounter;
             Renderer* renderer;
             RenderWindow* renderWindow;

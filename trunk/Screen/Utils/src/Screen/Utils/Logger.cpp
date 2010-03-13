@@ -25,6 +25,8 @@
 #include <Screen/Utils/Exception.h>
 #include <iostream>
 
+SINGLETON_IMPL(UniqueSingleton,Screen::Utils::Logger)
+
 void Screen::Utils::Logger::attachReporter(LoggerReporter* reporter) {
     if(this->reporter!=NULL)
         delete this->reporter;
