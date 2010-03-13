@@ -16,12 +16,14 @@ import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
 
 public class SBSCMakeFileGenerator {
-	public Pack pack;
-	String sbsXmlPath;
+	private Pack pack;
+	private String sbsXmlPath;
+	private boolean isTest;
 	
-	public SBSCMakeFileGenerator(Pack pack, String sbsXmlPath) {
+	public SBSCMakeFileGenerator(Pack pack, String sbsXmlPath, boolean isTest) {
 		this.pack = pack;
 		this.sbsXmlPath = sbsXmlPath;
+		this.isTest = isTest;
 	}
 	
 	public void generate() {
@@ -107,32 +109,52 @@ public class SBSCMakeFileGenerator {
 					}
 				}
 			}
-			cmakeListWriter.write("\n");
-			cmakeListWriter.write("FILE(\n");
-			cmakeListWriter.write("    GLOB_RECURSE\n");
-			cmakeListWriter.write("    SRC_FILES\n");
-			cmakeListWriter.write("    src/*.cpp\n");
-			cmakeListWriter.write("    src/*.c\n");
-			cmakeListWriter.write("    src/*.hpp\n");
-			cmakeListWriter.write("    src/*.h\n");
-			cmakeListWriter.write("    src/*.inl\n");
-			cmakeListWriter.write("    src/*.tpp\n");
-			cmakeListWriter.write("    src/*.i\n");
-			cmakeListWriter.write(")\n");
-			cmakeListWriter.write("\n");
-			cmakeListWriter.write("FILE(\n");
-			cmakeListWriter.write("    GLOB_RECURSE\n");
-			cmakeListWriter.write("    INC_FILES\n");
-			cmakeListWriter.write("    include/*.hpp\n");	
-			cmakeListWriter.write("    include/*.h\n");
-			cmakeListWriter.write("    include/*.inl\n");
-			cmakeListWriter.write("    include/*.tpp\n");
-			cmakeListWriter.write("    include/*.i\n");
-			cmakeListWriter.write(")\n");
+			cmakeListWriter.write("FILE(REMOVE_RECURSE CMakeFiles/CompilerIdCXX/)\n");
+			cmakeListWriter.write("FILE(REMOVE_RECURSE CMakeFiles/CompilerIdC/)\n");
+			if(!isTest){
+				cmakeListWriter.write("FILE(\n");
+				cmakeListWriter.write("    GLOB_RECURSE\n");
+				cmakeListWriter.write("    SRC_FILES\n");
+				cmakeListWriter.write("    src/*.cpp\n");
+				cmakeListWriter.write("    src/*.c\n");
+				cmakeListWriter.write("    src/*.hpp\n");
+				cmakeListWriter.write("    src/*.h\n");
+				cmakeListWriter.write("    src/*.inl\n");
+				cmakeListWriter.write("    src/*.tpp\n");
+				cmakeListWriter.write("    src/*.i\n");
+				cmakeListWriter.write(")\n");
+				cmakeListWriter.write("\n");
+				cmakeListWriter.write("FILE(\n");
+				cmakeListWriter.write("    GLOB_RECURSE\n");
+				cmakeListWriter.write("    INC_FILES\n");
+				cmakeListWriter.write("    include/*.hpp\n");	
+				cmakeListWriter.write("    include/*.h\n");
+				cmakeListWriter.write("    include/*.inl\n");
+				cmakeListWriter.write("    include/*.tpp\n");
+				cmakeListWriter.write("    include/*.i\n");
+				cmakeListWriter.write(")\n");
+			} else {
+				cmakeListWriter.write("FILE(\n");
+				cmakeListWriter.write("    GLOB_RECURSE\n");
+				cmakeListWriter.write("    SRC_FILES\n");
+				cmakeListWriter.write("    *.cpp\n");
+				cmakeListWriter.write("    *.c\n");
+				cmakeListWriter.write("    *.hpp\n");
+				cmakeListWriter.write("    *.h\n");
+				cmakeListWriter.write("    *.inl\n");
+				cmakeListWriter.write("    *.tpp\n");
+				cmakeListWriter.write("    *.i\n");
+				cmakeListWriter.write(")\n");
+			}
 			cmakeListWriter.write("\n");
 			cmakeListWriter.write("INCLUDE_DIRECTORIES(\n");
-			cmakeListWriter.write("    src\n");
-			cmakeListWriter.write("    include\n");
+			if(!isTest){
+				cmakeListWriter.write("    src\n");
+				cmakeListWriter.write("    include\n");
+			}
+			else{
+				cmakeListWriter.write("    .\n");
+			}
 			for(int i=0; i<deps.size(); i++){
 				List<FieldPath> paths = deps.get(i).getIncludePathList();
 				for(int j=0; j<paths.size(); j++){

@@ -12,6 +12,9 @@ public class OptionHandler {
 		CHECK,
 		GENERATE,
 		COMPILE,
+		CHECK_TEST,
+		GENERATE_TEST,
+		COMPILE_TEST,
 		TEST
 	}
 	private String sbsXmlPath;
@@ -37,37 +40,12 @@ public class OptionHandler {
 				sbsXmlPath += "/";
 			String phase = args[1];
 			
-            if("check".equals(phase)){
-            	phaseList.add(Phase.LOAD_CONF);
-    			phaseList.add(Phase.LOAD_XML);
-				phaseList.add(Phase.CHECK);
-			}
-            else if("generate".equals(phase)){
-            	phaseList.add(Phase.LOAD_CONF);
-    			phaseList.add(Phase.LOAD_XML);
-            	phaseList.add(Phase.CHECK);
-				phaseList.add(Phase.GENERATE);
-			}
-			else if("compile".equals(phase)){
-				phaseList.add(Phase.COMPILE);
-			}
-			else if("test".equals(phase)){
-				phaseList.add(Phase.TEST);
-			}
-			else if("build".equals(phase)){
-				phaseList.add(Phase.LOAD_CONF);
-				phaseList.add(Phase.LOAD_XML);
-				phaseList.add(Phase.CHECK);
-				phaseList.add(Phase.GENERATE);
-				phaseList.add(Phase.COMPILE);
-			}
-			else{
-				err.addError("Bad parameter / unknown phase : " + phase);
-			}
-			
             GlobalSettings.getGlobalSettings().getEnvironmentVariables().put("_COMPILE_MODE", "Release");
             
-			for(int i=2; i<args.length; i++){
+			boolean hasMainBuild = true;
+			boolean hasTestBuild = false;
+            
+            for(int i=2; i<args.length; i++){
 				String option = args[i];
 				if("-v".equals(option)){
 					GlobalSettings.getGlobalSettings().setDebug(true);
@@ -82,7 +60,58 @@ public class OptionHandler {
 						GlobalSettings.getGlobalSettings().getEnvironmentVariables().putFromFile(root+"/"+args[i+1]+".config");
 						i++;
 					}
+				} else if("-t".equals(option)){
+					hasMainBuild = false;
+					hasTestBuild = true;
+				} else if("-b".equals(option)){
+					hasTestBuild = true;
 				}
+			}
+			
+			if("check".equals(phase)){
+            	phaseList.add(Phase.LOAD_CONF);
+    			phaseList.add(Phase.LOAD_XML);
+				phaseList.add(Phase.CHECK);
+			}
+            else if("generate".equals(phase)){
+            	phaseList.add(Phase.LOAD_CONF);
+    			phaseList.add(Phase.LOAD_XML);
+				if(hasMainBuild){
+					phaseList.add(Phase.CHECK);
+					phaseList.add(Phase.GENERATE);
+				}
+				if(hasTestBuild){
+					phaseList.add(Phase.CHECK_TEST);
+					phaseList.add(Phase.GENERATE_TEST);
+				}
+			}
+			else if("compile".equals(phase)){
+				if(hasMainBuild){
+					phaseList.add(Phase.COMPILE);
+				}
+				if(hasTestBuild){
+					phaseList.add(Phase.COMPILE_TEST);
+				}
+			}
+			else if("test".equals(phase)){
+				phaseList.add(Phase.TEST);
+			}
+			else if("build".equals(phase)){
+				phaseList.add(Phase.LOAD_CONF);
+				phaseList.add(Phase.LOAD_XML);
+				if(hasMainBuild){
+					phaseList.add(Phase.CHECK);
+					phaseList.add(Phase.GENERATE);
+					phaseList.add(Phase.COMPILE);
+				}
+				if(hasTestBuild){
+					phaseList.add(Phase.CHECK_TEST);
+					phaseList.add(Phase.GENERATE_TEST);
+					phaseList.add(Phase.COMPILE_TEST);
+				}
+			}
+			else{
+				err.addError("Bad parameter / unknown phase : " + phase);
 			}
 		}
 	}
