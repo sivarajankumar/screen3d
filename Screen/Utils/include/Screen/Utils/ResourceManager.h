@@ -19,50 +19,49 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Profiler.h>
-#include <Screen/Utils/ProfilerReporter.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Core/Timer.h>
-#include <iostream>
+#ifndef SCREEN_RESOURCE_MANAGER_H
+#define SCREEN_RESOURCE_MANAGER_H
 
-Screen::Utils::Profiler::Profiler()
-        :UniqueSingleton<Profiler>(),reporter(NULL) {}
+#include <Screen/Utils/Singleton.h>
+#include <Screen/Utils/Resource.h>
+#include <Screen/Utils/Declaration.h>
+#include <map>
 
-Screen::Utils::Profiler::~Profiler() {
-    Assert(reporter!=NULL);
-    for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
-        Profile* profile = (*i);
-        Assert(profile!=NULL);
-        reporter->report(profile);
-        delete profile;
-    }
-    delete reporter;
+namespace Screen {
+	namespace Utils {
+		/*!  \class ResourceManager
+		 *   \brief 
+		 *   \author Ratouit Thomas
+		 *   \date 20 sept. 09
+		 */
+
+		class SCREEN_EXPORT ResourceManager : public UniqueSingleton<ResourceManager> {
+			SCREEN_DECL_CLASS(Screen::Utils::ResourceManager)
+			SINGLETON_DECL(UniqueSingleton,ResourceManager)
+		public:
+			template <class T> T* get(const std::string& name) const;
+			void add(const std::string& name, ResourceBase* resource);
+			void remove(const std::string& name);
+		private:
+			ResourceManager();
+			~ResourceManager();
+			typedef std::map<std::string, ResourceBase*> ResourceMap;
+			ResourceMap resourceMap;
+		};
+		
+		template <class T>
+		inline T* ResourceManager::get(const std::string& name) const{
+			SCREEN_DECL_METHOD(get)
+		    ResourceMap::const_iterator i = resourceMap.find(name);
+		    if (i != resourceMap.end()){
+		        i->second->add();
+		        return dynamic_cast<T*>(i->second);
+		    }
+		    else{
+		        return NULL;
+		    }
+		}
+	}
 }
 
-void Screen::Utils::Profiler::attachTimer(Screen::Core::Timer* timer) {
-    this->timer = timer;
-}
-
-void Screen::Utils::Profiler::attachReporter(Screen::Utils::ProfilerReporter* reporter) {
-    if(this->reporter!=NULL)
-        delete this->reporter;
-    this->reporter = reporter;
-}
-
-void Screen::Utils::Profiler::attachProfile(Profile* profile) {
-    allProfiles.push_back(profile);
-}
-
-Screen::Utils::ProfileScope::ProfileScope(const std::string& info)
-        :profile(new Screen::Utils::Profile()) {
-    profile->info=info;
-    profile->ended=false;
-    profile->ending=0;
-    Profiler::instance()->attachProfile(profile);
-    profile->beginning=Profiler::instance()->timer->getMilliseconds();
-}
-
-Screen::Utils::ProfileScope::~ProfileScope() {
-    profile->ending=Profiler::instance()->timer->getMilliseconds();
-    profile->ended=true;
-}
+#endif

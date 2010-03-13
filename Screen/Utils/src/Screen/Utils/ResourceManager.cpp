@@ -19,36 +19,48 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Profiler.h>
 #include <Screen/Utils/ResourceManager.h>
-#include <Screen/Core/Managers/TextureManager.h>
+#include <Screen/Utils/Logger.h>
+#include <Screen/Utils/Exception.h>
 
 namespace Screen {
 	namespace Utils {
-		template <class T>
-		SCREEN_EXPORT T* CreationWithNew<T>::Create() {
-            return new T();
-        }
+		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
+	
+		ResourceManager::ResourceManager(){
+			SCREEN_DECL_CONSTRUCTOR(ResourceManager)
+		}
+		
+		ResourceManager::~ResourceManager(){
+			SCREEN_DECL_DESTRUCTOR(~ResourceManager)
+		    if (!resourceMap.empty()){
+		        SCREEN_LOG_WARNING("Undeleted Resources :")
+		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
+		            SCREEN_LOG_WARNING(" - " + i->second->getName())
+		        }
+		    }
+		}
+		
+		void ResourceManager::add(const std::string& name, ResourceBase* resource){
+		    SCREEN_DECL_METHOD(add)
+			Assert(resource != NULL);
 
-		template <class T>
-		SCREEN_EXPORT void CreationWithNew<T>::Delete(T* inst) {
-            delete inst;
-        }
-        
-		template <class T>
-		SCREEN_EXPORT T* CreationWithStatic<T>::Create() {
-            static T inst;
-            return &inst;
-        }
+		    if (resourceMap.find(name) != resourceMap.end()){
+		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
+		    }
 
-		template <class T>
-		SCREEN_EXPORT void CreationWithStatic<T>::Delete(T* inst) {}
-        
-        template class SCREEN_EXPORT CreationWithStatic<Logger>;
-        template class SCREEN_EXPORT CreationWithStatic<Profiler>;
-        template class SCREEN_EXPORT CreationWithStatic<ResourceManager>;
-        template class SCREEN_EXPORT CreationWithStatic<Screen::Core::TextureManager>;	
+		    resourceMap[name] = resource;
+		    resource->name = name;
+		}
+		
+		void ResourceManager::remove(const std::string& name){
+			SCREEN_DECL_METHOD(remove)
+		    ResourceMap::iterator i = resourceMap.find(name);
+
+		    if (i == resourceMap.end()){
+		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
+		    } else
+		    	resourceMap.erase(i);
+		}
 	}
 }

@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
 	<properties>
-		<name>Screen/OpenGL</name>
+		<name>Screen/Utils</name>
 		<version>0.1.0</version>
 		<buildtype>shared</buildtype>
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
-			<dependency name="OpenGL">
-				<includes>
-					<path>Ext</path>
-				</includes>
-				<libraries>
-					<lib>opengl32</lib>
-					<lib>glu32</lib>
-				</libraries>
-			</dependency>
 			<dependency name="boost">
 				<includes>
 					<path>${BOOST_INC_ROOT}</path>

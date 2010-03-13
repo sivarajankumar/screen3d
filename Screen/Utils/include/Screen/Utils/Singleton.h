@@ -54,10 +54,8 @@ namespace Screen {
         private:
             static LifeTimePolicy lifeTime;
             static typename ThreadingModel::MutexType mutex;
-            static T* instancePtr;
         };
-
-
+        
         /*!  \class WeakSingletonModel
           *  \brief generic singleton model for multithread, unique and undestroyable singleton.
           *  \author Ratouit Thomas
@@ -67,7 +65,8 @@ namespace Screen {
         template <
         class T,
         template <class> class CreationPolicy,
-        class ThreadingModel>
+        class ThreadingModel
+        >
         class SCREEN_EXPORT WeakSingletonModel {
         public:
             static T* instance();
@@ -78,10 +77,50 @@ namespace Screen {
             static typename ThreadingModel::MutexType mutex;
             static T* instancePtr;
         };
+        
+	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
+	    LifeTimePolicy SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::lifeTime;
+	
+	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
+	    typename ThreadingModel::MutexType SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::mutex;
+	
+	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
+	    T* SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::instance() {
+    		typename ThreadingModel::ScopeLockType guard(mutex);
+    		if(T::_policy_instance_ptr==NULL) {
+    			T::_policy_instance_ptr = CreationPolicy<T>::Create();
+    			lifeTime.Instanciated();
+    		}
+	        lifeTime.InstanceUsed();
+	        return T::_policy_instance_ptr;
+	    }
+	
+	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
+	    void SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::destroy() {
+	        typename ThreadingModel::ScopeLockType guard(mutex);
+	        if(lifeTime.IsAuthorisedDeletion()) {
+	            CreationPolicy<T>::Delete(T::_policy_instance_ptr);
+	        }
+	        lifeTime.Deleted();
+	    }
 
+        template <class T, template <class> class CreationPolicy, class ThreadingModel>
+        typename ThreadingModel::MutexType WeakSingletonModel<T, CreationPolicy, ThreadingModel>::mutex;
+
+        template <class T, template <class> class CreationPolicy, class ThreadingModel>
+        T* WeakSingletonModel<T, CreationPolicy, ThreadingModel>::instance() {
+            if(T::_policy_instance_ptr==NULL) {
+                typename ThreadingModel::ScopeLockType guard(mutex);
+                if(T::_policy_instance_ptr==NULL) {
+                	T::_policy_instance_ptr = CreationPolicy<T>::Create();
+                }
+            }
+            return T::_policy_instance_ptr;
+        }
+	    
         /* Singleton Types*/
 
-        template <class T>
+	    template <class T>
         class SCREEN_EXPORT UniqueSingleton
                     : public WeakSingletonModel <
                     T,
@@ -153,5 +192,32 @@ namespace Screen {
 //        };
     }
 }
+
+#define SINGLETON_DECL(singletonType,T) \
+	SINGLETON_DECL_##singletonType(T)
+	
+#define SINGLETON_IMPL(singletonType,T) SINGLETON_IMPL_##singletonType(T)
+
+//singleton macros
+
+#define SINGLETON_DECL_UniqueSingleton(T) \
+	friend class Screen::Utils::WeakSingletonModel <T, \
+					Screen::Utils::CreationWithStatic, \
+					Screen::Utils::SingleThreadingModel>; \
+	SINGLETON_DECL_CreationWithStatic(T)
+
+#define SINGLETON_IMPL_UniqueSingleton(T) \
+	SINGLETON_IMPL_CreationWithStatic(T)
+
+//policies macros
+
+#define SINGLETON_DECL_CreationWithStatic(T) \
+	friend class Screen::Utils::CreationWithStatic<T>; \
+	static T _policy_instance; \
+	static T* _policy_instance_ptr;
+
+#define SINGLETON_IMPL_CreationWithStatic(T) \
+	T T::_policy_instance; \
+	T* T::_policy_instance_ptr = NULL;
 
 #endif

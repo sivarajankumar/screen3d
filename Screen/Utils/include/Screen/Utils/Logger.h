@@ -45,7 +45,7 @@ namespace Screen {
         class LoggerReporter;
 
         class SCREEN_EXPORT Logger : public UniqueSingleton<Logger> {
-        	friend class CreationWithStatic<Logger>;
+        	SINGLETON_DECL(UniqueSingleton,Logger)
         public:       	
             void attachReporter(LoggerReporter* reporter);
             void debug(const std::string& log);

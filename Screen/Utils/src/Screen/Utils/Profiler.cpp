@@ -19,46 +19,52 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/Logger.h>
+#include <Screen/Utils/Profiler.h>
+#include <Screen/Utils/ProfilerReporter.h>
 #include <Screen/Utils/Exception.h>
+#include <Screen/Utils/Timer.h>
+#include <iostream>
 
-namespace Screen {
-	namespace Utils {
-		ResourceManager::ResourceManager(){
-			SCREEN_DECL_CONSTRUCTOR(ResourceManager)
-		}
-		
-		ResourceManager::~ResourceManager(){
-			SCREEN_DECL_DESTRUCTOR(~ResourceManager)
-		    if (!resourceMap.empty()){
-		        SCREEN_LOG_WARNING("Undeleted Resources :")
-		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
-		            SCREEN_LOG_WARNING(" - " + i->second->getName())
-		        }
-		    }
-		}
-		
-		void ResourceManager::add(const std::string& name, ResourceBase* resource){
-		    SCREEN_DECL_METHOD(add)
-			Assert(resource != NULL);
+SINGLETON_IMPL(UniqueSingleton,Screen::Utils::Profiler)
 
-		    if (resourceMap.find(name) != resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
-		    }
+Screen::Utils::Profiler::Profiler()
+        :UniqueSingleton<Profiler>(),reporter(NULL) {}
 
-		    resourceMap[name] = resource;
-		    resource->name = name;
-		}
-		
-		void ResourceManager::remove(const std::string& name){
-			SCREEN_DECL_METHOD(remove)
-		    ResourceMap::iterator i = resourceMap.find(name);
+Screen::Utils::Profiler::~Profiler() {
+    Assert(reporter!=NULL);
+    for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
+        Profile* profile = (*i);
+        Assert(profile!=NULL);
+        reporter->report(profile);
+        delete profile;
+    }
+    delete reporter;
+}
 
-		    if (i == resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
-		    } else
-		    	resourceMap.erase(i);
-		}
-	}
+void Screen::Utils::Profiler::attachTimer(Screen::Utils::Timer* timer) {
+    this->timer = timer;
+}
+
+void Screen::Utils::Profiler::attachReporter(Screen::Utils::ProfilerReporter* reporter) {
+    if(this->reporter!=NULL)
+        delete this->reporter;
+    this->reporter = reporter;
+}
+
+void Screen::Utils::Profiler::attachProfile(Profile* profile) {
+    allProfiles.push_back(profile);
+}
+
+Screen::Utils::ProfileScope::ProfileScope(const std::string& info)
+        :profile(new Screen::Utils::Profile()) {
+    profile->info=info;
+    profile->ended=false;
+    profile->ending=0;
+    Profiler::instance()->attachProfile(profile);
+    profile->beginning=Profiler::instance()->timer->getMilliseconds();
+}
+
+Screen::Utils::ProfileScope::~ProfileScope() {
+    profile->ending=Profiler::instance()->timer->getMilliseconds();
+    profile->ended=true;
 }

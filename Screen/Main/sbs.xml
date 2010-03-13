@@ -7,6 +7,7 @@
 	</properties>
 	<main>
 		<dependencies>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
 			<dependency name="boost">
 				<includes>
 					<path>${BOOST_INC_ROOT}</path>
@@ -30,4 +31,28 @@
 			<flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
 		</flags>
 	</main>
+	<test>
+		<dependencies>
+			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="boost">
+				<includes>
+					<path>${BOOST_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${BOOST_LIB_ROOT}</path>
+					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+				</libraries>
+			</dependency>
+			<dependency name="cppunit">
+				<includes>
+					<path>${CPPUNIT_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${CPPUNIT_LIB_ROOT}</path>
+					<lib>cppunit-${CPPUNIT_VERSION}</lib>
+				</libraries>
+			</dependency>
+		</dependencies>
+	</test>
 </pack>

@@ -137,6 +137,24 @@ namespace Screen {
 //        template <class T>
 //        typename CreationWithSharedMemory<T>::SharedMemoryHandler CreationWithSharedMemory<T>::smh;
 
+		template <class T>
+		T* CreationWithNew<T>::Create() {
+            return new T();
+        }
+
+		template <class T>
+		void CreationWithNew<T>::Delete(T* inst) {
+            delete inst;
+        }
+        
+		template <class T>
+		T* CreationWithStatic<T>::Create() {
+            return &T::_policy_instance;
+        }
+
+		template <class T>
+		void CreationWithStatic<T>::Delete(T* inst) {}
+        
         /*!  \class LifeTimePolicyMother
           *  \brief interface of all life-time policies
           *  \author Ratouit Thomas

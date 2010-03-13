@@ -22,7 +22,7 @@
 #ifndef SCREEN_FPSCOUNTER_H
 #define SCREEN_FPSCOUNTER_H
 
-#include <Screen/Core/Timer.h>
+#include <Screen/Utils/Timer.h>
 #include <Screen/Utils/Declaration.h>
 #include <Screen/Utils/Export.h>
 #include <iostream>
@@ -42,7 +42,7 @@ namespace Screen {
 			
 			void count();
 		private:
-			Screen::Core::Timer timer;
+			Screen::Utils::Timer timer;
 			double secondsPerUpdate;
 			std::ostream& stream;
 			int counter;

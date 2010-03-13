@@ -25,13 +25,15 @@ namespace Screen {
 	namespace Test {
 		namespace Utils {
 			FakeRenderer::FakeRenderer(){}
-			FakeRenderer::~FakeRenderer(){}		
+			FakeRenderer::~FakeRenderer(){}
+			bool FakeRenderer::hasCapability(Screen::Core::ApiCapability caps) const{return true;}
 			void FakeRenderer::pushMatrix(Screen::Core::MatrixType type){}
 			void FakeRenderer::popMatrix(Screen::Core::MatrixType type){}
 			void FakeRenderer::setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){}
 			void FakeRenderer::multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){}
 			void FakeRenderer::getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix){}
 			unsigned long FakeRenderer::convertColor(const Color& color) const{return 0;}
+			const Screen::Core::Color& FakeRenderer::retrieveColor(unsigned long color) const{static Screen::Core::Color c; return c;}
 			void FakeRenderer::drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const{}
 	        TextureBase* FakeRenderer::createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const{return NULL;}
 			void FakeRenderer::beginScene(){}
