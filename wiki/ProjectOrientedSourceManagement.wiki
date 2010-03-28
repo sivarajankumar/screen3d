@@ -212,11 +212,13 @@ CPPUNIT_ROOT = C:/lib/cppunit-1.12.1
 
 SBS divides is functionalities into phases. Each phase processes only a little part of the tool capabilities.
 
-For now, there are only 4 available phases :
+For now, there are only 6 available phases :
   * LOAD_CONF (loads only general configuration file sbs.config)
   * LOAD_XML (loads specified sbs.xml file)
   * CHECK (verifies all fields)
-  * GENERATE (generates cmake files and specific makefiles and environment) 
+  * CHECK_TEST (verifies all fields for tests)
+  * GENERATE (generates cmake files, specific makefiles and environment) 
+  * GENERATE_TEST (generates cmake files, specific makefiles and environment for tests)
 
 To use these phases, you must use specific commands :
 
@@ -227,15 +229,19 @@ sbs <path-to-sbs.xml> <phase> [options]
 example :
 
 {{{
-sbs . generate -e wascana
+sbs . generate -e wascana -e thoratou
 }}}
 generates makefile and project for Wascana environment.
 
 == Available phases ==
 
-||  || LOAD_CONF || LOAD_XML || CHECK || GENERATE ||
-|| check || X || X || X ||  ||
-|| generate || X || X || X || X ||
+||  || LOAD_CONF || LOAD_XML || CHECK || CHECK_TEST || GENERATE || GENERATE_TEST ||
+|| check || X || X || X ||  ||  ||  ||
+|| check -t || X || X ||  || X ||  ||  ||
+|| check -b || X || X || X || X ||  ||  ||
+|| generate || X || X || X ||  || X ||  ||
+|| generate -t || X || X ||  || X ||  || X ||
+|| generate -b || X || X || X || X || X || X ||
 
 == Options ==
 
