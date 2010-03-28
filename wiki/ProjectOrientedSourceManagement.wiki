@@ -85,34 +85,61 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
-    <properties>
-        <name>Screen/Main</name>
-        <version>0.1.0</version>
-        <buildtype>shared</buildtype>
-    </properties>
-    <dependencies>
-        <dependency name="boost">
-            <includes>
-                <path>${BOOST_INC_ROOT}</path>
-            </includes>
-            <libraries>
-                <path>${BOOST_LIB_ROOT}</path>
-                <lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
-            </libraries>
-        </dependency>
-        <dependency name="DevIL">
-            <includes>
-                <path>${DEVIL_INC_ROOT}</path>
-            </includes>
-            <libraries>
-                <path>${DEVIL_LIB_ROOT}</path>
-                <lib>DevIL</lib>
-            </libraries>
-        </dependency>
-    </dependencies>
-    <flags>
-        <flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
-    </flags>
+	<properties>
+		<name>Screen/Main</name>
+		<version>0.1.0</version>
+		<buildtype>shared</buildtype>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="boost">
+				<includes>
+					<path>${BOOST_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${BOOST_LIB_ROOT}</path>
+					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+				</libraries>
+			</dependency>
+			<dependency name="DevIL">
+				<includes>
+					<path>${DEVIL_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${DEVIL_LIB_ROOT}</path>
+					<lib>DevIL</lib>
+				</libraries>
+			</dependency>
+		</dependencies>
+		<flags>
+			<flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
+		</flags>
+	</main>
+	<test>
+		<dependencies>
+			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="boost">
+				<includes>
+					<path>${BOOST_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${BOOST_LIB_ROOT}</path>
+					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+				</libraries>
+			</dependency>
+			<dependency name="cppunit">
+				<includes>
+					<path>${CPPUNIT_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${CPPUNIT_LIB_ROOT}</path>
+					<lib>cppunit-${CPPUNIT_VERSION}</lib>
+				</libraries>
+			</dependency>
+		</dependencies>
+	</test>
 </pack>
 
 }}}
@@ -122,36 +149,63 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 {{{
 #global configuration file for SBS
 
-REPOSITORY_ROOT = C:/lib/sbs-repo
-RELEASE_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_INFO
-DEBUG_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_DEBUG SCREEN_AUTHORIZE_PROFILE SCREEN_AUTHORIZE_LOG_CALL_TRACER
+SCREEN_UTILS_ROOT = ${SCREEN_ROOT}/Screen/Utils
+SCREEN_MAIN_ROOT = ${SCREEN_ROOT}/Screen/Main
+SCREEN_OPENGL_ROOT = ${SCREEN_ROOT}/Screen/OpenGL
 
-SCREEN_MAIN_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen/Screen/Main
-SCREEN_OPENGL_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen/Screen/OpenGL
+BOOST_INC_ROOT = ${BOOST_ROOT}
+BOOST_LIB_ROOT = ${BOOST_ROOT}/stage/lib
 
-BOOST_INC_ROOT = C:/lib/boost_1_37_0
-BOOST_LIB_ROOT = C:/lib/boost_1_37_0/stage/lib
+DEVIL_INC_ROOT = ${DEVIL_ROOT}/include
+DEVIL_LIB_ROOT = ${DEVIL_ROOT}/lib
 
-DEVIL_INC_ROOT = C:/lib/DevIL-SDK-x86-1.7.8/include
-DEVIL_LIB_ROOT = C:/lib/DevIL-SDK-x86-1.7.8/lib
+SFML_INC_ROOT = ${SFML_ROOT}/include
+SFML_LIB_ROOT = ${SFML_ROOT}/lib/${SFML_COMPILER}
 
-SFML_INC_ROOT = C:/lib/SFML-1.5/include
+CPPUNIT_INC_ROOT = ${CPPUNIT_ROOT}/include
+CPPUNIT_LIB_ROOT = ${CPPUNIT_ROOT}/src/cppunit/.libs
 }}}
 
-   * wascana.config (i.e called `<env>`.config) :
+   * wascana.config :
 
 {{{
 #Wascana specific configuration file for SBS
 
 ENV_NAME = Wascana
 TARGET_ENV = Eclipse CDT4 - Unix Makefiles
-MAKE_PROGRAM = C:/Wascana/msys/bin/make.exe
-C_COMPILER = C:/Wascana/mingw/bin/gcc.exe
-CPP_COMPILER = C:/Wascana/mingw/bin/g++.exe
+MAKE_PROGRAM = ${WASCANA_ROOT}/msys/bin/make.exe
+C_COMPILER = ${WASCANA_ROOT}/mingw/bin/gcc.exe
+CPP_COMPILER = ${WASCANA_ROOT}/mingw/bin/g++.exe
 
-BOOST_LIB_EXTENSION = mgw34-mt-1_37
+BOOST_LIB_EXTENSION = mgw34-mt-${BOOST_VERSION}
 
-SFML_LIB_ROOT = C:/lib/SFML-1.5/lib/mingw
+SFML_COMPILER = mingw
+}}}
+
+   * thoratou.config
+
+{{{
+#personal specific configuration 
+
+WASCANA_ROOT = C:/Wascana
+
+REPOSITORY_ROOT = C:/lib/sbs-repo
+RELEASE_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_INFO
+DEBUG_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_DEBUG
+# SCREEN_AUTHORIZE_PROFILE SCREEN_AUTHORIZE_LOG_CALL_TRACER
+
+SCREEN_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen
+
+BOOST_VERSION = 1_37
+BOOST_ROOT = C:/lib/boost_${BOOST_VERSION}_0
+
+DEVIL_ROOT = C:/lib/DevIL-SDK-x86-1.7.8
+
+SFML_VERSION = 1.5
+SFML_ROOT = C:/lib/SFML-${SFML_VERSION}
+
+CPPUNIT_VERSION = 1-12-1
+CPPUNIT_ROOT = C:/lib/cppunit-1.12.1
 }}}
 
 == Commands ==
