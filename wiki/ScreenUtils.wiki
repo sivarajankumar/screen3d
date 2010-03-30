@@ -1,11 +1,11 @@
-#summary Screen::Utils or How to use Screen framework.
+#summary Screen/Utils or How to use Screen framework.
 
   * *Back links*
     * [MainPage Main page of Screen Wiki]
 
 = Introduction =
 
-In this part, I'll try to explain goals of different main parts of the Screen framework (contained in _Screen::Utils_) and how to use them.
+In this part, I'll try to explain goals of different main parts of the Screen framework (contained in _Screen/Utils_) and how to use them.
 
 = Main concepts =
 
