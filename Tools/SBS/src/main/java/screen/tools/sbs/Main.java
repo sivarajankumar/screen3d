@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
+import screen.tools.sbs.cmake.SBSCMakeCleaner;
 import screen.tools.sbs.cmake.SBSCMakeFileGenerator;
 import screen.tools.sbs.cmake.SBSCMakeLauncher;
 import screen.tools.sbs.objects.Dependency;
@@ -141,10 +142,11 @@ public class Main {
 				Logger.warning("TODO");
 				Logger.info("--------- end compilation ---------");
 			}
-			else if(phase == Phase.TEST){
-				Logger.info("----------- begin test ------------");
-				Logger.warning("TODO");
-				Logger.info("------------ end test -------------");
+			else if(phase == Phase.CLEAN){
+				Logger.info("----------- begin clean -----------");
+				SBSCMakeCleaner cleaner = new SBSCMakeCleaner();
+				cleaner.clean(pack, optHandler.getSbsXmlPath());
+				Logger.info("------------ end clean ------------");
 			}
 			else if(phase == Phase.CHECK_TEST){
 				Logger.info("----- begin check test fields -----");
@@ -161,6 +163,22 @@ public class Main {
 				launcher.launch(optHandler.getSbsXmlPath()+"test/");
 				if(!checkErrors()) return;
 				Logger.info("------ end generate test makefile ------");
+			}
+			else if(phase == Phase.COMPILE_TEST){
+				Logger.info("-------- begin compilation --------");
+				Logger.warning("TODO");
+				Logger.info("--------- end compilation ---------");
+			}
+			else if(phase == Phase.CLEAN_TEST){
+				Logger.info("-------- begin clean test ---------");
+				SBSCMakeCleaner cleaner = new SBSCMakeCleaner();
+				cleaner.clean(testPack, optHandler.getSbsXmlPath()+"test/");
+				Logger.info("--------- end clean test ----------");
+			}
+			else if(phase == Phase.TEST){
+				Logger.info("----------- begin test ------------");
+				Logger.warning("TODO");
+				Logger.info("------------ end test -------------");
 			}
 		}
 		

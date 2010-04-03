@@ -12,9 +12,11 @@ public class OptionHandler {
 		CHECK,
 		GENERATE,
 		COMPILE,
+		CLEAN,
 		CHECK_TEST,
 		GENERATE_TEST,
 		COMPILE_TEST,
+		CLEAN_TEST,
 		TEST
 	}
 	private String sbsXmlPath;
@@ -108,6 +110,16 @@ public class OptionHandler {
 					phaseList.add(Phase.CHECK_TEST);
 					phaseList.add(Phase.GENERATE_TEST);
 					phaseList.add(Phase.COMPILE_TEST);
+				}
+			}
+			else if("clean".equals(phase)){
+				phaseList.add(Phase.LOAD_CONF);
+				phaseList.add(Phase.LOAD_XML);
+				if(hasMainBuild){
+					phaseList.add(Phase.CLEAN);
+				}
+				if(hasTestBuild){
+					phaseList.add(Phase.CLEAN_TEST);
 				}
 			}
 			else{
