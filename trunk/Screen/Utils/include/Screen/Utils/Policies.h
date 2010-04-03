@@ -40,7 +40,7 @@ namespace Screen {
           *  \date 2008
           */
         template <class T>
-        class SCREEN_EXPORT CreationWithNew {
+        class CreationWithNew {
         public:
             static T* Create();
             static void Delete(T* inst);
@@ -54,7 +54,7 @@ namespace Screen {
           *  \warning The instance can't be destroy. If the same policy is reused, the state of the instance is the same.
           */
         template <class T>
-        class SCREEN_EXPORT CreationWithStatic {
+        class CreationWithStatic {
         public:
             static T* Create();
             static void Delete(T* inst);

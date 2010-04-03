@@ -25,7 +25,7 @@
 #include <Screen/Core/Objects/Buffer.h>
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -41,7 +41,7 @@ namespace Screen {
 			 	Renderer::setIndexBuffer method.
 			 */
 			template<class T>
-			class SCREEN_EXPORT IndexBuffer : public Buffer<T> {
+			class SCREEN_MAIN_EXPORT IndexBuffer : public Buffer<T> {
 				SCREEN_DECL_CLASS(Screen::Core::Object::IndexBuffer)
 			public:
 				IndexBuffer(BufferBase* buffer);

@@ -35,7 +35,7 @@ namespace Screen {
 		 *   \date 20 sept. 09
 		 */
 
-		class SCREEN_EXPORT ResourceManager : public UniqueSingleton<ResourceManager> {
+		class SCREEN_UTILS_EXPORT ResourceManager : public UniqueSingleton<ResourceManager> {
 			SCREEN_DECL_CLASS(Screen::Utils::ResourceManager)
 			SINGLETON_DECL(UniqueSingleton,ResourceManager)
 		public:

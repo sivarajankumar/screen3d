@@ -33,7 +33,7 @@ namespace Screen{
 	namespace Core{
 		namespace Objects{
 			VertexBufferFiller::VertexBufferFiller(const VertexFormat::SmartPtr& vf)
-				:vf(vf),buffer(BUFFER_MIN_SIZE,0){
+				:vf(vf),stepSize(0),buffer(BUFFER_MIN_SIZE,0),bufferSize(0){
 				SCREEN_DECL_CONSTRUCTOR(VertexBufferFiller)
 				//fill table with position and size of the usage
 				for(unsigned int i=0; i<Screen::Core::NB_VERTEX_USAGE; i++){
@@ -61,6 +61,7 @@ namespace Screen{
 			}
 			
 #define SET_VECTOR(vertexUsage,inputSize) \
+	using namespace std; \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
 	if(cur+vertexInfo[vertexUsage].second>buffer.size()){ \
 		SCREEN_LOG_DEBUG("resize vextex buffer"); \
@@ -73,7 +74,7 @@ namespace Screen{
 		SCREEN_LOG_DEBUG("|" << val << "|" << vector(j) << "|"); \
 		buffer[cur+j] = val; \
 	} \
-	bufferSize = std::max(bufferSize,i+1);
+	bufferSize = max(bufferSize,i+1);
 			
 #define GET_VECTOR(vertexUsage,inputSize) \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
@@ -84,6 +85,7 @@ namespace Screen{
 	}
 			
 #define SET_COLOR(vertexUsage) \
+	using namespace std; \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
 	if(cur+vertexInfo[vertexUsage].second>buffer.size()){ \
 		SCREEN_LOG_DEBUG("resize vextex buffer"); \
@@ -92,7 +94,7 @@ namespace Screen{
 	SCREEN_LOG_DEBUG("current buffer assignment = " << cur); \
 	buffer[cur] = Renderer::get().convertColor(color); \
 	SCREEN_LOG_DEBUG("|" << color.convertABGR() << "|"); \
-	bufferSize = std::max(bufferSize,i+1);
+	bufferSize = max(bufferSize,i+1);
 
 #define GET_COLOR(vertexUsage) \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \

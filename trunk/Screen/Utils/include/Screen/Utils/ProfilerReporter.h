@@ -29,19 +29,19 @@ namespace Screen {
     namespace Utils {
     	struct Profile;
         /*interface*/
-        class SCREEN_EXPORT ProfilerReporter {
+        class SCREEN_UTILS_EXPORT ProfilerReporter {
         public:
             ProfilerReporter();
             virtual ~ProfilerReporter();
             virtual void report(Profile* profile) = 0;
         };
 
-        class SCREEN_EXPORT CoutProfilerReporter : public ProfilerReporter {
+        class SCREEN_UTILS_EXPORT CoutProfilerReporter : public ProfilerReporter {
         public:
             void report(Profile* profile);
         };
         
-        class SCREEN_EXPORT FileProfilerReporter : public ProfilerReporter {
+        class SCREEN_UTILS_EXPORT FileProfilerReporter : public ProfilerReporter {
         public:
         	FileProfilerReporter(const char* file);
             void report(Profile* profile);

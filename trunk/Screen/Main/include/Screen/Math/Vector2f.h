@@ -23,12 +23,12 @@
 #define SCREEN_VECTOR_2_F_H
 
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Math {
 
-		class SCREEN_EXPORT Vector2f{
+		class SCREEN_MAIN_EXPORT Vector2f{
 			SCREEN_DECL_CLASS(Screen::Math::Vector2f)
 		public:
 			Vector2f(float x=0, float y=0);

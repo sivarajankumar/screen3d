@@ -28,8 +28,5 @@
 				</libraries>
 			</dependency>
 		</dependencies>
-		<flags>
-			<flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
-		</flags>
 	</main>
 </pack>

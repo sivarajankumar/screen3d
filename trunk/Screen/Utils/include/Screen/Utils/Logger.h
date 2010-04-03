@@ -44,7 +44,7 @@ namespace Screen {
     
         class LoggerReporter;
 
-        class SCREEN_EXPORT Logger : public UniqueSingleton<Logger> {
+        class SCREEN_UTILS_EXPORT Logger : public UniqueSingleton<Logger> {
         	SINGLETON_DECL(UniqueSingleton,Logger)
         public:       	
             void attachReporter(LoggerReporter* reporter);

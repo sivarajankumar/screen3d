@@ -32,14 +32,14 @@ namespace Screen {
         class ProfilerReporter;
         class Timer;
 
-        struct SCREEN_EXPORT Profile {
+        struct SCREEN_UTILS_EXPORT Profile {
             std::string info;
             double beginning;
             double ending;
             bool ended;
         };
 
-        class SCREEN_EXPORT Profiler : public UniqueSingleton<Profiler> {
+        class SCREEN_UTILS_EXPORT Profiler : public UniqueSingleton<Profiler> {
         	SINGLETON_DECL(UniqueSingleton,Profiler)
             friend class ProfileScope;
         public:
@@ -56,7 +56,7 @@ namespace Screen {
             ProfilerReporter* reporter;
         };
 
-        class SCREEN_EXPORT ProfileScope {
+        class SCREEN_UTILS_EXPORT ProfileScope {
         public:
             ProfileScope(const std::string& info);
             ~ProfileScope();

@@ -31,7 +31,7 @@
 #include "Screen/Utils/Path.h"
 #include "Screen/Core/Loaders/ImageLoader.h"
 #include "Screen/Core/Managers/TextureManager.h"
-
+//
 #include "SFMLOpenGLRenderWindow.h"
 #include "SFMLRoot.h"
 
@@ -42,7 +42,7 @@ int main() {
 		SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
 		SCREEN_ATTACH_TIMER(new Screen::Core::Timer())
 		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
-//		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::CoutProfilerReporter())
+		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::CoutProfilerReporter())
 		
 		SCREEN_LOG_DEBUG("coucou")
 		
@@ -60,6 +60,8 @@ int main() {
 		root->startRendering();
 		
 		Screen::Core::TextureManager::instance()->unregisterLoader<Screen::Core::Objects::Image>("jpg|png|bmp|tga");
+		
+		Screen::Core::Renderer::destroy();
 
 	}catch(const Screen::Utils::Exception& e){
 		SCREEN_LOG_ERROR("Exception controlée : " << std::endl << e.what())

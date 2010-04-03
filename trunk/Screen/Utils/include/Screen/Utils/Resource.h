@@ -36,7 +36,7 @@ namespace Screen {
 		 *   \date 20 sept. 09
 		 */
 
-		class SCREEN_EXPORT ResourceBase {
+		class SCREEN_UTILS_EXPORT ResourceBase {
 			SCREEN_DECL_CLASS(Screen::Utils::ResourceBase)
             friend class ResourceManager;
 		protected:
@@ -61,7 +61,7 @@ namespace Screen {
           */
 
         template<class LifeTimePolicy = ReferenceCountLifeTime>
-        class SCREEN_EXPORT Resource : public ResourceBase {
+        class Resource : public ResourceBase {
         	SCREEN_DECL_CLASS(Screen::Utils::Resource)
         public:
             Resource()

@@ -28,7 +28,7 @@
 
 namespace Screen {
 	namespace Utils {
-	    class SCREEN_EXPORT File{
+	    class SCREEN_UTILS_EXPORT File{
 	    	SCREEN_DECL_CLASS(Screen::Utils::File)
 	    public :
 	        File(const std::string& file = "");

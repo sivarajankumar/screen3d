@@ -23,7 +23,7 @@
 #define SCREEN_BUFFER_BASE_H
 
 #include <Screen/Core/Enums.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <Screen/Utils/Declaration.h>
 #include <Screen/Utils/SmartPtr.h>
 
@@ -35,7 +35,7 @@ namespace Screen {
 			 @remarks
 			 	Instances of BufferBase are creted by the 3D API 
 			 */
-			class SCREEN_EXPORT BufferBase{
+			class SCREEN_MAIN_EXPORT BufferBase{
 				SCREEN_DECL_CLASS(Screen::Core::Object::BufferBase)
 				template <class T> friend class Buffer;
 		    public :

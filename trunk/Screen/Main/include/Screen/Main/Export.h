@@ -19,45 +19,23 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_TEXTURE_BASE_H
-#define SCREEN_TEXTURE_BASE_H
+#ifndef SCREEN_MAIN_EXPORT_H
+#define SCREEN_MAIN_EXPORT_H
 
-#include <Screen/Core/Enums.h>
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Math/Rectangle.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
+#if defined (_MSC_VER)
+# pragma warning(disable: 4251) //disable dll export warning
+# pragma warning(disable: 4275)//disable dll export warning
+# pragma warning(disable: 4996)//disable depreciated function warning
+#endif
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
-			/*!  \class TextureBase
-			 *   \brief 
-			 *   \author Ratouit Thomas
-			 *   \date 11 nov. 09
-			 */
-
-			class SCREEN_MAIN_EXPORT TextureBase : public Screen::Utils::Resource<> {
-				friend class Texture;
-				SCREEN_DECL_CLASS(Screen::Core::TextureBase)
-			public:
-				TextureBase(Screen::Math::Vector2i size, Screen::Core::PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap);
-				virtual ~TextureBase();
-				
-				virtual void update(const Screen::Math::Rectangle& rect) = 0;
-				
-				typedef Screen::Utils::SmartPtr<TextureBase,Screen::Utils::ResourceSmartPolicy> SmartPtr;
-			protected:
-				Screen::Core::Objects::Image image;
-				Screen::Math::Vector2i size;
-				Screen::Core::PixelFormat pxf;
-				Screen::Core::TextureMipMap hasMipMap;
-			};
-		}
-	}
-}
+#ifdef WIN32
+#	ifdef SCREEN_MAIN_BUILD_SHARED_LIBRARY
+#  		define SCREEN_MAIN_EXPORT __declspec(dllexport)
+#	else
+#		define SCREEN_MAIN_EXPORT __declspec(dllimport)
+#	endif
+#else
+#	define SCREEN_MAIN_EXPORT
+#endif
 
 #endif

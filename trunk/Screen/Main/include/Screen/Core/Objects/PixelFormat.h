@@ -24,12 +24,12 @@
 
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
 		namespace Objects {
-			class SCREEN_EXPORT PixelConverter {
+			class SCREEN_MAIN_EXPORT PixelConverter {
 				SCREEN_DECL_CLASS(Screen::Core::Objects::PixelConverter)
 			public:
 				static void convertPixel(Screen::Core::PixelFormat srcFormat,
@@ -50,7 +50,7 @@ namespace Screen {
 				ConvertionFunc func;
 			};
 			
-			class SCREEN_EXPORT PixelFormatDescriptor {
+			class SCREEN_MAIN_EXPORT PixelFormatDescriptor {
 				SCREEN_DECL_CLASS(Screen::Core::Objects::PixelFormatDescriptor)
 			public:
 				static const char* getName(Screen::Core::PixelFormat pxf);

@@ -143,9 +143,11 @@ namespace Screen {
 		}
 		
 		Screen::Core::RectangleIntersection Rectangle::intersects(const Rectangle& rect) const{
+			using namespace std;
+
 		    // Intersection rectangle
-		    Vector2i intLeftTop(std::max(getLeft(), rect.getLeft()), std::max(getTop(), getTop()));
-		    Vector2i intRightBottom(std::min(getRight(), rect.getRight()), std::min(getBottom(), rect.getBottom()));
+		    Vector2i intLeftTop(max(getLeft(), rect.getLeft()), max(getTop(), getTop()));
+		    Vector2i intRightBottom(min(getRight(), rect.getRight()), min(getBottom(), rect.getBottom()));
 
 		    if ((intLeftTop.getX() > intRightBottom.getX()) || (intLeftTop.getY() > intRightBottom.getY()))
 		    	return Screen::Core::RECT_INT_OUT;

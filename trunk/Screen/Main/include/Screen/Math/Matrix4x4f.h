@@ -24,11 +24,11 @@
 
 #include <Screen/Math/Vector3f.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Math {
-        class SCREEN_EXPORT Matrix4x4f{
+        class SCREEN_MAIN_EXPORT Matrix4x4f{
         	SCREEN_DECL_CLASS(Screen::Math::Matrix4x4f)
         public :
         	Matrix4x4f(	float m11 = 1.0f, float m12 = 0.0f, float m13 = 0.0f, float m14 = 0.0f,

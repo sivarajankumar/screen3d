@@ -25,7 +25,7 @@
 #include <Screen/Math/Vector2i.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Math {
@@ -37,7 +37,7 @@ namespace Screen {
 		 *   \date 29 nov. 09
 		 */
 
-		class SCREEN_EXPORT Rectangle {
+		class SCREEN_MAIN_EXPORT Rectangle {
 			SCREEN_DECL_CLASS(Screen::Math::Rectangle)
 		public:
 			Rectangle(const Vector2i& leftTop = Vector2i(0, 0), const Vector2i& size = Vector2i(0, 0));

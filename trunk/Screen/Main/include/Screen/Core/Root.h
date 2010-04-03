@@ -23,7 +23,7 @@
 #define SCREEN_ROOT_H
 
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Utils {
@@ -34,7 +34,7 @@ namespace Screen {
 	    class Renderer;
 	    class RenderWindow;
 	    
-        class SCREEN_EXPORT Root {
+        class SCREEN_MAIN_EXPORT Root {
         	SCREEN_DECL_CLASS(Screen::Core::Root)
         public:
             explicit Root();

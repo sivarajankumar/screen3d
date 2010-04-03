@@ -24,7 +24,7 @@
 
 #include <Screen/Utils/Timer.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <iostream>
 
 namespace Screen {
@@ -34,7 +34,7 @@ namespace Screen {
 		 *   \author Ratouit Thomas
 		 */
 
-		class SCREEN_EXPORT FPSCounter {
+		class SCREEN_MAIN_EXPORT FPSCounter {
 			SCREEN_DECL_CLASS(Screen::Core::FPSCounter)
 		public:
 			FPSCounter(double secondsPerUpdate, std::ostream& stream);

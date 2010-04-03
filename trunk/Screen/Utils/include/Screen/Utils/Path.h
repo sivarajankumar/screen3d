@@ -28,7 +28,7 @@
 
 namespace Screen {
 	namespace Utils {
-	    class SCREEN_EXPORT Path{
+	    class SCREEN_UTILS_EXPORT Path{
 	    	SCREEN_DECL_CLASS(Screen::Utils::Path)
 	    public:
 	    	Path(const std::string& path = "");

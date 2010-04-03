@@ -26,7 +26,7 @@
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -41,7 +41,7 @@ namespace Screen {
 			 	and IndexBuffer. Use those instead. 
 			 */
 		    template <class T>
-		    class SCREEN_EXPORT Buffer{
+		    class Buffer{
 		    	SCREEN_DECL_CLASS(Screen::Core::Object::Buffer)
 		    public :
 		        Buffer(BufferBase* buffer = NULL)
@@ -97,7 +97,7 @@ namespace Screen {
 		    };
 		    
 		    template <>
-		    class SCREEN_EXPORT Buffer<void>{
+		    class Buffer<void>{
 		    	SCREEN_DECL_CLASS(Screen::Core::Object::Buffer)
 		    public :
 		        Buffer(BufferBase* buffer = NULL, unsigned int elementSize = 0)
