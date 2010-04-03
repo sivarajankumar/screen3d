@@ -35,8 +35,11 @@ public class SBSCMakeLauncher {
 		
 		String targetEnv = variables.getValue("TARGET_ENV");
 		String makeProg = variables.getValue("MAKE_PROGRAM");
+		makeProg = (makeProg == null) ? "" : makeProg;
 		String cCompiler = variables.getValue("C_COMPILER");
+		cCompiler = (cCompiler == null) ? "" : cCompiler;
 		String cppCompiler = variables.getValue("CPP_COMPILER");
+		cppCompiler = (cppCompiler == null) ? "" : cppCompiler;
 		
 		if("/".equals(sbsXmlPath))
 			sbsXmlPath=".";
@@ -45,12 +48,13 @@ public class SBSCMakeLauncher {
 
         try {
 
-        	String command ="cmake \""+"."+
-        					"\" -G \""+targetEnv+
-        					"\" -DCMAKE_MAKE_PROGRAM=\""+makeProg+
-        					"\" -DCMAKE_C_COMPILER=\""+cCompiler+
-        					"\" -DCMAKE_CXX_COMPILER=\""+cppCompiler+
-        					"\"";
+        	String command ="cmake \""+"."+"\" -G \""+targetEnv+"\"";
+        	if(!makeProg.equals(""))
+        		command +=" -DCMAKE_MAKE_PROGRAM=\""+makeProg+"\"";
+        	if(!cCompiler.equals(""))
+        		command +=" -DCMAKE_C_COMPILER=\""+cCompiler+"\"";
+        	if(!cppCompiler.equals(""))
+        	command +=" -DCMAKE_CXX_COMPILER=\""+cppCompiler+"\"";
         	
         	Logger.info("command : "+command);
         	Process p = Runtime.getRuntime().exec(command,null,new File(sbsXmlPath));
