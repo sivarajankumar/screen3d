@@ -25,7 +25,7 @@
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Utils/Resource.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen{
 	namespace Core {
@@ -36,7 +36,7 @@ namespace Screen{
 			 *   \date 18 oct. 09
 			 */
 		
-			class SCREEN_EXPORT Model : public Screen::Utils::Resource<>{
+			class SCREEN_MAIN_EXPORT Model : public Screen::Utils::Resource<>{
 				SCREEN_DECL_CLASS(Screen::Core::Objects::Model)
 			public:
 				Model();

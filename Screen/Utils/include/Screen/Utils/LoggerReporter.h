@@ -29,7 +29,7 @@
 
 namespace Screen {
     namespace Utils {
-        class SCREEN_EXPORT LoggerReporter {
+        class SCREEN_UTILS_EXPORT LoggerReporter {
         public:
             LoggerReporter();
             virtual ~LoggerReporter();
@@ -44,7 +44,7 @@ namespace Screen {
             				  const std::string& address) = 0;
         };
 
-        class SCREEN_EXPORT CoutLoggerReporter : public LoggerReporter {
+        class SCREEN_UTILS_EXPORT CoutLoggerReporter : public LoggerReporter {
         public:
             CoutLoggerReporter();
             ~CoutLoggerReporter();
@@ -59,7 +59,7 @@ namespace Screen {
             		  const std::string& address);
         };
         
-        class SCREEN_EXPORT FileLoggerReporter : public LoggerReporter {
+        class SCREEN_UTILS_EXPORT FileLoggerReporter : public LoggerReporter {
         public:
         	FileLoggerReporter(const char* file);
             ~FileLoggerReporter();

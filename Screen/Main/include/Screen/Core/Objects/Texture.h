@@ -28,7 +28,7 @@
 #include <Screen/Math/Vector2i.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -39,7 +39,7 @@ namespace Screen {
 			 *   \date 29 nov. 09
 			 */
 
-			class SCREEN_EXPORT Texture {
+			class SCREEN_MAIN_EXPORT Texture {
 			public:
 				Texture();
 				~Texture();

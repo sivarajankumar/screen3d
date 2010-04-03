@@ -28,7 +28,7 @@
 			</dependency>
 		</dependencies>
 		<flags>
-			<flag flag="SCREEN_BUILD_SHARED_LIBRARY" config="all" />
+			<flag flag="SCREEN_MAIN_BUILD_SHARED_LIBRARY" config="all" />
 		</flags>
 	</main>
 	<test>

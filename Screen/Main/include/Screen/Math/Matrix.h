@@ -24,7 +24,7 @@
 
 #include <Screen/Utils/Reference_restriction.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
     namespace Math {
@@ -54,7 +54,7 @@ namespace Screen {
          *  \date 2008
          */
         template <class T, unsigned int I, unsigned int J>
-        class SCREEN_EXPORT Matrix {
+        class SCREEN_MAIN_EXPORT Matrix {
         	SCREEN_DECL_CLASS(Screen::Math::Matrix)
         public:
             inline Matrix() {
@@ -159,7 +159,7 @@ namespace Screen {
          *  \date 2008
          */
         template <class T, unsigned int I>
-        class SCREEN_EXPORT Vector {
+        class SCREEN_MAIN_EXPORT Vector {
         	SCREEN_DECL_CLASS(Screen::Math::Vector)
         public:
             inline Vector() {

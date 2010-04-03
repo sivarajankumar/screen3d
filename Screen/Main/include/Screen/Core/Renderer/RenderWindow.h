@@ -22,12 +22,12 @@
 #ifndef SCREEN_WINDOW_H
 #define SCREEN_WINDOW_H
 
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <Screen/Utils/Declaration.h>
 
 namespace Screen {
     namespace Core {
-    	class SCREEN_EXPORT RenderWindow{
+    	class SCREEN_MAIN_EXPORT RenderWindow{
     		SCREEN_DECL_CLASS(Screen::Core::RenderWindow)
     	public:
     		RenderWindow(){

@@ -26,7 +26,7 @@
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <vector>
 
 namespace Screen{
@@ -37,7 +37,7 @@ namespace Screen{
 	namespace Core{
 		class Color;
 		namespace Objects{
-			class SCREEN_EXPORT VertexBufferFiller{
+			class SCREEN_MAIN_EXPORT VertexBufferFiller{
 				SCREEN_DECL_CLASS(Screen::Core::Objects::VertexBufferFiller)
 			public:
 				VertexBufferFiller(const VertexFormat::SmartPtr& vf);

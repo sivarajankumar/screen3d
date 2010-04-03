@@ -25,7 +25,6 @@
 #include <Screen/Utils/Policies.h>
 #include <Screen/Utils/Thread.h>
 #include <Screen/Utils/Export.h>
-#include <cstdlib>
 
 namespace Screen {
     namespace Utils {
@@ -44,7 +43,7 @@ namespace Screen {
         template <class> class CreationPolicy,
         class ThreadingModel,
         class LifeTimePolicy >
-        class SCREEN_EXPORT SingletonModel {
+        class SingletonModel {
         public:
             static T* instance();
             static void destroy();
@@ -67,7 +66,7 @@ namespace Screen {
         template <class> class CreationPolicy,
         class ThreadingModel
         >
-        class SCREEN_EXPORT WeakSingletonModel {
+        class WeakSingletonModel {
         public:
             static T* instance();
         protected:
@@ -121,7 +120,7 @@ namespace Screen {
         /* Singleton Types*/
 
 	    template <class T>
-        class SCREEN_EXPORT UniqueSingleton
+        class UniqueSingleton
                     : public WeakSingletonModel <
                     T,
                     CreationWithStatic,
@@ -132,7 +131,7 @@ namespace Screen {
         ;
 
         template <class T>
-        class SCREEN_EXPORT ThreadSafeUniqueSingleton
+        class ThreadSafeUniqueSingleton
                     : public WeakSingletonModel <
                     T,
                     CreationWithStatic,
@@ -141,7 +140,7 @@ namespace Screen {
         ;
 
         template <class T>
-        class SCREEN_EXPORT PhoenixSingleton
+        class PhoenixSingleton
                     : public SingletonModel <
                     T,
                     CreationWithNew,
@@ -151,7 +150,7 @@ namespace Screen {
         ;
 
         template <class T>
-        class SCREEN_EXPORT ThreadSafePhoenixSingleton
+        class ThreadSafePhoenixSingleton
                     : public SingletonModel <
                     T,
                     CreationWithNew,
@@ -161,7 +160,7 @@ namespace Screen {
         ;
 
         template <class T>
-        class SCREEN_EXPORT RefCountSingleton
+        class RefCountSingleton
                     : public SingletonModel <
                     T,
                     CreationWithNew,
@@ -171,7 +170,7 @@ namespace Screen {
         ;
 
         template <class T>
-        class SCREEN_EXPORT ThreadRefCountSingleton
+        class ThreadRefCountSingleton
                     : public SingletonModel <
                     T,
                     CreationWithNew,
@@ -181,7 +180,7 @@ namespace Screen {
         ;
         
 //        template <class T>
-//	    class SCREEN_EXPORT SharedSingleton
+//	    class SharedSingleton
 //	                : public WeakSingletonModel <
 //	                T,
 //	                CreationWithSharedMemory,

@@ -25,13 +25,13 @@
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
 #include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <vector>
 
 namespace Screen {
 	namespace Core {
 		namespace Objects {
-			class SCREEN_EXPORT VertexUsageAndType{
+			class SCREEN_MAIN_EXPORT VertexUsageAndType{
 				SCREEN_DECL_CLASS(Screen::Core::VertexUsageAndType)
 				friend class VertexFormat;
 			public:
@@ -50,7 +50,7 @@ namespace Screen {
 			 *   \date 19 sept. 09
 			 */
 		
-			class SCREEN_EXPORT VertexFormat {
+			class SCREEN_MAIN_EXPORT VertexFormat {
 				SCREEN_DECL_CLASS(Screen::Core::VertexFormat)
 			public:
 				typedef std::vector<const VertexUsageAndType *>::const_iterator const_iterator;

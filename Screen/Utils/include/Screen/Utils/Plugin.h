@@ -34,7 +34,7 @@ namespace Screen {
     namespace Utils {
 
 		template <class T>
-		class SCREEN_EXPORT Plugin{
+		class Plugin{
 //			SCREEN_DECL_CLASS(Screen::Utils::Plugin)
 		public:
 			Plugin()

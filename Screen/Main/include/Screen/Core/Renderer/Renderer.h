@@ -23,7 +23,7 @@
 #define SCREEN_RENDERER_H
 
 #include <Screen/Utils/Plugin.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Core/Color.h>
 #include <Screen/Core/Objects/BufferBase.h>
@@ -50,7 +50,7 @@ namespace Screen {
 		using Screen::Core::Objects::Texture;
 		using Screen::Core::Objects::TextureBase;
 		
-		class SCREEN_EXPORT Renderer {
+		class SCREEN_MAIN_EXPORT Renderer {
 			SCREEN_DECL_CLASS(Screen::Core::Renderer)
 		public:
 			Renderer();

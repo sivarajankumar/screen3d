@@ -30,7 +30,7 @@
 #ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
 namespace Screen {
 	namespace _private {
-		class SCREEN_EXPORT ScopeLog{
+		class SCREEN_UTILS_EXPORT ScopeLog{
 		public:
 			ScopeLog(Screen::Utils::CallType _type, const std::string& _className, const std::string& _functionName, const std::string& _address)
 				:type(_type),className(_className), functionName(_functionName), address(_address){

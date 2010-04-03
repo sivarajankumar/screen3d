@@ -29,7 +29,7 @@
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Utils/Resource.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -40,7 +40,7 @@ namespace Screen {
 			 	The Image class contains method to load,
 			 	get and modify image data.
 			 */
-			class SCREEN_EXPORT Image : public Screen::Utils::Resource<> {
+			class SCREEN_MAIN_EXPORT Image : public Screen::Utils::Resource<> {
 			public:
 				SCREEN_DECL_CLASS(Screen::Core::Objects::Image)
 				Image(const Screen::Math::Vector2i& size = Screen::Math::Vector2i(1, 1), Screen::Core::PixelFormat pxf = PXF_A8R8G8B8);

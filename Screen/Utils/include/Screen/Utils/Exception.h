@@ -30,7 +30,7 @@
 
 namespace Screen {
     namespace Utils {
-        class SCREEN_EXPORT Exception : public std::exception {
+        class SCREEN_UTILS_EXPORT Exception : public std::exception {
         public:
             Exception(const std::string& message) throw ();
             Exception(const std::string& file, int line, const std::string& message) throw ();
@@ -40,7 +40,7 @@ namespace Screen {
             std::string message;
         };
 
-        struct SCREEN_EXPORT AssertException : public Exception {
+        struct SCREEN_UTILS_EXPORT AssertException : public Exception {
             AssertException(const std::string& file, int line, const std::string& what) throw ();
         	~AssertException() throw ();
         };
@@ -51,7 +51,7 @@ namespace Screen {
 #  define Assert(p)
 # endif
 
-		struct SCREEN_EXPORT LoadingException : public Exception {
+		struct SCREEN_UTILS_EXPORT LoadingException : public Exception {
 			LoadingException(const std::string& fileName, const std::string& message) throw ()
 				:Exception("Unable to load file : "+fileName+" / "+message){
 			}

@@ -29,7 +29,7 @@
 #include <Screen/Core/Objects/TextureBase.h>
 #include <Screen/Utils/File.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -41,7 +41,7 @@ namespace Screen {
 		 *   \date 5 déc. 09
 		 */
 
-		class SCREEN_EXPORT TextureManager : public Screen::Utils::UniqueSingleton<TextureManager>,
+		class SCREEN_MAIN_EXPORT TextureManager : public Screen::Utils::UniqueSingleton<TextureManager>,
 			public Screen::Utils::MediaManager<TextureMediaList>{
 			SCREEN_DECL_CLASS(Screen::Core::TextureManager)
 			SINGLETON_DECL(UniqueSingleton,TextureManager)

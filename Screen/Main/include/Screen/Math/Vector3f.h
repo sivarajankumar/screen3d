@@ -24,7 +24,7 @@
 
 #include <Screen/Math/Matrix.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Math {
@@ -34,7 +34,7 @@ namespace Screen {
 		 *   \date 11 nov. 09
 		 */
 
-		class SCREEN_EXPORT Vector3f{
+		class SCREEN_MAIN_EXPORT Vector3f{
 			SCREEN_DECL_CLASS(Screen::Math::Vector3f)
 		public:
 			Vector3f(float x=0, float y=0, float z=0);

@@ -27,7 +27,7 @@
 #include <Screen/Utils/SmartPtr.h>
 #include <Screen/Utils/Exception.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 #include <Screen/Utils/Exception.h>
 #include <string>
 
@@ -50,7 +50,7 @@ namespace Screen {
 			 */
 			
 			template <class T>
-			class SCREEN_EXPORT VertexBuffer : public Buffer<T> {
+			class VertexBuffer : public Buffer<T> {
 				SCREEN_DECL_CLASS(Screen::Core::Object::VertexBuffer)
 			public:
 				VertexBuffer(BufferBase* buffer, const VertexFormat::SmartPtr& vf)
@@ -74,7 +74,7 @@ namespace Screen {
 			};
 			
 			template <>
-			class SCREEN_EXPORT VertexBuffer<void> : public Buffer<void> {
+			class VertexBuffer<void> : public Buffer<void> {
 				SCREEN_DECL_CLASS(Screen::Core::Object::VertexBuffer)
 			public:
 				VertexBuffer(BufferBase* buffer, const VertexFormat::SmartPtr& vf)

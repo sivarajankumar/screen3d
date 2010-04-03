@@ -23,7 +23,7 @@
 #define SCREEN_COLOR_H
 
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -32,7 +32,7 @@ namespace Screen {
 		 *   \author Ratouit Thomas
 		 */
 
-		class SCREEN_EXPORT Color {
+		class SCREEN_MAIN_EXPORT Color {
 			SCREEN_DECL_CLASS(Screen::Core::Color)
 		public:
 				Color(unsigned long color = 0xFF000000);

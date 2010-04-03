@@ -23,7 +23,7 @@
 #define SCREEN_VECTOR_2_I_H
 
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Math {
@@ -33,7 +33,7 @@ namespace Screen {
 		 *   \date 11 nov. 09
 		 */
 
-		class SCREEN_EXPORT Vector2i{
+		class SCREEN_MAIN_EXPORT Vector2i{
 			SCREEN_DECL_CLASS(Screen::Math::Vector2i)
 		public:
 			Vector2i(int x=0, int y=0);

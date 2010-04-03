@@ -25,7 +25,7 @@
 #include <Screen/Utils/Loader.h>
 #include <Screen/Core/Objects/Image.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <Screen/Main/Export.h>
 
 namespace Screen {
 	namespace Core {
@@ -35,7 +35,7 @@ namespace Screen {
 		 *   \date 5 déc. 09
 		 */
 
-		class SCREEN_EXPORT ImageLoader : public Screen::Utils::Loader<Screen::Core::Objects::Image> {
+		class SCREEN_MAIN_EXPORT ImageLoader : public Screen::Utils::Loader<Screen::Core::Objects::Image> {
 			SCREEN_DECL_CLASS(Screen::Core::ImageLoader)
 			SCREEN_DECL_LOADER(Screen::Core::ImageLoader,Screen::Core::Objects::Image)
 		public:
