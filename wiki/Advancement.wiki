@@ -20,19 +20,19 @@ This page sums up the advancement of the different parts of Screen project.
 = Screen/Utils pack ==
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
-|| Any || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || must be tested ||
-|| Debug call tracer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || Must add attributes debug trace in version 0.2  ||
-|| Exceptions || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || simplest exception implemented, need improvements ||
-|| File and paths management || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
-|| Logger || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || can process ERROR, WARNING, INFO and DEBUG logs ||
-|| Memory allocation debugger || <font color="red">empty</font> || Screen/Main || 0.1 || _N/A_ || TODO :) ||
-|| Plug-in system (Windows) || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || based on dynamic library load ||
-|| Plug-in system (Linux) || <font color="red">empty</font> || Screen/Main || 0.1 || _N/A_ || based on dynamic library load ||
-|| Profiler || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
-|| Resource management || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || need advance tests ||
-|| Smart pointer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
-|| Smart pointer policies || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || for 'classic' and resource based smart pointer ||
-|| Singleton || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
+|| Any || <font color="purple>in development</font> || Screen/Utils || 0.1 || _N/A_ || must be tested ||
+|| Debug call tracer || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || Must add attributes debug trace in version 0.2  ||
+|| Exceptions || <font color="purple>in development</font> || Screen/Utils || 0.1 || _N/A_ || simplest exception implemented, need improvements ||
+|| File and paths management || <font color="purple>in development</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
+|| Logger || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || can process ERROR, WARNING, INFO and DEBUG logs ||
+|| Memory allocation debugger || <font color="red">empty</font> || Screen/Utils || 0.1 || _N/A_ || TODO :) ||
+|| Plug-in system (Windows) || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || based on dynamic library load ||
+|| Plug-in system (Linux) || <font color="red">empty</font> || Screen/Utils || 0.1 || _N/A_ || based on dynamic library load ||
+|| Profiler || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
+|| Resource management || <font color="purple>in development</font> || Screen/Utils || 0.1 || _N/A_ || need advance tests ||
+|| Smart pointer || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
+|| Smart pointer policies || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || for 'classic' and resource based smart pointer ||
+|| Singleton || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
 
 = Screen/Main pack =
 
@@ -105,3 +105,14 @@ This page sums up the advancement of the different parts of Screen project.
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
 || Xerces parser || <font color="purple>in development</font> || Screen/XML || 0.1 || _N/A_ || _N/A_ ||
+
+= Screen/Fields pack =
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Field interface || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || Common field interface to all fields ||
+|| String Field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
+|| Template Sized String Field  || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
+|| Boolean field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
+|| Integer field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
+|| Float field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
+
