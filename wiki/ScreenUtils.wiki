@@ -265,6 +265,16 @@ SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"));
 
 === Default logger reporters ===
 
+Fro now, there are two different default logger reporters :
+  * Screen::Utils::CoutLoggerReporter, that displays the output on the standard output,
+{{{
+SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::CoutLoggerReporter);
+}}}
+  * Screen::Utils::FileLoggerReporter, that writes the output into a given file.
+{{{
+SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"));
+}}}
+
 == Profiler ==
 
 == Smart Pointers ==
