@@ -17,9 +17,7 @@ This page sums up the advancement of the different parts of Screen project.
 
 <font color="green">delivered</font> : Stable and delivered in a new pack.
 
-= Screen/Main pack =
-
-== Framework (_Screen::Utils_) ==
+= Screen/Utils pack ==
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
 || Any || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || must be tested ||
@@ -35,6 +33,8 @@ This page sums up the advancement of the different parts of Screen project.
 || Smart pointer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
 || Smart pointer policies || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || for 'classic' and resource based smart pointer ||
 || Singleton || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || _N/A_ ||
+
+= Screen/Main pack =
 
 == Maths (_Screen::Math_) ==
 
@@ -52,8 +52,12 @@ This page sums up the advancement of the different parts of Screen project.
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
 || Index Buffer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || 2 or 4 byte size index buffer ||
+|| Index Buffer Filler || <font color="red">empty</font> || Screen/Main || 0.1 || _N/A_ || utility class to fill index buffers ||
+|| Index Buffer Handler || <font color="red">empty</font> || Screen/Main || 0.1 || _N/A_ || concrete class to handle generic index buffers ||
 || Vertex Buffer || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || vertex buffer with size compute at runtime or compile time ||
 || Vertex Format || <font color="blue">development complete</font> || Screen/Main || 0.1 || _N/A_ || added lock system ||
+|| Vertex Buffer Filler || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || utility class to fill vertex buffers ||
+|| Vertex Buffer Handler || <font color="purple>in development</font> || Screen/Main || 0.1 || _N/A_ || concrete class to handle generic vertex buffers ||
 
   * *Color*
 
@@ -93,7 +97,8 @@ This page sums up the advancement of the different parts of Screen project.
   * *General*
 
 || *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
-|| Dom || <font color="blue">development complete</font> || Screen/XML || 0.1 || _N/A_ || Screen specific DOM implementation. ||
+|| Dom interface || <font color="blue">development complete</font> || Screen/XML || 0.1 || _N/A_ || Screen specific DOM interface. ||
+|| Dom implementation || <font color="purple>in development</font> || Screen/XML || 0.1 || _N/A_ || Screen specific DOM implementation. ||
 || Parser interface || <font color="blue">development complete</font> || Screen/XML || 0.1 || _N/A_ || _N/A_ ||
 
   * *Xerces implementation*
