@@ -44,8 +44,15 @@ In next parts, we configure a project for Screen/Main pack. Other pack configura
 == Project creation ==
 
 first, if you didn't do it, check-out the sources of the pack (In our case Screen/Main)
+then, if it isn't already done, install SBS : [SBSInstall How to install SBS], and in a command prompt, write :
+{{{
+sbs <path-of-your-sbs.xml> generate -e wascana -e <your-specific-config>
+}}}
+For further information about the uses of SBS, see [ProjectOrientedSourceManagement Project/Pack oriented source management]
 
-`File > New > C++ Project`
+Then, in your Wascana environment :
+
+`File > New > Project`
 
 Enter the name of the project (!ScreenMain), uncheck *Use default location* and enter in the field the root of the pack (the folder that contains src folder, include folder, etc ...), and choose the right type of the project (for shared library in case of Screen/Main).
 
@@ -56,19 +63,29 @@ After this you will have a project that will have a project that contains 3 fold
   * *include*
   * *test* (optional)
 
-The folder *test* contains the test sources. The goal of this tests is to generate a executable using the shared library we want to create. So tests mustn't be in this project but in another. So you must suppress the *test* folder from the project :
-
-`right click on test folder > Exclude from build ...`
-
-Select the configuration and validate.
+The folder *test* contains the test sources. The goal of this tests is to generate a executable using the shared library we want to create. So tests mustn't be in this project but in another. SBS automatically suppress the *test* folder from the project, so you don't have anything to do.
 
 == Dependencies ==
 
+SBS/Wascana environment doesn't compile needed dependencies by itself. You need to build external and Screen libraries.
+
+_N.B._ : In SBS future evolutions, the latter will automatically search dependencies and build them. For external libraries, we will create specific packages.
+
 == Builds ==
+
+To build a project into Wascana, go into _Make_ tag, select your project and launch _all_
+That's all ;)
 
 == Launch ==
 
+For now, you can't launch your project from Wascana.
+To do this, go into the ${REPOSITORY_ROOT}/Wascana/${your-build-type}, where _REPOSITORY_ROOT_ is the path you must define in your specific sbs configuration file, and _your-build-type_ is _Release_ or _Debug_.
+
+Then launch the executable of your pack.
+
 == Configure test project ==
+
+To configure a test project, use the option -t with the sbs command, and create a project with the root into the _test_ folder of the pack
 
 = MSYS =
 
