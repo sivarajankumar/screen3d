@@ -116,3 +116,9 @@ This page sums up the advancement of the different parts of Screen project.
 || Integer field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
 || Float field || <font color="purple>in development</font> || Screen/Fields || 0.1 || _N/A_ || _N/A_ ||
 
+= Screen/Memory pack =
+
+|| *Name* || *Current state* || *Pack* || *Next version* || *Last delivery* || *Comment* ||
+|| Memory manager || <font color="red">empty</font> || Screen/Memory || 0.1 || _N/A_ || Singleton for memory pools management ||
+|| Memory buffers || <font color="red">empty</font> || Screen/Memory || 0.1 || _N/A_ || Handlers for memory pools ||
+|| Memory policies || <font color="red">empty</font> || Screen/Memory || 0.1 || _N/A_ || Policies for memory buffers (mainly for compute buffer size improvement) ||
