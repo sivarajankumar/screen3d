@@ -31,14 +31,22 @@ Screen::Utils::Profiler::Profiler()
         :UniqueSingleton<Profiler>(),reporter(NULL) {}
 
 Screen::Utils::Profiler::~Profiler() {
-    Assert(reporter!=NULL);
-    for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
-        Profile* profile = (*i);
-        Assert(profile!=NULL);
-        reporter->report(profile);
-        delete profile;
-    }
-    delete reporter;
+    if(reporter!=NULL){
+		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
+			Profile* profile = (*i);
+			Assert(profile!=NULL);
+			reporter->report(profile);
+			delete profile;
+		}
+		delete reporter;
+	}
+	else{
+		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
+			Profile* profile = (*i);
+			delete profile;
+		}
+		delete reporter;
+	}
 }
 
 void Screen::Utils::Profiler::attachTimer(Screen::Utils::Timer* timer) {
