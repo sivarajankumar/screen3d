@@ -35,7 +35,9 @@ namespace Screen {
         class Timer {
         public:
             inline explicit Timer() {
+#ifdef WIN32
             	QueryPerformanceFrequency(&frequency);
+#endif
                 reset();
             }
             inline ~Timer() {}
