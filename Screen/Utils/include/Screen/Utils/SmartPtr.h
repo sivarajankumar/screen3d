@@ -38,7 +38,7 @@ namespace Screen{
 			}
 			
 			SmartPtr(const SmartPtr<T, SmartPolicy>& copy)
-				:SmartPolicy<T>(copy),instance(clone(copy.instance)){
+				:SmartPolicy<T>(copy),instance(SmartPolicy<T>::clone(copy.instance)){
 				SCREEN_DECL_CONSTRUCTOR(SmartPtr)
 			}
 			
