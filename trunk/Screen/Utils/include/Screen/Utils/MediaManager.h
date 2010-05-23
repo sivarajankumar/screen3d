@@ -98,7 +98,7 @@ namespace Screen {
 	    	MediaManager(){}
 	        virtual ~MediaManager(){}
 	        
-	        File MediaManager::findMedia(const File& filename) const{
+	        File findMedia(const File& filename) const{
 	            // Parcours de la liste des chemins de recherche
 	            for (std::set<Path>::const_iterator i = paths.begin(); i != paths.end(); ++i){
 	                File ret(i->getPath() + filename.getFullname());
@@ -118,7 +118,7 @@ namespace Screen {
 
 		        if (i != MediaHolder<T>::loaderMap.end())
 		        	if(i->second != NULL){
-		        		SmartPtr<Loader<T> > ptr = (i->second);
+		        		const SmartPtr<Loader<T> >& ptr = (i->second);
 		        		SCREEN_LOG_DEBUG("Loader found :")
 		        		SCREEN_LOG_DEBUG("\tLoader type : " << ptr->_selfType())
 		        		File file = findMedia(filename);
