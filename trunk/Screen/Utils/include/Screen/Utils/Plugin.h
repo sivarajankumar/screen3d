@@ -28,6 +28,18 @@
 
 #ifdef WIN32
 #include <windows.h>
+#define SCREEN_HANDLER_DYN_LIB HMODULE
+#define SCREEN_UNLOAD_DYN_LIB FreeLibrary
+#define SCREEN_LOAD_DYN_LIB LoadLibrary
+#define SCREEN_LOAD_FUNCTION_DYN_LIB GetProcAddress
+#define SCREEN_EXT_DYN_LIB ".dll"
+#else
+#include <dlfcn.h>
+#define SCREEN_HANDLER_DYN_LIB void*
+#define SCREEN_UNLOAD_DYN_LIB dlclose
+#define SCREEN_LOAD_DYN_LIB(a) dlopen(a, RTLD_LAZY)
+#define SCREEN_LOAD_FUNCTION_DYN_LIB dlsym
+#define SCREEN_EXT_DYN_LIB ".so"
 #endif
 
 namespace Screen {
@@ -45,22 +57,22 @@ namespace Screen {
 			~Plugin(){
 //				SCREEN_DECL_DESTRUCTOR(~Plugin)
 				if(sharedLibrary!=NULL)
-					FreeLibrary(sharedLibrary);
+					SCREEN_UNLOAD_DYN_LIB(sharedLibrary);
 			}
 
 			T* load(const std::string& fileName){
 //				SCREEN_DECL_METHOD(load)
-				sharedLibrary = LoadLibrary((fileName+".dll").c_str());
+				sharedLibrary = SCREEN_LOAD_DYN_LIB((fileName+SCREEN_EXT_DYN_LIB).c_str());
 				if(sharedLibrary==NULL)
-					throw LoadingException(fileName+".dll","Shared library load failed");
-				LoadFunct ptr = reinterpret_cast<LoadFunct>(GetProcAddress(sharedLibrary,loadFunctionName));
+					throw LoadingException(fileName+SCREEN_EXT_DYN_LIB,"Shared library load failed");
+				LoadFunct ptr = reinterpret_cast<LoadFunct>(SCREEN_LOAD_FUNCTION_DYN_LIB(sharedLibrary,loadFunctionName));
 				if(ptr==NULL)
-					throw LoadingException(fileName+".dll",(std::string)"No function for loading instance ("+loadFunctionName+")");
+					throw LoadingException(fileName+SCREEN_EXT_DYN_LIB,(std::string)"No function for loading instance ("+loadFunctionName+")");
 				return (*ptr)();
 			}
 		private:
 			typedef T* (*LoadFunct)();
-			HMODULE sharedLibrary;
+			SCREEN_HANDLER_DYN_LIB sharedLibrary;
 			static const char * loadFunctionName;
 		};
 
