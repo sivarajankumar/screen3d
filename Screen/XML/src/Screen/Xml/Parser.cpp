@@ -20,6 +20,7 @@
  *****************************************************************************/
 
 #include <Screen/Xml/Parser.h>
+#include <Screen/Xml/Xerces/XercesParser.h>
 #include <Screen/Xml/Dom/Dom.h>
 #include <iostream>
 #include <fstream>
@@ -28,5 +29,9 @@ namespace Screen {
 	namespace Xml {
 		Parser::Parser(){}
 		Parser::~Parser(){}
+		
+		Parser* Parser::getParser(){
+			return new XercesParser();
+		}
 	}
 }

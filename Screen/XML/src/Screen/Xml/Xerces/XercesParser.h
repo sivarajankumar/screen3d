@@ -34,6 +34,8 @@ namespace Screen {
 			XercesParser();
 			~XercesParser();
 			
+			virtual Screen::Xml::Dom::DocumentPtr parse(const wchar_t* expr);
+ 			virtual Screen::Xml::Dom::DocumentPtr parse(const Screen::Utils::File& expr);
 		private:
 		};
 	}

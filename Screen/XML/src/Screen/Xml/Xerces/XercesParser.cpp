@@ -29,5 +29,14 @@ namespace Screen {
 		{}
 		
 		XercesParser::~XercesParser(){}
+		
+		Screen::Xml::Dom::DocumentPtr XercesParser::parse(const wchar_t* expr){
+			return NULL;
+		}
+		
+		Screen::Xml::Dom::DocumentPtr XercesParser::parse(const Screen::Utils::File& expr){
+			return NULL;
+		}
+
 	}
 }

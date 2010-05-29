@@ -19,34 +19,43 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_DOM_H
-#define SCREEN_DOM_H
+#ifndef SCREEN_DOM_IMPLEMENTATION_IMPL_H
+#define SCREEN_DOM_IMPLEMENTATION_IMPL_H
 
-#define XMLNSNAME "http://www.w3.org/2000/xmlns/"
+#include <Screen/Xml/Dom/Impl/DomImplPredefinition.h>
 
-#include <Screen/Xml/Dom/Attr.h>
-#include <Screen/Xml/Dom/CDataSection.h>
-#include <Screen/Xml/Dom/CharacterData.h>
-#include <Screen/Xml/Dom/Comment.h>
-#include <Screen/Xml/Dom/Document.h>
-#include <Screen/Xml/Dom/DocumentType.h>
-#include <Screen/Xml/Dom/DomConfiguration.h>
-#include <Screen/Xml/Dom/DomError.h>
-#include <Screen/Xml/Dom/DomException.h>
-#include <Screen/Xml/Dom/DomImplementation.h>
-#include <Screen/Xml/Dom/DomLocator.h>
-#include <Screen/Xml/Dom/DomObject.h>
-#include <Screen/Xml/Dom/DomString.h>
-#include <Screen/Xml/Dom/DomTimeStamp.h>
-#include <Screen/Xml/Dom/DomUserData.h>
-#include <Screen/Xml/Dom/Element.h>
-#include <Screen/Xml/Dom/Entity.h>
-#include <Screen/Xml/Dom/NamedNodeMap.h>
-#include <Screen/Xml/Dom/NamePair.h>
-#include <Screen/Xml/Dom/Node.h>
-#include <Screen/Xml/Dom/Notation.h>
-#include <Screen/Xml/Dom/ProcessingInstruction.h>
-#include <Screen/Xml/Dom/Text.h>
-#include <Screen/Xml/Dom/TypeInfo.h>
+namespace Screen{
+	namespace Xml{
+		namespace Dom{
+			class DOMImplementationSourceImpl : public DOMImplementationSource{
+			public:
+			    virtual DOMImplementationPtr getDOMImplementation(const DOMString& features);
+			    virtual DOMImplementationList getDOMImplementationList(const DOMString& features);
+			    DOMImplementationSourceImpl();
+			    virtual ~DOMImplementationSourceImpl();
+			protected:
+			    DOMImplementationImplPtr domImpl;
+			    DOMImplementationList domImplList;
+			};
+	
+			class DOMImplementationImpl : public DOMImplementation{
+			public:
+			    DOMImplementationImpl();
+			    virtual ~DOMImplementationImpl();
+			    virtual bool hasFeature(const DOMString& feature, const DOMString& version);
+			    virtual DocumentTypePtr createDocumentType(const DOMString& qualifiedName,
+			                                     const DOMString& publicId,
+			                                     const DOMString& systemId)
+			                                     throw(DOMException);
+			    virtual DocumentPtr createDocument(const DOMString& namespaceURI,
+			                             const DOMString& qualifiedName,
+			                             DocumentTypePtr doctype)
+			                             throw(DOMException);
+			    virtual DOMObjectPtr getFeature(const DOMString& feature,
+			                             const DOMString& version);
+			};
+		}
+	}
+}
 
 #endif
