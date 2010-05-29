@@ -72,37 +72,37 @@ void SFMLRoot::init(){
 	vf1->add(Screen::Core::VERTEX_USAGE_TEXCOORD0,Screen::Core::VERTEX_TYPE_FLOAT2);
 	vf1->lock();
 	
-	vbf1 = new Screen::Core::Objects::VertexBufferFiller(vf1);
+	Screen::Core::Objects::VertexBufferFiller vbf1(vf1);
 	
 	//set vextex points
-	vbf1->setPositionAt(0,Screen::Math::Vector3f(-1.0f, -1.0f,  1.0f));
-	vbf1->setPositionAt(1,Screen::Math::Vector3f(-1.0f,  1.0f,  1.0f));
-	vbf1->setPositionAt(2,Screen::Math::Vector3f( 1.0f,  1.0f,  1.0f));
-	vbf1->setPositionAt(3,Screen::Math::Vector3f( 1.0f, -1.0f,  1.0f));
-	vbf1->setPositionAt(4,Screen::Math::Vector3f(-1.0f, -1.0f, -1.0f));
-	vbf1->setPositionAt(5,Screen::Math::Vector3f(-1.0f,  1.0f, -1.0f));
-	vbf1->setPositionAt(6,Screen::Math::Vector3f( 1.0f,  1.0f, -1.0f));
-	vbf1->setPositionAt(7,Screen::Math::Vector3f( 1.0f, -1.0f, -1.0f));
+	vbf1.setPositionAt(0,Screen::Math::Vector3f(-1.0f, -1.0f,  1.0f));
+	vbf1.setPositionAt(1,Screen::Math::Vector3f(-1.0f,  1.0f,  1.0f));
+	vbf1.setPositionAt(2,Screen::Math::Vector3f( 1.0f,  1.0f,  1.0f));
+	vbf1.setPositionAt(3,Screen::Math::Vector3f( 1.0f, -1.0f,  1.0f));
+	vbf1.setPositionAt(4,Screen::Math::Vector3f(-1.0f, -1.0f, -1.0f));
+	vbf1.setPositionAt(5,Screen::Math::Vector3f(-1.0f,  1.0f, -1.0f));
+	vbf1.setPositionAt(6,Screen::Math::Vector3f( 1.0f,  1.0f, -1.0f));
+	vbf1.setPositionAt(7,Screen::Math::Vector3f( 1.0f, -1.0f, -1.0f));
 	
 	//set vextex colors
-	vbf1->setDiffuseAt(0,0xFF0000FF);
-	vbf1->setDiffuseAt(1,0xFFFF00FF);
-	vbf1->setDiffuseAt(2,0xFFFFFF00);
-	vbf1->setDiffuseAt(3,0xFFFF0000);
-	vbf1->setDiffuseAt(4,0xFF00FFFF);
-	vbf1->setDiffuseAt(5,0xFFFFFFFF);
-	vbf1->setDiffuseAt(6,0xFF00FF00);
-	vbf1->setDiffuseAt(7,0xFFFFC0C0);
+	vbf1.setDiffuseAt(0,0xFF0000FF);
+	vbf1.setDiffuseAt(1,0xFFFF00FF);
+	vbf1.setDiffuseAt(2,0xFFFFFF00);
+	vbf1.setDiffuseAt(3,0xFFFF0000);
+	vbf1.setDiffuseAt(4,0xFF00FFFF);
+	vbf1.setDiffuseAt(5,0xFFFFFFFF);
+	vbf1.setDiffuseAt(6,0xFF00FF00);
+	vbf1.setDiffuseAt(7,0xFFFFC0C0);
 	
 	//set texture vextices
-	vbf1->setTextureAt(0,0,Screen::Math::Vector2f(0.0f, 1.0f));
-	vbf1->setTextureAt(1,0,Screen::Math::Vector2f(0.0f, 0.0f));
-	vbf1->setTextureAt(2,0,Screen::Math::Vector2f(1.0f, 0.0f));
-	vbf1->setTextureAt(3,0,Screen::Math::Vector2f(1.0f, 1.0f));
-	vbf1->setTextureAt(4,0,Screen::Math::Vector2f(0.0f, 1.0f));
-	vbf1->setTextureAt(5,0,Screen::Math::Vector2f(0.0f, 0.0f));
-	vbf1->setTextureAt(6,0,Screen::Math::Vector2f(1.0f, 0.0f));
-	vbf1->setTextureAt(7,0,Screen::Math::Vector2f(1.0f, 1.0f));
+	vbf1.setTextureAt(0,0,Screen::Math::Vector2f(0.0f, 1.0f));
+	vbf1.setTextureAt(1,0,Screen::Math::Vector2f(0.0f, 0.0f));
+	vbf1.setTextureAt(2,0,Screen::Math::Vector2f(1.0f, 0.0f));
+	vbf1.setTextureAt(3,0,Screen::Math::Vector2f(1.0f, 1.0f));
+	vbf1.setTextureAt(4,0,Screen::Math::Vector2f(0.0f, 1.0f));
+	vbf1.setTextureAt(5,0,Screen::Math::Vector2f(0.0f, 0.0f));
+	vbf1.setTextureAt(6,0,Screen::Math::Vector2f(1.0f, 0.0f));
+	vbf1.setTextureAt(7,0,Screen::Math::Vector2f(1.0f, 1.0f));
 	
 //	vb1 = new Screen::Core::Objects::VertexBuffer<Vertex>(
 //			renderer->createVertexBuffer<Vertex>(vbf1->getSize(),Screen::Core::STATIC_DRAW,vbf1->get<Vertex>(),vf1));
@@ -110,7 +110,7 @@ void SFMLRoot::init(){
 //			renderer->createIndexBuffer(12*3,Screen::Core::STATIC_DRAW,indices));
 	
 	vb1 = new Screen::Core::Objects::VertexBuffer<Vertex>(
-			renderer->createVertexBuffer<Vertex>(*vbf1,Screen::Core::STATIC_DRAW));
+			renderer->createVertexBuffer<Vertex>(vbf1,Screen::Core::STATIC_DRAW));
 	ib = new Screen::Core::Objects::IndexBuffer<unsigned short>(
 			renderer->createIndexBuffer(12*3,Screen::Core::STATIC_DRAW,indices));
 
@@ -129,7 +129,7 @@ bool SFMLRoot::renderFrame(){
 	renderer->setMatrix(Screen::Core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
 	renderer->setMatrix(Screen::Core::MATRIX_PROJECTION, proj);
 	renderer->setTexture(texture);
-	renderer->setVertexBuffer(*vb1);
+	renderer->setVertexBuffer(*(vb1.get<Vertex>()));
 	renderer->setIndexBuffer(*ib);
 	renderer->drawIndexedPrimitives(Screen::Core::PRIMITIVE_TRIANGLELIST, 0, 12);
 	

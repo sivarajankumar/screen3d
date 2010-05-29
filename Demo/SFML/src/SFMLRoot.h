@@ -23,6 +23,7 @@
 #define SCREEN_SFML_ROOT_H
 
 #include <Screen/Core/Objects/VertexBuffer.h>
+#include <Screen/Core/Objects/VertexBufferHandler.h>
 #include <Screen/Core/Objects/IndexBuffer.h>
 #include <Screen/Core/Objects/Texture.h>
 #include <Screen/Core/Objects/VertexBufferFiller.h>
@@ -43,8 +44,7 @@ private:
 		float tu, tv;
 	};
 	
-	Screen::Core::Objects::VertexBuffer<Vertex>::SmartPtr vb1;
-	Screen::Core::Objects::VertexBufferFiller::SmartPtr vbf1;
+	Screen::Core::Objects::VertexBufferHandler vb1;
 	Screen::Core::Objects::IndexBuffer<unsigned short>::SmartPtr ib;
 	Screen::Core::Objects::Texture texture;
 	Screen::Math::Vector3f cam;
