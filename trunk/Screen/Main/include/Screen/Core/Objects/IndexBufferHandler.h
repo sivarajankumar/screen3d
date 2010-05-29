@@ -22,6 +22,11 @@
 #ifndef SCREEN_INDEX_BUFFER_HANDLER_H
 #define SCREEN_INDEX_BUFFER_HANDLER_H
 
+#include <Screen/Core/Objects/IndexBuffer.h>
+#include <Screen/Utils/Declaration.h>
+#include <Screen/Main/Export.h>
+#include <Screen/Utils/Any.h>
+
 namespace Screen{
 	namespace Core{
 		namespace Objects{
