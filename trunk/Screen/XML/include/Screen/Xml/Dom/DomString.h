@@ -19,34 +19,35 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_DOM_H
-#define SCREEN_DOM_H
+#ifndef SCREEN_DOM_STRING_H
+#define SCREEN_DOM_STRING_H
 
-#define XMLNSNAME "http://www.w3.org/2000/xmlns/"
+#include <Screen/Xml/Dom/DomPredefinition.h>
+#include <Screen/Xml/Export.h>
+#include <string>
 
-#include <Screen/Xml/Dom/Attr.h>
-#include <Screen/Xml/Dom/CDataSection.h>
-#include <Screen/Xml/Dom/CharacterData.h>
-#include <Screen/Xml/Dom/Comment.h>
-#include <Screen/Xml/Dom/Document.h>
-#include <Screen/Xml/Dom/DocumentType.h>
-#include <Screen/Xml/Dom/DomConfiguration.h>
-#include <Screen/Xml/Dom/DomError.h>
-#include <Screen/Xml/Dom/DomException.h>
-#include <Screen/Xml/Dom/DomImplementation.h>
-#include <Screen/Xml/Dom/DomLocator.h>
-#include <Screen/Xml/Dom/DomObject.h>
-#include <Screen/Xml/Dom/DomString.h>
-#include <Screen/Xml/Dom/DomTimeStamp.h>
-#include <Screen/Xml/Dom/DomUserData.h>
-#include <Screen/Xml/Dom/Element.h>
-#include <Screen/Xml/Dom/Entity.h>
-#include <Screen/Xml/Dom/NamedNodeMap.h>
-#include <Screen/Xml/Dom/NamePair.h>
-#include <Screen/Xml/Dom/Node.h>
-#include <Screen/Xml/Dom/Notation.h>
-#include <Screen/Xml/Dom/ProcessingInstruction.h>
-#include <Screen/Xml/Dom/Text.h>
-#include <Screen/Xml/Dom/TypeInfo.h>
+namespace Screen{
+	namespace Xml{
+		namespace Dom{
+			typedef std::string DOMString;
+			
+            class SCREEN_XML_EXPORT DOMStringList {
+            public:
+                DOMStringList();
+                DOMStringList(const DOMStringList& other);
+                DOMStringList& operator=(const DOMStringList& other);
+                virtual ~DOMStringList();
+
+                virtual DOMString item(unsigned long index) const;
+                virtual unsigned long getLength() const;
+                virtual bool contains(const DOMString& str) const;
+            protected:
+                virtual void add(const DOMString& str);
+
+                std::vector<DOMString> strings;
+            };
+		}
+	}
+}
 
 #endif

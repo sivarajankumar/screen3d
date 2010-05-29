@@ -34,10 +34,10 @@ namespace Screen{
  			
  			Parser();
  			virtual ~Parser();
- 			virtual Screen::Xml::Dom::Document* parse(const wchar_t* expr) = 0;
- 			virtual Screen::Xml::Dom::Document* parse(const Screen::Utils::File& expr) = 0;
+ 			virtual Screen::Xml::Dom::DocumentPtr parse(const wchar_t* expr) = 0;
+ 			virtual Screen::Xml::Dom::DocumentPtr parse(const Screen::Utils::File& expr) = 0;
  			
- 			static SmartPtr getParser();
+ 			static Parser* getParser();
  		private:
  		};
  	}

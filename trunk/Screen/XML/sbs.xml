@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>Screen/XML</name>
+		<version>0.1.0</version>
+		<buildtype>shared</buildtype>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="boost">
+				<includes>
+					<path>${BOOST_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${BOOST_LIB_ROOT}</path>
+					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+				</libraries>
+			</dependency>
+			<dependency name="xerces">
+				<includes>
+					<path>${XERCES_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${XERCES_LIB_ROOT}</path>
+					<lib>xerces-c-${XERCES_VERSION}</lib>
+				</libraries>
+			</dependency>
+		</dependencies>
+		<flags>
+			<flag flag="SCREEN_XML_BUILD_SHARED_LIBRARY" config="all" />
+		</flags>
+	</main>
+</pack>

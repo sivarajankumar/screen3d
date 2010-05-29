@@ -19,34 +19,30 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_DOM_H
-#define SCREEN_DOM_H
+#ifndef SCREEN_DOM_LOCATOR_H
+#define SCREEN_DOM_LOCATOR_H
 
-#define XMLNSNAME "http://www.w3.org/2000/xmlns/"
-
-#include <Screen/Xml/Dom/Attr.h>
-#include <Screen/Xml/Dom/CDataSection.h>
-#include <Screen/Xml/Dom/CharacterData.h>
-#include <Screen/Xml/Dom/Comment.h>
-#include <Screen/Xml/Dom/Document.h>
-#include <Screen/Xml/Dom/DocumentType.h>
-#include <Screen/Xml/Dom/DomConfiguration.h>
-#include <Screen/Xml/Dom/DomError.h>
-#include <Screen/Xml/Dom/DomException.h>
-#include <Screen/Xml/Dom/DomImplementation.h>
-#include <Screen/Xml/Dom/DomLocator.h>
-#include <Screen/Xml/Dom/DomObject.h>
 #include <Screen/Xml/Dom/DomString.h>
-#include <Screen/Xml/Dom/DomTimeStamp.h>
-#include <Screen/Xml/Dom/DomUserData.h>
-#include <Screen/Xml/Dom/Element.h>
-#include <Screen/Xml/Dom/Entity.h>
-#include <Screen/Xml/Dom/NamedNodeMap.h>
-#include <Screen/Xml/Dom/NamePair.h>
-#include <Screen/Xml/Dom/Node.h>
-#include <Screen/Xml/Dom/Notation.h>
-#include <Screen/Xml/Dom/ProcessingInstruction.h>
-#include <Screen/Xml/Dom/Text.h>
-#include <Screen/Xml/Dom/TypeInfo.h>
+#include <Screen/Xml/Dom/DomPredefinition.h>
+#include <Screen/Xml/Export.h>
+
+namespace Screen {
+    namespace Xml {
+        namespace Dom {
+	        class SCREEN_XML_EXPORT DOMLocator {
+	        public:
+	            DOMLocator();
+	            virtual ~DOMLocator();
+	
+	            virtual long getLineNumber() =0;
+	            virtual long getColumnNumber() =0;
+	            virtual long getByteOffset() =0;
+	            virtual long getUtf16Offset() =0;
+	            virtual NodePtr getRelatedNode() =0;
+	            virtual DOMString getUri() =0;
+	        };
+        }
+    }
+}
 
 #endif

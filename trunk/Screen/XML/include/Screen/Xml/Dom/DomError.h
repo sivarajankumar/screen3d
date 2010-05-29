@@ -19,34 +19,46 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_DOM_H
-#define SCREEN_DOM_H
+#ifndef SCREEN_DOM_ERROR_H
+#define SCREEN_DOM_ERROR_H
 
-#define XMLNSNAME "http://www.w3.org/2000/xmlns/"
-
-#include <Screen/Xml/Dom/Attr.h>
-#include <Screen/Xml/Dom/CDataSection.h>
-#include <Screen/Xml/Dom/CharacterData.h>
-#include <Screen/Xml/Dom/Comment.h>
-#include <Screen/Xml/Dom/Document.h>
-#include <Screen/Xml/Dom/DocumentType.h>
-#include <Screen/Xml/Dom/DomConfiguration.h>
-#include <Screen/Xml/Dom/DomError.h>
-#include <Screen/Xml/Dom/DomException.h>
-#include <Screen/Xml/Dom/DomImplementation.h>
-#include <Screen/Xml/Dom/DomLocator.h>
-#include <Screen/Xml/Dom/DomObject.h>
 #include <Screen/Xml/Dom/DomString.h>
-#include <Screen/Xml/Dom/DomTimeStamp.h>
-#include <Screen/Xml/Dom/DomUserData.h>
-#include <Screen/Xml/Dom/Element.h>
-#include <Screen/Xml/Dom/Entity.h>
-#include <Screen/Xml/Dom/NamedNodeMap.h>
-#include <Screen/Xml/Dom/NamePair.h>
-#include <Screen/Xml/Dom/Node.h>
-#include <Screen/Xml/Dom/Notation.h>
-#include <Screen/Xml/Dom/ProcessingInstruction.h>
-#include <Screen/Xml/Dom/Text.h>
-#include <Screen/Xml/Dom/TypeInfo.h>
+#include <Screen/Xml/Dom/DomPredefinition.h>
+#include <Screen/Xml/Export.h>
+
+namespace Screen {
+    namespace Xml {
+        namespace Dom {
+	        class SCREEN_XML_EXPORT DOMError {
+	        public:
+	            DOMError();
+	            virtual ~DOMError();
+	
+	            typedef enum{
+	                DOMERROR_SEVERITY_WARNING = 1,
+	                DOMERROR_SEVERITY_ERROR = 2,
+	                DOMERROR_SEVERITY_FATAL_ERROR = 3
+	            } ErrorSeverity;
+	
+	            virtual unsigned short getSeverity() =0;
+	            virtual DOMString getMessage() =0;
+	            virtual DOMString getType() =0;
+	            virtual DOMObjectPtr getRelatedException() =0;
+	            virtual DOMObjectPtr getRelatedData() =0;
+	            virtual DOMLocatorPtr getLocation() =0;
+	        };
+	
+	        typedef Screen::Utils::SmartPtr<DOMError> DOMErrorPtr;
+
+	        class SCREEN_XML_EXPORT DOMErrorHandler {
+	        public:
+	            DOMErrorHandler();
+	            virtual ~DOMErrorHandler();
+	
+	            virtual bool handleError(const DOMErrorPtr error) =0;
+	        };
+        }
+    }
+}
 
 #endif
