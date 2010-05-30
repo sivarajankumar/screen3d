@@ -87,6 +87,10 @@ public class SBSDomDataFiller {
 				
 				String name = dep.getAttribute("name");
 				newDep.setName(new FieldString(name));
+
+				String version = dep.getAttribute("version");
+				version = ("".equals(version)) ? null : version;
+				newDep.setVersion(new FieldString(version));
 				
 				String depRoot = dep.getAttribute("root");
 				newDep.setRoot(new FieldPath(depRoot));
@@ -96,7 +100,7 @@ public class SBSDomDataFiller {
 				if(newDep.getSbs().getBool()){
 					newDep.addIncludePath(new FieldPath(depRoot+"/include"));
 					//lib path added in CMake file generation
-					newDep.addLibraryName(new FieldString(name.replaceAll("/", "")));
+					newDep.addLibrary(new FieldString(name.replaceAll("/", "")), new FieldString(version));
 				}
 				
 				// includes
@@ -134,7 +138,11 @@ public class SBSDomDataFiller {
 						Element lib = (Element) libs.item(j);
 						String libString = lib.getTextContent();
 						Logger.debug("\t\t\t\ttext : "+libString);
-						newDep.addLibraryName(new FieldString(libString));
+
+						String libVersion = lib.getAttribute("version");
+						libVersion = ("".equals(libVersion)) ? null : libVersion;
+						
+						newDep.addLibrary(new FieldString(libString), new FieldString(libVersion));
 					}
 				}
 				

@@ -36,15 +36,24 @@ public class EnvironmentVariables {
 	}
 	
 	public void put(String variable, String value) {
+		Logger.debug("add var");
+		Logger.debug("   key : "+variable);
+		Logger.debug("   value : "+value);
 		variableTable.put(variable, new FieldString(value));
 	}
 	
 	public boolean contains (String variable){
-		return variableTable.containsKey(variable);
+		if(!variableTable.containsKey(variable))
+			return false;
+		return getFieldString(variable).getOriginalString() != null;
 	}
 	
 	public String getValue(String variable){
 		return variableTable.get(variable).getString();
+	}
+	
+	public String getValue(String variable, EnvironmentVariables addVars){
+		return variableTable.get(variable).getString(addVars);
 	}
 	
 	public FieldString getFieldString(String variable){

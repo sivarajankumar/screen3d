@@ -1,5 +1,7 @@
 package screen.tools.sbs.utils;
 
+import screen.tools.sbs.objects.EnvironmentVariables;
+
 public class FieldPath {
 	FieldString fieldString;
 	
@@ -15,8 +17,12 @@ public class FieldPath {
 		return fieldString.isEmpty();
 	}
 	
+	public boolean isValid(EnvironmentVariables additionalVars){
+		return fieldString.isValid(additionalVars);
+	}
+
 	public boolean isValid(){
-		return fieldString.isValid();
+		return isValid(null);
 	}
 
 	public void setString(String path) {
@@ -27,12 +33,16 @@ public class FieldPath {
 		return fieldString.getOriginalString();
 	}
 	
-	public String getString() {
-		String ret = fieldString.getString();
+	public String getString(EnvironmentVariables additionalVars) {
+		String ret = fieldString.getString(additionalVars);
 		if(ret == null)
 			return null;
 		ret = ret.replaceAll("\\\\", "");
 		ret = ret.replaceAll(" ", "\\\\ ");
 		return ret;
+	}
+
+	public String getString(){
+		return getString(null);
 	}
 }
