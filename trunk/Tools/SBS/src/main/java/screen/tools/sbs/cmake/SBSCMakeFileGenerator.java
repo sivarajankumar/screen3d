@@ -12,6 +12,7 @@ import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
 import screen.tools.sbs.objects.Pack;
+import screen.tools.sbs.objects.Library;
 import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
 
@@ -37,7 +38,6 @@ public class SBSCMakeFileGenerator {
 			err.addError("Can't create file CMakeLists.txt");
 			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			err.addError(e.getMessage());
 			return;
 		}
@@ -191,9 +191,26 @@ public class SBSCMakeFileGenerator {
 			cmakeListWriter.write("TARGET_LINK_LIBRARIES(\n");
 			cmakeListWriter.write("    ${PROJECT_NAME}\n");
 			for(int i=0; i<deps.size(); i++){
-				List<FieldString> libs = deps.get(i).getLibraryNameList();
-				for(int j=0; j<libs.size(); j++){
-					cmakeListWriter.write("    "+ libs.get(j).getString() +"\n");
+				if(deps.get(i).getSbs().getBool()){
+					cmakeListWriter.write("    "+ deps.get(i).getName().getString().replaceAll("/", "") +"\n");
+				}
+				else {
+				List<Library> libs = deps.get(i).getLibraryList();
+					for(int j=0; j<libs.size(); j++){
+						Library lib = libs.get(j);
+						FieldString name = lib.getName();
+						FieldString version = lib.getVersion();
+						if(version.isEmpty())
+							version = deps.get(i).getVersion();
+						EnvironmentVariables addVars = new EnvironmentVariables();
+						if(name.isValid())
+							addVars.put("LIB_NAME", name.getString());
+						if(version.isValid())
+							addVars.put("LIB_VERSION", version.getString());
+						FieldString fullName = new FieldString("${"+deps.get(i).getName().getString().toUpperCase()+"_LIB_PATTERN}");
+						if(fullName.isValid(addVars))
+							cmakeListWriter.write("    "+ fullName.getString(addVars) +"\n");
+					}
 				}
 			}
 			cmakeListWriter.write(")\n");
@@ -201,7 +218,6 @@ public class SBSCMakeFileGenerator {
 			
 			cmakeListWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			err.addError(e.getMessage());
 		}
 	}

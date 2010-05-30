@@ -13,8 +13,8 @@ import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
 import screen.tools.sbs.objects.Pack;
+import screen.tools.sbs.objects.Library;
 import screen.tools.sbs.utils.FieldPath;
-import screen.tools.sbs.utils.FieldString;
 import screen.tools.sbs.utils.Logger;
 import screen.tools.sbs.utils.OptionHandler;
 import screen.tools.sbs.utils.OptionHandler.Phase;
@@ -33,6 +33,8 @@ public class Main {
 			
 			Dependency dep = deps.get(i);
 			Logger.info("    name = " + dep.getName().getString());
+			if(!dep.getVersion().isEmpty())
+				Logger.info("    version = " + dep.getVersion().getString());			
 			Logger.info("    root dir = " + dep.getRoot().getString());
 			Logger.info("    is SBS dependency = " + dep.getSbs().getString());
 			
@@ -46,9 +48,11 @@ public class Main {
 				Logger.info("    library path = " + libPaths.get(j).getString());
 			}
 			
-			List<FieldString> libs = dep.getLibraryNameList();
+			List<Library> libs = dep.getLibraryList();
 			for(int j=0; j<libs.size(); j++){
-				Logger.info("    library name = " + libs.get(j).getString());
+				Logger.info("    library name = " + libs.get(j).getName().getString());
+				if(!libs.get(j).getVersion().isEmpty())
+					Logger.info("    library version = " + libs.get(j).getVersion().getString());
 			}
 			
 			Logger.info("}");
@@ -111,7 +115,7 @@ public class Main {
 			}
 			else if(phase == Phase.LOAD_XML){
 				Logger.info("-------- begin XML parsing --------");
-				Document doc = SBSDomParser.parserFile(new File(optHandler.getSbsXmlPath()+"sbs.xml"));
+				Document doc = SBSDomParser.parserFile(new File(optHandler.getSbsXmlPath()+optHandler.getSbsXmlFile()));
 				if(!checkErrors()) return;
 				Logger.info("--------- end XML parsing ---------");
 				

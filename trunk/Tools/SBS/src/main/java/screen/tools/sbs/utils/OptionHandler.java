@@ -20,11 +20,14 @@ public class OptionHandler {
 		TEST
 	}
 	private String sbsXmlPath;
-	private List<Phase> phaseList; 
+	private List<Phase> phaseList;
+	private String sbsXmlFile;
 	
 	public OptionHandler(String[] args) {
 		ErrorList err = GlobalSettings.getGlobalSettings().getErrorList();
 		phaseList = new ArrayList<Phase>();
+		sbsXmlFile = "sbs.xml";
+		
 		if(args.length == 0){
 			err.addError("No parameters");
 		}
@@ -60,6 +63,14 @@ public class OptionHandler {
 					else{
 						String root = System.getProperty("SBS_ROOT");
 						GlobalSettings.getGlobalSettings().getEnvironmentVariables().putFromFile(root+"/"+args[i+1]+".config");
+						i++;
+					}
+				} else if("-i".equals(option)){
+					if(i+1>=args.length){
+						err.addError("Bad parameter / no sbs.xml file : ");
+					}
+					else{
+						sbsXmlFile = args[i+1];
 						i++;
 					}
 				} else if("-t".equals(option)){
@@ -132,6 +143,10 @@ public class OptionHandler {
 		return sbsXmlPath;
 	}
 	
+	public String getSbsXmlFile(){
+		return sbsXmlFile;
+	}
+	
 	public void usage(){
 		Logger.info("Usage :");
 		Logger.info("    parameters : <path-to-sbs.xml> <phase> -[options]");
@@ -142,7 +157,8 @@ public class OptionHandler {
 		Logger.info("        build  : generate+compile");
 		Logger.info("        test  : launch tests");
 		Logger.info("    options :");
-		Logger.info("        -e <config file> : set specific environment configurations");
+		Logger.info("        -e <your config file> : set specific environment configurations");
+		Logger.info("        -i <your sbs.xml> : set specific sbs component file");
 		Logger.info("        -v : verbose (debug mode)");
 		Logger.info("        -d : debug compile");
 		Logger.info("        -t : tests");

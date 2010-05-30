@@ -9,19 +9,21 @@ import screen.tools.sbs.utils.FieldString;
 
 public class Dependency {
 	private FieldString name;
+	private FieldString version;
 	private FieldPath root;
 	private FieldBool isSbs;
 	private List<FieldPath> includePathList;
 	private List<FieldPath> libraryPathList;
-	private List<FieldString> libraryNameList;
+	private List<Library> libraryList;
 	
 	public Dependency() {
 		name = new FieldString();
+		version = null;
 		root = new FieldPath();
 		isSbs = new FieldBool();
 		includePathList = new ArrayList<FieldPath>();
 		libraryPathList = new ArrayList<FieldPath>();
-		libraryNameList = new ArrayList<FieldString>();
+		libraryList = new ArrayList<Library>();
 	}
 	
 	public void setName(FieldString name) {
@@ -30,6 +32,14 @@ public class Dependency {
 
 	public FieldString getName() {
 		return name;
+	}
+
+	public void setVersion(FieldString version) {
+		this.version = version;
+	}
+
+	public FieldString getVersion() {
+		return version;
 	}
 	
 	public void setRoot(FieldPath root) {
@@ -56,9 +66,19 @@ public class Dependency {
 		libraryPathList.add(include);
 	}
 	
-	public void addLibraryName(FieldString include){
-		libraryNameList.add(include);
+	public void addLibrary(FieldString name){
+		Library lib = new Library();
+		lib.setName(name);
+		libraryList.add(lib);
 	}
+
+	public void addLibrary(FieldString name, FieldString version){
+		Library lib = new Library();
+		lib.setName(name);
+		lib.setVersion(version);
+		libraryList.add(lib);
+	}
+
 
 	public void setIncludePathList(List<FieldPath> includePathList) {
 		this.includePathList = includePathList;
@@ -76,11 +96,11 @@ public class Dependency {
 		return libraryPathList;
 	}
 
-	public void setLibraryNameList(List<FieldString> libraryNameList) {
-		this.libraryNameList = libraryNameList;
+	public void setLibraryNameList(List<Library> libraryList) {
+		this.libraryList = libraryList;
 	}
 
-	public List<FieldString> getLibraryNameList() {
-		return libraryNameList;
+	public List<Library> getLibraryList() {
+		return libraryList;
 	}
 }

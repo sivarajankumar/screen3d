@@ -13,32 +13,49 @@ public class FieldString {
 	
 	public FieldString(String value){
 		// copy value
-		originalString = new String(value);
+		if(value == null)
+			originalString = null;
+		else
+			originalString = new String(value);
 	}
 	
 	public boolean isEmpty(){
 		return originalString == null;
 	}
 	
+	public boolean isValid(EnvironmentVariables additionalVars){
+		return !isEmpty() && (convertFromOriginalToFinal(originalString,additionalVars)!=null);
+	}
+
 	public boolean isValid(){
-		return !isEmpty() && (convertFromOriginalToFinal(originalString)!=null);
+		return isValid(null);
 	}
 
 	public void setString(String originalString) {
-		this.originalString = originalString;
+		if(originalString == null)
+			this.originalString = null;
+		else
+			this.originalString = new String(originalString);
 	}
 
 	public String getOriginalString() {
 		return originalString;
 	}
 	
-	public String getString() {
+	public String getString(EnvironmentVariables additionalVars) {
 		if(!isEmpty())
-			return convertFromOriginalToFinal(originalString);
+			return convertFromOriginalToFinal(originalString,additionalVars);
 		return null;
 	}
+
+	public String getString(){
+		return getString(null);
+	}
 	
-	private String convertFromOriginalToFinal(String originalString){
+	private String convertFromOriginalToFinal(String originalString, EnvironmentVariables additionalVars){
+		if(additionalVars == null)
+			additionalVars = new EnvironmentVariables();
+		
 		String finalString = "";
 		Logger.debug("originalString : "+originalString);
 		Logger.debug("finalString : "+finalString);
@@ -61,8 +78,15 @@ public class FieldString {
 			else{
 				String var = originalString.substring(returnedIndex+2, endVarIndex);
 				Logger.debug("var : "+var);
-				if(env.contains(var)){
-					finalString = finalString.concat(env.getValue(var));
+				if(additionalVars.contains(var)){
+					String value = additionalVars.getValue(var,additionalVars);
+					Logger.debug("var value : "+value);
+					finalString = finalString.concat(value);
+				}
+				else if(env.contains(var)){
+					String value = env.getValue(var,additionalVars);
+					Logger.debug("var value : "+value);
+					finalString = finalString.concat(value);
 				}
 				else {
 					err.addError("undefined variable : "+var);

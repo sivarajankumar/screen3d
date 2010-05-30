@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import screen.tools.sbs.objects.EnvironmentVariables;
 import screen.tools.sbs.objects.ErrorList;
@@ -48,16 +50,21 @@ public class SBSCMakeLauncher {
 
         try {
 
-        	String command ="cmake \""+"."+"\" -G \""+targetEnv+"\"";
+			List<String> command = new ArrayList<String>();
+			command.add("cmake");
+			command.add(".");
+			command.add("-G");
+			command.add(targetEnv);
         	if(!makeProg.equals(""))
-        		command +=" -DCMAKE_MAKE_PROGRAM=\""+makeProg+"\"";
+        		command.add("-DCMAKE_MAKE_PROGRAM=\""+makeProg+"\"");
         	if(!cCompiler.equals(""))
-        		command +=" -DCMAKE_C_COMPILER=\""+cCompiler+"\"";
+        		command.add("-DCMAKE_C_COMPILER=\""+cCompiler+"\"");
         	if(!cppCompiler.equals(""))
-        	command +=" -DCMAKE_CXX_COMPILER=\""+cppCompiler+"\"";
-        	
-        	Logger.info("command : "+command);
-        	Process p = Runtime.getRuntime().exec(command,null,new File(sbsXmlPath));
+        		command.add("-DCMAKE_CXX_COMPILER=\""+cppCompiler+"\"");
+
+			String [] cmd = new String[command.size()];
+        	//Logger.info("command : "+command);
+        	Process p = Runtime.getRuntime().exec(command.toArray(cmd),null,new File(sbsXmlPath));
             
             BufferedReader stdInput = new BufferedReader(new 
                  InputStreamReader(p.getInputStream()));
