@@ -33,6 +33,8 @@ SFMLRoot::SFMLRoot()
 	:Screen::Core::Root()
 {}
 
+SFMLRoot::~SFMLRoot(){}
+
 void SFMLRoot::init(){
 	Root::init();
 	

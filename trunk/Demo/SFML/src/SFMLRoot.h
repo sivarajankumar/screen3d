@@ -34,6 +34,7 @@
 class SFMLRoot : public Screen::Core::Root {
 public:
 	SFMLRoot();
+	~SFMLRoot();
 	void init();
 	bool renderFrame();
 private:
