@@ -26,17 +26,10 @@
 #include <Screen/Utils/Singleton.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-#include <gl/glext.h>
-#ifdef WIN32
-#	include <gl/wglext.h>
-#else
-#	include <gl/glxext.h>
-#endif
+#include <Screen/OGL/GlHeaders.h>
 
 namespace Screen{
-	namespace OGL{
+	namespace OGL{		
 		class OpenGLRenderer : public Screen::Core::Renderer{
 		private:
 			OpenGLRenderer();

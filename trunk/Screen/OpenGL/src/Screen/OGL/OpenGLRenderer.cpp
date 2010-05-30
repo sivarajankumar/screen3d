@@ -39,8 +39,7 @@ namespace Screen {
     	OpenGLRenderer::~OpenGLRenderer(){}
     	
     	OpenGLRenderer* OpenGLRenderer::instance(){
-    		static OpenGLRenderer inst;
-    		return &inst;
+    		return new OpenGLRenderer();
     	}
     
     	void OpenGLRenderer::initialize(){
@@ -59,8 +58,13 @@ namespace Screen {
     	}
 
 		template <class T> inline void loadExtension(T& Proc, const char* Name){
+#ifdef WIN32
 		    if (!(Proc = reinterpret_cast<T>(wglGetProcAddress(Name))))
 		        throw OpenGLException("wglGetProcAddress", "LoadExtension");
+#else
+		    if (!(Proc = reinterpret_cast<T>(glXGetProcAddress((const GLubyte *)Name))))
+		        throw OpenGLException("glXGetProcAddress", "LoadExtension");
+#endif
 		}
 		
 		bool OpenGLRenderer::checkExtension(const std::string& extension) const{

@@ -25,9 +25,7 @@
 #include <Screen/Math/Vector2i.h>
 #include <Screen/Core/Enums.h>
 #include <Screen/Core/Objects/PixelFormat.h>
-#include <gl/gl.h>
-#include <gl/glu.h>
-#include <gl/glext.h>
+#include <Screen/OGL/GlHeaders.h>
 
 namespace Screen {
 	namespace OGL {

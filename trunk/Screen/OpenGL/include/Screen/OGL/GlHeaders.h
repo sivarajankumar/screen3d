@@ -19,26 +19,37 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_OPENGL_PIXEL_FORMAT_H
-#define SCREEN_OPENGL_PIXEL_FORMAT_H
+#ifndef SCREEN_OPENGL_GL_HEADERS_H
+#define SCREEN_OPENGL_GL_HEADERS_H
 
-#include <Screen/OGL/GlHeaders.h>
-
-namespace Screen{
-	namespace OGL{		
-		struct OpenGLPixelFormat{
-			GLenum format, fullFormat, type;
-		};
-	
-		static OpenGLPixelFormat oglPxf[] = {
-		    {GL_LUMINANCE,       GL_LUMINANCE8,                    GL_UNSIGNED_BYTE},
-		    {GL_LUMINANCE_ALPHA, GL_LUMINANCE8_ALPHA8,             GL_UNSIGNED_BYTE},
-		    {GL_BGRA,            GL_RGB5_A1,                       GL_UNSIGNED_SHORT_1_5_5_5_REV},
-		    {GL_BGRA,            GL_RGBA4,                         GL_UNSIGNED_SHORT_4_4_4_4_REV},
-		    {GL_BGR,             GL_RGB8,                          GL_UNSIGNED_BYTE},
-		    {GL_BGRA,            GL_RGBA8,                         GL_UNSIGNED_BYTE}
-		};
+#ifdef WIN32
+#	include <gl/gl.h>
+#	include <gl/glu.h>
+#	include <gl/glext.h>
+#	include <gl/wglext.h>
+#else
+#	include <GL/gl.h>
+#	include <GL/glu.h>
+#	include <GL/glext.h>
+namespace Screen {
+	namespace X11NS {
+#	include <X11/Xlib.h>
+#	include <X11/Xutil.h>
+typedef XID GLXContextID;
+typedef XID GLXPixmap;
+typedef XID GLXDrawable;
+typedef XID GLXPbuffer;
+typedef XID GLXWindow;
+typedef XID GLXFBConfigID;
+typedef struct __GLXcontextRec *GLXContext;
+                                 typedef struct __GLXFBConfigRec *GLXFBConfig;
+#define GLX_GLXEXT_PROTOTYPES
+#	include <GL/glxext.h>
 	}
 }
+
+#define glXGetProcAddress Screen::X11NS::glXGetProcAddress
+
+#endif
 
 #endif
