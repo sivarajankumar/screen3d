@@ -26,7 +26,7 @@ First of all, you must install two softwares :
 
 Then, check out SBS trunk sources (on the repository, trunk/Tools/SBS/)
 
-In your environment variables, add and set SBS_ROOT to the SBS root folder (trunk/Tools/SBS), and add SBS_ROOT and the root to maven in PATH variable. Maven also need a JAVA_HOME environment variable, corresponding to your java jre installation directory. 
+In your environment variables, add and set SBS_ROOT to the SBS root folder (trunk/Tools/SBS), and add SBS_ROOT and the root to maven in PATH variable. Maven also need a JAVA_HOME environment variable, corresponding to your java JDK installation directory. 
 
 Then open a command terminal and go into SBS_ROOT.
 
