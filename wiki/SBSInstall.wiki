@@ -20,9 +20,10 @@ This part is optional if you did _Install from download_.
 This part will allow you to have the benefits of latest snapshot versions of SBS.
 For Screen developers, you would modify SBS and commit your changes.
 
-First of all, you must install two softwares :
+First of all, you must install three softwares :
   * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6)
   * [http://maven.apache.org/download.html Maven2]
+  * [http://java.sun.com/javase/downloads/index.jsp Java] (minimum version 1.4)
 
 Then, check out SBS trunk sources (on the repository, trunk/Tools/SBS/)
 
@@ -35,7 +36,7 @@ verify maven is well installed by writing :
 mvn --version
 }}}
 
-then install SBS by writing :
+then install SBS by writing (need and internet connection):
 {{{
 mvn install
 }}}
