@@ -18,13 +18,13 @@
 					<lib>glu32</lib>
 				</libraries>
 			</dependency>
-			<dependency name="boost">
+			<dependency name="boost" version="1.42">
 				<includes>
 					<path>${BOOST_INC_ROOT}</path>
 				</includes>
 				<libraries>
 					<path>${BOOST_LIB_ROOT}</path>
-					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
