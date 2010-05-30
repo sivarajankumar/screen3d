@@ -36,7 +36,7 @@ Screen::Core::Root::Root()
 Screen::Core::Root::~Root() {
 	SCREEN_DECL_DESTRUCTOR(~Root)
 	if(renderer!=NULL)
-		renderer->destroy();
+		Renderer::destroy();
     delete timer;
 }
 
@@ -68,7 +68,7 @@ bool Screen::Core::Root::renderFrame(){
 
 void Screen::Core::Root::init(){
 	SCREEN_DECL_METHOD(init)
-	renderer = &Screen::Core::Renderer::get();
+	renderer = Screen::Core::Renderer::get();
 	renderer->setRenderWindow(renderWindow);
 	renderer->init();
 	timer->reset();	

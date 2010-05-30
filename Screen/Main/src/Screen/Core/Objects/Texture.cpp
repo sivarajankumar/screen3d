@@ -92,7 +92,7 @@ namespace Screen {
 	
 	        void Texture::load(const Image& image, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags, const std::string& name){
 		        using Screen::Core::Objects::PixelFormatDescriptor;
-	        	if (PixelFormatDescriptor::isCompressed(pxf) && !Screen::Core::Renderer::get().hasCapability(Screen::Core::CAPABILITY_COMPRESSED_TEXTURE)){
+	        	if (PixelFormatDescriptor::isCompressed(pxf) && !Screen::Core::Renderer::get()->hasCapability(Screen::Core::CAPABILITY_COMPRESSED_TEXTURE)){
 		        	// compressed texture but not supported by the API
 		        	pxf = Screen::Core::PXF_A8R8G8B8;
 		            SCREEN_LOG_WARNING("Compressed texture but not supported by the API");
@@ -103,7 +103,7 @@ namespace Screen {
 		        }
 		
 	        	Screen::Math::Vector2i size = image.getSize();
-	        	if(!Screen::Core::Renderer::get().hasCapability(Screen::Core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE)){
+	        	if(!Screen::Core::Renderer::get()->hasCapability(Screen::Core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE)){
 	        		Screen::Math::Vector2i size2(Screen::Math::nearestPowerOfTwo(image.getSize().getX()),
 	        									 Screen::Math::nearestPowerOfTwo(image.getSize().getY()));
 			        if ((size2 != image.getSize())){
@@ -119,7 +119,7 @@ namespace Screen {
 	        	
 	        	SCREEN_LOG_DEBUG("Texture size : ""[" << size.getX() << "," << size.getY() << "]");
 		
-		        texture = Renderer::get().createTexture(size, pxf, flags);
+		        texture = Renderer::get()->createTexture(size, pxf, flags);
 		
 		        if (name != ""){
 		            Screen::Utils::ResourceManager::instance()->add(name, texture);
