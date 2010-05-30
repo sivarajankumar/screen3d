@@ -56,7 +56,7 @@ namespace Screen {
 			Renderer();
 			virtual ~Renderer();
 			static void load(const std::string& fileName);
-			static Renderer& get();
+			static Renderer* get();
 			static void destroy();
 			
 			virtual bool hasCapability(Screen::Core::ApiCapability caps) const = 0;

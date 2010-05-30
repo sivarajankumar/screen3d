@@ -92,13 +92,13 @@ namespace Screen{
 		buffer.resize(buffer.size()*2,0); \
 	} \
 	SCREEN_LOG_DEBUG("current buffer assignment = " << cur); \
-	buffer[cur] = Renderer::get().convertColor(color); \
+	buffer[cur] = Renderer::get()->convertColor(color); \
 	SCREEN_LOG_DEBUG("|" << color.convertABGR() << "|"); \
 	bufferSize = max(bufferSize,i+1);
 
 #define GET_COLOR(vertexUsage) \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
-	color = Renderer::get().retrieveColor(buffer[cur]);
+	color = Renderer::get()->retrieveColor(buffer[cur]);
 			
 			void VertexBufferFiller::setPositionAt(unsigned int i, const Screen::Math::Vector3f& vector){
 				SCREEN_DECL_METHOD(setPositionAt)

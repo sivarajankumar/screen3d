@@ -38,10 +38,10 @@ namespace Screen {
 			Assert(renderer!=NULL);
 		}
 
-		Renderer& Renderer::get(){
+		Renderer* Renderer::get(){
 			SCREEN_DECL_STATIC_METHOD(get)
 			Assert(renderer!=NULL);
-			return (*renderer);
+			return renderer;
 		}
 
 		void Renderer::destroy(){
