@@ -8,22 +8,22 @@
 	<main>
 		<dependencies>
 			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
-			<dependency name="boost">
+			<dependency name="boost" version="1.42">
 				<includes>
 					<path>${BOOST_INC_ROOT}</path>
 				</includes>
 				<libraries>
 					<path>${BOOST_LIB_ROOT}</path>
-					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
-			<dependency name="xerces">
+			<dependency name="xerces" version="3.1">
 				<includes>
 					<path>${XERCES_INC_ROOT}</path>
 				</includes>
 				<libraries>
 					<path>${XERCES_LIB_ROOT}</path>
-					<lib>xerces-c-${XERCES_VERSION}</lib>
+					<lib>xerces-c</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
