@@ -49,7 +49,6 @@ int main() {
 		Screen::Core::Renderer::load("ScreenOpenGL");
 		Screen::Core::TextureManager::instance()->registerLoader<Screen::Core::Objects::Image>(new Screen::Core::ImageLoader, "jpg|png|bmp|tga");
 		Screen::Core::TextureManager::instance()->addPath(".");
-		//Screen::Core::Objects::Image::SmartPtr image = Screen::Core::TextureManager::instance()->loadImageFromFile("SCREEN.bmp");
 		
 		Screen::Utils::SmartPtr<Screen::Core::Root> root(new SFMLRoot());
 		Screen::Utils::SmartPtr<Screen::Core::RenderWindow> rw(new Screen::Utils::SFMLOpenGLRenderWindow());
@@ -60,8 +59,6 @@ int main() {
 		root->startRendering();
 		
 		Screen::Core::TextureManager::instance()->unregisterLoader<Screen::Core::Objects::Image>("jpg|png|bmp|tga");
-		
-		Screen::Core::Renderer::destroy();
 
 	}catch(const Screen::Utils::Exception& e){
 		SCREEN_LOG_ERROR("Exception controlée : " << std::endl << e.what())
