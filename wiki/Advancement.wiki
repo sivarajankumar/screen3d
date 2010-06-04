@@ -27,7 +27,7 @@ This page sums up the advancement of the different parts of Screen project.
 || Logger || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || can process ERROR, WARNING, INFO and DEBUG logs ||
 || Memory allocation debugger || <font color="red">empty</font> || Screen/Utils || 0.1 || _N/A_ || TODO :) ||
 || Plug-in system (Windows) || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || based on dynamic library load ||
-|| Plug-in system (Linux) || <font color="red">empty</font> || Screen/Utils || 0.1 || _N/A_ || based on dynamic library load ||
+|| Plug-in system (Linux) || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || based on dynamic library load ||
 || Profiler || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
 || Resource management || <font color="purple>in development</font> || Screen/Utils || 0.1 || _N/A_ || need advance tests ||
 || Smart pointer || <font color="blue">development complete</font> || Screen/Utils || 0.1 || _N/A_ || _N/A_ ||
