@@ -1,3 +1,6 @@
+#summary How to comment for Doxygen in Screen
+#labels Phase-Implementation
+
 = Introduction =
 
 Doxygen is an auto-documentation system for C++, C, Java, Objective-C, Python, IDL (Corba and Microsoft flavors), Fortran, VHDL, PHP, C#, and to some extent D.
