@@ -1,0 +1,109 @@
+= Introduction =
+
+Doxygen is an auto-documentation system for C++, C, Java, Objective-C, Python, IDL (Corba and Microsoft flavors), Fortran, VHDL, PHP, C#, and to some extent D.
+In this documentation we will see how to use Doxygen for Screen project, but they are many other ways to use Doxygen we won't see. For more information you can consult [http://www.stack.nl/~dimitri/doxygen/manual.html Doxygen official documentation].
+
+= Standard commands =
+
+I will now explain some of the commands we will use in Screen project. Many commands allow us to comment C++ elements (class, struct, functions, macro ...) in other files. But we are not gonna use those features, so if you really need information about it consult Doxygen website.
+Sometimes there is several ways to do the same thing, but i will just explain one, which must be used in Screen project.
+All commands, can be written using \ or @. So \brief is the same as @brief.
+== Bloc Documentation ==
+
+There is four ways to create a comment bloc for Doxygen. We will use the "double *" C comments. 
+
+{{{
+/**
+ * ... Documentation ...
+ */
+}}}
+
+Note that the stars inside the bloc (at the beginning the each lines) are useless.
+
+Those blocs must be added before the element you need to comment (or at the begining of file for file comment).
+In those blocs, you will add commands, and a long description. Some commands work for an entire paragraph. Paragraph are separated by empty lines.
+
+== Line Documantation ==
+
+A line documentation will be done using a C++ triple / comment :
+{{{
+ ///  ... Documentation ...
+}}}
+As for blocs, line work for the code that follow the comment. But if your want to coment the element before, you must use '<' command :
+
+{{{
+int i = 0; ///< index i.
+}}} 
+It is very usefull to comment class variables, or function arguments.
+
+== \file command ==
+
+The \file command must be used in the bloc at the beginning of the file, and contains the file name.
+
+== \brief command ==
+
+The \brief command is used in all the bloc to set a brief desciption of the element folowing the comment.
+
+== \author command ==
+
+The \file command must be used in the bloc at the beginning of the file, and contains the author name. You can have several /author commands, if you have several authors.
+
+== \param command ==
+
+The \param command, define the parameters of a function. You must use it like this :
+\param[in-out-attribute] <parameter-name> { parameter description }
+The in out attibute define if the parameter is [in] [out] or [in,out].
+The existence of the parameter is checked and a warning is given if the documentation of this (or any other) parameter is missing or not present in the function declaration or definition.
+
+Sample with memcpy:
+{{{
+/**
+ Copies bytes from a source memory area to a destination memory area,
+ where both areas may not overlap.
+ \param[out] dest The memory area to copy to.
+ \param[in]  src  The memory area to copy from.
+ \param[in]  n    The number of bytes to copy
+ */
+void memcpy(void *dest, const void *src, size_t n);
+
+}}}
+
+== \return command ==
+
+The \return command, describe the retrurn value of a function.
+
+== \bug command ==
+
+The \bug command can be used to describe a known bug for this class or function. You can use several /bug commands in a bloc.
+
+== \deprecated command ==
+
+The \deprecated can be used to add a paragraph to precise if the commented element is deprecated.
+
+== Other commands ==
+
+There are several other usefull commands to use inside a comment bloc :
+
+ - \a : to use a special font for the next word.
+ - \b : to use bold font for the next word.
+ - \c : to use a typewriter font for the next word.
+ - \e or \em : to use italic font for the next word.
+ - \code : to start a bloc of code (end with \endcode).
+ - \dot : to start a bloc containing a valid desciption of a dot graph (end with \enddot). See Doxygen documentation for more informations.
+ - \msc : to start a bloc containing a valid desciption message sequence chart (end with \endmsc). See Doxygen documentation for more informations.
+ - \verbatim : to start a bloc where commands are not interpreted (end with \endverbatim).
+ - \f$ : to start an in-line LateX mathematic formula (end with \f$). See Latex Documantation.
+ - \f[ : to start an long LateX mathematic formula (end with \f]). See Latex Documantation.
+ - \image <format> <file> ["caption"] [<sizeindication>=<size>] : to include an image.
+ - \n : to add a new line.
+ - \\, \@, \&, \$, \#, \<, \>, \%, \" : to display \, @, &, $, #, <, >, %, ".
+ 
+== Unused commands : \class \fn \struct \def ... ==
+
+We will not use \class, \fn .. commands, because in Screen project you will always define comment bloc just befaore the element definition. 
+
+= Sample =
+
+{{{
+
+}}}
