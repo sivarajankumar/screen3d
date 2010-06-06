@@ -16,7 +16,7 @@ All commands, can be written using \ or @. So \brief is the same as @brief.
 
 == Bloc Documentation ==
 
-There is four ways to create a comment bloc for Doxygen. We will use the double * C comments. 
+There is four ways to create a comment bloc for Doxygen. We will use the double {{{*}}} C comments. 
 
 {{{
 /**
@@ -83,7 +83,7 @@ The \return command, describe the return value of a function.
 
 == \bug command ==
 
-The \bug command can be used to describe a known bug for this class or function. You can use several /bug commands in a bloc.
+The \bug command can be used to describe a known bug for this class or function. You can use several \bug commands in a bloc.
 
 == \deprecated command ==
 
@@ -93,19 +93,19 @@ The \deprecated can be used to add a paragraph to precise if the commented eleme
 
 There are several other useful commands to use inside a comment bloc :
 
- * \a : to use a special font for the next word.
- * \b : to use bold font for the next word.
- * \c : to use a typewriter font for the next word.
- * \e or \em : to use italic font for the next word.
- * \code : to start a bloc of code (end with \endcode).
- * \dot : to start a bloc containing a valid description of a dot graph (end with \enddot). See Doxygen documentation for more informations.
- * \msc : to start a bloc containing a valid description message sequence chart (end with \endmsc). See Doxygen documentation for more informations.
- * \verbatim : to start a bloc where commands are not interpreted (end with \endverbatim).
- * \f$ : to start an in-line LateX mathematics formula (end with \f$). See Latex Documentation.
- * \f[ : to start an long LateX mathematics formula (end with \f]). See Latex Documentation.
- * \image <format> <file> ["caption"] [<sizeindication>=<size>] : to include an image.
- * \n : to add a new line.
- * \\, \@, \&, \$, \#, \<, \>, \%, \" : to display \, @, &, $, #, <, >, %, ".
+ * {{{\a}}} : to use a special font for the next word.
+ * {{{\b}}} : to use bold font for the next word.
+ * {{{\c}}} : to use a typewriter font for the next word.
+ * {{{\e}}} or {{{\em}}} : to use italic font for the next word.
+ * {{{\code}}} : to start a bloc of code (end with {{{\endcode}}}).
+ * {{{\dot}}} : to start a bloc containing a valid description of a dot graph (end with {{{\enddot}}}). See Doxygen documentation for more informations.
+ * {{{\msc}}} : to start a bloc containing a valid description message sequence chart (end with {{{\endmsc}}}). See Doxygen documentation for more informations.
+ * {{{\verbatim}}} : to start a bloc where commands are not interpreted (end with {{{\endverbatim}}}).
+ * {{{\f$}}} : to start an in-line LateX mathematics formula (end with {{{\f$}}}). See Latex Documentation.
+ * {{{\f[}}} : to start an long LateX mathematics formula (end with {{{\f]}}}). See Latex Documentation.
+ * {{{\image <format> <file> ["caption"] [<sizeindication>=<size>]}}} : to include an image.
+ * {{{\n}}} : to add a new line.
+ * {{{\\, \@, \&, \$, \#, \<, \>, \%, \"}}} : to display {{{\, @, &, $, #, <, >, %, "}}}.
  
 == Unused commands : \class \fn \struct \def ... ==
 
@@ -114,5 +114,80 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 = Sample =
 
 {{{
+#ifndef SAMPLE_H_
+#define SAMPLE_H_
+
+/*!
+ * \file SAMPLE.h
+ * \brief sample class for Doxygen comments
+ * \author pjdemaret
+ * \version 0.1
+ * This class Allow use to present some of the Doxygen way to do comments for Screen 
+ * (this is a long description). 
+ */
+#include <string>
+#include <list>
+
+/**
+ * namspace for Doxygen presentation
+ */
+namespace DoxygenPres
+{
+  /**
+   * \brief brief class description
+   * \bug this class doesn't do anything
+   *
+   *  Long class description
+   */
+  class Sample
+  {
+  private:
+    std::list<string> aList; ///< a list
+    std::list<string>::iterator listIt; ///< iterator on list
+                                                
+
+  public:
+    /**
+     *  \brief constructor
+     *
+     *  Sample class constructor
+     *
+     *  \param[in] list: a list in parameters
+     */
+    Sample(std::list<string> list);
+
+    /**
+     *  \brief Destructor
+     *
+     *  Sample class destructor
+     */
+    virtual ~Sample();
+
+  public:
+    /**
+     *  \brief add to list
+     *
+     *  Method that add a \e thing to the list and return \e true if added
+     *
+     *  \param[int] thing: thing to add
+     *  \return true if added
+     */
+    bool add(std::string thing);
+
+    /**
+     * \brief add to list
+     *
+     * Method that add a \e thing to the list
+     *
+     * \param[int] thing: thing to add
+     *
+     * \deprecated this method is deprecated
+     */
+     void add(std::string thing);
+
+  };
+};
+
+#endif
 
 }}}
