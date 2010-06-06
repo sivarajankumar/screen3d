@@ -20,6 +20,7 @@ Welcome to Screen project wiki. This wiki is designed for developers who want to
   * Tasks and bugs tracking
   * Writing code
     * Coding rules
+    * Comment Rules : [Doxygen comments]
     * [ScreenUtils _Screen::Utils_ or How to use Screen framework]
   * Writing tests
   * Make deliveries
