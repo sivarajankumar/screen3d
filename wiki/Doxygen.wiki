@@ -120,12 +120,12 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 #ifndef SAMPLE_H_
 #define SAMPLE_H_
 
-/*!
- * \file SAMPLE.h
+/**
+ * \file Sample.h
  * \brief sample class for Doxygen comments
  * \author pjdemaret
- * \version 0.1
- * This class Allow use to present some of the Doxygen way to do comments for Screen 
+ *
+ * This class is used to present some of the Doxygen ways to do comments for Screen 
  * (this is a long description). 
  */
 #include <string>
