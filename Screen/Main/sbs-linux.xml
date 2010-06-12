@@ -23,7 +23,7 @@
 				</includes>
 				<libraries>
 					<path>${DEVIL_LIB_ROOT}</path>
-					<lib>DevIL</lib>
+					<lib>IL</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
