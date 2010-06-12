@@ -54,7 +54,7 @@ namespace Screen {
             void error(const std::string& log);
             void call(CallPosition pos,
             		  CallType type,
-            		  const std::string& className,
+            		  const char* className,
             		  const std::string& functionName,
             		  const std::string& address);
         private:

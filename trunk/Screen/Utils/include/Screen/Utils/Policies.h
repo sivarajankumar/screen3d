@@ -23,6 +23,7 @@
 #define SCREEN_POLICIES_H
 
 #include <Screen/Utils/Export.h>
+#include <Screen/Utils/SingletonLazyInstance.h>
 //#include <boost/interprocess/shared_memory_object.hpp>
 //#include <boost/interprocess/mapped_region.hpp>
 #include <exception>
@@ -59,6 +60,20 @@ namespace Screen {
             static T* Create();
             static void Delete(T* inst);
         };
+
+		/*!  \class CreationWithStatic
+          *  \brief policy for the creation and the destruction that use a static instance
+          *  \author Ratouit Thomas
+          *  \version 1.0
+          *  \date 2008
+          *  \warning The instance can't be destroy. If the same policy is reused, the state of the instance is the same.
+          */
+        template <class T>
+        class CreationWithLazy {
+        public:
+            static T* Create();
+            static void Delete(T* inst);
+        };		 
         
 //        /*!  \class CreationWithStatic
 //	      *  \brief policy for the creation and the destruction that use a static instance
@@ -154,6 +169,15 @@ namespace Screen {
 
 		template <class T>
 		void CreationWithStatic<T>::Delete(T* inst) {}
+
+		template <class T>
+		T* CreationWithLazy<T>::Create() {
+			SingletonLazyInstance<T>* instance = new Screen::Utils::SingletonLazyInstance<T>();
+            return &instance->get();
+        }
+
+		template <class T>
+		void CreationWithLazy<T>::Delete(T* inst) {}
         
         /*!  \class LifeTimePolicyMother
           *  \brief interface of all life-time policies

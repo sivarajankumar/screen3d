@@ -28,7 +28,7 @@
 SINGLETON_IMPL(UniqueSingleton,Screen::Utils::Profiler)
 
 Screen::Utils::Profiler::Profiler()
-        :UniqueSingleton<Profiler>(),reporter(NULL) {}
+        :UniqueSingleton<Profiler>(),timer(new Screen::Utils::Timer()),reporter(NULL) {}
 
 Screen::Utils::Profiler::~Profiler() {
     if(reporter!=NULL){
@@ -45,17 +45,17 @@ Screen::Utils::Profiler::~Profiler() {
 			Profile* profile = (*i);
 			delete profile;
 		}
-		delete reporter;
 	}
+	delete timer;
 }
 
 void Screen::Utils::Profiler::attachTimer(Screen::Utils::Timer* timer) {
+	delete this->timer;
     this->timer = timer;
 }
 
 void Screen::Utils::Profiler::attachReporter(Screen::Utils::ProfilerReporter* reporter) {
-    if(this->reporter!=NULL)
-        delete this->reporter;
+    delete this->reporter;
     this->reporter = reporter;
 }
 
