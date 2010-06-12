@@ -124,11 +124,7 @@ namespace Screen {
         class UniqueSingleton
                     : public WeakSingletonModel <
                     T,
-#ifdef WIN32
-                    CreationWithStatic,
-#else
 					CreationWithLazy,
-#endif
                     SingleThreadingModel> {
         protected:
             UniqueSingleton() {}
@@ -139,11 +135,7 @@ namespace Screen {
         class ThreadSafeUniqueSingleton
                     : public WeakSingletonModel <
                     T,
-#ifdef WIN32
-                    CreationWithStatic,
-#else
 					CreationWithLazy,
-#endif
                     MultipleThreadingModel>
         {}
         ;
