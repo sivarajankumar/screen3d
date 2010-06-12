@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>Screen/OpenGL</name>
+		<version>0.1.0</version>
+		<buildtype>shared</buildtype>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
+			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="Screen/Memory" sbs="true" root="${SCREEN_MEMORY_ROOT}"/>
+			<dependency name="OpenGL">
+				<libraries>
+					<lib version="195.36.1">GL</lib>
+					<lib version="1.3.07">GLU</lib>
+				</libraries>
+			</dependency>
+			<dependency name="boost" version="1.42">
+				<includes>
+					<path>${BOOST_INC_ROOT}</path>
+				</includes>
+				<libraries>
+					<path>${BOOST_LIB_ROOT}</path>
+					<lib>boost_thread</lib>
+				</libraries>
+			</dependency>
+		</dependencies>
+	</main>
+</pack>
