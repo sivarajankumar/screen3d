@@ -19,48 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Exception.h>
+#include <Screen/Utils/SingletonLazyInstance.h>
 
 namespace Screen {
 	namespace Utils {
-		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
-	
-		ResourceManager::ResourceManager(){
-			SCREEN_DECL_CONSTRUCTOR(ResourceManager)
-		}
-		
-		ResourceManager::~ResourceManager(){
-			//SCREEN_DECL_DESTRUCTOR(~ResourceManager)
-		    if (!resourceMap.empty()){
-		        SCREEN_LOG_WARNING("Undeleted Resources :")
-		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
-		            SCREEN_LOG_WARNING(" - " + i->second->getName())
-		        }
-		    }
-		}
-		
-		void ResourceManager::add(const std::string& name, ResourceBase* resource){
-		    SCREEN_DECL_METHOD(add)
-			Assert(resource != NULL);
-
-		    if (resourceMap.find(name) != resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
-		    }
-
-		    resourceMap[name] = resource;
-		    resource->name = name;
-		}
-		
-		void ResourceManager::remove(const std::string& name){
-			SCREEN_DECL_METHOD(remove)
-		    ResourceMap::iterator i = resourceMap.find(name);
-
-		    if (i == resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
-		    } else
-		    	resourceMap.erase(i);
-		}
+		SingletonLazyInstanceInterface::SingletonLazyInstanceInterface(){}
+		SingletonLazyInstanceInterface::~SingletonLazyInstanceInterface(){}
 	}
 }

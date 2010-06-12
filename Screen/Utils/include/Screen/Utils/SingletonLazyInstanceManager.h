@@ -19,48 +19,28 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Exception.h>
+#ifndef SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
+#define SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
+
+#include <Screen/Utils/Export.h>
+#include <stack>
 
 namespace Screen {
 	namespace Utils {
-		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
-	
-		ResourceManager::ResourceManager(){
-			SCREEN_DECL_CONSTRUCTOR(ResourceManager)
-		}
+		class SingletonLazyInstanceInterface;
 		
-		ResourceManager::~ResourceManager(){
-			//SCREEN_DECL_DESTRUCTOR(~ResourceManager)
-		    if (!resourceMap.empty()){
-		        SCREEN_LOG_WARNING("Undeleted Resources :")
-		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
-		            SCREEN_LOG_WARNING(" - " + i->second->getName())
-		        }
-		    }
-		}
-		
-		void ResourceManager::add(const std::string& name, ResourceBase* resource){
-		    SCREEN_DECL_METHOD(add)
-			Assert(resource != NULL);
+		class SCREEN_UTILS_EXPORT SingletonLazyInstanceManager{
+			public:
+				static void registerLazy(SingletonLazyInstanceInterface* base);
+			private:
+				SingletonLazyInstanceManager();
+				~SingletonLazyInstanceManager();
 
-		    if (resourceMap.find(name) != resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
-		    }
-
-		    resourceMap[name] = resource;
-		    resource->name = name;
-		}
-		
-		void ResourceManager::remove(const std::string& name){
-			SCREEN_DECL_METHOD(remove)
-		    ResourceMap::iterator i = resourceMap.find(name);
-
-		    if (i == resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
-		    } else
-		    	resourceMap.erase(i);
-		}
+				static SingletonLazyInstanceManager instance;
+				std::stack<SingletonLazyInstanceInterface*> stack;
+		};
 	}
 }
+
+#endif
+

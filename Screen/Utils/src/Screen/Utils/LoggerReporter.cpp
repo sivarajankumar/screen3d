@@ -63,7 +63,7 @@ void Screen::Utils::CoutLoggerReporter::error(const std::string& log) {
 void Screen::Utils::CoutLoggerReporter::call(
 		CallPosition pos,
 		CallType type,
-		const std::string& className,
+		const char* className,
 		const std::string& functionName,
 		const std::string& address){
 	switch(type){
@@ -130,7 +130,7 @@ void Screen::Utils::FileLoggerReporter::error(const std::string& log) {
 void Screen::Utils::FileLoggerReporter::call(
 		CallPosition pos,
 		CallType type,
-		const std::string& className,
+		const char* className,
 		const std::string& functionName,
 		const std::string& address){
 	switch(type){

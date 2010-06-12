@@ -19,48 +19,57 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Exception.h>
+#ifndef SCREEN_SINGLETON_LAZY_INSTANCE_H
+#define SCREEN_SINGLETON_LAZY_INSTANCE_H
+
+#include <Screen/Utils/Thread.h>
+#include <Screen/Utils/SingletonLazyInstanceManager.h>
+#include <Screen/Utils/Export.h>
+#include <iostream>
+// separate from others Lazy classes
+// only used for singleton lazy instanciation
 
 namespace Screen {
 	namespace Utils {
-		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
-	
-		ResourceManager::ResourceManager(){
-			SCREEN_DECL_CONSTRUCTOR(ResourceManager)
-		}
+		class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
+		public:
+			SingletonLazyInstanceInterface();
+			virtual ~SingletonLazyInstanceInterface();
+			virtual void destroy() = 0;
+		};
 		
-		ResourceManager::~ResourceManager(){
-			//SCREEN_DECL_DESTRUCTOR(~ResourceManager)
-		    if (!resourceMap.empty()){
-		        SCREEN_LOG_WARNING("Undeleted Resources :")
-		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
-		            SCREEN_LOG_WARNING(" - " + i->second->getName())
+		template <class T, class ThreadingModel = SingleThreadingModel>
+		class SCREEN_UTILS_EXPORT SingletonLazyInstance : public SingletonLazyInstanceInterface {
+		public:
+		    SingletonLazyInstance()
+				:SingletonLazyInstanceInterface(),instance(NULL){}
+		
+		    virtual ~SingletonLazyInstance(){}
+		
+		    T& get() {
+		        if(instance==NULL) {
+		            typename ThreadingModel::ScopeLockType guard(mutex);
+		            if(instance==NULL) {
+						//std::cout << typeid(T).name() << std::endl;
+		                instance = new T();
+						SingletonLazyInstanceInterface* base = this;
+						SingletonLazyInstanceManager::registerLazy(base);
+		            }
 		        }
-		    }
-		}
-		
-		void ResourceManager::add(const std::string& name, ResourceBase* resource){
-		    SCREEN_DECL_METHOD(add)
-			Assert(resource != NULL);
-
-		    if (resourceMap.find(name) != resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
+		        return (*instance);
 		    }
 
-		    resourceMap[name] = resource;
-		    resource->name = name;
-		}
+			void destroy(){
+				delete instance;
+			}
 		
-		void ResourceManager::remove(const std::string& name){
-			SCREEN_DECL_METHOD(remove)
-		    ResourceMap::iterator i = resourceMap.find(name);
-
-		    if (i == resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
-		    } else
-		    	resourceMap.erase(i);
-		}
+		private:
+		    typename ThreadingModel::MutexType mutex;
+		    T* instance;
+		};
 	}
 }
+
+
+#endif
+

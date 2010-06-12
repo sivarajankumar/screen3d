@@ -73,7 +73,7 @@ void Screen::Utils::Logger::error(const std::string& log) {
 
 void Screen::Utils::Logger::call(CallPosition pos,
             		  			 CallType type,
-            		  			 const std::string& className,
+            		  			 const char* className,
             		  			 const std::string& functionName,
             		  			 const std::string& address){
 	if(reporter==NULL){

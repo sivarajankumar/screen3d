@@ -32,7 +32,7 @@ namespace Screen {
 	namespace _private {
 		class SCREEN_UTILS_EXPORT ScopeLog{
 		public:
-			ScopeLog(Screen::Utils::CallType _type, const std::string& _className, const std::string& _functionName, const std::string& _address)
+			ScopeLog(Screen::Utils::CallType _type, const char* _className, const std::string& _functionName, const std::string& _address)
 				:type(_type),className(_className), functionName(_functionName), address(_address){
 				SCREEN_LOG_CALL(Screen::Utils::CALL_BEGIN,type,className,functionName,address);
 			}
@@ -42,7 +42,7 @@ namespace Screen {
 			}
 		private:
 			Screen::Utils::CallType type;
-			const std::string& className;
+			const char* className;
 			std::string functionName;
 			std::string address;
 		};
@@ -55,8 +55,8 @@ namespace Screen {
 
 #if defined(SCREEN_AUTHORIZE_PROFILE) || defined(SCREEN_AUTHORIZE_LOG_CALL_TRACER)
 #	define SCREEN_DECL_CLASS(c) \
-		inline static const std::string& _getClassName(){ \
-			static std::string ret(#c); \
+		inline static const char* _getClassName(){ \
+			static const char ret[] = #c; \
 			return ret; \
 		}
 #else

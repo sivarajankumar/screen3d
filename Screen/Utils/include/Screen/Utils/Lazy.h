@@ -30,7 +30,7 @@ namespace Screen {
 	namespace Utils {
 		template <class T, class ThreadingModel = SingleThreadingModel>
 		class Lazy {
-			SCREEN_DECL_CLASS(Screen::Utils::Test)
+			SCREEN_DECL_CLASS(Screen::Utils::Lazy)
 		public:
 		    Lazy()
 				:computed(false){
@@ -41,7 +41,7 @@ namespace Screen {
 		    	SCREEN_DECL_DESTRUCTOR(~Lazy)
 		    }
 		
-		    T getValue() {
+		    T get() {
 		    	SCREEN_DECL_METHOD(getValue)
 		        if(!computed) {
 		            typename ThreadingModel::ScopeLockType guard(mutex);
@@ -76,7 +76,7 @@ namespace Screen {
 					delete funct;
 		    }
 		
-		    T getValue() {
+		    T get() {
 		    	SCREEN_DECL_METHOD(getValue)
 		        if(!computed) {
 		            typename ThreadingModel::ScopeLockType guard(mutex);
