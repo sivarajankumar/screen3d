@@ -249,6 +249,8 @@ generates makefile and project for Wascana environment.
 -e <env> : set specific environment configurations
 -v : verbose (debug mode)
 -d : debug compile
+-t : apply to component tests
+-b : apply to both the component itself and tests
 }}}
 
 <wiki:comment>
