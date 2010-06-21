@@ -253,6 +253,32 @@ generates makefile and project for Wascana environment.
 -b : apply to both the component itself and tests
 }}}
 
+= Local Repository Architecture =
+
+{{{
+<repository root>
+|
+---> <component> ex: Screen/Main
+|    |
+|    ---> sbs.xml (contains the description of the component)
+|    |
+|    ---> include (contains public includes of the component)
+|    |
+|    ---> lib
+|         |
+|         ---> <environment name> ex: Wascana
+|              |
+|              ---> Release (contains release libraries of the component)
+|              |
+|              ----> Debug (contains debug libraries of the component)
+|
+---> <another component>
+|    |
+|    ...
+|
+...             
+}}}
+
 <wiki:comment>
 || *Generates makefiles* || ||
 || generate makefiles || sbs `<path-to-pack>` generate ||
