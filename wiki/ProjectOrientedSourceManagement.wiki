@@ -272,7 +272,7 @@ generates makefile and project for Wascana environment.
 |                   |
 |                   ---> Release (contains release libraries of the component)
 |                   |
-|                   ----> Debug (contains debug libraries of the component)
+|                   ---> Debug (contains debug libraries of the component)
 |
 ---> <another component>
 |    |
