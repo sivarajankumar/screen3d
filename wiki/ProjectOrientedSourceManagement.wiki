@@ -260,17 +260,19 @@ generates makefile and project for Wascana environment.
 |
 ---> <component> ex: Screen/Main
 |    |
-|    ---> sbs.xml (contains the description of the component)
-|    |
-|    ---> include (contains public includes of the component)
-|    |
-|    ---> lib
+|    ---> <version> ex: 0.1.0
 |         |
-|         ---> <environment name> ex: Wascana
+|         ---> sbs.xml (contains the description of the component)
+|         |
+|         ---> include (contains public includes of the component)
+|         |
+|         ---> lib
 |              |
-|              ---> Release (contains release libraries of the component)
-|              |
-|              ----> Debug (contains debug libraries of the component)
+|              ---> <environment name> ex: Wascana
+|                   |
+|                   ---> Release (contains release libraries of the component)
+|                   |
+|                   ----> Debug (contains debug libraries of the component)
 |
 ---> <another component>
 |    |
