@@ -314,9 +314,11 @@ generates makefile and project for Wascana environment.
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
-<descriptions>
-	<library name="Screen/Main" type="shared" full-name="libScreenMain.so" compiler-name="libScreenMain" />
-</descriptions>
+<pack>
+	<descriptions>
+		<library name="Screen/Main" type="shared" full-name="libScreenMain.so" compiler-name="libScreenMain" />
+	</descriptions>
+</pack>
 
 }}}
 
