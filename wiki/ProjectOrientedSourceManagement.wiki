@@ -255,6 +255,8 @@ generates makefile and project for Wascana environment.
 
 = Local Repository Architecture =
 
+  * Repository tree
+
 {{{
 <repository root>
 |
@@ -272,17 +274,50 @@ generates makefile and project for Wascana environment.
 |                   |
 |                   ---> Release (contains release libraries of the component)
 |                        |
-|                        --->description.xml (contains Release library descriptions)
+|                        --->library-description.xml (contains Release library descriptions)
 |                   |
 |                   ---> Debug (contains debug libraries of the component)
 |                        |
-|                        --->description.xml (contains Debug library descriptions)
+|                        --->library-description.xml (contains Debug library descriptions)
 |
 ---> <another component>
 |    |
 |    ...
 |
 ...             
+}}}
+
+  * component.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>Screen/Main</name>
+		<version>0.1.0</version>
+		<buildtype>shared</buildtype>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="Screen/Main">
+				<includes>
+					<path>/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
+				</includes>
+			</dependency>
+		</dependencies>
+	</main>
+</pack>
+
+}}}
+
+  * library-description.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<descriptions>
+	<library name="Screen/Main" type="shared" full-name="libScreenMain.so" compiler-name="libScreenMain" />
+</descriptions>
+
 }}}
 
 <wiki:comment>
