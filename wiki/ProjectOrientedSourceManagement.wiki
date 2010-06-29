@@ -262,7 +262,7 @@ generates makefile and project for Wascana environment.
 |    |
 |    ---> <version> ex: 0.1.0
 |         |
-|         ---> sbs.xml (contains the description of the component)
+|         ---> component.xml (contains the description of the component)
 |         |
 |         ---> include (contains public includes of the component)
 |         |
@@ -271,8 +271,12 @@ generates makefile and project for Wascana environment.
 |              ---> <environment name> ex: Wascana
 |                   |
 |                   ---> Release (contains release libraries of the component)
+|                        |
+|                        --->description.xml (contains Release library descriptions)
 |                   |
 |                   ---> Debug (contains debug libraries of the component)
+|                        |
+|                        --->description.xml (contains Debug library descriptions)
 |
 ---> <another component>
 |    |
