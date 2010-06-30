@@ -10,11 +10,9 @@
 #include <Screen/Utils/ProfilerReporter.h>
 #include <Screen/Utils/Logger.h>
 #include <Screen/Utils/LoggerReporter.h>
-#include <Screen/Utils/Timer.h>
 
 int main(){
 	SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
-	SCREEN_ATTACH_TIMER(new Screen::Utils::Timer())
 	SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
 	
 	// Create the event manager and test controller

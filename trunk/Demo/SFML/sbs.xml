@@ -7,23 +7,15 @@
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
-			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
+			<dependency name="Screen/Utils" sbs="true" version="0.1.0"/>
+			<dependency name="Screen/Main" sbs="true" version="0.1.0"/>
 			<dependency name="boost" version="1.42">
-				<includes>
-					<path>${BOOST_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${BOOST_LIB_ROOT}</path>
 					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
 			<dependency name="SFML" version="1.5">
-				<includes>
-					<path>${SFML_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${SFML_LIB_ROOT}</path>
 					<lib>sfml-system</lib>
 					<lib>sfml-window</lib>
 					<lib>sfml-graphics</lib>
