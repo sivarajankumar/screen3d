@@ -40,9 +40,7 @@
 int main() {
 	try{
 		SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
-		SCREEN_ATTACH_TIMER(new Screen::Core::Timer())
 		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
-		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::CoutProfilerReporter())
 		
 		SCREEN_LOG_DEBUG("coucou")
 		

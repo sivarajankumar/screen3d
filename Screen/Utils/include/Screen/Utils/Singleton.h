@@ -86,22 +86,26 @@ namespace Screen {
 	
 	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
 	    T* SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::instance() {
-    		typename ThreadingModel::ScopeLockType guard(mutex);
-    		if(T::_policy_instance_ptr==NULL) {
-    			T::_policy_instance_ptr = CreationPolicy<T>::Create();
-    			lifeTime.Instanciated();
-    		}
+			if(T::_policy_instance_ptr==NULL) {
+				typename ThreadingModel::ScopeLockType guard(mutex);
+    			if(T::_policy_instance_ptr==NULL) {
+    				T::_policy_instance_ptr = CreationPolicy<T>::Create();
+    				lifeTime.Instanciated();
+    			}
+			}
 	        lifeTime.InstanceUsed();
 	        return T::_policy_instance_ptr;
 	    }
 	
 	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
 	    void SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::destroy() {
-	        typename ThreadingModel::ScopeLockType guard(mutex);
 	        if(lifeTime.IsAuthorisedDeletion()) {
-	            CreationPolicy<T>::Delete(T::_policy_instance_ptr);
-	        }
-	        lifeTime.Deleted();
+				typename ThreadingModel::ScopeLockType guard(mutex);
+	        	if(lifeTime.IsAuthorisedDeletion()) {
+	            	CreationPolicy<T>::Delete(T::_policy_instance_ptr);
+	        	}
+			}
+			lifeTime.Deleted();
 	    }
 
         template <class T, template <class> class CreationPolicy, class ThreadingModel>

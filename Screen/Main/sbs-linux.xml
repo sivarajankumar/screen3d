@@ -7,22 +7,14 @@
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="Screen/Utils" sbs="true" version="0.1.0"/>
 			<dependency name="boost" version="1.42">
-				<includes>
-					<path>${BOOST_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${BOOST_LIB_ROOT}</path>
 					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
 			<dependency name="DevIL">
-				<includes>
-					<path>${DEVIL_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${DEVIL_LIB_ROOT}</path>
 					<lib>IL</lib>
 				</libraries>
 			</dependency>
@@ -33,23 +25,15 @@
 	</main>
 	<test>
 		<dependencies>
-			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
+			<dependency name="Screen/Main" sbs="true" version="0.1.0"/>
+			<dependency name="Screen/Utils" sbs="true" version="0.1.0"/>
 			<dependency name="boost" version="1.42">
-				<includes>
-					<path>${BOOST_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${BOOST_LIB_ROOT}</path>
 					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
 			<dependency name="cppunit">
-				<includes>
-					<path>${CPPUNIT_INC_ROOT}</path>
-				</includes>
 				<libraries>
-					<path>${CPPUNIT_LIB_ROOT}</path>
 					<lib>cppunit</lib>
 				</libraries>
 			</dependency>
