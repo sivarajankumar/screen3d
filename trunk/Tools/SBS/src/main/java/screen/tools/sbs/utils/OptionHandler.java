@@ -10,6 +10,7 @@ public class OptionHandler {
 		LOAD_CONF,
 		LOAD_XML,
 		CHECK,
+		DEPLOY_HEADER,
 		GENERATE,
 		COMPILE,
 		CLEAN,
@@ -86,6 +87,12 @@ public class OptionHandler {
     			phaseList.add(Phase.LOAD_XML);
 				phaseList.add(Phase.CHECK);
 			}
+			else if("deploy-header".equals(phase)){
+				phaseList.add(Phase.LOAD_CONF);
+    			phaseList.add(Phase.LOAD_XML);
+				phaseList.add(Phase.CHECK);
+				phaseList.add(Phase.DEPLOY_HEADER);
+			}
             else if("generate".equals(phase)){
             	phaseList.add(Phase.LOAD_CONF);
     			phaseList.add(Phase.LOAD_XML);
@@ -152,6 +159,7 @@ public class OptionHandler {
 		Logger.info("    parameters : <path-to-sbs.xml> <phase> -[options]");
 		Logger.info("    phase :");
 		Logger.info("        check : verify configuration");
+		Logger.info("        deploy-header : deploy include files on SBS repository");
 		Logger.info("        generate : generate makefiles");
 		Logger.info("        compile  : compile pack sources");
 		Logger.info("        build  : generate+compile");

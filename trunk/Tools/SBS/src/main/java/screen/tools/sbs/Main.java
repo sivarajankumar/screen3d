@@ -131,6 +131,12 @@ public class Main {
 				if(!checkErrors()) return;
 				Logger.info("-------- end check fields ---------");
 			}
+			else if(phase == Phase.DEPLOY_HEADER){
+				Logger.info("---- begin deploy header files ----");
+				SBSHeaderDeployer deployer = new SBSHeaderDeployer();
+				deployer.deploy(optHandler.getSbsXmlPath(), pack);
+				Logger.info("----- end deploy header files -----");
+			}
 			else if(phase == Phase.GENERATE){
 				Logger.info("----- begin generate makefile -----");
 				SBSCMakeFileGenerator generator = new SBSCMakeFileGenerator(pack, optHandler.getSbsXmlPath(), false);

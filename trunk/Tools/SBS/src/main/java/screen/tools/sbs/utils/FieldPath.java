@@ -5,8 +5,16 @@ import screen.tools.sbs.objects.EnvironmentVariables;
 public class FieldPath {
 	FieldString fieldString;
 	
+	public enum Type{
+		ABSOLUTE,
+		RELATIVE
+	}
+	
+	Type position;
+	
 	public FieldPath() {
 		fieldString = new FieldString();
+		position = Type.ABSOLUTE;
 	}
 	
 	public FieldPath(String path) {
@@ -44,5 +52,26 @@ public class FieldPath {
 
 	public String getString(){
 		return getString(null);
+	}
+	
+	public void setType(Type position){
+		this.position = position;
+	}
+	
+	public Type getType(){
+		return position;
+	}
+	
+	public void setType(String pos){
+		FieldString fs = new FieldString(pos);
+		if(fs.isValid()){
+			String pos2 = fs.getString();
+			if("absolute".equals(pos2)){
+				position = Type.ABSOLUTE;
+			}
+			else if("relative".equals(pos2)){
+				position = Type.RELATIVE;
+			}
+		}
 	}
 }

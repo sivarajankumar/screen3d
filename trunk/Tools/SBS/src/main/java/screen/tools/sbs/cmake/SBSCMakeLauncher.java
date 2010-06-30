@@ -11,6 +11,7 @@ import screen.tools.sbs.objects.EnvironmentVariables;
 import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.GlobalSettings;
 import screen.tools.sbs.utils.Logger;
+import screen.tools.sbs.utils.ProcessLauncher;
 
 public class SBSCMakeLauncher {
 	public SBSCMakeLauncher() {}
@@ -46,8 +47,6 @@ public class SBSCMakeLauncher {
 		if("/".equals(sbsXmlPath))
 			sbsXmlPath=".";
 		
-		String s = null;
-
         try {
 
 			List<String> command = new ArrayList<String>();
@@ -64,20 +63,21 @@ public class SBSCMakeLauncher {
 
 			String [] cmd = new String[command.size()];
         	//Logger.info("command : "+command);
-        	Process p = Runtime.getRuntime().exec(command.toArray(cmd),null,new File(sbsXmlPath));
-            
-            BufferedReader stdInput = new BufferedReader(new 
-                 InputStreamReader(p.getInputStream()));
+        	ProcessLauncher p = new ProcessLauncher();
+			p.execute(command.toArray(cmd),null,new File(sbsXmlPath));
+			
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            BufferedReader stdError = new BufferedReader(new 
-                 InputStreamReader(p.getErrorStream()));
+	        BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
-            while ((s = stdInput.readLine()) != null) {
+            String s;
+	        while ((s = stdInput.readLine()) != null) {
             	Logger.info(s);
             }
             while ((s = stdError.readLine()) != null) {
                 err.addError(s);
             }
+            
         }
         catch (IOException e) {
         	err.addError(e.getMessage());
