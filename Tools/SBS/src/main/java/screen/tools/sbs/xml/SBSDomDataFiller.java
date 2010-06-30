@@ -98,7 +98,6 @@ public class SBSDomDataFiller {
 				String isSbs = dep.getAttribute("sbs");
 				newDep.setSbs(new FieldBool(isSbs));
 				if(newDep.getSbs().getBool()){
-					newDep.addIncludePath(new FieldPath(depRoot+"/include"));
 					//lib path added in CMake file generation
 					newDep.addLibrary(new FieldString(name.replaceAll("/", "")), new FieldString(version));
 				}
@@ -114,7 +113,11 @@ public class SBSDomDataFiller {
 						Element path = (Element) paths.item(j);
 						String pathString = path.getTextContent();
 						Logger.debug("\t\t\t\ttext : "+pathString);
-						newDep.addIncludePath(new FieldPath(pathString));
+						FieldPath fieldPath = new FieldPath(pathString);
+						String type = path.getAttribute("type");
+						Logger.debug("\t\t\t\ttype : "+type);
+						fieldPath.setType(type);
+						newDep.addIncludePath(fieldPath);
 					}
 				}
 				
@@ -129,7 +132,11 @@ public class SBSDomDataFiller {
 						Element path = (Element) paths.item(j);
 						String pathString = path.getTextContent();
 						Logger.debug("\t\t\t\ttext : "+pathString);
-						newDep.addLibraryPath(new FieldPath(pathString));
+						FieldPath fieldPath = new FieldPath(pathString);
+						String type = path.getAttribute("type");
+						Logger.debug("\t\t\t\ttype : "+type);
+						fieldPath.setType(type);
+						newDep.addLibraryPath(fieldPath);
 					}
 					NodeList libs = ((Element) libsRoot.item(0)).getElementsByTagName("lib");
 					for(int j=0; j<libs.getLength(); j++){
