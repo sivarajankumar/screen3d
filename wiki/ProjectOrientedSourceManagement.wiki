@@ -314,7 +314,7 @@ generates makefile and project for Wascana environment.
 
 }}}
 
-  * *For external library pack*
+  * *For external library pack on Windows*
     * component.xml
 
 {{{
@@ -352,6 +352,47 @@ generates makefile and project for Wascana environment.
 </pack>
 
 }}}
+
+  * *For external library pack on Linux (optional)*
+    * component.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>boost</name>
+		<version>1.42</version>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="boost">
+				<includes>
+					<path type="relative">/usr/include</path>
+				</includes>
+			</dependency>
+		</dependencies>
+	</main>
+	<imports>
+		<import build="release" pathtype="relative" file="lib/Linux/Release/library-description.xml" />
+		<import build="debug" pathtype="relative" file="lib/Linux/Debug/library-description.xml" />
+	</imports>
+</pack>
+
+}}}
+
+    * library-description.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<descriptions>
+		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="/usr/lib"  full-name="libboost_thread.so" compiler-name="libboost_thread" />
+	</descriptions>
+</pack>
+
+}}}
+
+*Note* : if component.xml doesn't exist on Linux, it doesn't return an error. It uses DEFAULT_INCLUDE_PATH, DEFAULT_LIBRARY_PATH and DEFAULT_LIB_NAME_PATTERN to retrieve paths and names. This last comportment is preferred on Linux
 
 <wiki:comment>
 || *Generates makefiles* || ||
