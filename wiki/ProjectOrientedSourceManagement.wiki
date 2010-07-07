@@ -231,6 +231,7 @@ generates makefile and project for Wascana environment.
 
 {{{
 -e <env> : set specific environment configurations
+-i <xml file> : select a specific input sbs file (default : sbs.xml)
 -v : verbose (debug mode)
 -d : debug compile
 -t : apply to component tests
