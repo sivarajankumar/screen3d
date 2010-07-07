@@ -60,7 +60,7 @@ trunk
 
 = SBS : Screen Build System =
 
-*SBS is under development and will be published soon*
+*SBS is under development and is unstable. your configurations should not work with new versions of SBS due to compatibility break. Please be patient, a first release will come soon ;) .*
 
 == Aims ==
 
