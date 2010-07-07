@@ -92,22 +92,14 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
-			<dependency name="boost">
-				<includes>
-					<path>${BOOST_INC_ROOT}</path>
-				</includes>
+			<dependency name="Screen/Utils" sbs="true" version="0.1.0"/>
+			<dependency name="boost" version="1.42">
 				<libraries>
-					<path>${BOOST_LIB_ROOT}</path>
-					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
-			<dependency name="DevIL">
-				<includes>
-					<path>${DEVIL_INC_ROOT}</path>
-				</includes>
+			<dependency name="DevIL" version="1.7.8">
 				<libraries>
-					<path>${DEVIL_LIB_ROOT}</path>
 					<lib>DevIL</lib>
 				</libraries>
 			</dependency>
@@ -118,23 +110,15 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 	</main>
 	<test>
 		<dependencies>
-			<dependency name="Screen/Main" sbs="true" root="${SCREEN_MAIN_ROOT}"/>
-			<dependency name="Screen/Utils" sbs="true" root="${SCREEN_UTILS_ROOT}"/>
-			<dependency name="boost">
-				<includes>
-					<path>${BOOST_INC_ROOT}</path>
-				</includes>
+			<dependency name="Screen/Main" sbs="true" version="0.1.0"/>
+			<dependency name="Screen/Utils" sbs="true" version="0.1.0"/>
+			<dependency name="boost" version="1.42">
 				<libraries>
-					<path>${BOOST_LIB_ROOT}</path>
-					<lib>boost_thread-${BOOST_LIB_EXTENSION}</lib>
+					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
-			<dependency name="cppunit">
-				<includes>
-					<path>${CPPUNIT_INC_ROOT}</path>
-				</includes>
+			<dependency name="cppunit" version="1.12.1">
 				<libraries>
-					<path>${CPPUNIT_LIB_ROOT}</path>
 					<lib>cppunit-${CPPUNIT_VERSION}</lib>
 				</libraries>
 			</dependency>
