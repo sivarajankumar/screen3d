@@ -286,8 +286,8 @@ generates makefile and project for Wascana environment.
 |
 ...             
 }}}
-
-  * component.xml
+  * *For SBS generated libraries*
+    * component.xml
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
@@ -306,17 +306,48 @@ generates makefile and project for Wascana environment.
 			</dependency>
 		</dependencies>
 	</main>
+	<descriptions>
+		<library name="Screen/Main" type="shared" build="release" pathtype="relative" path="lib/Linux/Release"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
+		<library name="Screen/Main" type="shared" build="debug" pathtype="relative" path="lib/Linux/Debug"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
+	</descriptions>
 </pack>
 
 }}}
 
-  * library-description.xml
+  * *For external library pack*
+    * component.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<properties>
+		<name>boost</name>
+		<version>1.42</version>
+	</properties>
+	<main>
+		<dependencies>
+			<dependency name="boost">
+				<includes>
+					<path type="relative">include</path>
+				</includes>
+			</dependency>
+		</dependencies>
+	</main>
+	<imports>
+		<import build="release" pathtype="relative" file="lib/Linux/Release/library-description.xml" />
+		<import build="debug" pathtype="relative" file="lib/Linux/Debug/library-description.xml" />
+	</imports>
+</pack>
+
+}}}
+
+    * library-description.xml
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
 	<descriptions>
-		<library name="Screen/Main" type="shared" full-name="libScreenMain.so" compiler-name="libScreenMain" />
+		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="."  full-name="libboost_thread.so" compiler-name="libboost_thread" />
 	</descriptions>
 </pack>
 
