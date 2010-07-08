@@ -359,7 +359,7 @@ generates makefile and project for Wascana environment.
 		</dependencies>
 	</main>
 	<descriptions>
-		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="/usr/lib"  full-name="libboost_thread.so" compiler-name="libboost_thread" />
+		<library name="boost_thread" type="shared" build="release" pathtype="absolute" path="/usr/lib"  full-name="libboost_thread.so" compiler-name="libboost_thread" />
 	</descriptions>
 </pack>
 
