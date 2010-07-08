@@ -119,7 +119,7 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 			</dependency>
 			<dependency name="cppunit" version="1.12.1">
 				<libraries>
-					<lib>cppunit-${CPPUNIT_VERSION}</lib>
+					<lib>cppunit</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
