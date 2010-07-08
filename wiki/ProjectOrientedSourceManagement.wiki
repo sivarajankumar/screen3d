@@ -265,6 +265,7 @@ generates makefile and project for Wascana environment.
 				<libraries>
 					<path pathtype="relative" build="release">lib/Linux/Release</path>
 					<path pathtype="relative" build="debug">lib/Linux/Debug</path>
+					<lib>Screen/Main</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
