@@ -310,7 +310,7 @@ generates makefile and project for Wascana environment.
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
 	<descriptions>
-		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="."  full-name="libboost_thread.so" compiler-name="libboost_thread" />
+		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="."  full-name="libboost_thread-mgw-34-1_42_0.dll" compiler-name="libboost_thread" />
 	</descriptions>
 </pack>
 
