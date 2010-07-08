@@ -288,6 +288,10 @@ generates makefile and project for Wascana environment.
 				<includes>
 					<path>/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
 				</includes>
+				<libraries>
+					<path pathtype="relative" build="release">lib/Linux/Release</path>
+					<path pathtype="relative" build="debug">lib/Linux/Debug</path>
+				</libraries>
 			</dependency>
 		</dependencies>
 	</main>
@@ -370,6 +374,15 @@ generates makefile and project for Wascana environment.
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
+	<main>
+		<dependencies>
+			<dependency name="boost">
+				<libraries>
+					<path pathtype="relative">.</path>
+				</libraries>
+			</dependency>
+		</dependencies>
+	</main>
 	<descriptions>
 		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="/usr/lib"  full-name="libboost_thread.so" compiler-name="libboost_thread" />
 	</descriptions>
