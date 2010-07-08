@@ -128,26 +128,14 @@ sbs.config -----|---> SBS ---|                          |---> cmake ---|        
 
 }}}
 
-  * sbs.config :
+  * screen.config :
 
 {{{
-#global configuration file for SBS
+#global configuration file for Screen
 
-SCREEN_UTILS_ROOT = ${SCREEN_ROOT}/Screen/Utils
-SCREEN_MAIN_ROOT = ${SCREEN_ROOT}/Screen/Main
-SCREEN_OPENGL_ROOT = ${SCREEN_ROOT}/Screen/OpenGL
-
-BOOST_INC_ROOT = ${BOOST_ROOT}
-BOOST_LIB_ROOT = ${BOOST_ROOT}/stage/lib
-
-DEVIL_INC_ROOT = ${DEVIL_ROOT}/include
-DEVIL_LIB_ROOT = ${DEVIL_ROOT}/lib
-
-SFML_INC_ROOT = ${SFML_ROOT}/include
-SFML_LIB_ROOT = ${SFML_ROOT}/lib/${SFML_COMPILER}
-
-CPPUNIT_INC_ROOT = ${CPPUNIT_ROOT}/include
-CPPUNIT_LIB_ROOT = ${CPPUNIT_ROOT}/src/cppunit/.libs
+RELEASE_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_INFO
+DEBUG_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_DEBUG
+# SCREEN_AUTHORIZE_PROFILE SCREEN_AUTHORIZE_LOG_CALL_TRACER
 }}}
 
    * wascana.config :
@@ -161,9 +149,11 @@ MAKE_PROGRAM = ${WASCANA_ROOT}/msys/bin/make.exe
 C_COMPILER = ${WASCANA_ROOT}/mingw/bin/gcc.exe
 CPP_COMPILER = ${WASCANA_ROOT}/mingw/bin/g++.exe
 
-BOOST_LIB_EXTENSION = mgw34-mt-${BOOST_VERSION}
-
-SFML_COMPILER = mingw
+#DEFAULT_INCLUDE_PATH = /usr/include
+#DEFAULT_LIB_PATH = /usr/lib
+DEFAULT_LIB_NAME_PATTERN=${LIB_NAME}
+DEFAULT_LIB_FULL_NAME_PATTERN=lib${LIB_NAME}.dll
+#DEFAULT_LIB_FULL_NAME_PATTERN=lib${LIB_NAME}.so
 }}}
 
    * thoratou.config
@@ -172,24 +162,8 @@ SFML_COMPILER = mingw
 #personal specific configuration 
 
 WASCANA_ROOT = C:/Wascana
-
 REPOSITORY_ROOT = C:/lib/sbs-repo
-RELEASE_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_INFO
-DEBUG_FLAGS = SCREEN_ASSERT SCREEN_AUTHORIZE_LOG_DEBUG
-# SCREEN_AUTHORIZE_PROFILE SCREEN_AUTHORIZE_LOG_CALL_TRACER
 
-SCREEN_ROOT = C:/Documents and Settings/Administrateur/Mes documents/Projets Personnels/SVNScreen
-
-BOOST_VERSION = 1_37
-BOOST_ROOT = C:/lib/boost_${BOOST_VERSION}_0
-
-DEVIL_ROOT = C:/lib/DevIL-SDK-x86-1.7.8
-
-SFML_VERSION = 1.5
-SFML_ROOT = C:/lib/SFML-${SFML_VERSION}
-
-CPPUNIT_VERSION = 1-12-1
-CPPUNIT_ROOT = C:/lib/cppunit-1.12.1
 }}}
 
 == Commands ==
