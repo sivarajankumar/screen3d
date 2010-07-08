@@ -364,7 +364,7 @@ generates makefile and project for Wascana environment.
 
 }}}
 
-*Note* : if component.xml doesn't exist on Linux, it doesn't return an error. It uses DEFAULT_INCLUDE_PATH, DEFAULT_LIBRARY_PATH and DEFAULT_LIB_NAME_PATTERN to retrieve paths and names. This last comportment is preferred on Linux
+*Note* : if component.xml doesn't exist on Linux, it doesn't return an error. It uses DEFAULT_INCLUDE_PATH, DEFAULT_LIBRARY_PATH, DEFAULT_LIB_NAME_PATTERN and DEFAULT_LIB_FULL_NAME_PATTERN to retrieve paths and names. This last comportment is preferred on Linux
 
 <wiki:comment>
 || *Generates makefiles* || ||
