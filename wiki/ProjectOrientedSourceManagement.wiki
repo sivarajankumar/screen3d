@@ -284,7 +284,7 @@ generates makefile and project for Wascana environment.
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="Screen/Main">
+			<dependency>
 				<includes>
 					<path>/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
 				</includes>
@@ -315,7 +315,7 @@ generates makefile and project for Wascana environment.
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="boost">
+			<dependency>
 				<includes>
 					<path type="relative">include</path>
 				</includes>
@@ -354,7 +354,7 @@ generates makefile and project for Wascana environment.
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="boost">
+			<dependency>
 				<includes>
 					<path type="relative">/usr/include</path>
 				</includes>
@@ -376,7 +376,7 @@ generates makefile and project for Wascana environment.
 <pack>
 	<main>
 		<dependencies>
-			<dependency name="boost">
+			<dependency>
 				<libraries>
 					<path pathtype="relative">.</path>
 				</libraries>
