@@ -260,19 +260,19 @@ generates makefile and project for Wascana environment.
 		<dependencies>
 			<dependency>
 				<includes>
-					<path>/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
+					<path type="absolute">/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
 				</includes>
 				<libraries>
-					<path pathtype="relative" build="release">lib/Linux/Release</path>
-					<path pathtype="relative" build="debug">lib/Linux/Debug</path>
+					<path build="release">lib/Linux/Release</path>
+					<path build="debug">lib/Linux/Debug</path>
 					<lib>Screen/Main</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
 	</main>
 	<descriptions>
-		<library name="Screen/Main" type="shared" build="release" pathtype="relative" path="lib/Linux/Release"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
-		<library name="Screen/Main" type="shared" build="debug" pathtype="relative" path="lib/Linux/Debug"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
+		<library name="Screen/Main" type="shared" build="release" path="lib/Linux/Release"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
+		<library name="Screen/Main" type="shared" build="debug" path="lib/Linux/Debug"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
 	</descriptions>
 </pack>
 
@@ -292,14 +292,14 @@ generates makefile and project for Wascana environment.
 		<dependencies>
 			<dependency>
 				<includes>
-					<path type="relative">include</path>
+					<path>include</path>
 				</includes>
 			</dependency>
 		</dependencies>
 	</main>
 	<imports>
-		<import build="release" pathtype="relative" file="lib/Linux/Release/library-description.xml" />
-		<import build="debug" pathtype="relative" file="lib/Linux/Debug/library-description.xml" />
+		<import build="release" file="lib/Linux/Release/library-description.xml" />
+		<import build="debug" file="lib/Linux/Debug/library-description.xml" />
 	</imports>
 </pack>
 
@@ -311,7 +311,7 @@ generates makefile and project for Wascana environment.
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
 	<descriptions>
-		<library name="boost_thread" type="shared" build="release" pathtype="relative" path="."  full-name="libboost_thread-mgw-34-1_42_0.dll" compiler-name="libboost_thread" />
+		<library name="boost_thread" type="shared" build="release" path="."  full-name="libboost_thread-mgw-34-1_42_0.dll" compiler-name="libboost_thread" />
 	</descriptions>
 </pack>
 
@@ -331,14 +331,14 @@ generates makefile and project for Wascana environment.
 		<dependencies>
 			<dependency>
 				<includes>
-					<path type="relative">/usr/include</path>
+					<path>/usr/include</path>
 				</includes>
 			</dependency>
 		</dependencies>
 	</main>
 	<imports>
-		<import build="release" pathtype="relative" file="lib/Linux/Release/library-description.xml" />
-		<import build="debug" pathtype="relative" file="lib/Linux/Debug/library-description.xml" />
+		<import build="release" file="lib/Linux/Release/library-description.xml" />
+		<import build="debug" file="lib/Linux/Debug/library-description.xml" />
 	</imports>
 </pack>
 
@@ -353,7 +353,7 @@ generates makefile and project for Wascana environment.
 		<dependencies>
 			<dependency>
 				<libraries>
-					<path pathtype="relative">.</path>
+					<path>.</path>
 				</libraries>
 			</dependency>
 		</dependencies>
