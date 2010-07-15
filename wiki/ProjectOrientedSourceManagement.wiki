@@ -278,7 +278,7 @@ generates makefile and project for Wascana environment.
 
 }}}
 
-  * *For external library pack on Windows*
+  * *For external library pack*
     * component.xml
 
 {{{
@@ -298,47 +298,8 @@ generates makefile and project for Wascana environment.
 		</dependencies>
 	</main>
 	<imports>
-		<import build="release" file="lib/Linux/Release/library-description.xml" />
-		<import build="debug" file="lib/Linux/Debug/library-description.xml" />
-	</imports>
-</pack>
-
-}}}
-
-    * library-description.xml
-
-{{{
-<?xml version="1.0" encoding="UTF-8"?>
-<pack>
-	<descriptions>
-		<library name="boost_thread" type="shared" build="release" path="."  full-name="libboost_thread-mgw-34-1_42_0.dll" compiler-name="libboost_thread" />
-	</descriptions>
-</pack>
-
-}}}
-
-  * *For external library pack on Linux (optional)*
-    * component.xml
-
-{{{
-<?xml version="1.0" encoding="UTF-8"?>
-<pack>
-	<properties>
-		<name>boost</name>
-		<version>1.42</version>
-	</properties>
-	<main>
-		<dependencies>
-			<dependency>
-				<includes>
-					<path>/usr/include</path>
-				</includes>
-			</dependency>
-		</dependencies>
-	</main>
-	<imports>
-		<import build="release" file="lib/Linux/Release/library-description.xml" />
-		<import build="debug" file="lib/Linux/Debug/library-description.xml" />
+		<import build="release" file="lib/${ENV_NAME}/Release/library-description.xml" />
+		<import build="debug" file="lib/${ENV_NAME}/Debug/library-description.xml" />
 	</imports>
 </pack>
 
@@ -359,7 +320,39 @@ generates makefile and project for Wascana environment.
 		</dependencies>
 	</main>
 	<descriptions>
-		<library name="boost_thread" type="shared" build="release" pathtype="absolute" path="/usr/lib"  full-name="libboost_thread.so" compiler-name="libboost_thread" />
+		<library name="boost_date_time" type="shared" path="."  full-name="boost_date_time-mgw34-1_42.dll" compiler-name="boost_date_time-mgw34-1_42" />
+		<library name="boost_date_time-mt" type="shared" path="."  full-name="boost_date_time-mgw34-mt-1_42.dll" compiler-name="boost_date_time-mgw34-mt-1_42" />
+		<library name="boost_filesystem" type="shared" path="."  full-name="boost_filesystem-mgw34-1_42.dll" compiler-name="boost_filesystem-mgw34-1_42" />
+		<library name="boost_filesystem-mt" type="shared" path="."  full-name="boost_filesystem-mgw34-mt-1_42.dll" compiler-name="boost_filesystem-mgw34-mt-1_42" />
+		<library name="boost_iostreams" type="shared" path="."  full-name="boost_iostreams-mgw34-1_42.dll" compiler-name="boost_iostreams-mgw34-1_42" />
+		<library name="boost_iostreams-mt" type="shared" path="."  full-name="boost_iostreams-mgw34-mt-1_42.dll" compiler-name="boost_iostreams-mgw34-mt-1_42" />
+		<library name="boost_math_c99f" type="shared" path="."  full-name="boost_math_c99f-mgw34-1_42.dll" compiler-name="boost_math_c99f-mgw34-1_42" />
+		<library name="boost_math_c99f-mt" type="shared" path="."  full-name="boost_math_c99f-mgw34-mt-1_42.dll" compiler-name="boost_math_c99f-mgw34-mt-1_42" />
+		<library name="boost_math_c99l" type="shared" path="."  full-name="boost_math_c99l-mgw34-1_42.dll" compiler-name="boost_math_c99l-mgw34-1_42" />
+		<library name="boost_math_c99l-mt" type="shared" path="."  full-name="boost_math_c99l-mgw34-mt-1_42.dll" compiler-name="boost_math_c99l-mgw34-mt-1_42" />
+		<library name="boost_math_c99" type="shared" path="."  full-name="boost_math_c99-mgw34-1_42.dll" compiler-name="boost_math_c99-mgw34-1_42.dll" />
+		<library name="boost_math_c99-mt" type="shared" path="."  full-name="boost_math_c99-mgw34-mt-1_42.dll" compiler-name="boost_math_c99-mgw34-mt-1_42" />
+		<library name="boost_math_tr1f" type="shared" path="."  full-name="boost_math_tr1f-mgw34-1_42.dll" compiler-name="boost_math_tr1f-mgw34-1_42" />
+		<library name="boost_math_tr1f-mt" type="shared" path="."  full-name="boost_math_tr1f-mgw34-mt-1_42.dll" compiler-name="boost_math_tr1f-mgw34-mt-1_42" />
+		<library name="boost_math_tr1l" type="shared" path="."  full-name="boost_math_tr1l-mgw34-1_42.dll" compiler-name="boost_math_tr1l-mgw34-1_42" />
+		<library name="boost_math_tr1l-mt" type="shared" path="."  full-name="boost_math_tr1l-mgw34-mt-1_42.dll" compiler-name="boost_math_tr1l-mgw34-mt-1_42" />
+		<library name="boost_math_tr1" type="shared" path="."  full-name="boost_math_tr1-mgw34-1_42.dll" compiler-name="boost_math_tr1-mgw34-1_42" />
+		<library name="boost_math_tr1-mt" type="shared" path="."  full-name="boost_math_tr1-mgw34-mt-1_42.dll" compiler-name="boost_math_tr1-mgw34-mt-1_42.dll" />
+		<library name="boost_prg_exec_monitor" type="shared" path="."  full-name="boost_prg_exec_monitor-mgw34-1_42.dll" compiler-name="boost_prg_exec_monitor-mgw34-1_42" />
+		<library name="boost_prg_exec_monitor-mt" type="shared" path="."  full-name="boost_prg_exec_monitor-mgw34-mt-1_42.dll" compiler-name="boost_prg_exec_monitor-mgw34-mt-1_42" />
+		<library name="boost_program_options" type="shared" path="."  full-name="boost_program_options-mgw34-1_42.dll" compiler-name="boost_program_options-mgw34-1_42" />
+		<library name="boost_program_options-mt" type="shared" path="."  full-name="boost_program_options-mgw34-mt-1_42.dll" compiler-name="boost_program_options-mgw34-mt-1_42" />
+		<library name="boost_serialization" type="shared" path="."  full-name="boost_serialization-mgw34-1_42.dll" compiler-name="boost_serialization-mgw34-1_42" />
+		<library name="boost_serialization-mt" type="shared" path="."  full-name="boost_serialization-mgw34-mt-1_42.dll" compiler-name="boost_serialization-mgw34-mt-1_42" />
+		<library name="boost_signals" type="shared" path="."  full-name="boost_signals-mgw34-1_42.dll" compiler-name="boost_signals-mgw34-1_42" />
+		<library name="boost_signals-mt" type="shared" path="."  full-name="boost_signals-mgw34-mt-1_42.dll" compiler-name="boost_signals-mgw34-mt-1_42" />
+		<library name="boost_system" type="shared" path="."  full-name="boost_system-mgw34-1_42.dll" compiler-name="boost_system-mgw34-1_42" />
+		<library name="boost_system-mt" type="shared" path="."  full-name="boost_system-mgw34-mt-1_42.dll" compiler-name="boost_system-mgw34-mt-1_42" />
+		<library name="boost_thread" type="shared" path="."  full-name="boost_thread-mgw34-mt-1_42.dll" compiler-name="boost_thread-mgw34-mt-1_42" />
+		<library name="boost_unit_test_framework" type="shared" path="."  full-name="boost_unit_test_framework-mgw34-1_42.dll" compiler-name="boost_unit_test_framework-mgw34-1_42" />
+		<library name="boost_unit_test_framework-mt" type="shared" path="."  full-name="boost_unit_test_framework-mgw34-mt-1_42.dll" compiler-name="boost_unit_test_framework-mgw34-mt-1_42" />
+		<library name="boost_wave" type="shared" path="."  full-name="boost_wave-mgw34-1_42.dll" compiler-name="boost_wave-mgw34-1_42" />
+		<library name="boost_wave-mt" type="shared" path="."  full-name="boost_wave-mgw34-mt-1_42.dll" compiler-name="boost_wave-mgw34-mt-1_42" />
 	</descriptions>
 </pack>
 
