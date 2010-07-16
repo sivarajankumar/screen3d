@@ -246,7 +246,8 @@ generates makefile and project for Wascana environment.
 ...             
 }}}
   * *For SBS generated libraries*
-    * component.xml
+  
+  * component.xml
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
@@ -260,26 +261,46 @@ generates makefile and project for Wascana environment.
 		<dependencies>
 			<dependency>
 				<includes>
-					<path type="absolute">/home/thomas/Developements/Screen/trunk/Screen/Main/include/</path>
+					<path type="absolute">/home/thomas/Developments/Screen/trunk/Screen/Main/include</path>
 				</includes>
 				<libraries>
-					<path build="release">lib/Linux/Release</path>
-					<path build="debug">lib/Linux/Debug</path>
 					<lib>Screen/Main</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
 	</main>
+	<imports>
+		<import build="release" file="lib/${ENV_NAME}/Release/library-description.xml"/>
+		<import build="debug" file="lib/${ENV_NAME}/Debug/library-description.xml"/>
+	</imports>
+</pack>
+
+}}}
+
+  * library-description.xml
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<pack>
+	<main>
+		<dependencies>
+			<dependency>
+				<libraries>
+					<path>.</path>
+				</libraries>
+			</dependency>
+		</dependencies>
+	</main>
 	<descriptions>
-		<library name="Screen/Main" type="shared" build="release" path="lib/Linux/Release"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
-		<library name="Screen/Main" type="shared" build="debug" path="lib/Linux/Debug"  full-name="libScreenMain.so" compiler-name="libScreenMain" />
+		<library name="Screen/Main" path="." full-name="libScreenMain.so" compile-name="ScreenMain" type="shared" />
 	</descriptions>
 </pack>
 
 }}}
 
   * *For external library pack*
-    * component.xml
+  
+  * component.xml
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
@@ -305,7 +326,7 @@ generates makefile and project for Wascana environment.
 
 }}}
 
-    * library-description.xml
+  * library-description.xml
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
