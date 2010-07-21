@@ -4,21 +4,16 @@ import screen.tools.sbs.objects.EnvironmentVariables;
 
 public class FieldPath {
 	FieldString fieldString;
-	
-	public enum Type{
-		ABSOLUTE,
-		RELATIVE
-	}
-	
-	Type position;
+	FieldBuildMode fieldBuildMode; 
 	
 	public FieldPath() {
 		fieldString = new FieldString();
-		position = Type.ABSOLUTE;
+		fieldBuildMode = new FieldBuildMode();
 	}
 	
 	public FieldPath(String path) {
 		fieldString = new FieldString(path);
+		fieldBuildMode =  new FieldBuildMode();
 	}
 	
 	public boolean isEmpty(){
@@ -45,8 +40,10 @@ public class FieldPath {
 		String ret = fieldString.getString(additionalVars);
 		if(ret == null)
 			return null;
-		ret = ret.replaceAll("\\\\", "");
+		ret = ret.replaceAll("\\\\", "/");
 		ret = ret.replaceAll(" ", "\\\\ ");
+		if(!ret.endsWith("/"))
+			ret += "/";
 		return ret;
 	}
 
@@ -54,24 +51,11 @@ public class FieldPath {
 		return getString(null);
 	}
 	
-	public void setType(Type position){
-		this.position = position;
+	public void setBuildMode(FieldBuildMode mode){
+		fieldBuildMode = mode;
 	}
 	
-	public Type getType(){
-		return position;
-	}
-	
-	public void setType(String pos){
-		FieldString fs = new FieldString(pos);
-		if(fs.isValid()){
-			String pos2 = fs.getString();
-			if("absolute".equals(pos2)){
-				position = Type.ABSOLUTE;
-			}
-			else if("relative".equals(pos2)){
-				position = Type.RELATIVE;
-			}
-		}
+	public FieldBuildMode getBuildMode(){
+		return fieldBuildMode;
 	}
 }

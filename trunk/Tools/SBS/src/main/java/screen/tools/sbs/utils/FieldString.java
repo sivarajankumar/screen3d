@@ -20,7 +20,9 @@ public class FieldString {
 	}
 	
 	public boolean isEmpty(){
-		return originalString == null;
+		if(originalString == null)
+			return true;
+		return "".equals(originalString);
 	}
 	
 	public boolean isValid(EnvironmentVariables additionalVars){

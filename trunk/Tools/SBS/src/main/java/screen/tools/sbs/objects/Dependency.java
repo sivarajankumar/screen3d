@@ -3,15 +3,12 @@ package screen.tools.sbs.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import screen.tools.sbs.utils.FieldBool;
 import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
 
 public class Dependency {
 	private FieldString name;
 	private FieldString version;
-	private FieldPath root;
-	private FieldBool isSbs;
 	private List<FieldPath> includePathList;
 	private List<FieldPath> libraryPathList;
 	private List<Library> libraryList;
@@ -19,8 +16,6 @@ public class Dependency {
 	public Dependency() {
 		name = new FieldString();
 		version = null;
-		root = new FieldPath();
-		isSbs = new FieldBool();
 		includePathList = new ArrayList<FieldPath>();
 		libraryPathList = new ArrayList<FieldPath>();
 		libraryList = new ArrayList<Library>();
@@ -42,20 +37,10 @@ public class Dependency {
 		return version;
 	}
 	
-	public void setRoot(FieldPath root) {
-		this.root = root;
-	}
-
-	public FieldPath getRoot() {
-		return root;
-	}
-	
-	public void setSbs(FieldBool isSbs) {
-		this.isSbs = isSbs;
-	}
-
-	public FieldBool getSbs() {
-		return isSbs;
+	public boolean getSbs() {
+		if(name!=null && version!=null)
+			return name.isValid() && version.isValid();
+		return false;
 	}
 	
 	public void addIncludePath(FieldPath include){
@@ -102,5 +87,9 @@ public class Dependency {
 
 	public List<Library> getLibraryList() {
 		return libraryList;
+	}
+
+	public void addLibrary(Library library) {
+		libraryList.add(library);
 	}
 }
