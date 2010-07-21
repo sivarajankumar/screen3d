@@ -13,7 +13,7 @@
 					<lib>boost_thread</lib>
 				</libraries>
 			</dependency>
-			<dependency name="DevIL">
+			<dependency name="DevIL" version="1.7.8">
 				<libraries>
 					<lib>DevIL</lib>
 				</libraries>
