@@ -9,6 +9,7 @@ import screen.tools.sbs.cmake.SBSCMakeCleaner;
 import screen.tools.sbs.cmake.SBSCMakeFileGenerator;
 import screen.tools.sbs.cmake.SBSCMakeLauncher;
 import screen.tools.sbs.objects.Dependency;
+import screen.tools.sbs.objects.Description;
 import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
@@ -23,20 +24,21 @@ import screen.tools.sbs.xml.SBSDomParser;
 
 public class Main {
 	private static void checkFields(Pack pack){
+		Logger.info("Properties :");
 		Logger.info("pack = " + pack.getProperties().getName().getString());
 		Logger.info("version = " + pack.getProperties().getVersion().getString());
 		Logger.info("build = " + pack.getProperties().getBuildType().getString());
 		
+		Logger.info("Dependencies :");
 		List<Dependency> deps = pack.getDependencyList();
 		for (int i=0; i<deps.size(); i++){
 			Logger.info("Dependency{");
 			
 			Dependency dep = deps.get(i);
-			Logger.info("    name = " + dep.getName().getString());
+			if(!dep.getName().isEmpty())
+				Logger.info("    name = " + dep.getName().getString());
 			if(!dep.getVersion().isEmpty())
-				Logger.info("    version = " + dep.getVersion().getString());			
-			Logger.info("    root dir = " + dep.getRoot().getString());
-			Logger.info("    is SBS dependency = " + dep.getSbs().getString());
+				Logger.info("    version = " + dep.getVersion().getString());
 			
 			List<FieldPath> incs = dep.getIncludePathList();
 			for(int j=0; j<incs.size(); j++){
@@ -50,7 +52,8 @@ public class Main {
 			
 			List<Library> libs = dep.getLibraryList();
 			for(int j=0; j<libs.size(); j++){
-				Logger.info("    library name = " + libs.get(j).getName().getString());
+				if(!libs.get(j).getName().isEmpty())
+					Logger.info("    library name = " + libs.get(j).getName().getString());
 				if(!libs.get(j).getVersion().isEmpty())
 					Logger.info("    library version = " + libs.get(j).getVersion().getString());
 			}
@@ -58,12 +61,23 @@ public class Main {
 			Logger.info("}");
 		}
 		
+		Logger.info("Flags :");
 		List<Flag> flags = pack.getFlagList();
 		for (int i=0; i<flags.size(); i++){
 			Logger.info("Flag{");
 			Logger.info("    flag = "+flags.get(i).getFlag().getString());
 			Logger.info("    value = "+flags.get(i).getValue().getString());
-			Logger.info("    config = "+flags.get(i).getConfig().getString());
+			Logger.info("}");
+		}
+		
+		Logger.info("Descriptions :");
+		List<Description> descs = pack.getDescriptionList();
+		for (int i=0; i<descs.size(); i++){
+			Logger.info("Description{");
+			Logger.info("    name = "+descs.get(i).getName().getString());
+			Logger.info("    compileName = "+descs.get(i).getCompileName().getString());
+			Logger.info("    fullName = "+descs.get(i).getFullName().getString());
+			Logger.info("    buildType = "+descs.get(i).getBuildType());
 			Logger.info("}");
 		}
 	}
@@ -102,6 +116,8 @@ public class Main {
 		List<Phase> phaseList = optHandler.getPhaseList();
 		Pack pack = new Pack();
 		Pack testPack = new Pack();
+		SBSDomDataFiller dataFiller = null;
+		Document doc = null;
 		
 		for(int i=0; i<phaseList.size(); i++){
 			Phase phase = phaseList.get(i);
@@ -115,13 +131,13 @@ public class Main {
 			}
 			else if(phase == Phase.LOAD_XML){
 				Logger.info("-------- begin XML parsing --------");
-				Document doc = SBSDomParser.parserFile(new File(optHandler.getSbsXmlPath()+optHandler.getSbsXmlFile()));
+				doc = SBSDomParser.parserFile(new File(optHandler.getSbsXmlPath()+optHandler.getSbsXmlFile()));
 				if(!checkErrors()) return;
 				Logger.info("--------- end XML parsing ---------");
 				
 				Logger.info("--------- begin data fill ---------");
-				SBSDomDataFiller dataFiller = new SBSDomDataFiller(pack,testPack);
-				dataFiller.fill(doc);
+				dataFiller = new SBSDomDataFiller(pack,testPack,new FieldPath(optHandler.getSbsXmlPath()));
+				dataFiller.fill(doc,false);
 				if(!checkErrors()) return;
 				Logger.info("---------- end data fill ----------");
 			}
@@ -157,6 +173,12 @@ public class Main {
 				SBSCMakeCleaner cleaner = new SBSCMakeCleaner();
 				cleaner.clean(pack, optHandler.getSbsXmlPath());
 				Logger.info("------------ end clean ------------");
+			}
+			else if(phase == Phase.LOAD_XML_TEST){
+				Logger.info("--------- begin data fill ---------");
+				dataFiller.fill(doc,true);
+				if(!checkErrors()) return;
+				Logger.info("---------- end data fill ----------");
 			}
 			else if(phase == Phase.CHECK_TEST){
 				Logger.info("----- begin check test fields -----");

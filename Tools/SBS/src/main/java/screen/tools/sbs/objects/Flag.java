@@ -1,16 +1,17 @@
 package screen.tools.sbs.objects;
 
+import screen.tools.sbs.utils.FieldBuildMode;
 import screen.tools.sbs.utils.FieldString;
 
 public class Flag {
 	private FieldString flag;
 	private FieldString value;
-	private FieldString config;
+	FieldBuildMode fieldBuildMode;
 	
 	public Flag() {
 		flag = new FieldString();
 		value = new FieldString();
-		config = new FieldString();
+		fieldBuildMode = new FieldBuildMode();
 	}
 	
 	public void setFlag(FieldString flag) {
@@ -25,14 +26,12 @@ public class Flag {
 	public FieldString getValue() {
 		return value;
 	}
-
-	public void setConfig(FieldString config) {
-		this.config = config;
-	}
-
-	public FieldString getConfig() {
-		return config;
+	
+	public void setBuildMode(FieldBuildMode mode){
+		fieldBuildMode = mode;
 	}
 	
-	
+	public FieldBuildMode getBuildMode(){
+		return fieldBuildMode;
+	}
 }

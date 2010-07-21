@@ -14,6 +14,7 @@ public class OptionHandler {
 		GENERATE,
 		COMPILE,
 		CLEAN,
+		LOAD_XML_TEST,
 		CHECK_TEST,
 		GENERATE_TEST,
 		COMPILE_TEST,
@@ -86,6 +87,10 @@ public class OptionHandler {
             	phaseList.add(Phase.LOAD_CONF);
     			phaseList.add(Phase.LOAD_XML);
 				phaseList.add(Phase.CHECK);
+				if(hasTestBuild){
+					phaseList.add(Phase.LOAD_XML_TEST);
+					phaseList.add(Phase.CHECK_TEST);
+				}
 			}
 			else if("deploy-header".equals(phase)){
 				phaseList.add(Phase.LOAD_CONF);
@@ -101,6 +106,7 @@ public class OptionHandler {
 					phaseList.add(Phase.GENERATE);
 				}
 				if(hasTestBuild){
+					phaseList.add(Phase.LOAD_XML_TEST);
 					phaseList.add(Phase.CHECK_TEST);
 					phaseList.add(Phase.GENERATE_TEST);
 				}
@@ -125,6 +131,7 @@ public class OptionHandler {
 					phaseList.add(Phase.COMPILE);
 				}
 				if(hasTestBuild){
+					phaseList.add(Phase.LOAD_XML_TEST);
 					phaseList.add(Phase.CHECK_TEST);
 					phaseList.add(Phase.GENERATE_TEST);
 					phaseList.add(Phase.COMPILE_TEST);
@@ -137,6 +144,7 @@ public class OptionHandler {
 					phaseList.add(Phase.CLEAN);
 				}
 				if(hasTestBuild){
+					phaseList.add(Phase.LOAD_XML_TEST);
 					phaseList.add(Phase.CLEAN_TEST);
 				}
 			}

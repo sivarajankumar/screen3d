@@ -8,22 +8,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import org.w3c.dom.Document;
-
 import screen.tools.sbs.objects.Dependency;
+import screen.tools.sbs.objects.Description;
 import screen.tools.sbs.objects.EnvironmentVariables;
 import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
 import screen.tools.sbs.objects.Pack;
-import screen.tools.sbs.objects.Library;
 import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
 import screen.tools.sbs.utils.Logger;
 import screen.tools.sbs.utils.ProcessLauncher;
 import screen.tools.sbs.utils.Utilities;
-import screen.tools.sbs.xml.SBSDomDataFiller;
-import screen.tools.sbs.xml.SBSDomParser;
 
 public class SBSCMakeFileGenerator {
 	private Pack pack;
@@ -114,10 +110,7 @@ public class SBSCMakeFileGenerator {
 			//*.config compilation flags
 			List<Flag> flagList = pack.getFlagList();
 			for(int i=0; i<flagList.size(); i++){
-				String config = flagList.get(i).getConfig().getString();
-				boolean isDebugFlag = "debug".equals(config) || "all".equals(config);
-				boolean isReleaseFlag = "release".equals(config) || "all".equals(config);
-				if(isDebugFlag == isDebugMode || isReleaseFlag == (!isDebugMode)){
+				if(flagList.get(i).getBuildMode().isSameMode(!isDebugMode)){
 					String flag = flagList.get(i).getFlag().getString();
 					String value = flagList.get(i).getValue().getString();
 					if(value == null || "".equals(value)){
@@ -183,23 +176,6 @@ public class SBSCMakeFileGenerator {
 			for(int i=0; i<deps.size(); i++){
 				Dependency dep = deps.get(i);
 				List<FieldPath> paths = dep.getIncludePathList();
-				
-				//under Windows, all dependencies are in SBS repo
-				//under Linux, SBS dependency are in repo, non SBS are in DEFAULT_INCLUDE_PATH
-				if(Utilities.isWindows() || (Utilities.isLinux() && dep.getSbs().getBool())){
-					//read component.xml to retrieve component include folder path
-					Pack componentPack = new Pack();
-					Document doc = SBSDomParser.parserFile(new File(repoRoot +"/"+dep.getName().getString()+"/"+dep.getVersion().getString()+"/component.xml"));
-					SBSDomDataFiller filler = new SBSDomDataFiller(componentPack, null);
-					filler.fill(doc);
-					FieldPath componentIncludePath =  componentPack.getDependencyList().get(0).getIncludePathList().get(0);
-					FieldPath.Type componentPathType = componentIncludePath.getType();
-					String componentPath = componentIncludePath.getString();
-					if(componentPathType == FieldPath.Type.RELATIVE)
-						componentPath = repoRoot +"/"+dep.getName().getString()+"/"+dep.getVersion().getString()+"/"+componentPath;
-					cmakeListWriter.write("    "+componentPath+"\n");
-				}
-				
 				for(int j=0; j<paths.size(); j++){
 					cmakeListWriter.write("    "+ paths.get(j).getString() +"\n");
 				}
@@ -219,17 +195,6 @@ public class SBSCMakeFileGenerator {
 			for(int i=0; i<deps.size(); i++){
 				Dependency dep = deps.get(i);
 				List<FieldPath> paths = dep.getLibraryPathList();
-				
-				if(Utilities.isWindows()){
-					//under Windows, all dependencies are in SBS repo
-					cmakeListWriter.write("    "+repoRoot +"/"+dep.getName().getString()+"/"+dep.getVersion().getString()+"/lib/"+envName+"/"+ compileMode+"\n");
-				}
-				else if(Utilities.isLinux()){
-					//under Linux, SBS dependency are in repo, non SBS are in DEFAULT_LIB_PATH
-					if(dep.getSbs().getBool())
-						cmakeListWriter.write("    "+repoRoot +"/"+dep.getName().getString()+"/"+dep.getVersion().getString()+"/lib/"+envName+"/"+ compileMode+"\n");
-				}
-				
 				for(int j=0; j<paths.size(); j++){
 					cmakeListWriter.write("    "+ paths.get(j).getString() +"\n");
 				}
@@ -267,25 +232,12 @@ public class SBSCMakeFileGenerator {
 			cmakeListWriter.write("TARGET_LINK_LIBRARIES(\n");
 			cmakeListWriter.write("    ${PROJECT_NAME}\n");
 			for(int i=0; i<deps.size(); i++){
-				if(deps.get(i).getSbs().getBool()){
-					cmakeListWriter.write("    "+ deps.get(i).getName().getString().replaceAll("/", "") +"\n");
-				}
-				else {
-				List<Library> libs = deps.get(i).getLibraryList();
-					for(int j=0; j<libs.size(); j++){
-						Library lib = libs.get(j);
-						FieldString name = lib.getName();
-						FieldString version = lib.getVersion();
-						if(version.isEmpty())
-							version = deps.get(i).getVersion();
-						EnvironmentVariables addVars = new EnvironmentVariables();
-						if(name.isValid())
-							addVars.put("LIB_NAME", name.getString());
-						if(version.isValid())
-							addVars.put("LIB_VERSION", version.getString());
-						FieldString fullName = new FieldString("${"+deps.get(i).getName().getString().toUpperCase()+"_LIB_PATTERN}");
-						if(fullName.isValid(addVars))
-							cmakeListWriter.write("    "+ fullName.getString(addVars) +"\n");
+				Dependency dep = deps.get(i);
+				for(int j=0; j<dep.getLibraryList().size(); j++){
+					String libName = dep.getLibraryList().get(j).getName().getString();
+					Description desc = pack.getDescription(libName);
+					if(desc != null){
+						cmakeListWriter.write("    "+ desc.getCompileName().getString() +"\n");
 					}
 				}
 			}
@@ -294,23 +246,8 @@ public class SBSCMakeFileGenerator {
 			
 			cmakeListWriter.close();
 			
-			//force creation of component root folder
-			try {
-		    	String[] command = null;
-		    	if(Utilities.isWindows())
-		    		command = new String[]{};
-		    	else if(Utilities.isLinux())
-		    		command = new String[]{"/bin/mkdir", "-p", repoRoot +"/"+packPath+"/"+packVersion};
-		    	
-		    	if(command!=null){
-			    	Logger.info("command : "+ProcessLauncher.getCommand(command));
-			    	ProcessLauncher p = new ProcessLauncher();
-					p.execute(command,null,new File(sbsXmlPath));
-					p.processOutputs();
-		    	}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			//creation component root folder
+			new File(repoRoot +"/"+packPath+"/"+packVersion).mkdirs();
 			
 			//self component description file writing
 			if(hasLibBuild){
@@ -333,14 +270,55 @@ public class SBSCMakeFileGenerator {
 				sbsComponentWriter.write("\t\t<dependencies>\n");
 				sbsComponentWriter.write("\t\t\t<dependency>\n");
 				sbsComponentWriter.write("\t\t\t\t<includes>\n");
-				sbsComponentWriter.write("\t\t\t\t\t<path>"+new File(sbsXmlPath+"/include").getAbsolutePath()+"</path>\n");
+				sbsComponentWriter.write("\t\t\t\t\t<path type=\"absolute\">"+new File(sbsXmlPath).getAbsolutePath()+"/include</path>\n");
 				sbsComponentWriter.write("\t\t\t\t</includes>\n");
+				sbsComponentWriter.write("\t\t\t\t<libraries>\n");
+				sbsComponentWriter.write("\t\t\t\t\t<lib>"+packPath+"</lib>\n");
+				sbsComponentWriter.write("\t\t\t\t</libraries>\n");
 				sbsComponentWriter.write("\t\t\t</dependency>\n");
 				sbsComponentWriter.write("\t\t</dependencies>\n");
 				sbsComponentWriter.write("\t</main>\n");
+				sbsComponentWriter.write("\t<imports>\n");
+				sbsComponentWriter.write("\t\t<import build=\"release\" file=\"lib/${ENV_NAME}/Release/library-description.xml\"/>\n");
+				sbsComponentWriter.write("\t\t<import build=\"debug\" file=\"lib/${ENV_NAME}/Debug/library-description.xml\"/>\n");
+				sbsComponentWriter.write("\t</imports>\n");
 				sbsComponentWriter.write("</pack>\n");
 				sbsComponentWriter.close();
+				
+				new File(repoRoot +"/"+packPath+"/"+packVersion+"/lib/"+envName+"/"+compileMode+"/").mkdirs();
+				
+				File sbsLibraryFile = new File(repoRoot +"/"+packPath+"/"+packVersion+"/lib/"+envName+"/"+compileMode+"/library-description.xml");
+				FileWriter sbsLibraryWriter = null;
+				try {
+					sbsLibraryWriter = new FileWriter(sbsLibraryFile,false);
+				} catch (FileNotFoundException e) {
+					err.addError("Can't create file component.xml");
+					return;
+				}
+				
+				EnvironmentVariables additionalVars = new EnvironmentVariables();
+				additionalVars.put("LIB_NAME", packName);
+				FieldString compileName = new FieldString(hasSharedLibBuild ? "${DEFAULT_SHARED_LIB_COMPILE_NAME}" : "${DEFAULT_STATIC_LIB_COMPILE_NAME}");
+				FieldString fullName = new FieldString(hasSharedLibBuild ? "${DEFAULT_SHARED_LIB_FULL_NAME}" : "${DEFAULT_STATIC_LIB_FULL_NAME}");
+				
+				sbsLibraryWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+				sbsLibraryWriter.write("<pack>\n");
+				sbsLibraryWriter.write("\t<main>\n");
+				sbsLibraryWriter.write("\t\t<dependencies>\n");
+				sbsLibraryWriter.write("\t\t\t<dependency>\n");
+				sbsLibraryWriter.write("\t\t\t\t<libraries>\n");
+				sbsLibraryWriter.write("\t\t\t\t\t<path>.</path>\n");
+				sbsLibraryWriter.write("\t\t\t\t</libraries>\n");
+				sbsLibraryWriter.write("\t\t\t</dependency>\n");
+				sbsLibraryWriter.write("\t\t</dependencies>\n");
+				sbsLibraryWriter.write("\t</main>\n");
+				sbsLibraryWriter.write("\t<descriptions>\n");
+				sbsLibraryWriter.write("\t\t<library name=\""+packPath+"\" path=\".\" full-name=\""+fullName.getString(additionalVars)+"\" compile-name=\""+compileName.getString(additionalVars)+"\" type=\""+packBuildType+"\" />\n");
+				sbsLibraryWriter.write("\t</descriptions>\n");
+				sbsLibraryWriter.write("</pack>\n");
+				sbsLibraryWriter.close();
 			}
+			
 			
 			//Symbolic link generation
 			if(Utilities.isLinux()){
