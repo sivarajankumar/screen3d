@@ -9,7 +9,6 @@
 		<dependencies>
 			<dependency name="Screen/Main" version="0.1.0"/>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="Screen/Memory" version="0.1.0"/>
 			<dependency name="OpenGL">
 				<includes>
 					<path>Ext</path>
@@ -26,4 +25,8 @@
 			</dependency>
 		</dependencies>
 	</main>
+	<descriptions>
+		<library name="opengl32" type="static" compile-name="opengl32" />
+		<library name="glu32" type="static" compile-name="glu32" />
+	</descriptions>
 </pack>

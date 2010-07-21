@@ -9,7 +9,6 @@
 		<dependencies>
 			<dependency name="Screen/Main" version="0.1.0"/>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="Screen/Memory" version="0.1.0"/>
 			<dependency name="OpenGL">
 				<libraries>
 					<lib version="195.36.1">GL</lib>
