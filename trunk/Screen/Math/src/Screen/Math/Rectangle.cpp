@@ -142,7 +142,7 @@ namespace Screen {
 		    return !(*this == rect);
 		}
 		
-		Screen::Core::RectangleIntersection Rectangle::intersects(const Rectangle& rect) const{
+		Screen::Math::RectangleIntersection Rectangle::intersects(const Rectangle& rect) const{
 			using namespace std;
 
 		    // Intersection rectangle
@@ -150,14 +150,14 @@ namespace Screen {
 		    Vector2i intRightBottom(min(getRight(), rect.getRight()), min(getBottom(), rect.getBottom()));
 
 		    if ((intLeftTop.getX() > intRightBottom.getX()) || (intLeftTop.getY() > intRightBottom.getY()))
-		    	return Screen::Core::RECT_INT_OUT;
+		    	return Screen::Math::RECT_INT_OUT;
 		    
 		    Rectangle intersection(intLeftTop, intRightBottom);
 
 		    if ((intersection == *this) || (intersection == rect))
-		        return Screen::Core::RECT_INT_IN;
+		        return Screen::Math::RECT_INT_IN;
 		    else
-		        return Screen::Core::RECT_INT_INTERSECT;
+		        return Screen::Math::RECT_INT_INTERSECT;
 		}
 	}
 }

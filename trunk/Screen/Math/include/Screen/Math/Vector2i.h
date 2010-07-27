@@ -19,55 +19,60 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_VECTOR_2_F_H
-#define SCREEN_VECTOR_2_F_H
+#ifndef SCREEN_VECTOR_2_I_H
+#define SCREEN_VECTOR_2_I_H
 
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <Screen/Math/Export.h>
 
 namespace Screen {
 	namespace Math {
+		/*!  \class Vector2i
+		 *   \brief 
+		 *   \author Ratouit Thomas
+		 *   \date 11 nov. 09
+		 */
 
-		class SCREEN_MAIN_EXPORT Vector2f{
-			SCREEN_DECL_CLASS(Screen::Math::Vector2f)
+		class SCREEN_MATH_EXPORT Vector2i{
+			SCREEN_DECL_CLASS(Screen::Math::Vector2i)
 		public:
-			Vector2f(float x=0, float y=0);
-			~Vector2f();
+			Vector2i(int x=0, int y=0);
+			~Vector2i();
 			
-			void set(float x, float y);
-			void get(float& x, float& y) const;
+			void set(int x, int y);
+			void get(int& x, int& y) const;
 			
-			void setX(float x);
-			void setY(float y);
-			float getX() const;
-			float getY() const;
+			void setX(int x);
+			void setY(int y);
+			int getX() const;
+			int getY() const;
 			
-			Vector2f operator +() const;
-			Vector2f operator -() const;
+			Vector2i operator +() const;
+			Vector2i operator -() const;
             
-			Vector2f operator +(const Vector2f& v) const;
-			Vector2f operator -(const Vector2f& v) const;
-			Vector2f operator *(float t) const;
-			Vector2f operator /(float t) const;
+			Vector2i operator +(const Vector2i& v) const;
+			Vector2i operator -(const Vector2i& v) const;
+			Vector2i operator *(int t) const;
+			Vector2i operator /(int t) const;
             
-            const Vector2f& operator +=(const Vector2f& v);
-            const Vector2f& operator -=(const Vector2f& v);
-            const Vector2f& operator *=(float t);
-            const Vector2f& operator /=(float t);
+            const Vector2i& operator +=(const Vector2i& v);
+            const Vector2i& operator -=(const Vector2i& v);
+            const Vector2i& operator *=(int t);
+            const Vector2i& operator /=(int t);
             
-			bool operator == (const Vector2f& v) const;
-			bool operator != (const Vector2f& v) const;
+			bool operator == (const Vector2i& v) const;
+			bool operator != (const Vector2i& v) const;
             
-            float& operator ()(unsigned int i);
-            const float& operator()(unsigned int i) const;
+            int& operator ()(unsigned int i);
+            const int& operator()(unsigned int i) const;
             
-            operator float* ();
-            operator const float* () const;
+            operator int* ();
+            operator const int* () const;
 		private:
-			float x,y;
+			int x,y;
 		};
 		
-		Vector2f operator *(float t, const Vector2f& v);
+		Vector2i operator *(int t, const Vector2i& v);
 	}
 }
 

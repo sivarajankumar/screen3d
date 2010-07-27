@@ -93,12 +93,6 @@ namespace Screen{
 	    	TEXTURE_HAS_HARDWARE_MIPMAP
 	    };
 	    
-	    enum RectangleIntersection{
-	    	RECT_INT_IN,
-	    	RECT_INT_INTERSECT,
-	    	RECT_INT_OUT
-	    };
-	    
 	    enum ApiCapability{
 	    	CAPABILITY_NON_POWER_OF_TWO_TEXTURE,
 	    	CAPABILITY_COMPRESSED_TEXTURE,

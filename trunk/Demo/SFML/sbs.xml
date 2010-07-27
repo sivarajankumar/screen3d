@@ -9,11 +9,6 @@
 		<dependencies>
 			<dependency name="Screen/Utils" version="0.1.0"/>
 			<dependency name="Screen/Main" version="0.1.0"/>
-			<dependency name="boost" version="1.42">
-				<libraries>
-					<lib>boost_thread</lib>
-				</libraries>
-			</dependency>
 			<dependency name="SFML" version="1.5">
 				<libraries>
 					<lib>sfml-system</lib>

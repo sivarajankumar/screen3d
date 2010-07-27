@@ -8,11 +8,6 @@
 	<main>
 		<dependencies>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="boost" version="1.42">
-				<libraries>
-					<lib>boost_thread</lib>
-				</libraries>
-			</dependency>
 		</dependencies>
 		<flags>
 			<flag flag="SCREEN_FIELDS_BUILD_SHARED_LIBRARY" config="all" />

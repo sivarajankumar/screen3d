@@ -7,7 +7,7 @@
 	</properties>
 	<main>
 		<dependencies>
-			<dependency name="boost" version="1.42">
+			<dependency name="boost" version="1.42" export="true">
 				<libraries>
 					<lib>boost_thread</lib>
 				</libraries>

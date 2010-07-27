@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pack>
 	<properties>
-		<name>Screen/XML</name>
+		<name>Screen/Math</name>
 		<version>0.1.0</version>
 		<buildtype>shared</buildtype>
 	</properties>
 	<main>
 		<dependencies>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="xerces" version="3.1">
-				<libraries>
-					<lib>xerces-c</lib>
-				</libraries>
-			</dependency>
 		</dependencies>
 		<flags>
-			<flag flag="SCREEN_XML_BUILD_SHARED_LIBRARY" config="all" />
+			<flag flag="SCREEN_MATH_BUILD_SHARED_LIBRARY" config="all" />
 		</flags>
 	</main>
 </pack>

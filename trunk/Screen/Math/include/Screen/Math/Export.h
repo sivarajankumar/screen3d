@@ -19,61 +19,23 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_VECTOR_2_I_H
-#define SCREEN_VECTOR_2_I_H
+#ifndef SCREEN_MATH_EXPORT_H
+#define SCREEN_MATH_EXPORT_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#if defined (_MSC_VER)
+# pragma warning(disable: 4251) //disable dll export warning
+# pragma warning(disable: 4275)//disable dll export warning
+# pragma warning(disable: 4996)//disable depreciated function warning
+#endif
 
-namespace Screen {
-	namespace Math {
-		/*!  \class Vector2i
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 11 nov. 09
-		 */
-
-		class SCREEN_MAIN_EXPORT Vector2i{
-			SCREEN_DECL_CLASS(Screen::Math::Vector2i)
-		public:
-			Vector2i(int x=0, int y=0);
-			~Vector2i();
-			
-			void set(int x, int y);
-			void get(int& x, int& y) const;
-			
-			void setX(int x);
-			void setY(int y);
-			int getX() const;
-			int getY() const;
-			
-			Vector2i operator +() const;
-			Vector2i operator -() const;
-            
-			Vector2i operator +(const Vector2i& v) const;
-			Vector2i operator -(const Vector2i& v) const;
-			Vector2i operator *(int t) const;
-			Vector2i operator /(int t) const;
-            
-            const Vector2i& operator +=(const Vector2i& v);
-            const Vector2i& operator -=(const Vector2i& v);
-            const Vector2i& operator *=(int t);
-            const Vector2i& operator /=(int t);
-            
-			bool operator == (const Vector2i& v) const;
-			bool operator != (const Vector2i& v) const;
-            
-            int& operator ()(unsigned int i);
-            const int& operator()(unsigned int i) const;
-            
-            operator int* ();
-            operator const int* () const;
-		private:
-			int x,y;
-		};
-		
-		Vector2i operator *(int t, const Vector2i& v);
-	}
-}
+#ifdef WIN32
+#	ifdef SCREEN_MATH_BUILD_SHARED_LIBRARY
+#  		define SCREEN_MATH_EXPORT __declspec(dllexport)
+#	else
+#		define SCREEN_MATH_EXPORT __declspec(dllimport)
+#	endif
+#else
+#	define SCREEN_MATH_EXPORT
+#endif
 
 #endif
