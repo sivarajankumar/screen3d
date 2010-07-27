@@ -14,6 +14,7 @@ import screen.tools.sbs.objects.EnvironmentVariables;
 import screen.tools.sbs.objects.ErrorList;
 import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
+import screen.tools.sbs.objects.Library;
 import screen.tools.sbs.objects.Pack;
 import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
@@ -276,6 +277,55 @@ public class SBSCMakeFileGenerator {
 				sbsComponentWriter.write("\t\t\t\t\t<lib>"+packPath+"</lib>\n");
 				sbsComponentWriter.write("\t\t\t\t</libraries>\n");
 				sbsComponentWriter.write("\t\t\t</dependency>\n");
+				
+				//add exported dependencies
+				List<Dependency> depList = pack.getDependencyList();
+				for(int i=0; i<depList.size(); i++){
+					Dependency dep = depList.get(i);
+					if(dep.getExport().getBool()){
+						if(dep.getName().isValid()){
+							if(dep.getVersion().isValid()){
+								sbsComponentWriter.write("\t\t\t<dependency name=\""+dep.getName().getString()+"\" version=\""+dep.getVersion().getString()+"\">\n");
+							}
+							else{
+								sbsComponentWriter.write("\t\t\t<dependency name=\""+dep.getName().getString()+"\">\n");
+							}
+						}
+						else{
+							if(dep.getVersion().isValid()){
+								sbsComponentWriter.write("\t\t\t<dependency version=\""+dep.getVersion().getString()+"\">\n");
+							}
+							else{
+								sbsComponentWriter.write("\t\t\t<dependency>\n");
+							}
+						}
+						if(dep.getIncludePathList().size() > 0){
+							sbsComponentWriter.write("\t\t\t\t<includes>\n");
+							List<FieldPath> incs = dep.getIncludePathList();
+							for(int j=0; j<incs.size(); j++){
+								sbsComponentWriter.write("\t\t\t\t\t<path type=\"absolute\" build=\""+incs.get(j).getBuildMode().getAsString()+"\">"+incs.get(j).getString()+"</path>\n");
+							}
+							sbsComponentWriter.write("\t\t\t\t</includes>\n");
+						}
+						if(dep.getLibraryPathList().size() > 0 || dep.getLibraryList().size() > 0){
+							sbsComponentWriter.write("\t\t\t\t<libraries>\n");
+							List<FieldPath> libPaths = dep.getLibraryPathList();
+							for(int j=0; j<libPaths.size(); j++){
+								sbsComponentWriter.write("\t\t\t\t\t<path type=\"absolute\" build=\""+libPaths.get(j).getBuildMode().getAsString()+"\">"+libPaths.get(j).getString()+"</path>\n");
+							}
+							List<Library> libs = dep.getLibraryList();
+							for(int j=0; j<libs.size(); j++){
+								if(libs.get(j).getVersion().isValid())
+									sbsComponentWriter.write("\t\t\t\t\t<lib version=\""+libs.get(j).getVersion().getString()+"\">"+libs.get(j).getName().getString()+"</lib>\n");
+								else	
+									sbsComponentWriter.write("\t\t\t\t\t<lib>"+libs.get(j).getName().getString()+"</lib>\n");
+							}
+							sbsComponentWriter.write("\t\t\t\t</libraries>\n");
+						}
+						sbsComponentWriter.write("\t\t\t</dependency>\n");
+					}
+				}
+				
 				sbsComponentWriter.write("\t\t</dependencies>\n");
 				sbsComponentWriter.write("\t</main>\n");
 				sbsComponentWriter.write("\t<imports>\n");

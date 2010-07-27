@@ -21,6 +21,7 @@ import screen.tools.sbs.objects.GlobalSettings;
 import screen.tools.sbs.objects.Import;
 import screen.tools.sbs.objects.Library;
 import screen.tools.sbs.objects.Pack;
+import screen.tools.sbs.utils.FieldBool;
 import screen.tools.sbs.utils.FieldBuildMode;
 import screen.tools.sbs.utils.FieldBuildType;
 import screen.tools.sbs.utils.FieldFile;
@@ -143,6 +144,10 @@ public class SBSDomDataFiller {
 				String version = dep.getAttribute("version");
 				version = ("".equals(version)) ? null : version;
 				newDep.setVersion(new FieldString(version));
+				
+				String export = dep.getAttribute("export");
+				export = ("".equals(export)) ? null : export;
+				newDep.setExport(new FieldBool(export));
 				
 				// includes
 				NodeList inclRoot = dep.getElementsByTagName("includes");
