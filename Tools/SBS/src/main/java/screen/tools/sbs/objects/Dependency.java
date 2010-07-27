@@ -3,19 +3,22 @@ package screen.tools.sbs.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import screen.tools.sbs.utils.FieldBool;
 import screen.tools.sbs.utils.FieldPath;
 import screen.tools.sbs.utils.FieldString;
 
 public class Dependency {
 	private FieldString name;
 	private FieldString version;
+	private FieldBool export;
 	private List<FieldPath> includePathList;
 	private List<FieldPath> libraryPathList;
 	private List<Library> libraryList;
 	
 	public Dependency() {
 		name = new FieldString();
-		version = null;
+		version = new FieldString();
+		export = new FieldBool();
 		includePathList = new ArrayList<FieldPath>();
 		libraryPathList = new ArrayList<FieldPath>();
 		libraryList = new ArrayList<Library>();
@@ -35,6 +38,14 @@ public class Dependency {
 
 	public FieldString getVersion() {
 		return version;
+	}
+	
+	public void setExport(FieldBool export) {
+		this.export = export;
+	}
+	
+	public FieldBool getExport() {
+		return export;
 	}
 	
 	public boolean getSbs() {

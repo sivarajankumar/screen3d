@@ -47,6 +47,17 @@ public class FieldBuildMode {
 		return type;
 	}
 	
+	public String getAsString() {
+		switch (type) {
+		case DEBUG:
+			return "debug";
+		case RELEASE:
+			return "debug";
+		default:
+			return "all";
+		}
+	}
+	
 	public boolean isSameMode(boolean isRelease){
 		if(type == Type.ALL)
 			return true;
