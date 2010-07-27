@@ -1,5 +1,6 @@
 package screen.tools.sbs.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import screen.tools.sbs.objects.ErrorList;
@@ -43,8 +44,9 @@ public class OptionHandler {
 		}
 		else{
 			sbsXmlPath = args[0];
-			if(!sbsXmlPath.endsWith("/"))
-				sbsXmlPath += "/";
+			//get the full path for sbs root component
+			sbsXmlPath = new File(sbsXmlPath).getAbsolutePath()+"/";
+			
 			String phase = args[1];
 			
             GlobalSettings.getGlobalSettings().getEnvironmentVariables().put("_COMPILE_MODE", "Release");
