@@ -21,6 +21,7 @@
 
 #include <Screen/Memory/BufferManager.h>
 #include <Screen/Utils/Exception.h>
+#include <Screen/Math/Other.h>
 #include <malloc.h>
 
 #define LOG_STACKS \
@@ -61,7 +62,7 @@ namespace Screen {
 
 		unsigned int BufferManager::calculateSizeFromStack(int stackNumber){
 			SCREEN_DECL_STATIC_METHOD(calculateSizeFromStack)
-			return SCREEN_MEMORY_DEFAULT_MIN_SIZE*std::pow(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
+			return SCREEN_MEMORY_DEFAULT_MIN_SIZE*Screen::Math::power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
 		}
 
 #define createBuffer(buffer,bufferSize) \

@@ -8,11 +8,7 @@
 	<main>
 		<dependencies>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="boost" version="1.42">
-				<libraries>
-					<lib>boost_thread</lib>
-				</libraries>
-			</dependency>
+			<dependency name="Screen/Math" version="0.1.0"/>
 		</dependencies>
 		<flags>
 			<flag flag="SCREEN_MEMORY_BUILD_SHARED_LIBRARY" config="all" />
@@ -22,11 +18,7 @@
 		<dependencies>
 			<dependency name="Screen/Memory" version="0.1.0"/>
 			<dependency name="Screen/Utils" version="0.1.0"/>
-			<dependency name="boost" version="1.42">
-				<libraries>
-					<lib>boost_thread</lib>
-				</libraries>
-			</dependency>
+			<dependency name="Screen/Math" version="0.1.0"/>
 			<dependency name="cppunit" version="1.12.1">
 				<libraries>
 					<lib>cppunit</lib>

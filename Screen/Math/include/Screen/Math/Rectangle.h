@@ -23,13 +23,16 @@
 #define SCREEN_RECTANGLE_H
 
 #include <Screen/Math/Vector2i.h>
-#include <Screen/Core/Enums.h>
 #include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <Screen/Math/Export.h>
 
 namespace Screen {
 	namespace Math {
-		
+		enum RectangleIntersection{
+	    	RECT_INT_IN,
+	    	RECT_INT_INTERSECT,
+	    	RECT_INT_OUT
+	    };
 	
 		/*!  \class Rectangle
 		 *   \brief 
@@ -37,7 +40,7 @@ namespace Screen {
 		 *   \date 29 nov. 09
 		 */
 
-		class SCREEN_MAIN_EXPORT Rectangle {
+		class SCREEN_MATH_EXPORT Rectangle {
 			SCREEN_DECL_CLASS(Screen::Math::Rectangle)
 		public:
 			Rectangle(const Vector2i& leftTop = Vector2i(0, 0), const Vector2i& size = Vector2i(0, 0));
@@ -75,7 +78,7 @@ namespace Screen {
 			bool operator ==(const Rectangle& rect) const;
 			bool operator !=(const Rectangle& rect) const;
 			
-			Screen::Core::RectangleIntersection intersects(const Rectangle& rect) const;
+			Screen::Math::RectangleIntersection intersects(const Rectangle& rect) const;
 		
 		private:
 			Vector2i leftTop;
