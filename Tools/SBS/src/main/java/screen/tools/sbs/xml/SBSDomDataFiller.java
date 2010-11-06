@@ -1,3 +1,25 @@
+/*****************************************************************************
+ * This source file is part of SBS (Screen Build System),                    *
+ * which is a component of Screen Framework                                  *
+ *                                                                           *
+ * Copyright (c) 2008-2010 Ratouit Thomas                                    *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Lesser General Public License as published by  *
+ * the Free Software Foundation; either version 3 of the License, or (at     *
+ * your option) any later version.                                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser   *
+ * General Public License for more details.                                  *
+ *                                                                           *
+ * You should have received a copy of the GNU Lesser General Public License  *
+ * along with this program; if not, write to the Free Software Foundation,   *
+ * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
+ * http://www.gnu.org/copyleft/lesser.txt.                                   *
+ *****************************************************************************/
+
 package screen.tools.sbs.xml;
 
 import java.io.File;
@@ -56,27 +78,28 @@ public class SBSDomDataFiller {
 		XPath query = xFactory.newXPath();
 		
 		try {
-			if(!isTest){
-				//properties
-				
-				//name
-				propertyName = (String) query.compile(propertyNameQuery).evaluate(root);
-				Logger.debug("propertyName : "+propertyName);
-				pack.getProperties().setName(new FieldString(propertyName));
-				
-				//version
-				propertyVersion = (String) query.compile(propertyVersionQuery).evaluate(root);
-				Logger.debug("propertyVersion : "+propertyVersion);
-				pack.getProperties().setVersion(new FieldString(propertyVersion));
-	
-				//build type
-				propertyBuildType = (String) query.compile(propertyBuildTypeQuery).evaluate(root);
-				Logger.debug("propertyBuildType : "+propertyBuildType);
-				pack.getProperties().setBuildType(new FieldString(propertyBuildType));
-				
-				processAll(root, pack, sbsXmlPath);
-			}
-			else{
+			if(pack == null)
+				pack = new Pack();
+			if(testPack == null)
+				testPack = new Pack();
+			//properties
+			
+			//name
+			propertyName = (String) query.compile(propertyNameQuery).evaluate(root);
+			Logger.debug("propertyName : "+propertyName);
+			pack.getProperties().setName(new FieldString(propertyName));
+			
+			//version
+			propertyVersion = (String) query.compile(propertyVersionQuery).evaluate(root);
+			Logger.debug("propertyVersion : "+propertyVersion);
+			pack.getProperties().setVersion(new FieldString(propertyVersion));
+
+			//build type
+			propertyBuildType = (String) query.compile(propertyBuildTypeQuery).evaluate(root);
+			Logger.debug("propertyBuildType : "+propertyBuildType);
+			pack.getProperties().setBuildType(new FieldString(propertyBuildType));
+
+			if(isTest){
 				//test
 				NodeList test = root.getElementsByTagName("test");
 				if(test.getLength() == 1){
@@ -92,6 +115,9 @@ public class SBSDomDataFiller {
 					//imports
 					processImports(root, testPack, path);
 				}
+			}
+			else{
+				processAll(root, pack, sbsXmlPath);
 			}
 			
 		} catch (XPathExpressionException e) {
@@ -234,7 +260,7 @@ public class SBSDomDataFiller {
 						//if component.xml exists, retrieve contents into pack
 						Document doc = SBSDomParser.parserFile(new File(fullPath+"/component.xml"));
 						Element root2 = doc.getDocumentElement();
-						Logger.info("import "+fullPath+"/component.xml");
+						Logger.debug("import "+fullPath+"/component.xml");
 						
 						processAll(root2, pack, new FieldPath(fullPath));
 					}
@@ -242,8 +268,7 @@ public class SBSDomDataFiller {
 						if(Utilities.isWindows())
 							err.addError("Can't retrieve file component.xml in "+fullPath+" folder : component "+packName+" with version "+packVersion+" doesn't exist");
 						else {
-							Logger.info("Can't retrieve file component.xml in "+fullPath+" folder : component "+packName+" with version "+packVersion+" doesn't exist");
-							Logger.info("Uses default settings");
+							err.addWarning("Can't retrieve file component.xml in "+fullPath+" folder : component "+packName+" with version "+packVersion+" doesn't exist => Uses default settings");
 							for(int j=0; j<tmpLibList.size(); j++){
 								//add default library description
 								Description description = new Description();
@@ -385,7 +410,7 @@ public class SBSDomDataFiller {
 						//if component.xml exists, retrieve contents into pack
 						Document doc = SBSDomParser.parserFile(importFile);
 						Element root2 = doc.getDocumentElement();
-						Logger.info("import "+file2);
+						Logger.debug("import "+file2);
 						
 						processAll(root2, pack, new FieldPath(importFile.getParent()));
 					}
