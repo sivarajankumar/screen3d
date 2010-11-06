@@ -1,3 +1,25 @@
+/*****************************************************************************
+ * This source file is part of SBS (Screen Build System),                    *
+ * which is a component of Screen Framework                                  *
+ *                                                                           *
+ * Copyright (c) 2008-2010 Ratouit Thomas                                    *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Lesser General Public License as published by  *
+ * the Free Software Foundation; either version 3 of the License, or (at     *
+ * your option) any later version.                                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser   *
+ * General Public License for more details.                                  *
+ *                                                                           *
+ * You should have received a copy of the GNU Lesser General Public License  *
+ * along with this program; if not, write to the Free Software Foundation,   *
+ * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
+ * http://www.gnu.org/copyleft/lesser.txt.                                   *
+ *****************************************************************************/
+
 package screen.tools.sbs.cmake;
 
 import java.io.BufferedReader;
@@ -22,11 +44,24 @@ import screen.tools.sbs.utils.Logger;
 import screen.tools.sbs.utils.ProcessLauncher;
 import screen.tools.sbs.utils.Utilities;
 
+/**
+ * Generates CMakeLists.txt and SBS files for global repository from a pack
+ * 
+ * @author Ratouit Thomas
+ * 
+ */
 public class SBSCMakeFileGenerator {
 	private Pack pack;
 	private String sbsXmlPath;
 	private boolean isTest;
 	
+	/**
+	 * Constructor for SBSCMakeFileGenerator class
+	 * 
+	 * @param pack
+	 * @param sbsXmlPath
+	 * @param isTest
+	 */
 	public SBSCMakeFileGenerator(Pack pack, String sbsXmlPath, boolean isTest) {
 		this.pack = pack;
 		this.sbsXmlPath = sbsXmlPath;
@@ -37,6 +72,7 @@ public class SBSCMakeFileGenerator {
 		ErrorList err = GlobalSettings.getGlobalSettings().getErrorList();
 		
 		try {
+			//handler to write CMakeLists.txt file
 			File cmakeListFile = new File(sbsXmlPath + "CMakeLists.txt");
 			FileWriter cmakeListWriter = null;
 			try {
@@ -46,6 +82,7 @@ public class SBSCMakeFileGenerator {
 				return;
 			}
 			
+			//retrieves pack properties
 			String packName = pack.getProperties().getName().getString().replaceAll("/", "");
 			String packPath = pack.getProperties().getName().getString();
 			String packVersion = pack.getProperties().getVersion().getString();
@@ -56,7 +93,7 @@ public class SBSCMakeFileGenerator {
 			String compileMode = variables.getValue("_COMPILE_MODE");
 			boolean isDebugMode = "Debug".equals(compileMode);
 			
-			//compile mode flags
+			//compile flags
 			String flagVar = compileMode.toUpperCase()+"_FLAGS";
 			if(!variables.contains(flagVar)){
 				err.addError("undefined variable : "+flagVar);

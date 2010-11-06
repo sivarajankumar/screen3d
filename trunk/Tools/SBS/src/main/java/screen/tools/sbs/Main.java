@@ -1,87 +1,47 @@
+/*****************************************************************************
+ * This source file is part of SBS (Screen Build System),                    *
+ * which is a component of Screen Framework                                  *
+ *                                                                           *
+ * Copyright (c) 2008-2010 Ratouit Thomas                                    *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Lesser General Public License as published by  *
+ * the Free Software Foundation; either version 3 of the License, or (at     *
+ * your option) any later version.                                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser   *
+ * General Public License for more details.                                  *
+ *                                                                           *
+ * You should have received a copy of the GNU Lesser General Public License  *
+ * along with this program; if not, write to the Free Software Foundation,   *
+ * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
+ * http://www.gnu.org/copyleft/lesser.txt.                                   *
+ *****************************************************************************/
+
 package screen.tools.sbs;
 
-import java.io.File;
-import java.util.List;
-
-import org.w3c.dom.Document;
-
-import screen.tools.sbs.cmake.SBSCMakeCleaner;
-import screen.tools.sbs.cmake.SBSCMakeFileGenerator;
-import screen.tools.sbs.cmake.SBSCMakeLauncher;
-import screen.tools.sbs.objects.Dependency;
-import screen.tools.sbs.objects.Description;
+import screen.tools.sbs.actions.ActionManager;
 import screen.tools.sbs.objects.ErrorList;
-import screen.tools.sbs.objects.Flag;
 import screen.tools.sbs.objects.GlobalSettings;
-import screen.tools.sbs.objects.Pack;
-import screen.tools.sbs.objects.Library;
-import screen.tools.sbs.utils.FieldPath;
+import screen.tools.sbs.targets.Parameters;
+import screen.tools.sbs.targets.TargetManager;
 import screen.tools.sbs.utils.Logger;
-import screen.tools.sbs.utils.OptionHandler;
-import screen.tools.sbs.utils.OptionHandler.Phase;
-import screen.tools.sbs.xml.SBSDomDataFiller;
-import screen.tools.sbs.xml.SBSDomParser;
 
+/**
+ * Main class, entry point for sbs commands
+ * 
+ * @author Ratouit Thomas
+ * 
+ */
 public class Main {
-	private static void checkFields(Pack pack){
-		Logger.info("Properties :");
-		Logger.info("pack = " + pack.getProperties().getName().getString());
-		Logger.info("version = " + pack.getProperties().getVersion().getString());
-		Logger.info("build = " + pack.getProperties().getBuildType().getString());
-		
-		Logger.info("Dependencies :");
-		List<Dependency> deps = pack.getDependencyList();
-		for (int i=0; i<deps.size(); i++){
-			Logger.info("Dependency{");
-			
-			Dependency dep = deps.get(i);
-			if(!dep.getName().isEmpty())
-				Logger.info("    name = " + dep.getName().getString());
-			if(!dep.getVersion().isEmpty())
-				Logger.info("    version = " + dep.getVersion().getString());
-			
-			List<FieldPath> incs = dep.getIncludePathList();
-			for(int j=0; j<incs.size(); j++){
-				Logger.info("    include path = " + incs.get(j).getString());
-			}
-			
-			List<FieldPath> libPaths = dep.getLibraryPathList();
-			for(int j=0; j<libPaths.size(); j++){
-				Logger.info("    library path = " + libPaths.get(j).getString());
-			}
-			
-			List<Library> libs = dep.getLibraryList();
-			for(int j=0; j<libs.size(); j++){
-				if(!libs.get(j).getName().isEmpty())
-					Logger.info("    library name = " + libs.get(j).getName().getString());
-				if(!libs.get(j).getVersion().isEmpty())
-					Logger.info("    library version = " + libs.get(j).getVersion().getString());
-			}
-			
-			Logger.info("}");
-		}
-		
-		Logger.info("Flags :");
-		List<Flag> flags = pack.getFlagList();
-		for (int i=0; i<flags.size(); i++){
-			Logger.info("Flag{");
-			Logger.info("    flag = "+flags.get(i).getFlag().getString());
-			Logger.info("    value = "+flags.get(i).getValue().getString());
-			Logger.info("}");
-		}
-		
-		Logger.info("Descriptions :");
-		List<Description> descs = pack.getDescriptionList();
-		for (int i=0; i<descs.size(); i++){
-			Logger.info("Description{");
-			Logger.info("    name = "+descs.get(i).getName().getString());
-			Logger.info("    compileName = "+descs.get(i).getCompileName().getString());
-			Logger.info("    fullName = "+descs.get(i).getFullName().getString());
-			Logger.info("    buildType = "+descs.get(i).getBuildType());
-			Logger.info("}");
-		}
-	}
-	
+	/**
+	 * Logs registered errors and warnings.
+	 * 
+	 * @return has error during the process
+	 * 
+	 */
 	private static boolean checkErrors(){
 		ErrorList err = GlobalSettings.getGlobalSettings().getErrorList();
 		if(err.hasErrors()){
@@ -95,16 +55,48 @@ public class Main {
 			Logger.info("============== STOP ===============");
 			return false;
 		}else if(err.hasWarnings()){
-			Logger.warning("warnings detected");
+			Logger.info("warnings detected");
 			Logger.info("Logged warnings (" + err.getWarnings().size() + ")");
 			err.displayWarnings();
 		}
 		return true;
 	}
 	
+	/**
+	 * Software entry / Main method.
+	 * 
+	 * @param args
+	 * @throws Exception
+	 * 
+	 */
 	public static void main(String[] args) throws Exception {
 		Logger.info("------------ begin SBS ------------");
 		
+		String root = System.getProperty("SBS_ROOT");
+		GlobalSettings.getGlobalSettings().getEnvironmentVariables().put("SBS_ROOT", root);
+		
+		ActionManager actionManager = new ActionManager();
+		TargetManager targetManager = new TargetManager(actionManager);
+		Parameters parameters = new Parameters(args);
+		
+		//register actions for a given target
+		targetManager.call(parameters.getTargetCall(), parameters);
+		//verify that there is no error to resume the process
+		checkErrors();
+		if(GlobalSettings.getGlobalSettings().isPrintUsage()){
+			//print help
+			targetManager.callUsage(GlobalSettings.getGlobalSettings().getTargetUsage());
+		}
+		else{
+			//process registered actions
+			actionManager.processActions();
+			//verify that there is no error to resume the process
+			checkErrors();
+			if(GlobalSettings.getGlobalSettings().isPrintUsage())
+				//print help
+				targetManager.callUsage(GlobalSettings.getGlobalSettings().getTargetUsage());
+		}
+		/*
 		Logger.info("----- begin parse parameters ------");
 		OptionHandler optHandler = new OptionHandler(args);
 		if(!checkErrors()){
@@ -213,6 +205,7 @@ public class Main {
 				Logger.info("------------ end test -------------");
 			}
 		}
+		*/
 		
 		Logger.info("------------- end SBS -------------");
 		Logger.info("");
