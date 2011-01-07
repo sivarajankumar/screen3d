@@ -11,7 +11,7 @@
 			<dependency name="Screen/Math" version="0.1.0" export="true"/>
 			<dependency name="DevIL" version="1.7.8">
 				<libraries>
-					<lib>DevIL</lib>
+					<lib>IL</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
