@@ -9,10 +9,8 @@
 		<dependencies>
 			<dependency name="Screen/Main" version="0.1.0"/>
 			<dependency name="Screen/Utils" version="0.1.0"/>
+			<dependency name="glext" version="1.0.0"/>
 			<dependency name="OpenGL">
-				<includes>
-					<path>Ext</path>
-				</includes>
 				<libraries>
 					<lib>opengl32</lib>
 					<lib>glu32</lib>
