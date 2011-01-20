@@ -22,15 +22,15 @@
 #ifndef SCREEN_SINGLETON_LAZY_INSTANCE_H
 #define SCREEN_SINGLETON_LAZY_INSTANCE_H
 
-#include <Screen/Utils/Thread.h>
-#include <Screen/Utils/SingletonLazyInstanceManager.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Thread.h>
+#include <screen/utils/SingletonLazyInstanceManager.h>
+#include <screen/utils/Export.h>
 #include <iostream>
 // separate from others Lazy classes
 // only used for singleton lazy instanciation
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
 		public:
 			SingletonLazyInstanceInterface();

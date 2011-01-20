@@ -20,20 +20,20 @@
  *****************************************************************************/
 
 
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/LoggerReporter.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/LoggerReporter.h>
+#include <screen/utils/Exception.h>
 #include <iostream>
 
-SINGLETON_IMPL(UniqueSingleton,Screen::Utils::Logger)
+SINGLETON_IMPL(UniqueSingleton,screen::utils::Logger)
 
-void Screen::Utils::Logger::attachReporter(LoggerReporter* reporter) {
+void screen::utils::Logger::attachReporter(LoggerReporter* reporter) {
     if(this->reporter!=NULL)
         delete this->reporter;
     this->reporter = reporter;
 }
 
-void Screen::Utils::Logger::debug(const std::string& log) {
+void screen::utils::Logger::debug(const std::string& log) {
 	//std::cout << this << " / " << reporter << std::endl;
 		
     if(reporter==NULL){
@@ -44,7 +44,7 @@ void Screen::Utils::Logger::debug(const std::string& log) {
     reporter->debug(log);
 }
 
-void Screen::Utils::Logger::info(const std::string& log) {
+void screen::utils::Logger::info(const std::string& log) {
     if(reporter==NULL){
         std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
         std::cerr << "To log : [INFO] " << log << std::endl;
@@ -53,7 +53,7 @@ void Screen::Utils::Logger::info(const std::string& log) {
     reporter->info(log);
 }
 
-void Screen::Utils::Logger::warning(const std::string& log) {
+void screen::utils::Logger::warning(const std::string& log) {
     if(reporter==NULL){
         std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
         std::cerr << "To log : [WARNING] " << log << std::endl;
@@ -62,7 +62,7 @@ void Screen::Utils::Logger::warning(const std::string& log) {
     reporter->warning(log);
 }
 
-void Screen::Utils::Logger::error(const std::string& log) {
+void screen::utils::Logger::error(const std::string& log) {
     if(reporter==NULL){
         std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
         std::cerr << "To log : [ERROR] " << log << std::endl;
@@ -71,7 +71,7 @@ void Screen::Utils::Logger::error(const std::string& log) {
     reporter->error(log);
 }
 
-void Screen::Utils::Logger::call(CallPosition pos,
+void screen::utils::Logger::call(CallPosition pos,
             		  			 CallType type,
             		  			 const char* className,
             		  			 const std::string& functionName,
@@ -84,10 +84,10 @@ void Screen::Utils::Logger::call(CallPosition pos,
     reporter->call(pos,type,className,functionName,address);
 }
 
-Screen::Utils::Logger::Logger()
+screen::utils::Logger::Logger()
         :reporter(NULL) {}
 
-Screen::Utils::Logger::~Logger() {
+screen::utils::Logger::~Logger() {
     if(reporter==NULL)
         delete reporter;
 }

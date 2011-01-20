@@ -22,13 +22,13 @@
 #ifndef SCREEN_LOGGER_H
 #define SCREEN_LOGGER_H
 
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Singleton.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/Export.h>
 #include <string>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
     	enum CallPosition{
     		CALL_BEGIN,
     		CALL_END
@@ -66,37 +66,37 @@ namespace Screen {
 }
 
 # if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING) || defined(SCREEN_AUTHORIZE_LOG_ERROR)
-#  define SCREEN_ATTACH_LOGGER_REPORTER(r) Screen::Utils::Logger::instance()->attachReporter((r));
+#  define SCREEN_ATTACH_LOGGER_REPORTER(r) screen::utils::Logger::instance()->attachReporter((r));
 # else
 #  define SCREEN_ATTACH_LOGGER_REPORTER(r)
 # endif
 
 # if defined(SCREEN_AUTHORIZE_LOG_DEBUG)
-#  define SCREEN_LOG_DEBUG(s)	{std::stringstream _ss; _ss << s; Screen::Utils::Logger::instance()->debug(_ss.str());}
+#  define SCREEN_LOG_DEBUG(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::instance()->debug(_ss.str());}
 # else
 #  define SCREEN_LOG_DEBUG(s)
 # endif
 
 # if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO)
-#  define SCREEN_LOG_INFO(s)	{std::stringstream _ss; _ss << s; Screen::Utils::Logger::instance()->info(_ss.str());}
+#  define SCREEN_LOG_INFO(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::instance()->info(_ss.str());}
 # else
 #  define SCREEN_LOG_INFO(s)
 # endif
 
 # if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING)
-#  define SCREEN_LOG_WARNING(s)	{std::stringstream _ss; _ss << s; Screen::Utils::Logger::instance()->warning(_ss.str());}
+#  define SCREEN_LOG_WARNING(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::instance()->warning(_ss.str());}
 # else
 #  define SCREEN_LOG_WARNING(s)
 # endif
 
 # if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING) || defined(SCREEN_AUTHORIZE_LOG_ERROR)
-#  define SCREEN_LOG_ERROR(s)	{std::stringstream _ss; _ss << s; Screen::Utils::Logger::instance()->error(_ss.str());}
+#  define SCREEN_LOG_ERROR(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::instance()->error(_ss.str());}
 # else
 #  define SCREEN_LOG_ERROR(s)
 # endif
 
 # ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
-#  define SCREEN_LOG_CALL(p,t,c,f,a) Screen::Utils::Logger::instance()->call(p,t,c,f,a);
+#  define SCREEN_LOG_CALL(p,t,c,f,a) screen::utils::Logger::instance()->call(p,t,c,f,a);
 # endif
 
 #endif

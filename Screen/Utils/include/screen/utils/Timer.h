@@ -22,7 +22,7 @@
 #ifndef SCREEN_TIMER_H
 #define SCREEN_TIMER_H
 
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Declaration.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -30,8 +30,8 @@
 #include <ctime>
 #endif
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
         class Timer {
         public:
             inline explicit Timer() {

@@ -19,31 +19,31 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Exception.h>
+#include <screen/utils/Exception.h>
 
-Screen::Utils::Exception::Exception(const std::string& message) throw ()
-        :std::exception(),message("[Screen exception] "+message) {
+screen::utils::Exception::Exception(const std::string& message) throw ()
+        :std::exception(),message("[screen exception] "+message) {
 }
 
-Screen::Utils::Exception::Exception(const std::string& file, int line, const std::string& message) throw ()
+screen::utils::Exception::Exception(const std::string& file, int line, const std::string& message) throw ()
         :std::exception(),message("") {
     std::ostringstream stream;
-    stream << "Screen exception = file : " << file;
+    stream << "screen exception = file : " << file;
     stream << " , line : " << line;
     stream << " / " << message;
     this->message = stream.str();
 }
 
-Screen::Utils::Exception::~Exception() throw() {
+screen::utils::Exception::~Exception() throw() {
 }
 
-const char* Screen::Utils::Exception::what() const throw() {
+const char* screen::utils::Exception::what() const throw() {
     return message.c_str();
 }
 
-Screen::Utils::AssertException::AssertException(const std::string& file, int line, const std::string& what) throw ()
-        :Screen::Utils::Exception(file,line,"Assertion failed : "+what) {
+screen::utils::AssertException::AssertException(const std::string& file, int line, const std::string& what) throw ()
+        :screen::utils::Exception(file,line,"Assertion failed : "+what) {
 }
 
-Screen::Utils::AssertException::~AssertException() throw (){
+screen::utils::AssertException::~AssertException() throw (){
 }

@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/LoggerReporter.h>
+#include <screen/utils/LoggerReporter.h>
 #include <iostream>
 
 const char* defaultCallPos[] = {
@@ -35,32 +35,32 @@ const char* defaultCallType[] = {
 	"function"
 };
 
-Screen::Utils::LoggerReporter::LoggerReporter() {}
+screen::utils::LoggerReporter::LoggerReporter() {}
 
-Screen::Utils::LoggerReporter::~LoggerReporter() {}
+screen::utils::LoggerReporter::~LoggerReporter() {}
 
-Screen::Utils::CoutLoggerReporter::CoutLoggerReporter()
-        :Screen::Utils::LoggerReporter() {}
+screen::utils::CoutLoggerReporter::CoutLoggerReporter()
+        :screen::utils::LoggerReporter() {}
 
-Screen::Utils::CoutLoggerReporter::~CoutLoggerReporter() {}
+screen::utils::CoutLoggerReporter::~CoutLoggerReporter() {}
 
-void Screen::Utils::CoutLoggerReporter::debug(const std::string& log) {
+void screen::utils::CoutLoggerReporter::debug(const std::string& log) {
     std::cout << "[DEBUG] " << log << std::endl;
 }
 
-void Screen::Utils::CoutLoggerReporter::info(const std::string& log) {
+void screen::utils::CoutLoggerReporter::info(const std::string& log) {
     std::cout << "[INFO] " << log << std::endl;
 }
 
-void Screen::Utils::CoutLoggerReporter::warning(const std::string& log) {
+void screen::utils::CoutLoggerReporter::warning(const std::string& log) {
     std::cout << "[WARNING] " << log << std::endl;
 }
 
-void Screen::Utils::CoutLoggerReporter::error(const std::string& log) {
+void screen::utils::CoutLoggerReporter::error(const std::string& log) {
     std::cout << "[ERROR] " << log << std::endl;
 }
 
-void Screen::Utils::CoutLoggerReporter::call(
+void screen::utils::CoutLoggerReporter::call(
 		CallPosition pos,
 		CallType type,
 		const char* className,
@@ -106,28 +106,28 @@ void Screen::Utils::CoutLoggerReporter::call(
 	}
 }
 
-Screen::Utils::FileLoggerReporter::FileLoggerReporter(const char* file)
-        :Screen::Utils::LoggerReporter(), fileStream(file) {}
+screen::utils::FileLoggerReporter::FileLoggerReporter(const char* file)
+        :screen::utils::LoggerReporter(), fileStream(file) {}
 
-Screen::Utils::FileLoggerReporter::~FileLoggerReporter() {}
+screen::utils::FileLoggerReporter::~FileLoggerReporter() {}
 
-void Screen::Utils::FileLoggerReporter::debug(const std::string& log) {
+void screen::utils::FileLoggerReporter::debug(const std::string& log) {
     fileStream << "[DEBUG] " << log << std::endl;
 }
 
-void Screen::Utils::FileLoggerReporter::info(const std::string& log) {
+void screen::utils::FileLoggerReporter::info(const std::string& log) {
 	fileStream << "[INFO] " << log << std::endl;
 }
 
-void Screen::Utils::FileLoggerReporter::warning(const std::string& log) {
+void screen::utils::FileLoggerReporter::warning(const std::string& log) {
 	fileStream << "[WARNING] " << log << std::endl;
 }
 
-void Screen::Utils::FileLoggerReporter::error(const std::string& log) {
+void screen::utils::FileLoggerReporter::error(const std::string& log) {
 	fileStream << "[ERROR] " << log << std::endl;
 }
 
-void Screen::Utils::FileLoggerReporter::call(
+void screen::utils::FileLoggerReporter::call(
 		CallPosition pos,
 		CallType type,
 		const char* className,

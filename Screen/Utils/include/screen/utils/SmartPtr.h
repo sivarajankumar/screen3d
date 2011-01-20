@@ -22,15 +22,15 @@
 #ifndef SCREEN_SMART_PTR_H
 #define SCREEN_SMART_PTR_H
 
-#include <Screen/Utils/SmartPolicies.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/SmartPolicies.h>
+#include <screen/utils/Exception.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen{
-	namespace Utils{
+namespace screen{
+	namespace utils{
 		template <class T, template <class> class SmartPolicy = RefCountSmartPolicy >
 		class SmartPtr : protected SmartPolicy<T>{
-			SCREEN_DECL_CLASS(Screen::Utils::SmartPtr)
+			SCREEN_DECL_CLASS(screen::utils::SmartPtr)
 		public:
 			SmartPtr()
 				:SmartPolicy<T>(),instance(NULL){

@@ -22,8 +22,8 @@
 #ifndef SCREEN_POLICIES_H
 #define SCREEN_POLICIES_H
 
-#include <Screen/Utils/Export.h>
-#include <Screen/Utils/SingletonLazyInstance.h>
+#include <screen/utils/Export.h>
+#include <screen/utils/SingletonLazyInstance.h>
 //#include <boost/interprocess/shared_memory_object.hpp>
 //#include <boost/interprocess/mapped_region.hpp>
 #include <exception>
@@ -31,8 +31,8 @@
 
 /* Creation Policies*/
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
         /*!  \class CreationWithNew
           *  \brief policy for the creation and the destruction that use new and delete
@@ -172,7 +172,7 @@ namespace Screen {
 
 		template <class T>
 		T* CreationWithLazy<T>::Create() {
-			SingletonLazyInstance<T>* instance = new Screen::Utils::SingletonLazyInstance<T>();
+			SingletonLazyInstance<T>* instance = new screen::utils::SingletonLazyInstance<T>();
             return &instance->get();
         }
 

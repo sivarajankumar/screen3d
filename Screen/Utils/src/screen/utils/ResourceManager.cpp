@@ -19,12 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/utils/ResourceManager.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/Exception.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
 	
 		ResourceManager::ResourceManager(){

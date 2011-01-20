@@ -22,13 +22,13 @@
 #ifndef SCREEN_RESOURCE_H
 #define SCREEN_RESOURCE_H
 
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/Declaration.h>
+#include <screen/utils/Export.h>
 #include <string>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
     
     	/*!  \class ResourceBase
 		 *   \brief 
@@ -37,7 +37,7 @@ namespace Screen {
 		 */
 
 		class SCREEN_UTILS_EXPORT ResourceBase {
-			SCREEN_DECL_CLASS(Screen::Utils::ResourceBase)
+			SCREEN_DECL_CLASS(screen::utils::ResourceBase)
             friend class ResourceManager;
 		protected:
 			ResourceBase();
@@ -62,7 +62,7 @@ namespace Screen {
 
         template<class LifeTimePolicy = ReferenceCountLifeTime>
         class Resource : public ResourceBase {
-        	SCREEN_DECL_CLASS(Screen::Utils::Resource)
+        	SCREEN_DECL_CLASS(screen::utils::Resource)
         public:
             Resource()
             	:ResourceBase(){

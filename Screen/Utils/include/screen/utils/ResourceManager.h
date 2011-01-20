@@ -22,13 +22,13 @@
 #ifndef SCREEN_RESOURCE_MANAGER_H
 #define SCREEN_RESOURCE_MANAGER_H
 
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Singleton.h>
+#include <screen/utils/Resource.h>
+#include <screen/utils/Declaration.h>
 #include <map>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		/*!  \class ResourceManager
 		 *   \brief 
 		 *   \author Ratouit Thomas
@@ -36,7 +36,7 @@ namespace Screen {
 		 */
 
 		class SCREEN_UTILS_EXPORT ResourceManager : public UniqueSingleton<ResourceManager> {
-			SCREEN_DECL_CLASS(Screen::Utils::ResourceManager)
+			SCREEN_DECL_CLASS(screen::utils::ResourceManager)
 			SINGLETON_DECL(UniqueSingleton,ResourceManager)
 		public:
 			template <class T> T* get(const std::string& name) const;

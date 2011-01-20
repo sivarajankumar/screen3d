@@ -22,9 +22,9 @@
 #ifndef SCREEN_PLUGIN_H
 #define SCREEN_PLUGIN_H
 
-#include <Screen/Utils/Export.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Export.h>
+#include <screen/utils/Exception.h>
+#include <screen/utils/Declaration.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -42,12 +42,12 @@
 #define SCREEN_EXT_DYN_LIB ".so"
 #endif
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
 		template <class T>
 		class Plugin{
-//			SCREEN_DECL_CLASS(Screen::Utils::Plugin)
+//			SCREEN_DECL_CLASS(screen::utils::Plugin)
 		public:
 			Plugin()
 				:sharedLibrary(NULL){

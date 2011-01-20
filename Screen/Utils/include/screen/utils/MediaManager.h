@@ -22,20 +22,20 @@
 #ifndef SCREEN_MEDIA_MANAGER_H
 #define SCREEN_MEDIA_MANAGER_H
 
-#include <Screen/Utils/ResourceManager.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/SmartPolicies.h>
-#include <Screen/Utils/Typelist.h>
-#include <Screen/Utils/Loader.h>
-#include <Screen/Utils/File.h>
-#include <Screen/Utils/Path.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/ResourceManager.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/SmartPolicies.h>
+#include <screen/utils/Typelist.h>
+#include <screen/utils/Loader.h>
+#include <screen/utils/File.h>
+#include <screen/utils/Path.h>
+#include <screen/utils/Declaration.h>
 #include <boost/tokenizer.hpp>
 #include <string>
 #include <set>
 
-namespace Screen {
-	namespace Utils {	
+namespace screen {
+	namespace utils {	
 	    template <class T>
 	    struct MediaHolder{
 	        typedef std::map<std::string, SmartPtr<Loader<T> > > LoaderMap;
@@ -44,7 +44,7 @@ namespace Screen {
 	
 	    template <class MediaList>
 	    class MediaManager : public ScatteredHierarchy<MediaHolder, MediaList>{
-	    	SCREEN_DECL_CLASS(Screen::Utils::MediaManager)
+	    	SCREEN_DECL_CLASS(screen::utils::MediaManager)
 	    public :
 	    	template <class T> void registerLoader(Loader<T>* loader, const std::string& extensions){
 	    		SCREEN_DECL_METHOD(registerLoader)
@@ -107,7 +107,7 @@ namespace Screen {
 	            }
 
 	            // Si le fichier est introuvable, on lance une exception
-	            throw Screen::Utils::LoadingException(filename.getFullname(), "File not found");
+	            throw screen::utils::LoadingException(filename.getFullname(), "File not found");
 	        }
 	        
 	    	template <class T> T* loadMediaFromFile(const File& filename) const{
@@ -127,14 +127,14 @@ namespace Screen {
 		        		return ret;
 		        	}
 		        
-		        throw Screen::Utils::LoadingException(filename.getFullname(), "No loader for this extension : "+filename.getExtension());
+		        throw screen::utils::LoadingException(filename.getFullname(), "No loader for this extension : "+filename.getExtension());
 	    	}
 	    	
 	    	std::set<Path> paths;
 	    };
 	    
 //	    template <class T>
-//	    Screen::Utils::SmartPtr<T,ResourceSmartPolicy> MediaManager::load(const File& filename) const{
+//	    screen::utils::SmartPtr<T,ResourceSmartPolicy> MediaManager::load(const File& filename) const{
 //	    	T* ptr = ResourceManager::instance()->get<T>(filename.getFullname());
 //	    	if(ptr==NULL){
 //	    		ptr = loadMediaFromFile<T>(filename);

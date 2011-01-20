@@ -22,14 +22,14 @@
 #ifndef SCREEN_FILE_H
 #define SCREEN_FILE_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/utils/Export.h>
 #include <string>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 	    class SCREEN_UTILS_EXPORT File{
-	    	SCREEN_DECL_CLASS(Screen::Utils::File)
+	    	SCREEN_DECL_CLASS(screen::utils::File)
 	    public :
 	        File(const std::string& file = "");
 	        File(const char* file);

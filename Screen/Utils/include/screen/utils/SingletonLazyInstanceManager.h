@@ -22,11 +22,11 @@
 #ifndef SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
 #define SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
 
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Export.h>
 #include <stack>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		class SingletonLazyInstanceInterface;
 		
 		class SCREEN_UTILS_EXPORT SingletonLazyInstanceManager{

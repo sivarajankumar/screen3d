@@ -22,13 +22,13 @@
 #ifndef SCREEN_SMART_POLICIES_H
 #define SCREEN_SMART_POLICIES_H
 
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 	    template <class T>
 	    class RefCountSmartPolicy{
-	    	SCREEN_DECL_CLASS(Screen::Utils::RefCountSmartPolicy)
+	    	SCREEN_DECL_CLASS(screen::utils::RefCountSmartPolicy)
 	    public :
 	    	RefCountSmartPolicy()
 	    		:counter(new int(1)){

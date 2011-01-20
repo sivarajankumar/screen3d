@@ -22,15 +22,15 @@
 #ifndef SCREEN_LAZY_H
 #define SCREEN_LAZY_H
 
-#include <Screen/Utils/Thread.h>
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Thread.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		template <class T, class ThreadingModel = SingleThreadingModel>
 		class Lazy {
-			SCREEN_DECL_CLASS(Screen::Utils::Lazy)
+			SCREEN_DECL_CLASS(screen::utils::Lazy)
 		public:
 		    Lazy()
 				:computed(false){
@@ -63,7 +63,7 @@ namespace Screen {
 		
 		template <class T, class Funct, class ThreadingModel = SingleThreadingModel>
 		class LazyWithFunctor {
-			SCREEN_DECL_CLASS(Screen::Utils::LazyWithFunctor)
+			SCREEN_DECL_CLASS(screen::utils::LazyWithFunctor)
 		public:
 		    LazyWithFunctor(Funct* funct)
 				:computed(false),funct(funct){

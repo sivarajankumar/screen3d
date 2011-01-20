@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Policies.h>
+#include <screen/utils/Policies.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 
 	}
 }
