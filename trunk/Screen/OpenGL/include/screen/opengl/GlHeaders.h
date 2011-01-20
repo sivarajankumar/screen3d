@@ -31,7 +31,7 @@
 #	include <GL/gl.h>
 #	include <GL/glu.h>
 #	include <GL/glext.h>
-namespace Screen {
+namespace screen {
 	namespace X11NS {
 #	include <X11/Xlib.h>
 #	include <X11/Xutil.h>
@@ -48,7 +48,7 @@ typedef struct __GLXcontextRec *GLXContext;
 	}
 }
 
-#define glXGetProcAddress Screen::X11NS::glXGetProcAddress
+#define glXGetProcAddress screen::X11NS::glXGetProcAddress
 
 #endif
 

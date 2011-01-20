@@ -22,13 +22,13 @@
 #ifndef SCREEN_OPENGL_EXCEPTION_H
 #define SCREEN_OPENGL_EXCEPTION_H
 
-#include <Screen/Utils/Exception.h>
+#include <screen/utils/Exception.h>
 
-namespace Screen {
-	namespace OGL {
-		struct OpenGLException : public Screen::Utils::Exception {
+namespace screen {
+	namespace opengl {
+		struct OpenGLException : public screen::utils::Exception {
 			OpenGLException(const std::string& toLoad, const std::string& function) throw()
-				:Screen::Utils::Exception(std::string("failed to load extension "+toLoad+" ("+function+")"))
+				:screen::utils::Exception(std::string("failed to load extension "+toLoad+" ("+function+")"))
 			{}
 		};
 	}

@@ -19,17 +19,17 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/OGL/OpenGLTexture.h>
-#include <Screen/OGL/OpenGLRenderer.h>
-#include <Screen/OGL/OpenGLPixelFormat.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Core/Objects/PixelFormat.h>
-#include <Screen/OGL/GlHeaders.h>
+#include <screen/opengl/OpenGLTexture.h>
+#include <screen/opengl/OpenGLRenderer.h>
+#include <screen/opengl/OpenGLPixelFormat.h>
+#include <screen/math/Vector2i.h>
+#include <screen/core/Enums.h>
+#include <screen/core/objects/PixelFormat.h>
+#include <screen/opengl/GlHeaders.h>
 
-namespace Screen {
-	namespace OGL {
-		OpenGLTexture::OpenGLTexture(unsigned int texture, const Vector2i& size, PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap)
+namespace screen {
+	namespace opengl {
+		OpenGLTexture::OpenGLTexture(unsigned int texture, const Vector2i& size, PixelFormat pxf, screen::core::TextureMipMap hasMipMap)
 			:TextureBase(size,pxf,hasMipMap), texture(texture)
 		{}
 		
@@ -38,8 +38,8 @@ namespace Screen {
 		        glDeleteTextures(1, &texture);
 		}
 		
-		void OpenGLTexture::update(const Screen::Math::Rectangle& rect){
-			Assert(Screen::Math::Rectangle(0, 0, size.getX(), size.getY()).intersects(rect) == Screen::Math::RECT_INT_IN);
+		void OpenGLTexture::update(const screen::math::Rectangle& rect){
+			Assert(screen::math::Rectangle(0, 0, size.getX(), size.getY()).intersects(rect) == screen::math::RECT_INT_IN);
 			SCREEN_LOG_DEBUG("Texture update :");
 
 			OpenGLPixelFormat texturePxf = oglPxf[pxf];
@@ -49,9 +49,9 @@ namespace Screen {
 		    glBindTexture(GL_TEXTURE_2D, texture);
 
 		    // pixel updates
-		    if (Screen::Core::Objects::PixelFormatDescriptor::isCompressed(image.getPixelFormat())){
-		    	SCREEN_LOG_DEBUG("\t- Compressed format : " << Screen::Core::Objects::PixelFormatDescriptor::getName(image.getPixelFormat()));
-		        unsigned long dataSize = rect.getWidth() * rect.getHeight() * Screen::Core::Objects::PixelFormatDescriptor::getBytesPerPixels(image.getPixelFormat());
+		    if (screen::core::objects::PixelFormatDescriptor::isCompressed(image.getPixelFormat())){
+		    	SCREEN_LOG_DEBUG("\t- Compressed format : " << screen::core::objects::PixelFormatDescriptor::getName(image.getPixelFormat()));
+		        unsigned long dataSize = rect.getWidth() * rect.getHeight() * screen::core::objects::PixelFormatDescriptor::getBytesPerPixels(image.getPixelFormat());
 		        if (rect.getWidth() == size.getX() && rect.getHeight() == size.getY()){
 		            OpenGLRenderer::glCompressedTexSubImage2DARB(GL_TEXTURE_2D, 0, rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight(), imagePxf.format, dataSize, image.getData());
 		        }
@@ -60,12 +60,12 @@ namespace Screen {
 		        }
 		    }
 		    else{
-		    	SCREEN_LOG_DEBUG("\t- Not compressed format : " << Screen::Core::Objects::PixelFormatDescriptor::getName(image.getPixelFormat()));
-		        if (hasMipMap == Screen::Core::TEXTURE_HAS_HARDWARE_MIPMAP){
+		    	SCREEN_LOG_DEBUG("\t- Not compressed format : " << screen::core::objects::PixelFormatDescriptor::getName(image.getPixelFormat()));
+		        if (hasMipMap == screen::core::TEXTURE_HAS_HARDWARE_MIPMAP){
 		        	SCREEN_LOG_DEBUG("\t- has hardware mipmapping");
 		            //TODO : hardware mipmap
 		        }
-		        else if(hasMipMap == Screen::Core::TEXTURE_HAS_MIPMAP){
+		        else if(hasMipMap == screen::core::TEXTURE_HAS_MIPMAP){
 		        	SCREEN_LOG_DEBUG("\t- has software mipmapping");
 		            // mipmap level update
 		            gluBuild2DMipmaps(GL_TEXTURE_2D, texturePxf.fullFormat, size.getX(), size.getY(), imagePxf.format, imagePxf.type, image.getData());

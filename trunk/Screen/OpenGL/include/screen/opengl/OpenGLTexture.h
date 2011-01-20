@@ -22,15 +22,15 @@
 #ifndef SCREEN_OPENGL_TEXTURE_H
 #define SCREEN_OPENGL_TEXTURE_H
 
-#include <Screen/Core/Objects/TextureBase.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Core/Enums.h>
+#include <screen/core/objects/TextureBase.h>
+#include <screen/math/Vector2i.h>
+#include <screen/core/Enums.h>
 
-namespace Screen {
-	namespace OGL {
-		using Screen::Core::Objects::TextureBase;
-		using Screen::Math::Vector2i;
-		using Screen::Core::PixelFormat;
+namespace screen {
+	namespace opengl {
+		using screen::core::objects::TextureBase;
+		using screen::math::Vector2i;
+		using screen::core::PixelFormat;
 		/*!  \class OpenGLTexture
 		 *   \brief 
 		 *   \author Ratouit Thomas
@@ -39,10 +39,10 @@ namespace Screen {
 
 		class OpenGLTexture : public TextureBase {
 		public:
-			OpenGLTexture(unsigned int texture, const Vector2i& size, PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap);
+			OpenGLTexture(unsigned int texture, const Vector2i& size, PixelFormat pxf, screen::core::TextureMipMap hasMipMap);
 			~OpenGLTexture();
 
-			void update(const Screen::Math::Rectangle& rect);
+			void update(const screen::math::Rectangle& rect);
 			
 			unsigned int getTextureNumber() const;
 		private:

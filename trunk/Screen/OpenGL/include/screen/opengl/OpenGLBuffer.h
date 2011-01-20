@@ -22,12 +22,12 @@
 #ifndef SCREEN_OPENGL_BUFFER_H
 #define SCREEN_OPENGL_BUFFER_H
 
-#include <Screen/Core/Objects/BufferBase.h>
-#include <Screen/OGL/OpenGLRenderer.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/Export.h>
+#include <screen/core/objects/BufferBase.h>
+#include <screen/opengl/OpenGLRenderer.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/Export.h>
 
-using Screen::Core::Objects::BufferBase;
+using screen::core::objects::BufferBase;
 
 static unsigned long glLockFlags[] = {
 	GL_READ_WRITE_ARB,
@@ -35,8 +35,8 @@ static unsigned long glLockFlags[] = {
 	GL_WRITE_ONLY_ARB
 };
 
-namespace Screen {
-	namespace OGL {
+namespace screen {
+	namespace opengl {
 	    template <int Type>
 	    class OpenGLBuffer : public BufferBase{
 	    public :
@@ -55,7 +55,7 @@ namespace Screen {
 	        }
 	
 	    private :
-	        void* lock(unsigned long offset, unsigned long size, Screen::Core::LockFlag flags){
+	        void* lock(unsigned long offset, unsigned long size, screen::core::LockFlag flags){
 	            OpenGLRenderer::glBindBufferARB(Type, buffer);
 	            unsigned char* buffer2 = reinterpret_cast<unsigned char*>(OpenGLRenderer::glMapBufferARB(Type, glLockFlags[flags]));
 	            return buffer2 + offset;
@@ -65,7 +65,7 @@ namespace Screen {
 	        	OpenGLRenderer::glUnmapBufferARB(Type);
 	        }
 	        
-	        unsigned int buffer; ///< Identifiant du buffer OGL
+	        unsigned int buffer; ///< Identifiant du buffer opengl
 	    };
 	
 	    typedef OpenGLBuffer<GL_ARRAY_BUFFER_ARB>         OpenGLVertexBuffer;
