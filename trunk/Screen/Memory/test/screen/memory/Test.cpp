@@ -19,19 +19,19 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Memory/Test.h>
-#include <Screen/Memory/Buffer.h>
-#include <Screen/Memory/BufferManager.h>
-#include <Screen/Memory/TypedBuffer.h>
-#include <Screen/Memory/Defaults.h>
-#include <Screen/Math/Other.h>
+#include <screen/memory/Test.h>
+#include <screen/memory/Buffer.h>
+#include <screen/memory/BufferManager.h>
+#include <screen/memory/TypedBuffer.h>
+#include <screen/memory/Defaults.h>
+#include <screen/math/Other.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(Screen::Memory::Test);
+CPPUNIT_TEST_SUITE_REGISTRATION(screen::memory::Test);
 
-using Screen::Math::power;
+using screen::math::power;
 
-namespace Screen {
-	namespace Memory {
+namespace screen {
+	namespace memory {
 		void Test::testBufferCreation(){
 			Buffer buf1;
 			CPPUNIT_ASSERT(buf1.size()==0);

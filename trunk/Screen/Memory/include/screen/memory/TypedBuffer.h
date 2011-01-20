@@ -22,15 +22,15 @@
 #ifndef SCREEN_MEMORY_TYPED_BUFFER_H
 #define SCREEN_MEMORY_TYPED_BUFFER_H
 
-#include <Screen/Memory/Buffer.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Memory/Export.h>
+#include <screen/memory/Buffer.h>
+#include <screen/utils/Declaration.h>
+#include <screen/memory/Export.h>
 
-namespace Screen {
-    namespace Memory {
+namespace screen {
+    namespace memory {
 		template <class T>		
 		class TypedBuffer {
-        	SCREEN_DECL_CLASS(Screen::Memory::TypedBuffer)
+        	SCREEN_DECL_CLASS(screen::memory::TypedBuffer)
         public:
 			TypedBuffer(){
 				SCREEN_DECL_CONSTRUCTOR(TypedBuffer)

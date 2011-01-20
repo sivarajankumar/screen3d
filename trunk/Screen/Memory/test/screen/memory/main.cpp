@@ -12,8 +12,8 @@
 #include <Screen/Utils/LoggerReporter.h>
 
 int main(){
-	SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
-	SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
+	SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))
+	SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 	
 	// Create the event manager and test controller
 	CPPUNIT_NS::TestResult controller;
