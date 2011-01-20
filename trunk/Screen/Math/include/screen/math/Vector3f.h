@@ -22,12 +22,12 @@
 #ifndef SCREEN_VECTOR_3_F_H
 #define SCREEN_VECTOR_3_F_H
 
-#include <Screen/Math/Matrix.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Math/Export.h>
+#include <screen/math/Matrix.h>
+#include <screen/utils/Declaration.h>
+#include <screen/math/Export.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		/*!  \class Vector3f
 		 *   \brief 
 		 *   \author Ratouit Thomas
@@ -35,7 +35,7 @@ namespace Screen {
 		 */
 
 		class SCREEN_MATH_EXPORT Vector3f{
-			SCREEN_DECL_CLASS(Screen::Math::Vector3f)
+			SCREEN_DECL_CLASS(screen::math::Vector3f)
 		public:
 			Vector3f(float x=0, float y=0, float z=0);
 			~Vector3f();

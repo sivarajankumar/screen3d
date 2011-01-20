@@ -22,14 +22,14 @@
 #ifndef SCREEN_MATRIX4X4F_H
 #define SCREEN_MATRIX4X4F_H
 
-#include <Screen/Math/Vector3f.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Math/Export.h>
+#include <screen/math/Vector3f.h>
+#include <screen/utils/Declaration.h>
+#include <screen/math/Export.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
         class SCREEN_MATH_EXPORT Matrix4x4f{
-        	SCREEN_DECL_CLASS(Screen::Math::Matrix4x4f)
+        	SCREEN_DECL_CLASS(screen::math::Matrix4x4f)
         public :
         	Matrix4x4f(	float m11 = 1.0f, float m12 = 0.0f, float m13 = 0.0f, float m14 = 0.0f,
         				float m21 = 0.0f, float m22 = 1.0f, float m23 = 0.0f, float m24 = 0.0f,

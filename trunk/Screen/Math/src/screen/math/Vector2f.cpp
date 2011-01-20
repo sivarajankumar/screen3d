@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Math/Vector2f.h>
+#include <screen/math/Vector2f.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		Vector2f::Vector2f(float x, float y)
 			:x(x),y(y){
 			SCREEN_DECL_CONSTRUCTOR(Vector2f)

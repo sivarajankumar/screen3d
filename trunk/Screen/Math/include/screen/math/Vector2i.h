@@ -22,11 +22,11 @@
 #ifndef SCREEN_VECTOR_2_I_H
 #define SCREEN_VECTOR_2_I_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Math/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/math/Export.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		/*!  \class Vector2i
 		 *   \brief 
 		 *   \author Ratouit Thomas
@@ -34,7 +34,7 @@ namespace Screen {
 		 */
 
 		class SCREEN_MATH_EXPORT Vector2i{
-			SCREEN_DECL_CLASS(Screen::Math::Vector2i)
+			SCREEN_DECL_CLASS(screen::math::Vector2i)
 		public:
 			Vector2i(int x=0, int y=0);
 			~Vector2i();

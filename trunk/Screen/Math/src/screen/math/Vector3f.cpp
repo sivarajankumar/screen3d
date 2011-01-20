@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Math/Vector3f.h>
+#include <screen/math/Vector3f.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		
 		Vector3f::Vector3f(float x, float y, float z)
 			:x(x),y(y),z(z){

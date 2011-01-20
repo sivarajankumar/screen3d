@@ -19,13 +19,13 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Math/Matrix4x4f.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/math/Matrix4x4f.h>
+#include <screen/utils/Exception.h>
 #include <cmath>
 #include <limits>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		Matrix4x4f::Matrix4x4f(	float m11, float m12, float m13, float m14,
 		                        float m21, float m22, float m23, float m24,
 		                        float m31, float m32, float m33, float m34,

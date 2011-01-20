@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Math/Vector2i.h>
+#include <screen/math/Vector2i.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		Vector2i::Vector2i(int x, int y)
 			:x(x),y(y){
 			SCREEN_DECL_CONSTRUCTOR(Vector2i)

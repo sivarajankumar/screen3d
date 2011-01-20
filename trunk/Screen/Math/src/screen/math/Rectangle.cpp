@@ -18,10 +18,10 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
-#include <Screen/Math/Rectangle.h>
+#include <screen/math/Rectangle.h>
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		Rectangle::Rectangle(const Vector2i& leftTop, const Vector2i& size)
 			:leftTop(leftTop),size(size){
 			SCREEN_DECL_CONSTRUCTOR(Rectangle)
@@ -142,7 +142,7 @@ namespace Screen {
 		    return !(*this == rect);
 		}
 		
-		Screen::Math::RectangleIntersection Rectangle::intersects(const Rectangle& rect) const{
+		screen::math::RectangleIntersection Rectangle::intersects(const Rectangle& rect) const{
 			using namespace std;
 
 		    // Intersection rectangle
@@ -150,14 +150,14 @@ namespace Screen {
 		    Vector2i intRightBottom(min(getRight(), rect.getRight()), min(getBottom(), rect.getBottom()));
 
 		    if ((intLeftTop.getX() > intRightBottom.getX()) || (intLeftTop.getY() > intRightBottom.getY()))
-		    	return Screen::Math::RECT_INT_OUT;
+		    	return screen::math::RECT_INT_OUT;
 		    
 		    Rectangle intersection(intLeftTop, intRightBottom);
 
 		    if ((intersection == *this) || (intersection == rect))
-		        return Screen::Math::RECT_INT_IN;
+		        return screen::math::RECT_INT_IN;
 		    else
-		        return Screen::Math::RECT_INT_INTERSECT;
+		        return screen::math::RECT_INT_INTERSECT;
 		}
 	}
 }
