@@ -22,8 +22,8 @@
 #ifndef SCREEN_MATH_OTHER_H
 #define SCREEN_MATH_OTHER_H
 
-namespace Screen {
-	namespace Math {
+namespace screen {
+	namespace math {
 		unsigned int nearestPowerOfTwo(unsigned int value){
 	        unsigned int tmp = value;
 	        unsigned int ret = 1;

@@ -22,14 +22,14 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-#include <Screen/Utils/Reference_restriction.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Reference_restriction.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-    namespace Math {
+namespace screen {
+    namespace math {
 
-        using Screen::Utils::ConstReference;
-        using Screen::Utils::Reference;
+        using screen::utils::ConstReference;
+        using screen::utils::Reference;
 
         /*!  \class StaticArray
           *  \brief Structure for generic unidimensional arrays.
@@ -54,7 +54,7 @@ namespace Screen {
          */
         template <class T, unsigned int I, unsigned int J>
         class Matrix {
-        	SCREEN_DECL_CLASS(Screen::Math::Matrix)
+        	SCREEN_DECL_CLASS(screen::math::Matrix)
         public:
             inline Matrix() {
             	SCREEN_DECL_CONSTRUCTOR(Matrix)
@@ -159,7 +159,7 @@ namespace Screen {
          */
         template <class T, unsigned int I>
         class Vector {
-        	SCREEN_DECL_CLASS(Screen::Math::Vector)
+        	SCREEN_DECL_CLASS(screen::math::Vector)
         public:
             inline Vector() {
             	SCREEN_DECL_CONSTRUCTOR(Vector)
