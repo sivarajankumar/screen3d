@@ -19,9 +19,9 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Memory/BufferManager.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Math/Other.h>
+#include <screen/memory/BufferManager.h>
+#include <screen/utils/Exception.h>
+#include <screen/math/Other.h>
 #include <malloc.h>
 
 #define LOG_STACKS \
@@ -32,8 +32,8 @@
 	}
 
 
-namespace Screen {
-	namespace Memory {
+namespace screen {
+	namespace memory {
 		SINGLETON_IMPL(UniqueSingleton,BufferManager)
 
 		BufferManager::BufferManager(){
@@ -62,7 +62,7 @@ namespace Screen {
 
 		unsigned int BufferManager::calculateSizeFromStack(int stackNumber){
 			SCREEN_DECL_STATIC_METHOD(calculateSizeFromStack)
-			return SCREEN_MEMORY_DEFAULT_MIN_SIZE*Screen::Math::power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
+			return SCREEN_MEMORY_DEFAULT_MIN_SIZE*screen::math::power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
 		}
 
 #define createBuffer(buffer,bufferSize) \
@@ -73,7 +73,7 @@ namespace Screen {
 		if(buffer==NULL){ \
 			std::stringstream ss; \
 			ss << "Unable to allocate a buffer of size " << bufferSize; \
-			throw Screen::Utils::Exception(ss.str()); \
+			throw screen::utils::Exception(ss.str()); \
 		} \
 	}
 		

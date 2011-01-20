@@ -19,15 +19,15 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Memory/Buffer.h>
-#include <Screen/Memory/BufferBase.h>
-#include <Screen/Memory/BufferManager.h>
-#include <Screen/Memory/Defaults.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/memory/Buffer.h>
+#include <screen/memory/BufferBase.h>
+#include <screen/memory/BufferManager.h>
+#include <screen/memory/Defaults.h>
+#include <screen/utils/Exception.h>
 #include <string.h>
 
-namespace Screen {
-    namespace Memory {
+namespace screen {
+    namespace memory {
 		Buffer::Buffer()
 			:bufferBase(NULL){
 			SCREEN_DECL_CONSTRUCTOR(Buffer)

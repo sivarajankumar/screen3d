@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Memory/BufferBase.h>
+#include <screen/memory/BufferBase.h>
 #include <malloc.h>
 
-namespace Screen {
-    namespace Memory {
+namespace screen {
+    namespace memory {
 		BufferBase::BufferBase()
 			:bufferPtr(NULL),size(0){
 			SCREEN_DECL_CONSTRUCTOR(BufferBase)

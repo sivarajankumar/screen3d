@@ -22,13 +22,13 @@
 #ifndef SCREEN_MEMORY_BUFFER_BASE_H
 #define SCREEN_MEMORY_BUFFER_BASE_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Memory/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/memory/Export.h>
 
-namespace Screen {
-    namespace Memory {
+namespace screen {
+    namespace memory {
 		class SCREEN_MEMORY_EXPORT BufferBase {
-        	SCREEN_DECL_CLASS(Screen::Memory::BufferBase)
+        	SCREEN_DECL_CLASS(screen::memory::BufferBase)
         public:
 			BufferBase();
             BufferBase(void* bufferPtr, unsigned int size);

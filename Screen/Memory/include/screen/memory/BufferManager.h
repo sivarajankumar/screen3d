@@ -22,18 +22,18 @@
 #ifndef SCREEN_MEMORY_BUFFER_MANAGER_H
 #define SCREEN_MEMORY_BUFFER_MANAGER_H
 
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Memory/Export.h>
-#include <Screen/Memory/BufferBase.h>
-#include <Screen/Memory/Defaults.h>
+#include <screen/utils/Singleton.h>
+#include <screen/utils/Declaration.h>
+#include <screen/memory/Export.h>
+#include <screen/memory/BufferBase.h>
+#include <screen/memory/Defaults.h>
 #include <stack>
 #include <set>
 
-namespace Screen {
-	namespace Memory {
-		class SCREEN_MEMORY_EXPORT BufferManager : public Screen::Utils::UniqueSingleton<BufferManager>{
-			SCREEN_DECL_CLASS(Screen::Memory::BufferManager)
+namespace screen {
+	namespace memory {
+		class SCREEN_MEMORY_EXPORT BufferManager : public screen::utils::UniqueSingleton<BufferManager>{
+			SCREEN_DECL_CLASS(screen::memory::BufferManager)
 			SINGLETON_DECL(UniqueSingleton,BufferManager)
 			friend class Buffer;
 		public:
