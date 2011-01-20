@@ -22,10 +22,10 @@
 #ifndef SCREEN_OPENGL_PIXEL_FORMAT_H
 #define SCREEN_OPENGL_PIXEL_FORMAT_H
 
-#include <Screen/OGL/GlHeaders.h>
+#include <screen/opengl/GlHeaders.h>
 
-namespace Screen{
-	namespace OGL{		
+namespace screen{
+	namespace opengl{		
 		struct OpenGLPixelFormat{
 			GLenum format, fullFormat, type;
 		};

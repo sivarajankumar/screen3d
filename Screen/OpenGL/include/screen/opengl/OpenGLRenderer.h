@@ -22,15 +22,15 @@
 #ifndef SCREEN_OPENGL_RENDERER_H
 #define SCREEN_OPENGL_RENDERER_H
 
-#include <Screen/Core/Renderer/Renderer.h>
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/OGL/GlHeaders.h>
+#include <screen/core/Renderer/Renderer.h>
+#include <screen/utils/Singleton.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/Declaration.h>
+#include <screen/opengl/GlHeaders.h>
 
-namespace Screen{
-	namespace OGL{		
-		class OpenGLRenderer : public Screen::Core::Renderer{
+namespace screen{
+	namespace opengl{		
+		class OpenGLRenderer : public screen::core::Renderer{
 		private:
 			OpenGLRenderer();
 			~OpenGLRenderer();
@@ -43,29 +43,29 @@ namespace Screen{
 			void beginScene();
 			void endScene();
 			
-			bool hasCapability(Screen::Core::ApiCapability caps) const;
+			bool hasCapability(screen::core::ApiCapability caps) const;
 			
-			void pushMatrix(Screen::Core::MatrixType type);
-			void popMatrix(Screen::Core::MatrixType type);
-			void setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
-			void multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
-			void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix);
+			void pushMatrix(screen::core::MatrixType type);
+			void popMatrix(screen::core::MatrixType type);
+			void setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix);
+			void multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix);
+			void getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix);
 			
-			unsigned long convertColor(const Screen::Core::Color& color) const;
-			const Screen::Core::Color& retrieveColor(unsigned long color) const;
+			unsigned long convertColor(const screen::core::Color& color) const;
+			const screen::core::Color& retrieveColor(unsigned long color) const;
 			
-			Screen::Core::BufferBase* createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const;
-			Screen::Core::BufferBase* createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const; 
-	        void setVB(const Screen::Core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex, const Screen::Core::VertexFormat& vf);
-	        void setIB(const Screen::Core::BufferBase* buffer, unsigned long stride);
+			screen::core::BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
+			screen::core::BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const; 
+	        void setVB(const screen::core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex, const screen::core::VertexFormat& vf);
+	        void setIB(const screen::core::BufferBase* buffer, unsigned long stride);
 	        
-	        void drawIndexedPrimitives(Screen::Core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
+	        void drawIndexedPrimitives(screen::core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
 	        
-	        Screen::Core::Objects::TextureBase* createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const;
-	        void setTextureBase(const Screen::Core::Objects::TextureBase* texture);
+	        screen::core::objects::TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
+	        void setTextureBase(const screen::core::objects::TextureBase* texture);
 		private:
 			std::string openGLExtensions;
-			bool capabilityTable[Screen::Core::NB_CAP];
+			bool capabilityTable[screen::core::NB_CAP];
 			bool checkExtension(const std::string& extension) const;
 			
 			unsigned long indexStride;

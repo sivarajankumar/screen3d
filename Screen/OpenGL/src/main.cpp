@@ -19,18 +19,18 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/OGL/OpenGLRenderer.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/opengl/OpenGLRenderer.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen{
-	namespace OGL{
+namespace screen{
+	namespace opengl{
 #if WIN32
 #	define SCREEN_OGL_EXPORT __declspec(dllexport)
 #else
 #	define SCREEN_OGL_EXPORT
 #endif
-		extern "C" SCREEN_OGL_EXPORT Screen::Core::Renderer* getInstanceFromPlugin(){
-			SCREEN_DECL_FUNCTION(Screen::OGL::getInstanceFromPlugin)
+		extern "C" SCREEN_OGL_EXPORT screen::core::Renderer* getInstanceFromPlugin(){
+			SCREEN_DECL_FUNCTION(screen::opengl::getInstanceFromPlugin)
 			return OpenGLRenderer::instance();
 		}
 	}

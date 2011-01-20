@@ -19,19 +19,19 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/OGL/OpenGLRenderer.h>
-#include <Screen/OGL/OpenGLException.h>
-#include <Screen/OGL/OpenGLBuffer.h>
-#include <Screen/OGL/OpenGLTexture.h>
-#include <Screen/OGL/OpenGLPixelFormat.h>
-#include <Screen/Core/Objects/TextureBase.h>
-#include <Screen/Math/Matrix4x4f.h>
-#include <Screen/Math/Vector2i.h>
+#include <screen/opengl/OpenGLRenderer.h>
+#include <screen/opengl/OpenGLException.h>
+#include <screen/opengl/OpenGLBuffer.h>
+#include <screen/opengl/OpenGLTexture.h>
+#include <screen/opengl/OpenGLPixelFormat.h>
+#include <screen/core/objects/TextureBase.h>
+#include <screen/math/Matrix4x4f.h>
+#include <screen/math/Vector2i.h>
 
 #define BUFFER_OFFSET(n) ((char*)NULL + (n))
 
-namespace Screen {
-    namespace OGL {
+namespace screen {
+    namespace opengl {
     	OpenGLRenderer::OpenGLRenderer()
     		:Renderer(){
     	}
@@ -104,9 +104,9 @@ namespace Screen {
     	    
 #endif
     	    //check OpenGL capabilities
-    	    capabilityTable[Screen::Core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE] = checkExtension("GL_ARB_texture_non_power_of_two");
-   	    	capabilityTable[Screen::Core::CAPABILITY_COMPRESSED_TEXTURE] = checkExtension("GL_ARB_texture_compression") && checkExtension("GL_EXT_texture_compression_s3tc");
-    		capabilityTable[Screen::Core::CAPABILITY_HARDWARE_MIPMAP] = checkExtension("GL_SGIS_generate_mipmap");
+    	    capabilityTable[screen::core::CAPABILITY_NON_POWER_OF_TWO_TEXTURE] = checkExtension("GL_ARB_texture_non_power_of_two");
+   	    	capabilityTable[screen::core::CAPABILITY_COMPRESSED_TEXTURE] = checkExtension("GL_ARB_texture_compression") && checkExtension("GL_EXT_texture_compression_s3tc");
+    		capabilityTable[screen::core::CAPABILITY_HARDWARE_MIPMAP] = checkExtension("GL_SGIS_generate_mipmap");
     	}
     	
 #undef LOAD_EXTENSION
@@ -120,61 +120,61 @@ namespace Screen {
 	        renderWindow->swapBuffers();
     	}
     	
-    	bool OpenGLRenderer::hasCapability(Screen::Core::ApiCapability caps) const{
+    	bool OpenGLRenderer::hasCapability(screen::core::ApiCapability caps) const{
     		return capabilityTable[caps];
     	}
     	
-    	void OpenGLRenderer::pushMatrix(Screen::Core::MatrixType type){
-    	    if (type >= Screen::Core::MATRIX_TEXTURE0)
-    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - Screen::Core::MATRIX_TEXTURE0);
+    	void OpenGLRenderer::pushMatrix(screen::core::MatrixType type){
+    	    if (type >= screen::core::MATRIX_TEXTURE0)
+    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
     	    glPushMatrix();
     	}
 
-    	void OpenGLRenderer::popMatrix(Screen::Core::MatrixType type){
-    	    if (type >= Screen::Core::MATRIX_TEXTURE0)
-    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - Screen::Core::MATRIX_TEXTURE0);
+    	void OpenGLRenderer::popMatrix(screen::core::MatrixType type){
+    	    if (type >= screen::core::MATRIX_TEXTURE0)
+    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
     	    glPopMatrix();
     	}
 
-    	void OpenGLRenderer::setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){
-    	    if (type >= Screen::Core::MATRIX_TEXTURE0)
-    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - Screen::Core::MATRIX_TEXTURE0);
+    	void OpenGLRenderer::setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){
+    	    if (type >= screen::core::MATRIX_TEXTURE0)
+    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
     	    glLoadMatrixf(matrix);
     	}
 
-    	void OpenGLRenderer::multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){
-    	    if (type >= Screen::Core::MATRIX_TEXTURE0)
-    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - Screen::Core::MATRIX_TEXTURE0);
+    	void OpenGLRenderer::multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){
+    	    if (type >= screen::core::MATRIX_TEXTURE0)
+    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
     	    glMultMatrixf(matrix);
     	}
 
-    	void OpenGLRenderer::getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix){
-    	    if (type >= Screen::Core::MATRIX_TEXTURE0)
-    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - Screen::Core::MATRIX_TEXTURE0);
+    	void OpenGLRenderer::getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix){
+    	    if (type >= screen::core::MATRIX_TEXTURE0)
+    	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glGetFloatv(glMatrixType[type], matrix);
     	}
     	
-    	unsigned long OpenGLRenderer::convertColor(const Screen::Core::Color& color) const{
+    	unsigned long OpenGLRenderer::convertColor(const screen::core::Color& color) const{
     		return color.convertABGR();
     	}
     	
-    	const Screen::Core::Color& OpenGLRenderer::retrieveColor(unsigned long color) const{
-    		static Screen::Core::Color c;
-    		Screen::Core::Color tmp(color);
+    	const screen::core::Color& OpenGLRenderer::retrieveColor(unsigned long color) const{
+    		static screen::core::Color c;
+    		screen::core::Color tmp(color);
     		c.set(tmp.convertABGR()); //convert * convert = Id
     		return c;
     	}
     	
-    	Screen::Core::BufferBase* OpenGLRenderer::createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{
+    	screen::core::BufferBase* OpenGLRenderer::createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{
     	    // buffer creation
     	    unsigned int vertexBuffer = 0;
     	    glGenBuffersARB(1, &vertexBuffer);
@@ -186,7 +186,7 @@ namespace Screen {
     	    return new OpenGLVertexBuffer(size, vertexBuffer);
     	}
     	
-    	Screen::Core::BufferBase* OpenGLRenderer::createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{
+    	screen::core::BufferBase* OpenGLRenderer::createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{
             // buffer creation
             unsigned int indexBuffer = 0;
             glGenBuffersARB(1, &indexBuffer);
@@ -198,7 +198,7 @@ namespace Screen {
             return new OpenGLIndexBuffer(size, indexBuffer);
         }
         
-        void OpenGLRenderer::setVB(const Screen::Core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const Screen::Core::VertexFormat& vf){
+        void OpenGLRenderer::setVB(const screen::core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const screen::core::VertexFormat& vf){
             // send OpenGL buffer to API
             const OpenGLVertexBuffer* vertexBuffer = static_cast<const OpenGLVertexBuffer*>(buffer);
             glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBuffer->getBuffer());
@@ -210,28 +210,28 @@ namespace Screen {
 
             unsigned int offset = 0;
             // Paramètrage des glPointer
-            for (Screen::Core::VertexFormat::const_iterator i = vf.begin(); i != vf.end(); ++i){
+            for (screen::core::VertexFormat::const_iterator i = vf.begin(); i != vf.end(); ++i){
                 switch ((*i)->getUsage()){
                     // Position
-                    case Screen::Core::VERTEX_USAGE_POSITION :
+                    case screen::core::VERTEX_USAGE_POSITION :
                         glEnableClientState(GL_VERTEX_ARRAY);
                         glVertexPointer(size[(*i)->getType()], type[(*i)->getType()], stride, BUFFER_OFFSET(offset + minVertex * stride));
                         break;
 
                     // Normale
-                    case Screen::Core::VERTEX_USAGE_NORMAL :
+                    case screen::core::VERTEX_USAGE_NORMAL :
                         glEnableClientState(GL_NORMAL_ARRAY);
                         glNormalPointer(type[(*i)->getType()], stride, BUFFER_OFFSET(offset + minVertex * stride));
                         break;
 
                     // Couleur diffuse
-                    case Screen::Core::VERTEX_USAGE_DIFFUSE :
+                    case screen::core::VERTEX_USAGE_DIFFUSE :
                         glEnableClientState(GL_COLOR_ARRAY);
                         glColorPointer(size[(*i)->getType()], type[(*i)->getType()], stride, BUFFER_OFFSET(offset + minVertex * stride));
                         break;
 
                     // Coordonnées de texture 0
-                    case Screen::Core::VERTEX_USAGE_TEXCOORD0 :
+                    case screen::core::VERTEX_USAGE_TEXCOORD0 :
                         glActiveTextureARB(GL_TEXTURE0_ARB);
                         glEnable(GL_TEXTURE_2D);
                         glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -240,7 +240,7 @@ namespace Screen {
                         break;
 
                     // Coordonnées de texture 1
-                    case Screen::Core::VERTEX_USAGE_TEXCOORD1 :
+                    case screen::core::VERTEX_USAGE_TEXCOORD1 :
                         glActiveTextureARB(GL_TEXTURE0_ARB);
                         glEnable(GL_TEXTURE_2D);
                         glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -249,7 +249,7 @@ namespace Screen {
                         break;
 
                     // Coordonnées de texture 2
-                    case Screen::Core::VERTEX_USAGE_TEXCOORD2 :
+                    case screen::core::VERTEX_USAGE_TEXCOORD2 :
                         glActiveTextureARB(GL_TEXTURE0_ARB);
                         glEnable(GL_TEXTURE_2D);
                         glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -258,7 +258,7 @@ namespace Screen {
                         break;
 
                     // Coordonnées de texture 3
-                    case Screen::Core::VERTEX_USAGE_TEXCOORD3 :
+                    case screen::core::VERTEX_USAGE_TEXCOORD3 :
                         glActiveTextureARB(GL_TEXTURE0_ARB);
                         glEnable(GL_TEXTURE_2D);
                         glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -270,7 +270,7 @@ namespace Screen {
             }
         }
         
-        void OpenGLRenderer::setIB(const Screen::Core::BufferBase* buffer, unsigned long stride){
+        void OpenGLRenderer::setIB(const screen::core::BufferBase* buffer, unsigned long stride){
             // send OpenGL buffer to API
             const OpenGLIndexBuffer* indexBuffer = static_cast<const OpenGLIndexBuffer*>(buffer);
             glEnableClientState(GL_INDEX_ARRAY);
@@ -280,23 +280,23 @@ namespace Screen {
             indexStride = stride;
         }
         
-        void OpenGLRenderer::drawIndexedPrimitives(Screen::Core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const{
+        void OpenGLRenderer::drawIndexedPrimitives(screen::core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const{
             const void* offset = BUFFER_OFFSET(firstIndex * indexStride);
             unsigned long indicesType = (indexStride == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT);
 
             // Affichage des primitives
             switch (type)
             {
-                case Screen::Core::PRIMITIVE_TRIANGLELIST :  glDrawElements(GL_TRIANGLES,      count * 3, indicesType, offset); break;
-                case Screen::Core::PRIMITIVE_TRIANGLESTRIP : glDrawElements(GL_TRIANGLE_STRIP, count + 2, indicesType, offset); break;
-                case Screen::Core::PRIMITIVE_TRIANGLEFAN :   glDrawElements(GL_TRIANGLE_FAN,   count + 1, indicesType, offset); break;
-                case Screen::Core::PRIMITIVE_LINELIST :      glDrawElements(GL_LINES,          count * 2, indicesType, offset); break; 
-                case Screen::Core::PRIMITIVE_LINESTRIP :     glDrawElements(GL_LINE_STRIP,     count + 1, indicesType, offset); break;
-                case Screen::Core::PRIMITIVE_POINTLIST :     glDrawElements(GL_POINTS,         count,     indicesType, offset); break;
+                case screen::core::PRIMITIVE_TRIANGLELIST :  glDrawElements(GL_TRIANGLES,      count * 3, indicesType, offset); break;
+                case screen::core::PRIMITIVE_TRIANGLESTRIP : glDrawElements(GL_TRIANGLE_STRIP, count + 2, indicesType, offset); break;
+                case screen::core::PRIMITIVE_TRIANGLEFAN :   glDrawElements(GL_TRIANGLE_FAN,   count + 1, indicesType, offset); break;
+                case screen::core::PRIMITIVE_LINELIST :      glDrawElements(GL_LINES,          count * 2, indicesType, offset); break; 
+                case screen::core::PRIMITIVE_LINESTRIP :     glDrawElements(GL_LINE_STRIP,     count + 1, indicesType, offset); break;
+                case screen::core::PRIMITIVE_POINTLIST :     glDrawElements(GL_POINTS,         count,     indicesType, offset); break;
             }
         }
         
-        Screen::Core::Objects::TextureBase* OpenGLRenderer::createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const{
+        screen::core::objects::TextureBase* OpenGLRenderer::createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const{
             // Texture generation
             unsigned int texture;
             glGenTextures(1, &texture);
@@ -319,10 +319,10 @@ namespace Screen {
             // texture unbinding
             glBindTexture(GL_TEXTURE_2D, 0);
 
-            return new OpenGLTexture(texture, size, pxf, Screen::Core::TEXTURE_NO_MIPMAP);
+            return new OpenGLTexture(texture, size, pxf, screen::core::TEXTURE_NO_MIPMAP);
         }
         
-        void OpenGLRenderer::setTextureBase(const Screen::Core::Objects::TextureBase* texture){
+        void OpenGLRenderer::setTextureBase(const screen::core::objects::TextureBase* texture){
             glActiveTextureARB(GL_TEXTURE0_ARB);
             const OpenGLTexture* glTexture = dynamic_cast<const OpenGLTexture*>(texture);
 
