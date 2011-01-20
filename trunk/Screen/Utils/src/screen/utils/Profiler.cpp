@@ -19,18 +19,18 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Profiler.h>
-#include <Screen/Utils/ProfilerReporter.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Utils/Timer.h>
+#include <screen/utils/Profiler.h>
+#include <screen/utils/ProfilerReporter.h>
+#include <screen/utils/Exception.h>
+#include <screen/utils/Timer.h>
 #include <iostream>
 
-SINGLETON_IMPL(UniqueSingleton,Screen::Utils::Profiler)
+SINGLETON_IMPL(UniqueSingleton,screen::utils::Profiler)
 
-Screen::Utils::Profiler::Profiler()
-        :UniqueSingleton<Profiler>(),timer(new Screen::Utils::Timer()),reporter(NULL) {}
+screen::utils::Profiler::Profiler()
+        :UniqueSingleton<Profiler>(),timer(new screen::utils::Timer()),reporter(NULL) {}
 
-Screen::Utils::Profiler::~Profiler() {
+screen::utils::Profiler::~Profiler() {
     if(reporter!=NULL){
 		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
 			Profile* profile = (*i);
@@ -49,22 +49,22 @@ Screen::Utils::Profiler::~Profiler() {
 	delete timer;
 }
 
-void Screen::Utils::Profiler::attachTimer(Screen::Utils::Timer* timer) {
+void screen::utils::Profiler::attachTimer(screen::utils::Timer* timer) {
 	delete this->timer;
     this->timer = timer;
 }
 
-void Screen::Utils::Profiler::attachReporter(Screen::Utils::ProfilerReporter* reporter) {
+void screen::utils::Profiler::attachReporter(screen::utils::ProfilerReporter* reporter) {
     delete this->reporter;
     this->reporter = reporter;
 }
 
-void Screen::Utils::Profiler::attachProfile(Profile* profile) {
+void screen::utils::Profiler::attachProfile(Profile* profile) {
     allProfiles.push_back(profile);
 }
 
-Screen::Utils::ProfileScope::ProfileScope(const std::string& info)
-        :profile(new Screen::Utils::Profile()) {
+screen::utils::ProfileScope::ProfileScope(const std::string& info)
+        :profile(new screen::utils::Profile()) {
     profile->info=info;
     profile->ended=false;
     profile->ending=0;
@@ -72,7 +72,7 @@ Screen::Utils::ProfileScope::ProfileScope(const std::string& info)
     profile->beginning=Profiler::instance()->timer->getMilliseconds();
 }
 
-Screen::Utils::ProfileScope::~ProfileScope() {
+screen::utils::ProfileScope::~ProfileScope() {
     profile->ending=Profiler::instance()->timer->getMilliseconds();
     profile->ended=true;
 }

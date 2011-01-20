@@ -24,8 +24,8 @@
 
 #include <boost/thread.hpp>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
         /*!  \class NullMutexType
           *  \brief Empty type, do nothing. For single threading

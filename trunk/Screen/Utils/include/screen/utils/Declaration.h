@@ -22,33 +22,33 @@
 #ifndef SCREEN_DECLARATION_H
 #define SCREEN_DECLARATION_H
 
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Profiler.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/Profiler.h>
+#include <screen/utils/Export.h>
 #include <string>
 
 #ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
-namespace Screen {
+namespace screen {
 	namespace _private {
 		class SCREEN_UTILS_EXPORT ScopeLog{
 		public:
-			ScopeLog(Screen::Utils::CallType _type, const char* _className, const std::string& _functionName, const std::string& _address)
+			ScopeLog(screen::utils::CallType _type, const char* _className, const std::string& _functionName, const std::string& _address)
 				:type(_type),className(_className), functionName(_functionName), address(_address){
-				SCREEN_LOG_CALL(Screen::Utils::CALL_BEGIN,type,className,functionName,address);
+				SCREEN_LOG_CALL(screen::utils::CALL_BEGIN,type,className,functionName,address);
 			}
 			
 			~ScopeLog(){
-				SCREEN_LOG_CALL(Screen::Utils::CALL_END,type,className,functionName,address);
+				SCREEN_LOG_CALL(screen::utils::CALL_END,type,className,functionName,address);
 			}
 		private:
-			Screen::Utils::CallType type;
+			screen::utils::CallType type;
 			const char* className;
 			std::string functionName;
 			std::string address;
 		};
 	}
 }
-#define SCREEN_SCOPE_CALL(t,c,f,a) Screen::_private::ScopeLog _scopeLog(t,c,f,a);
+#define SCREEN_SCOPE_CALL(t,c,f,a) screen::_private::ScopeLog _scopeLog(t,c,f,a);
 #endif
 
 //class
@@ -69,7 +69,7 @@ namespace Screen {
 #	define SCREEN_DECL_METHOD_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
-		SCREEN_SCOPE_CALL(Screen::Utils::CALL_METHOD,_getClassName(),#m,_internal_ss.str());
+		SCREEN_SCOPE_CALL(screen::utils::CALL_METHOD,_getClassName(),#m,_internal_ss.str());
 #else
 #	define SCREEN_DECL_METHOD_LOG(m)
 #endif
@@ -92,7 +92,7 @@ namespace Screen {
 
 #ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
 #	define SCREEN_DECL_STATIC_METHOD_LOG(m) \
-		SCREEN_SCOPE_CALL(Screen::Utils::CALL_STATIC_METHOD,_getClassName(),#m,"");
+		SCREEN_SCOPE_CALL(screen::utils::CALL_STATIC_METHOD,_getClassName(),#m,"");
 #else
 #	define SCREEN_DECL_STATIC_METHOD_LOG(m)
 #endif
@@ -117,7 +117,7 @@ namespace Screen {
 #	define SCREEN_DECL_CONSTRUCTOR_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
-		SCREEN_SCOPE_CALL(Screen::Utils::CALL_CONSTRUCTOR,_getClassName(),#m,_internal_ss.str());
+		SCREEN_SCOPE_CALL(screen::utils::CALL_CONSTRUCTOR,_getClassName(),#m,_internal_ss.str());
 #else
 #	define SCREEN_DECL_CONSTRUCTOR_LOG(m)
 #endif
@@ -142,7 +142,7 @@ namespace Screen {
 #	define SCREEN_DECL_DESTRUCTOR_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
-		SCREEN_SCOPE_CALL(Screen::Utils::CALL_DESTRUCTOR,_getClassName(),#m,_internal_ss.str());
+		SCREEN_SCOPE_CALL(screen::utils::CALL_DESTRUCTOR,_getClassName(),#m,_internal_ss.str());
 #else
 #	define SCREEN_DECL_DESTRUCTOR_LOG(m)
 #endif
@@ -164,7 +164,7 @@ namespace Screen {
 //function
 #ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
 #	define SCREEN_DECL_FUNCTION_LOG(f) \
-		SCREEN_SCOPE_CALL(Screen::Utils::CALL_FUNCTION,"",#f,"");
+		SCREEN_SCOPE_CALL(screen::utils::CALL_FUNCTION,"",#f,"");
 #else
 #	define SCREEN_DECL_FUNCTION_LOG(f)
 #endif

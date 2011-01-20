@@ -22,13 +22,13 @@
 #ifndef SCREEN_SINGLETON_H
 #define SCREEN_SINGLETON_H
 
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Thread.h>
-#include <Screen/Utils/Export.h>
-#include <Screen/Utils/SingletonLazyInstance.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/Thread.h>
+#include <screen/utils/Export.h>
+#include <screen/utils/SingletonLazyInstance.h>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
         /*!  \class SingletonModel
           *  \brief most generic singleton model.
@@ -206,9 +206,9 @@ namespace Screen {
 
 /*
 #define SINGLETON_DECL_UniqueSingleton(T) \
-		friend class Screen::Utils::WeakSingletonModel <T, \
-						Screen::Utils::CreationWithStatic, \
-						Screen::Utils::SingleThreadingModel>; \
+		friend class screen::utils::WeakSingletonModel <T, \
+						screen::utils::CreationWithStatic, \
+						screen::utils::SingleThreadingModel>; \
 		SINGLETON_DECL_CreationWithStatic(T)
 
 #define SINGLETON_IMPL_UniqueSingleton(T) \
@@ -217,9 +217,9 @@ namespace Screen {
 // under Linux, we can never predict the relative execution order of static initializers,
 // so we use explicit lazy instanciation for unique singletons
 #	define SINGLETON_DECL_UniqueSingleton(T) \
-		friend class Screen::Utils::WeakSingletonModel <T, \
-						Screen::Utils::CreationWithLazy, \
-						Screen::Utils::SingleThreadingModel>; \
+		friend class screen::utils::WeakSingletonModel <T, \
+						screen::utils::CreationWithLazy, \
+						screen::utils::SingleThreadingModel>; \
 		SINGLETON_DECL_CreationWithLazy(T)
 
 #	define SINGLETON_IMPL_UniqueSingleton(T) \
@@ -229,7 +229,7 @@ namespace Screen {
 //policies macros
 
 #define SINGLETON_DECL_CreationWithStatic(T) \
-	friend class Screen::Utils::CreationWithStatic<T>; \
+	friend class screen::utils::CreationWithStatic<T>; \
 	static T _policy_instance; \
 	static T* _policy_instance_ptr;
 
@@ -238,8 +238,8 @@ namespace Screen {
 	T* T::_policy_instance_ptr = NULL;
 
 #define SINGLETON_DECL_CreationWithLazy(T) \
-	friend class Screen::Utils::CreationWithLazy<T>; \
-	friend class Screen::Utils::SingletonLazyInstance<T>; \
+	friend class screen::utils::CreationWithLazy<T>; \
+	friend class screen::utils::SingletonLazyInstance<T>; \
 	static T* _policy_instance_ptr;
 
 #define SINGLETON_IMPL_CreationWithLazy(T) \

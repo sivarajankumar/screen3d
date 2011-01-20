@@ -22,13 +22,13 @@
 #ifndef SCREEN_LOGGER_REPORTER_H
 #define SCREEN_LOGGER_REPORTER_H
 
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/Export.h>
 #include <string>
 #include <fstream>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
         class SCREEN_UTILS_EXPORT LoggerReporter {
         public:
             LoggerReporter();

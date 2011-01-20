@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/SingletonLazyInstance.h>
+#include <screen/utils/SingletonLazyInstance.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		SingletonLazyInstanceInterface::SingletonLazyInstanceInterface(){}
 		SingletonLazyInstanceInterface::~SingletonLazyInstanceInterface(){}
 	}

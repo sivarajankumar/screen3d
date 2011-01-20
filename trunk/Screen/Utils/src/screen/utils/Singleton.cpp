@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Singleton.h>
+#include <screen/utils/Singleton.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 
 	}
 }

@@ -24,8 +24,8 @@
 
 #include <string>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 	    template <class T>
 	    class Loader{
 	    public :

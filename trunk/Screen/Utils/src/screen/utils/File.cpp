@@ -19,12 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/File.h>
+#include <screen/utils/File.h>
 #include <algorithm>
 #include <fstream>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		File::File(const std::string& _file)
 			:file(_file){
 			SCREEN_DECL_CONSTRUCTOR(File)

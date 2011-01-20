@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/SingletonLazyInstanceManager.h>
-#include <Screen/Utils/SingletonLazyInstance.h>
+#include <screen/utils/SingletonLazyInstanceManager.h>
+#include <screen/utils/SingletonLazyInstance.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		SingletonLazyInstanceManager SingletonLazyInstanceManager::instance;
 		
 		void SingletonLazyInstanceManager::registerLazy(SingletonLazyInstanceInterface* base){

@@ -22,8 +22,8 @@
 #ifndef SCREEN_TYPE_H
 #define SCREEN_TYPE_H
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
         /*!  \class SameType
           *  \brief Equality of two types

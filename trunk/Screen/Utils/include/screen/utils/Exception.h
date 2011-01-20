@@ -22,14 +22,14 @@
 #ifndef SCREEN_EXCEPTION_H
 #define SCREEN_EXCEPTION_H
 
-#include <Screen/Utils/Export.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Export.h>
+#include <screen/utils/Declaration.h>
 #include <exception>
 #include <string>
 #include <sstream>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
         class SCREEN_UTILS_EXPORT Exception : public std::exception {
         public:
             Exception(const std::string& message) throw ();
@@ -46,7 +46,7 @@ namespace Screen {
         };
 
 # ifdef SCREEN_ASSERT
-#  define Assert(p) if(!(p)) throw Screen::Utils::AssertException(__FILE__,__LINE__,#p)
+#  define Assert(p) if(!(p)) throw screen::utils::AssertException(__FILE__,__LINE__,#p)
 # else
 #  define Assert(p)
 # endif

@@ -23,12 +23,12 @@
 #define SCREEN_PROFILER_H
 
 #include <vector>
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Singleton.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/Export.h>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
         class ProfilerReporter;
         class Timer;
 
@@ -43,14 +43,14 @@ namespace Screen {
         	SINGLETON_DECL(UniqueSingleton,Profiler)
             friend class ProfileScope;
         public:
-            void attachTimer(Screen::Utils::Timer* timer);
+            void attachTimer(screen::utils::Timer* timer);
             void attachReporter(ProfilerReporter* reporter);
         private:
             void attachProfile(Profile* profile);
             Profiler();
             ~Profiler();
 
-            Screen::Utils::Timer* timer;
+            screen::utils::Timer* timer;
             typedef std::vector<Profile*> ProfileSet;
             ProfileSet allProfiles;
             ProfilerReporter* reporter;
@@ -67,9 +67,9 @@ namespace Screen {
 }
 
 # ifdef SCREEN_AUTHORIZE_PROFILE
-#  define SCREEN_ATTACH_TIMER(t)    Screen::Utils::Profiler::instance()->attachTimer((t));
-#  define SCREEN_ATTACH_PROFILE_REPORTER(r) Screen::Utils::Profiler::instance()->attachReporter((r));
-#  define SCREEN_SCOPE_PROFILE(s)    Screen::Utils::ProfileScope _pScope((s));
+#  define SCREEN_ATTACH_TIMER(t)    screen::utils::Profiler::instance()->attachTimer((t));
+#  define SCREEN_ATTACH_PROFILE_REPORTER(r) screen::utils::Profiler::instance()->attachReporter((r));
+#  define SCREEN_SCOPE_PROFILE(s)    screen::utils::ProfileScope _pScope((s));
 # else
 #  define SCREEN_ATTACH_TIMER(t)
 #  define SCREEN_ATTACH_PROFILE_REPORTER(r)

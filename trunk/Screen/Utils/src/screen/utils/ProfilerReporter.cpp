@@ -19,12 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/ProfilerReporter.h>
-#include <Screen/Utils/Profiler.h>
+#include <screen/utils/ProfilerReporter.h>
+#include <screen/utils/Profiler.h>
 #include <iostream>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		ProfilerReporter::ProfilerReporter(){}
 		ProfilerReporter::~ProfilerReporter(){}
 		

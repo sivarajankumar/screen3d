@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Path.h>
+#include <screen/utils/Path.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		Path::Path(const std::string& _path)
 			:path(_path){
 			SCREEN_DECL_CONSTRUCTOR(Path)

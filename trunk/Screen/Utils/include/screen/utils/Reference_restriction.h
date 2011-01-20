@@ -22,11 +22,11 @@
 #ifndef SCREEN_REFERENCE_RESTRICTION_H
 #define SCREEN_REFERENCE_RESTRICTION_H
 
-#include <Screen/Utils/Type.h>
-#include <Screen/Utils/Typelist.h>
+#include <screen/utils/Type.h>
+#include <screen/utils/Typelist.h>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
 
         typedef Append<UnsignedIntList,
         Append<SignedIntList,

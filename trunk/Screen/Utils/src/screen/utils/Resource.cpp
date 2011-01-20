@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/ResourceManager.h>
+#include <screen/utils/Resource.h>
+#include <screen/utils/ResourceManager.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		ResourceBase::ResourceBase()
 			:name(""){
 			SCREEN_DECL_CONSTRUCTOR(ResourceBase)

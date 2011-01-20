@@ -22,11 +22,11 @@
 #ifndef SCREEN_ANY_H
 #define SCREEN_ANY_H
 
-#include <Screen/Utils/Exception.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Exception.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		/*!  \class Any
 		 *   \brief 
 		 *   \author Ratouit Thomas
@@ -34,7 +34,7 @@ namespace Screen {
 		 */
 
 		class Any {
-			SCREEN_DECL_CLASS(Screen::Utils::Any)
+			SCREEN_DECL_CLASS(screen::utils::Any)
 	        template<class T>
 	        friend T * any_cast(Any *);
 		public:
@@ -86,7 +86,7 @@ namespace Screen {
 	        const std::type_info& getType() const{
 	        	SCREEN_DECL_METHOD(getType)
 	            if(holder == NULL){
-	            	throw Screen::Utils::Exception("Any instance doesn't have a type (null instance of holder)");
+	            	throw screen::utils::Exception("Any instance doesn't have a type (null instance of holder)");
 	            }
 	            return holder->getType();
 	        }
@@ -96,12 +96,12 @@ namespace Screen {
 //        	T operator()() const{
 //	        	SCREEN_DECL_METHOD(operator())
 //    			if (holder == NULL) {
-//    				throw Screen::Utils::Exception("Empty Any Holder");
+//    				throw screen::utils::Exception("Empty Any Holder");
 //    			}
 //
 //				Holder<ValueType>* h = static_cast<Holder<ValueType>* >(holder);
 //				if(h == NULL){
-//					throw Screen::Utils::Exception("Bad cast for Any Holder");
+//					throw screen::utils::Exception("Bad cast for Any Holder");
 //				}
 //				
 //				return h->value;
@@ -116,7 +116,7 @@ namespace Screen {
 	        
 	        template<class T>
 	        struct Holder : public HolderBase{
-	        	SCREEN_DECL_CLASS(Screen::Utils::Any::Holder)
+	        	SCREEN_DECL_CLASS(screen::utils::Any::Holder)
 	            Holder(const T& value)
 	            	:value(value){
 	            	SCREEN_DECL_CONSTRUCTOR(Holder)
@@ -169,7 +169,7 @@ namespace Screen {
 				std::stringstream buf;
 				buf << "Bad any_cast from type " << any.getType().name()
 					<< " to " << typeid(T).name();
-				throw Screen::Utils::Exception(buf.str());
+				throw screen::utils::Exception(buf.str());
 			}
 	        return *result;
 	    }

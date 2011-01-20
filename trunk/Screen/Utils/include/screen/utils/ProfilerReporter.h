@@ -22,11 +22,11 @@
 #ifndef SCREEN_PROFILER_REPORTER_H
 #define SCREEN_PROFILER_REPORTER_H
 
-#include <Screen/Utils/Export.h>
+#include <screen/utils/Export.h>
 #include <fstream>
 
-namespace Screen {
-    namespace Utils {
+namespace screen {
+    namespace utils {
     	struct Profile;
         /*interface*/
         class SCREEN_UTILS_EXPORT ProfilerReporter {
