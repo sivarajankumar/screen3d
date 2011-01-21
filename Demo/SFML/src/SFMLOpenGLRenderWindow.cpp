@@ -22,10 +22,10 @@
 #include <SFML/Graphics.hpp>
 #include "SFMLOpenGLRenderWindow.h"
 
-using Screen::Utils::SFMLOpenGLRenderWindow;
+using screen::utils::SFMLOpenGLRenderWindow;
 
 SFMLOpenGLRenderWindow::SFMLOpenGLRenderWindow()
-	:Screen::Core::RenderWindow(){
+	:screen::core::RenderWindow(){
 	app = NULL;
 }
 			
@@ -35,7 +35,7 @@ SFMLOpenGLRenderWindow::~SFMLOpenGLRenderWindow(){
 			
 void SFMLOpenGLRenderWindow::init(){
 	// Create main window
-	app = new sf::RenderWindow(sf::VideoMode(800, 600), "Screen : OpenGL");
+	app = new sf::RenderWindow(sf::VideoMode(800, 600), "screen : OpenGL");
     app->PreserveOpenGLStates(true);
 //    app->SetFramerateLimit(60);
 }

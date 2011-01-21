@@ -22,16 +22,16 @@
 #ifndef SFML_OPENGL_RENDER_WINDOW_H
 #define SFML_OPENGL_RENDER_WINDOW_H
 
-#include <Screen/Core/Renderer/RenderWindow.h>
-#include <Screen/Utils/Export.h>
+#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/utils/Export.h>
 
 namespace sf{
 	class RenderWindow;
 }
 
-namespace Screen{
-	namespace Utils{
-		class SFMLOpenGLRenderWindow : public Screen::Core::RenderWindow{
+namespace screen{
+	namespace utils{
+		class SFMLOpenGLRenderWindow : public screen::core::RenderWindow{
 		public:
 			SFMLOpenGLRenderWindow();
 			~SFMLOpenGLRenderWindow();

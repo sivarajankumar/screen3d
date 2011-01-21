@@ -21,16 +21,16 @@
 
 #include "SFMLRoot.h"
 
-#include <Screen/Math/Vector2f.h>
-#include <Screen/Utils/Timer.h>
-#include <Screen/Core/Renderer/Renderer.h>
-#include <Screen/Core/Renderer/RenderWindow.h>
-#include <Screen/Utils/MediaManager.h>
+#include <screen/math/Vector2f.h>
+#include <screen/utils/Timer.h>
+#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/utils/MediaManager.h>
 
 #define PI 3.141592654f
 
 SFMLRoot::SFMLRoot()
-	:Screen::Core::Root()
+	:screen::core::Root()
 {}
 
 SFMLRoot::~SFMLRoot(){}
@@ -38,7 +38,7 @@ SFMLRoot::~SFMLRoot(){}
 void SFMLRoot::init(){
 	Root::init();
 	
-	using Screen::Core::Objects::VertexFormat;
+	using screen::core::objects::VertexFormat;
 	// Création des vertices et des indices
 //	static Vertex vertices[] =
 //	{
@@ -69,22 +69,22 @@ void SFMLRoot::init(){
 	};
 	
 	VertexFormat::SmartPtr vf1(new VertexFormat());
-	vf1->add(Screen::Core::VERTEX_USAGE_POSITION,Screen::Core::VERTEX_TYPE_FLOAT3);
-	vf1->add(Screen::Core::VERTEX_USAGE_DIFFUSE,Screen::Core::VERTEX_TYPE_COLOR);
-	vf1->add(Screen::Core::VERTEX_USAGE_TEXCOORD0,Screen::Core::VERTEX_TYPE_FLOAT2);
+	vf1->add(screen::core::VERTEX_USAGE_POSITION,screen::core::VERTEX_TYPE_FLOAT3);
+	vf1->add(screen::core::VERTEX_USAGE_DIFFUSE,screen::core::VERTEX_TYPE_COLOR);
+	vf1->add(screen::core::VERTEX_USAGE_TEXCOORD0,screen::core::VERTEX_TYPE_FLOAT2);
 	vf1->lock();
 	
-	Screen::Core::Objects::VertexBufferFiller vbf1(vf1);
+	screen::core::objects::VertexBufferFiller vbf1(vf1);
 	
 	//set vextex points
-	vbf1.setPositionAt(0,Screen::Math::Vector3f(-1.0f, -1.0f,  1.0f));
-	vbf1.setPositionAt(1,Screen::Math::Vector3f(-1.0f,  1.0f,  1.0f));
-	vbf1.setPositionAt(2,Screen::Math::Vector3f( 1.0f,  1.0f,  1.0f));
-	vbf1.setPositionAt(3,Screen::Math::Vector3f( 1.0f, -1.0f,  1.0f));
-	vbf1.setPositionAt(4,Screen::Math::Vector3f(-1.0f, -1.0f, -1.0f));
-	vbf1.setPositionAt(5,Screen::Math::Vector3f(-1.0f,  1.0f, -1.0f));
-	vbf1.setPositionAt(6,Screen::Math::Vector3f( 1.0f,  1.0f, -1.0f));
-	vbf1.setPositionAt(7,Screen::Math::Vector3f( 1.0f, -1.0f, -1.0f));
+	vbf1.setPositionAt(0,screen::math::Vector3f(-1.0f, -1.0f,  1.0f));
+	vbf1.setPositionAt(1,screen::math::Vector3f(-1.0f,  1.0f,  1.0f));
+	vbf1.setPositionAt(2,screen::math::Vector3f( 1.0f,  1.0f,  1.0f));
+	vbf1.setPositionAt(3,screen::math::Vector3f( 1.0f, -1.0f,  1.0f));
+	vbf1.setPositionAt(4,screen::math::Vector3f(-1.0f, -1.0f, -1.0f));
+	vbf1.setPositionAt(5,screen::math::Vector3f(-1.0f,  1.0f, -1.0f));
+	vbf1.setPositionAt(6,screen::math::Vector3f( 1.0f,  1.0f, -1.0f));
+	vbf1.setPositionAt(7,screen::math::Vector3f( 1.0f, -1.0f, -1.0f));
 	
 	//set vextex colors
 	vbf1.setDiffuseAt(0,0xFF0000FF);
@@ -97,29 +97,29 @@ void SFMLRoot::init(){
 	vbf1.setDiffuseAt(7,0xFFFFC0C0);
 	
 	//set texture vextices
-	vbf1.setTextureAt(0,0,Screen::Math::Vector2f(0.0f, 1.0f));
-	vbf1.setTextureAt(1,0,Screen::Math::Vector2f(0.0f, 0.0f));
-	vbf1.setTextureAt(2,0,Screen::Math::Vector2f(1.0f, 0.0f));
-	vbf1.setTextureAt(3,0,Screen::Math::Vector2f(1.0f, 1.0f));
-	vbf1.setTextureAt(4,0,Screen::Math::Vector2f(0.0f, 1.0f));
-	vbf1.setTextureAt(5,0,Screen::Math::Vector2f(0.0f, 0.0f));
-	vbf1.setTextureAt(6,0,Screen::Math::Vector2f(1.0f, 0.0f));
-	vbf1.setTextureAt(7,0,Screen::Math::Vector2f(1.0f, 1.0f));
+	vbf1.setTextureAt(0,0,screen::math::Vector2f(0.0f, 1.0f));
+	vbf1.setTextureAt(1,0,screen::math::Vector2f(0.0f, 0.0f));
+	vbf1.setTextureAt(2,0,screen::math::Vector2f(1.0f, 0.0f));
+	vbf1.setTextureAt(3,0,screen::math::Vector2f(1.0f, 1.0f));
+	vbf1.setTextureAt(4,0,screen::math::Vector2f(0.0f, 1.0f));
+	vbf1.setTextureAt(5,0,screen::math::Vector2f(0.0f, 0.0f));
+	vbf1.setTextureAt(6,0,screen::math::Vector2f(1.0f, 0.0f));
+	vbf1.setTextureAt(7,0,screen::math::Vector2f(1.0f, 1.0f));
 	
-//	vb1 = new Screen::Core::Objects::VertexBuffer<Vertex>(
-//			renderer->createVertexBuffer<Vertex>(vbf1->getSize(),Screen::Core::STATIC_DRAW,vbf1->get<Vertex>(),vf1));
-//	ib = new Screen::Core::Objects::IndexBuffer<unsigned short>(
-//			renderer->createIndexBuffer(12*3,Screen::Core::STATIC_DRAW,indices));
+//	vb1 = new screen::core::objects::VertexBuffer<Vertex>(
+//			renderer->createVertexBuffer<Vertex>(vbf1->getSize(),screen::core::STATIC_DRAW,vbf1->get<Vertex>(),vf1));
+//	ib = new screen::core::objects::IndexBuffer<unsigned short>(
+//			renderer->createIndexBuffer(12*3,screen::core::STATIC_DRAW,indices));
 	
-	vb1 = new Screen::Core::Objects::VertexBuffer<Vertex>(
-			renderer->createVertexBuffer<Vertex>(vbf1,Screen::Core::STATIC_DRAW));
-	ib = new Screen::Core::Objects::IndexBuffer<unsigned short>(
-			renderer->createIndexBuffer(12*3,Screen::Core::STATIC_DRAW,indices));
+	vb1 = new screen::core::objects::VertexBuffer<Vertex>(
+			renderer->createVertexBuffer<Vertex>(vbf1,screen::core::STATIC_DRAW));
+	ib = new screen::core::objects::IndexBuffer<unsigned short>(
+			renderer->createIndexBuffer(12*3,screen::core::STATIC_DRAW,indices));
 
-	texture.createFromFile("SCREEN.png", Screen::Core::PXF_A8R8G8B8);
+	texture.createFromFile("SCREEN.png", screen::core::PXF_A8R8G8B8);
 	
 	cam.set(0.0f, 2.5f, 2.5f);
-	view.lookAt(cam, cam + Screen::Math::Vector3f(0.0f, -1.0f, -1.0f));
+	view.lookAt(cam, cam + screen::math::Vector3f(0.0f, -1.0f, -1.0f));
 	proj.perspectiveFOV(PI/2, 800.0f / 600.0f, 0.1f, 1000.0f);
 
 }
@@ -128,12 +128,12 @@ bool SFMLRoot::renderFrame(){
 	rotX.setRotationX((float)timer->getMilliseconds() * 0.05f / 180 * PI);
 	rotY.setRotationY((float)timer->getMilliseconds() * 0.03f / 180 * PI);
 	rotZ.setRotationZ((float)timer->getMilliseconds() * 0.09f / 180 * PI);
-	renderer->setMatrix(Screen::Core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
-	renderer->setMatrix(Screen::Core::MATRIX_PROJECTION, proj);
+	renderer->setMatrix(screen::core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
+	renderer->setMatrix(screen::core::MATRIX_PROJECTION, proj);
 	renderer->setTexture(texture);
 	renderer->setVertexBuffer(*(vb1.get<Vertex>()));
 	renderer->setIndexBuffer(*ib);
-	renderer->drawIndexedPrimitives(Screen::Core::PRIMITIVE_TRIANGLELIST, 0, 12);
+	renderer->drawIndexedPrimitives(screen::core::PRIMITIVE_TRIANGLELIST, 0, 12);
 	
 	return Root::renderFrame();
 }

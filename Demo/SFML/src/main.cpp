@@ -19,18 +19,18 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include "Screen/Core/Root.h"
-#include "Screen/Utils/Timer.h"
-#include "Screen/Core/FPSCounter.h"
-#include "Screen/Core/Renderer/Renderer.h"
-#include "Screen/Utils/Profiler.h"
-#include "Screen/Utils/ProfilerReporter.h"
-#include "Screen/Utils/Logger.h"
-#include "Screen/Utils/LoggerReporter.h"
-#include "Screen/Utils/File.h"
-#include "Screen/Utils/Path.h"
-#include "Screen/Core/Loaders/ImageLoader.h"
-#include "Screen/Core/Managers/TextureManager.h"
+#include "screen/core/Root.h"
+#include "screen/utils/Timer.h"
+#include "screen/core/FPSCounter.h"
+#include "screen/core/Renderer/Renderer.h"
+#include "screen/utils/Profiler.h"
+#include "screen/utils/ProfilerReporter.h"
+#include "screen/utils/Logger.h"
+#include "screen/utils/LoggerReporter.h"
+#include "screen/utils/File.h"
+#include "screen/utils/Path.h"
+#include "screen/core/Loaders/ImageLoader.h"
+#include "screen/core/Managers/TextureManager.h"
 //
 #include "SFMLOpenGLRenderWindow.h"
 #include "SFMLRoot.h"
@@ -39,26 +39,26 @@
 
 int main() {
 	try{
-		SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
-		SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
+		SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))
+		SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 		
 		SCREEN_LOG_DEBUG("coucou")
 		
-		Screen::Core::Renderer::load("ScreenOpenGL");
-		Screen::Core::TextureManager::instance()->registerLoader<Screen::Core::Objects::Image>(new Screen::Core::ImageLoader, "jpg|png|bmp|tga");
-		Screen::Core::TextureManager::instance()->addPath(".");
+		screen::core::Renderer::load("ScreenOpenGL");
+		screen::core::TextureManager::instance()->registerLoader<screen::core::objects::Image>(new screen::core::ImageLoader, "jpg|png|bmp|tga");
+		screen::core::TextureManager::instance()->addPath(".");
 		
-		Screen::Utils::SmartPtr<Screen::Core::Root> root(new SFMLRoot());
-		Screen::Utils::SmartPtr<Screen::Core::RenderWindow> rw(new Screen::Utils::SFMLOpenGLRenderWindow());
-		Screen::Utils::SmartPtr<Screen::Core::FPSCounter> fc(new Screen::Core::FPSCounter(2.0,std::cout));
+		screen::utils::SmartPtr<screen::core::Root> root(new SFMLRoot());
+		screen::utils::SmartPtr<screen::core::RenderWindow> rw(new screen::utils::SFMLOpenGLRenderWindow());
+		screen::utils::SmartPtr<screen::core::FPSCounter> fc(new screen::core::FPSCounter(2.0,std::cout));
 		root->setRenderWindow(rw);
 		root->setFPSCounter(fc);
 		root->init();
 		root->startRendering();
 		
-		Screen::Core::TextureManager::instance()->unregisterLoader<Screen::Core::Objects::Image>("jpg|png|bmp|tga");
+		screen::core::TextureManager::instance()->unregisterLoader<screen::core::objects::Image>("jpg|png|bmp|tga");
 
-	}catch(const Screen::Utils::Exception& e){
+	}catch(const screen::utils::Exception& e){
 		SCREEN_LOG_ERROR("Exception controlée : " << std::endl << e.what())
 		throw;
 	}catch(const std::exception& e){
