@@ -22,31 +22,31 @@
 #ifndef SCREEN_ROOT_H
 #define SCREEN_ROOT_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Utils {
+namespace screen {
+	namespace utils {
 		class Timer;
 	}
-    namespace Core {
+    namespace core {
 	    class FPSCounter;
 	    class Renderer;
 	    class RenderWindow;
 	    
         class SCREEN_MAIN_EXPORT Root {
-        	SCREEN_DECL_CLASS(Screen::Core::Root)
+        	SCREEN_DECL_CLASS(screen::core::Root)
         public:
             explicit Root();
             virtual ~Root();
-            void setRenderWindow(Screen::Core::RenderWindow* renderWindow);
-            void setFPSCounter(Screen::Core::FPSCounter* fpsCounter);
+            void setRenderWindow(screen::core::RenderWindow* renderWindow);
+            void setFPSCounter(screen::core::FPSCounter* fpsCounter);
             
             virtual void init();
             void startRendering();
         protected:
             virtual bool renderFrame();
-            Screen::Utils::Timer* timer;
+            screen::utils::Timer* timer;
             FPSCounter* fpsCounter;
             Renderer* renderer;
             RenderWindow* renderWindow;

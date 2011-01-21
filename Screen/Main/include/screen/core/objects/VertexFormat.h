@@ -22,17 +22,17 @@
 #ifndef SCREEN_VERTEX_FORMAT_H
 #define SCREEN_VERTEX_FORMAT_H
 
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Main/Export.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/Declaration.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/main/Export.h>
 #include <vector>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			class SCREEN_MAIN_EXPORT VertexUsageAndType{
-				SCREEN_DECL_CLASS(Screen::Core::VertexUsageAndType)
+				SCREEN_DECL_CLASS(screen::core::VertexUsageAndType)
 				friend class VertexFormat;
 			public:
 				VertexUsage getUsage() const;
@@ -51,7 +51,7 @@ namespace Screen {
 			 */
 		
 			class SCREEN_MAIN_EXPORT VertexFormat {
-				SCREEN_DECL_CLASS(Screen::Core::VertexFormat)
+				SCREEN_DECL_CLASS(screen::core::VertexFormat)
 			public:
 				typedef std::vector<const VertexUsageAndType *>::const_iterator const_iterator;
 				
@@ -68,7 +68,7 @@ namespace Screen {
 				VertexFormat::const_iterator begin() const;
 				VertexFormat::const_iterator end() const;
 				
-				typedef Screen::Utils::SmartPtr<VertexFormat> SmartPtr;
+				typedef screen::utils::SmartPtr<VertexFormat> SmartPtr;
 			private:
 				std::vector<const VertexUsageAndType *> vuatList;
 				bool _lock;

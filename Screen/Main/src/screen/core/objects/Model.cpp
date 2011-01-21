@@ -19,13 +19,13 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/Model.h>
+#include <screen/core/objects/Model.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			Model::Model()
-				:Screen::Utils::Resource<>(){
+				:screen::utils::Resource<>(){
 				SCREEN_DECL_CONSTRUCTOR(Model)
 			}
 			Model::~Model(){

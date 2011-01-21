@@ -22,47 +22,47 @@
 #ifndef SCREEN_PIXEL_FORMAT_H
 #define SCREEN_PIXEL_FORMAT_H
 
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			class SCREEN_MAIN_EXPORT PixelConverter {
-				SCREEN_DECL_CLASS(Screen::Core::Objects::PixelConverter)
+				SCREEN_DECL_CLASS(screen::core::objects::PixelConverter)
 			public:
-				static void convertPixel(Screen::Core::PixelFormat srcFormat,
+				static void convertPixel(screen::core::PixelFormat srcFormat,
 			    						const unsigned char* src,
-			    						Screen::Core::PixelFormat destFormat,
+			    						screen::core::PixelFormat destFormat,
 			    						unsigned char* dest);
 				
-				PixelConverter(Screen::Core::PixelFormat srcFormat, Screen::Core::PixelFormat destFormat);
+				PixelConverter(screen::core::PixelFormat srcFormat, screen::core::PixelFormat destFormat);
 				~PixelConverter();
 			    
 			    void operator ()(const unsigned char* src,
 								  unsigned char* dest) const;
 
 			private:
-				Screen::Core::PixelFormat srcFormat;
-				Screen::Core::PixelFormat destFormat;
+				screen::core::PixelFormat srcFormat;
+				screen::core::PixelFormat destFormat;
 				typedef void (*ConvertionFunc) (const unsigned char*, unsigned char*);
 				ConvertionFunc func;
 			};
 			
 			class SCREEN_MAIN_EXPORT PixelFormatDescriptor {
-				SCREEN_DECL_CLASS(Screen::Core::Objects::PixelFormatDescriptor)
+				SCREEN_DECL_CLASS(screen::core::objects::PixelFormatDescriptor)
 			public:
-				static const char* getName(Screen::Core::PixelFormat pxf);
-			    static unsigned int getBytesPerPixels(Screen::Core::PixelFormat pxf);
-			    static bool isCompressed(Screen::Core::PixelFormat pxf);
-				PixelFormatDescriptor(Screen::Core::PixelFormat pxf);
+				static const char* getName(screen::core::PixelFormat pxf);
+			    static unsigned int getBytesPerPixels(screen::core::PixelFormat pxf);
+			    static bool isCompressed(screen::core::PixelFormat pxf);
+				PixelFormatDescriptor(screen::core::PixelFormat pxf);
 				~PixelFormatDescriptor();
 				const char* getName() const;
 				unsigned int getBytesPerPixels() const;
 				bool isCompressed() const;
 			private:
-				Screen::Core::PixelFormat pxf;
+				screen::core::PixelFormat pxf;
 			};
 		}
 	}

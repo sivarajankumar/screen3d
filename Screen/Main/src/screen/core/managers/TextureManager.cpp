@@ -19,15 +19,15 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Managers/TextureManager.h>
-#include <Screen/Utils/ResourceManager.h>
+#include <screen/core/Managers/TextureManager.h>
+#include <screen/utils/ResourceManager.h>
 
-namespace Screen {
-	namespace Core {
+namespace screen {
+	namespace core {
 		SINGLETON_IMPL(UniqueSingleton,TextureManager)
 	
-		using Screen::Core::Objects::Image;
-		using Screen::Core::Objects::TextureBase;
+		using screen::core::objects::Image;
+		using screen::core::objects::TextureBase;
 	
 		TextureManager::TextureManager(){
 			SCREEN_DECL_CONSTRUCTOR(TextureManager)
@@ -36,19 +36,19 @@ namespace Screen {
 			SCREEN_DECL_DESTRUCTOR(~TextureManager)
 		}
 		
-		Image::SmartPtr TextureManager::loadImageFromFile(const Screen::Utils::File& filename) const{
+		Image::SmartPtr TextureManager::loadImageFromFile(const screen::utils::File& filename) const{
 			SCREEN_DECL_METHOD(loadImageFromFile)
-			Image* ptr = Screen::Utils::ResourceManager::instance()->get<Image>(filename.getFullname());
+			Image* ptr = screen::utils::ResourceManager::instance()->get<Image>(filename.getFullname());
 			if(ptr==NULL){
 	    		ptr = loadMediaFromFile<Image>(filename);
-	    		Screen::Utils::ResourceManager::instance()->add(filename.getFullname(),ptr);
+	    		screen::utils::ResourceManager::instance()->add(filename.getFullname(),ptr);
 	    	}
 	    	return ptr;
 		}
 		
-		TextureBase::SmartPtr TextureManager::loadTextureFromFile(const Screen::Utils::File& filename) const{
+		TextureBase::SmartPtr TextureManager::loadTextureFromFile(const screen::utils::File& filename) const{
 			SCREEN_DECL_METHOD(loadTextureFromFile)
-			TextureBase* ptr = Screen::Utils::ResourceManager::instance()->get<TextureBase>(filename.getFullname());
+			TextureBase* ptr = screen::utils::ResourceManager::instance()->get<TextureBase>(filename.getFullname());
 			// not automaticly loaded, use Texture::load
 	    	return ptr;
 		}

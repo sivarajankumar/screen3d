@@ -22,17 +22,17 @@
 #ifndef SCREEN_TEXTURE_H
 #define SCREEN_TEXTURE_H
 
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Core/Objects/TextureBase.h>
-#include <Screen/Math/Rectangle.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/core/objects/Image.h>
+#include <screen/core/objects/TextureBase.h>
+#include <screen/math/Rectangle.h>
+#include <screen/math/Vector2i.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			/*!  \class Texture
 			 *   \brief 
 			 *   \author Ratouit Thomas
@@ -44,25 +44,25 @@ namespace Screen {
 				Texture();
 				~Texture();
 
-		        void create(const Screen::Math::Vector2i& size,
-		        			Screen::Core::PixelFormat pxf,
-		        			Screen::Core::TextureFlag flags = Screen::Core::TEXTURE_NO_FLAG,
+		        void create(const screen::math::Vector2i& size,
+		        			screen::core::PixelFormat pxf,
+		        			screen::core::TextureFlag flags = screen::core::TEXTURE_NO_FLAG,
 		        			const std::string& name = "");
 		        
 		        void createFromFile(const std::string& filename,
-		        					Screen::Core::PixelFormat pxf,
-		        					Screen::Core::TextureFlag flags = Screen::Core::TEXTURE_NO_FLAG);
+		        					screen::core::PixelFormat pxf,
+		        					screen::core::TextureFlag flags = screen::core::TEXTURE_NO_FLAG);
 		        
 		        void createFromImage(const Image& image,
-		        					 Screen::Core::PixelFormat pxf,
-		        					 Screen::Core::TextureFlag flags = Screen::Core::TEXTURE_NO_FLAG,
+		        					 screen::core::PixelFormat pxf,
+		        					 screen::core::TextureFlag flags = screen::core::TEXTURE_NO_FLAG,
 		        					 const std::string& name = "");
 		        
-		        void update(const Screen::Math::Rectangle& rect = Screen::Math::Rectangle(-1, -1, -1, -1));
+		        void update(const screen::math::Rectangle& rect = screen::math::Rectangle(-1, -1, -1, -1));
 
-		        Screen::Core::Objects::Image& getImage();
-		        const Screen::Math::Vector2i& getSize() const;
-		        Screen::Core::PixelFormat getFormat() const;
+		        screen::core::objects::Image& getImage();
+		        const screen::math::Vector2i& getSize() const;
+		        screen::core::PixelFormat getFormat() const;
 		        const std::string& getName() const;
 		        const TextureBase* getTexture() const;
 
@@ -70,7 +70,7 @@ namespace Screen {
 		        bool operator !=(const Texture& texture) const;
 
 		    private :
-		        void load(const Image& image, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags, const std::string& name);
+		        void load(const Image& image, screen::core::PixelFormat pxf, screen::core::TextureFlag flags, const std::string& name);
 
 		        TextureBase::SmartPtr texture;
 		    };	

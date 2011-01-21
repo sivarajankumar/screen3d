@@ -22,47 +22,47 @@
 #ifndef SCREEN_IMAGE_H
 #define SCREEN_IMAGE_H
 
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Math/Rectangle.h>
-#include <Screen/Core/Color.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/math/Vector2i.h>
+#include <screen/math/Rectangle.h>
+#include <screen/core/Color.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Resource.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 		
 			/** This class represents a loaded image file
 			 @remarks
 			 	The Image class contains method to load,
 			 	get and modify image data.
 			 */
-			class SCREEN_MAIN_EXPORT Image : public Screen::Utils::Resource<> {
+			class SCREEN_MAIN_EXPORT Image : public screen::utils::Resource<> {
 			public:
-				SCREEN_DECL_CLASS(Screen::Core::Objects::Image)
-				Image(const Screen::Math::Vector2i& size = Screen::Math::Vector2i(1, 1), Screen::Core::PixelFormat pxf = PXF_A8R8G8B8);
-		        Image(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, const unsigned char* pixels);
+				SCREEN_DECL_CLASS(screen::core::objects::Image)
+				Image(const screen::math::Vector2i& size = screen::math::Vector2i(1, 1), screen::core::PixelFormat pxf = PXF_A8R8G8B8);
+		        Image(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, const unsigned char* pixels);
 
-		        const Screen::Math::Vector2i& getSize() const;
-		        Screen::Core::PixelFormat getPixelFormat() const;
+		        const screen::math::Vector2i& getSize() const;
+		        screen::core::PixelFormat getPixelFormat() const;
 		        const unsigned char* getData() const;
 
 		        void loadFromFile(const std::string& filename);
-		        void fill(const Screen::Core::Color& color);
+		        void fill(const screen::core::Color& color);
 		        void setPixel(int x, int y, const unsigned char* pixel);
-		        void setPixel(int x, int y, const Screen::Core::Color& color);
+		        void setPixel(int x, int y, const screen::core::Color& color);
 
 		        void getPixel(int x, int y, unsigned char* pixel) const;
-		        Screen::Core::Color getPixel(int x, int y) const;
+		        screen::core::Color getPixel(int x, int y) const;
 		        void copy(const Image& src);
 		        
-		        typedef Screen::Utils::SmartPtr<Image, Screen::Utils::ResourceSmartPolicy> SmartPtr;
+		        typedef screen::utils::SmartPtr<Image, screen::utils::ResourceSmartPolicy> SmartPtr;
 		    private :
-		        Screen::Math::Vector2i size;
-		        Screen::Core::PixelFormat pxf;
+		        screen::math::Vector2i size;
+		        screen::core::PixelFormat pxf;
 		        std::vector<unsigned char> pixels; ///< Tableau des pixels
 			};
 		}

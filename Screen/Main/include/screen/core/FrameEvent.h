@@ -22,8 +22,8 @@
 #ifndef SCREEN_FRAME_EVENT_H
 #define SCREEN_FRAME_EVENT_H
 
-namespace Screen {
-    namespace Core {
+namespace screen {
+    namespace core {
         class FrameEvent {
         public:
             inline explicit FrameEvent()

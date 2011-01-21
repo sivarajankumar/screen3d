@@ -19,38 +19,38 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Root.h>
-#include <Screen/Utils/Timer.h>
-#include <Screen/Core/FPSCounter.h>
-#include <Screen/Core/Renderer/Renderer.h>
-#include <Screen/Core/Renderer/RenderWindow.h>
-#include <Screen/Utils/MediaManager.h>
+#include <screen/core/Root.h>
+#include <screen/utils/Timer.h>
+#include <screen/core/FPSCounter.h>
+#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/utils/MediaManager.h>
 
 #include <iostream>
 
-Screen::Core::Root::Root()
-	:timer(new Screen::Utils::Timer()), renderer(NULL), renderWindow(NULL){
+screen::core::Root::Root()
+	:timer(new screen::utils::Timer()), renderer(NULL), renderWindow(NULL){
 	SCREEN_DECL_CONSTRUCTOR(Root)
 }
 
-Screen::Core::Root::~Root() {
+screen::core::Root::~Root() {
 	SCREEN_DECL_DESTRUCTOR(~Root)
 	if(renderer!=NULL)
 		Renderer::destroy();
     delete timer;
 }
 
-void Screen::Core::Root::setRenderWindow(Screen::Core::RenderWindow* renderWindow){
+void screen::core::Root::setRenderWindow(screen::core::RenderWindow* renderWindow){
 	SCREEN_DECL_METHOD(setRenderWindow)
 	this->renderWindow = renderWindow;
 }
 
-void Screen::Core::Root::setFPSCounter(Screen::Core::FPSCounter* fpsCounter){
+void screen::core::Root::setFPSCounter(screen::core::FPSCounter* fpsCounter){
 	SCREEN_DECL_METHOD(setFPSCounter)
 	this->fpsCounter = fpsCounter;
 }
 
-void Screen::Core::Root::startRendering(){	
+void screen::core::Root::startRendering(){	
     bool isRunning = true;
 	while(isRunning) {
     	renderer->beginScene();
@@ -61,14 +61,14 @@ void Screen::Core::Root::startRendering(){
 
 }
 
-bool Screen::Core::Root::renderFrame(){
+bool screen::core::Root::renderFrame(){
 	SCREEN_DECL_METHOD(renderFrame)
 	return renderer->isRunning();
 }
 
-void Screen::Core::Root::init(){
+void screen::core::Root::init(){
 	SCREEN_DECL_METHOD(init)
-	renderer = Screen::Core::Renderer::get();
+	renderer = screen::core::Renderer::get();
 	renderer->setRenderWindow(renderWindow);
 	renderer->init();
 	timer->reset();	

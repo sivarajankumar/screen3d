@@ -22,27 +22,27 @@
 #ifndef SCREEN_IMAGE_LOADER_H
 #define SCREEN_IMAGE_LOADER_H
 
-#include <Screen/Utils/Loader.h>
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/Loader.h>
+#include <screen/core/objects/Image.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
+namespace screen {
+	namespace core {
 		/*!  \class ImageLoader
 		 *   \brief 
 		 *   \author Ratouit Thomas
 		 *   \date 5 déc. 09
 		 */
 
-		class SCREEN_MAIN_EXPORT ImageLoader : public Screen::Utils::Loader<Screen::Core::Objects::Image> {
-			SCREEN_DECL_CLASS(Screen::Core::ImageLoader)
-			SCREEN_DECL_LOADER(Screen::Core::ImageLoader,Screen::Core::Objects::Image)
+		class SCREEN_MAIN_EXPORT ImageLoader : public screen::utils::Loader<screen::core::objects::Image> {
+			SCREEN_DECL_CLASS(screen::core::ImageLoader)
+			SCREEN_DECL_LOADER(screen::core::ImageLoader,screen::core::objects::Image)
 		public:
 			ImageLoader();
 			~ImageLoader();
 			
-			Screen::Core::Objects::Image* loadFromFile(const std::string& filename) const;
+			screen::core::objects::Image* loadFromFile(const std::string& filename) const;
 		};
 	}
 }

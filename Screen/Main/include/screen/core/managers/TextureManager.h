@@ -22,18 +22,18 @@
 #ifndef SCREEN_TEXTURE_MANAGER_H
 #define SCREEN_TEXTURE_MANAGER_H
 
-#include <Screen/Utils/Singleton.h>
-#include <Screen/Utils/Policies.h>
-#include <Screen/Utils/MediaManager.h>
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Core/Objects/TextureBase.h>
-#include <Screen/Utils/File.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/Singleton.h>
+#include <screen/utils/Policies.h>
+#include <screen/utils/MediaManager.h>
+#include <screen/core/objects/Image.h>
+#include <screen/core/objects/TextureBase.h>
+#include <screen/utils/File.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		typedef TYPE_LIST_2(Screen::Core::Objects::Image, Screen::Core::Objects::TextureBase) TextureMediaList;
+namespace screen {
+	namespace core {
+		typedef TYPE_LIST_2(screen::core::objects::Image, screen::core::objects::TextureBase) TextureMediaList;
 	
 		/*!  \class TextureManager
 		 *   \brief 
@@ -41,16 +41,16 @@ namespace Screen {
 		 *   \date 5 déc. 09
 		 */
 
-		class SCREEN_MAIN_EXPORT TextureManager : public Screen::Utils::UniqueSingleton<TextureManager>,
-			public Screen::Utils::MediaManager<TextureMediaList>{
-			SCREEN_DECL_CLASS(Screen::Core::TextureManager)
+		class SCREEN_MAIN_EXPORT TextureManager : public screen::utils::UniqueSingleton<TextureManager>,
+			public screen::utils::MediaManager<TextureMediaList>{
+			SCREEN_DECL_CLASS(screen::core::TextureManager)
 			SINGLETON_DECL(UniqueSingleton,TextureManager)
 		public:
 			TextureManager();
 			~TextureManager();
 			
-			Screen::Core::Objects::Image::SmartPtr loadImageFromFile(const Screen::Utils::File& filename) const;
-			Screen::Core::Objects::TextureBase::SmartPtr loadTextureFromFile(const Screen::Utils::File& filename) const;
+			screen::core::objects::Image::SmartPtr loadImageFromFile(const screen::utils::File& filename) const;
+			screen::core::objects::TextureBase::SmartPtr loadTextureFromFile(const screen::utils::File& filename) const;
 		private:
 		};
 	}

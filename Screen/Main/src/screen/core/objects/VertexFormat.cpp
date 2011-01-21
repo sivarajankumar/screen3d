@@ -19,12 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/VertexFormat.h>
+#include <screen/core/objects/VertexFormat.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
-			using Screen::Core::VertexType;
+namespace screen {
+	namespace core {
+		namespace objects {
+			using screen::core::VertexType;
 			VertexUsageAndType::VertexUsageAndType(){
 				SCREEN_DECL_CONSTRUCTOR(VertexUsageAndType)
 			}
@@ -59,7 +59,7 @@ namespace Screen {
 			void VertexFormat::add(VertexUsage usage, VertexType type){
 				SCREEN_DECL_METHOD(add)
 				if(_lock){
-					throw Screen::Utils::Exception("Vertex format modified after lock");
+					throw screen::utils::Exception("Vertex format modified after lock");
 				}
 				VertexUsageAndType* vuat = new VertexUsageAndType();
 				vuat->usage = usage;

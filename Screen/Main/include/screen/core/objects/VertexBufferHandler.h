@@ -22,16 +22,16 @@
 #ifndef SCREEN_VERTEX_BUFFER_HANDLER_H
 #define SCREEN_VERTEX_BUFFER_HANDLER_H
 
-#include <Screen/Core/Objects/VertexBuffer.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/Any.h>
+#include <screen/core/objects/VertexBuffer.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
+#include <screen/utils/Any.h>
 
-namespace Screen{
-	namespace Core{
-		namespace Objects{
+namespace screen{
+	namespace core{
+		namespace objects{
 			class SCREEN_MAIN_EXPORT VertexBufferHandler{
-				SCREEN_DECL_CLASS(Screen::Core::Objects::VertexBufferHandler)
+				SCREEN_DECL_CLASS(screen::core::objects::VertexBufferHandler)
 			public:
 				VertexBufferHandler();
 				
@@ -65,22 +65,22 @@ namespace Screen{
 				template<class T>
 				typename VertexBuffer<T>::SmartPtr get() const{
 					SCREEN_DECL_METHOD(get)
-					if(Screen::Utils::any_cast<typename VertexBuffer<T>::SmartPtr>(&any) == NULL)
+					if(screen::utils::any_cast<typename VertexBuffer<T>::SmartPtr>(&any) == NULL)
 						return NULL;
 					else
-						return Screen::Utils::any_cast<typename VertexBuffer<T>::SmartPtr>(any);
+						return screen::utils::any_cast<typename VertexBuffer<T>::SmartPtr>(any);
 				}
 				
 				template<class T>
 				bool isValid() const{
 					SCREEN_DECL_METHOD(get)
-					return Screen::Utils::any_cast<typename VertexBuffer<T>::SmartPtr>(&any) != NULL;
+					return screen::utils::any_cast<typename VertexBuffer<T>::SmartPtr>(&any) != NULL;
 				}
 				
-				typedef Screen::Utils::SmartPtr<VertexBufferHandler> SmartPtr;
+				typedef screen::utils::SmartPtr<VertexBufferHandler> SmartPtr;
 				
 			protected:
-				Screen::Utils::Any any;
+				screen::utils::Any any;
 			};
 		}
 	}

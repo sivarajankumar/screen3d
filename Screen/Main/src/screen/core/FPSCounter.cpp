@@ -19,9 +19,9 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/FPSCounter.h>
+#include <screen/core/FPSCounter.h>
 
-using Screen::Core::FPSCounter;
+using screen::core::FPSCounter;
 
 FPSCounter::FPSCounter(double secondsPerUpdate, std::ostream& stream)
 	:secondsPerUpdate(secondsPerUpdate),stream(stream),counter(0){

@@ -19,27 +19,27 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Test/Utils/FakeRenderer.h>
+#include <screen/Test/utils/FakeRenderer.h>
 
-namespace Screen {
+namespace screen {
 	namespace Test {
-		namespace Utils {
+		namespace utils {
 			FakeRenderer::FakeRenderer(){}
 			FakeRenderer::~FakeRenderer(){}
-			bool FakeRenderer::hasCapability(Screen::Core::ApiCapability caps) const{return true;}
-			void FakeRenderer::pushMatrix(Screen::Core::MatrixType type){}
-			void FakeRenderer::popMatrix(Screen::Core::MatrixType type){}
-			void FakeRenderer::setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){}
-			void FakeRenderer::multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix){}
-			void FakeRenderer::getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix){}
+			bool FakeRenderer::hasCapability(screen::core::ApiCapability caps) const{return true;}
+			void FakeRenderer::pushMatrix(screen::core::MatrixType type){}
+			void FakeRenderer::popMatrix(screen::core::MatrixType type){}
+			void FakeRenderer::setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){}
+			void FakeRenderer::multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){}
+			void FakeRenderer::getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix){}
 			unsigned long FakeRenderer::convertColor(const Color& color) const{return 0;}
-			const Screen::Core::Color& FakeRenderer::retrieveColor(unsigned long color) const{static Screen::Core::Color c; return c;}
+			const screen::core::Color& FakeRenderer::retrieveColor(unsigned long color) const{static screen::core::Color c; return c;}
 			void FakeRenderer::drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const{}
-	        TextureBase* FakeRenderer::createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const{return NULL;}
+	        TextureBase* FakeRenderer::createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const{return NULL;}
 			void FakeRenderer::beginScene(){}
 			void FakeRenderer::endScene(){}
-			BufferBase* FakeRenderer::createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{return NULL;}
-	        BufferBase* FakeRenderer::createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{return NULL;}
+			BufferBase* FakeRenderer::createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{return NULL;}
+	        BufferBase* FakeRenderer::createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{return NULL;}
 	        void FakeRenderer::setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf){}
 	        void FakeRenderer::setIB(const BufferBase* buffer, unsigned long stride){}
 	        void FakeRenderer::setTextureBase(const TextureBase* texture){}

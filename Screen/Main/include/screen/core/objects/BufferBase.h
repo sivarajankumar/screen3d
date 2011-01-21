@@ -22,30 +22,30 @@
 #ifndef SCREEN_BUFFER_BASE_H
 #define SCREEN_BUFFER_BASE_H
 
-#include <Screen/Core/Enums.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Utils/SmartPtr.h>
+#include <screen/core/Enums.h>
+#include <screen/main/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/utils/SmartPtr.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			
 			/** This class defines the API representation of a buffer of the render system 
 			 @remarks
 			 	Instances of BufferBase are creted by the 3D API 
 			 */
 			class SCREEN_MAIN_EXPORT BufferBase{
-				SCREEN_DECL_CLASS(Screen::Core::Object::BufferBase)
+				SCREEN_DECL_CLASS(screen::core::Object::BufferBase)
 				template <class T> friend class Buffer;
 		    public :
 		        virtual ~BufferBase();
 		        
-		        typedef Screen::Utils::SmartPtr<BufferBase> SmartPtr;
+		        typedef screen::utils::SmartPtr<BufferBase> SmartPtr;
 		    protected :
 
 		        BufferBase(unsigned long count);
-		        virtual void* lock(unsigned long offset, unsigned long size, Screen::Core::LockFlag flags) = 0;
+		        virtual void* lock(unsigned long offset, unsigned long size, screen::core::LockFlag flags) = 0;
 		        virtual void unlock() = 0;
 		        
 		        unsigned long count; // buffer element number

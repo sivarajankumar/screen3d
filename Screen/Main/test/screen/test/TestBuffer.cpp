@@ -19,16 +19,16 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Test/TestBuffer.h>
-#include <Screen/Core/Objects/BufferBase.h>
-#include <Screen/Core/Objects/Buffer.h>
-#include <Screen/Core/Objects/IndexBuffer.h>
-#include <Screen/Core/Objects/VertexBuffer.h>
-#include <Screen/Core/Objects/VertexFormat.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Test/Utils/FakeRenderer.h>
+#include <screen/Test/TestBuffer.h>
+#include <screen/core/objects/BufferBase.h>
+#include <screen/core/objects/Buffer.h>
+#include <screen/core/objects/IndexBuffer.h>
+#include <screen/core/objects/VertexBuffer.h>
+#include <screen/core/objects/VertexFormat.h>
+#include <screen/core/Enums.h>
+#include <screen/Test/utils/FakeRenderer.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(Screen::Test::TestBuffer);
+CPPUNIT_TEST_SUITE_REGISTRATION(screen::Test::TestBuffer);
 
 #define BUFFER_SIZE 1000
 
@@ -38,15 +38,15 @@ struct Vertex1{
 	float tu, tv;
 };
 
-namespace Screen {
+namespace screen {
 	namespace Test {
-		class FakeBufferBase : public Screen::Core::Objects::BufferBase {
+		class FakeBufferBase : public screen::core::objects::BufferBase {
 		public:
 			FakeBufferBase()
-				:Screen::Core::Objects::BufferBase(1000)
+				:screen::core::objects::BufferBase(1000)
 			{}
 			
-			void* lock(unsigned long offset, unsigned long size, Screen::Core::LockFlag flags){
+			void* lock(unsigned long offset, unsigned long size, screen::core::LockFlag flags){
 				static unsigned char buffer[BUFFER_SIZE] = {'\0'};
 				return buffer + offset;
 			}
@@ -55,21 +55,21 @@ namespace Screen {
 			}
 		};
 		
-		class FakeBufferRenderer : public Screen::Test::Utils::FakeRenderer{
+		class FakeBufferRenderer : public screen::Test::utils::FakeRenderer{
 		public:
 			FakeBufferRenderer(){}		
 			virtual ~FakeBufferRenderer(){}
 			
-			virtual Screen::Core::Objects::BufferBase* createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{
+			virtual screen::core::objects::BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{
 				return new FakeBufferBase;
 			}
-	        virtual Screen::Core::Objects::BufferBase* createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const{
+	        virtual screen::core::objects::BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{
 	        	return new FakeBufferBase;
 	        }
-	        virtual void setVB(const Screen::Core::Objects::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const Screen::Core::VertexFormat& vf){
+	        virtual void setVB(const screen::core::objects::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const screen::core::VertexFormat& vf){
 	        	
 	        }
-	        virtual void setIB(const Screen::Core::Objects::BufferBase* buffer, unsigned long stride){
+	        virtual void setIB(const screen::core::objects::BufferBase* buffer, unsigned long stride){
 	        	
 	        }
 		};
@@ -81,8 +81,8 @@ namespace Screen {
 			FakeBufferRenderer renderer;
 		}
 		void TestBuffer::testVertexBuffer(){
-			using namespace Screen::Core::Objects;
-			using namespace Screen::Core;
+			using namespace screen::core::objects;
+			using namespace screen::core;
 			
 			FakeBufferRenderer renderer;
 			
@@ -102,8 +102,8 @@ namespace Screen {
 			try{
 				vf2->add(VERTEX_USAGE_DIFFUSE,VERTEX_TYPE_COLOR);
 				CPPUNIT_FAIL("doesn't throw a exception");
-			} catch(const Screen::Utils::Exception& e) {
-				CPPUNIT_ASSERT(std::string(e.what()) == "[Screen exception] Vertex format modified after lock");
+			} catch(const screen::utils::Exception& e) {
+				CPPUNIT_ASSERT(std::string(e.what()) == "[screen exception] Vertex format modified after lock");
 			} catch(...) {
 				CPPUNIT_FAIL("throws a bad exception");;
 			}
@@ -128,9 +128,9 @@ namespace Screen {
 			try{
 				VertexBuffer<Vertex1> vb3 = renderer.createVertexBuffer<Vertex1>(8,STATIC_DRAW,Vertices1,vf2);
 				CPPUNIT_FAIL("doesn't throw a exception");
-			} catch(const Screen::Utils::Exception& e) {
+			} catch(const screen::utils::Exception& e) {
 				std::stringstream ss;
-				ss << "[Screen exception] "
+				ss << "[screen exception] "
 				   << "different size between vertex element type and vertex format size\n"
 				   << "\t- Element type size = " << sizeof(Vertex1) << "\n"
 				   << "\t- Vertex format size = " << vf2->getSize() << "\n";

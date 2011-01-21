@@ -22,27 +22,27 @@
 #ifndef SCREEN_MODEL_H
 #define SCREEN_MODEL_H
 
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Resource.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen{
-	namespace Core {
-		namespace Objects {
+namespace screen{
+	namespace core {
+		namespace objects {
 			/*!  \class Model
 			 *   \brief 
 			 *   \author Ratouit Thomas
 			 *   \date 18 oct. 09
 			 */
 		
-			class SCREEN_MAIN_EXPORT Model : public Screen::Utils::Resource<>{
-				SCREEN_DECL_CLASS(Screen::Core::Objects::Model)
+			class SCREEN_MAIN_EXPORT Model : public screen::utils::Resource<>{
+				SCREEN_DECL_CLASS(screen::core::objects::Model)
 			public:
 				Model();
 				~Model();
 				
-				typedef Screen::Utils::SmartPtr<Model, Screen::Utils::ResourceSmartPolicy> SmartPtr;
+				typedef screen::utils::SmartPtr<Model, screen::utils::ResourceSmartPolicy> SmartPtr;
 			private:
 			};
 		}
