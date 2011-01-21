@@ -22,16 +22,16 @@
 #ifndef SCREEN_SFML_ROOT_H
 #define SCREEN_SFML_ROOT_H
 
-#include <Screen/Core/Objects/VertexBuffer.h>
-#include <Screen/Core/Objects/VertexBufferHandler.h>
-#include <Screen/Core/Objects/IndexBuffer.h>
-#include <Screen/Core/Objects/Texture.h>
-#include <Screen/Core/Objects/VertexBufferFiller.h>
-#include <Screen/Math/Vector3f.h>
-#include <Screen/Math/Matrix4x4f.h>
-#include <Screen/Core/Root.h>
+#include <screen/core/objects/VertexBuffer.h>
+#include <screen/core/objects/VertexBufferHandler.h>
+#include <screen/core/objects/IndexBuffer.h>
+#include <screen/core/objects/Texture.h>
+#include <screen/core/objects/VertexBufferFiller.h>
+#include <screen/math/Vector3f.h>
+#include <screen/math/Matrix4x4f.h>
+#include <screen/core/Root.h>
 
-class SFMLRoot : public Screen::Core::Root {
+class SFMLRoot : public screen::core::Root {
 public:
 	SFMLRoot();
 	~SFMLRoot();
@@ -45,11 +45,11 @@ private:
 		float tu, tv;
 	};
 	
-	Screen::Core::Objects::VertexBufferHandler vb1;
-	Screen::Core::Objects::IndexBuffer<unsigned short>::SmartPtr ib;
-	Screen::Core::Objects::Texture texture;
-	Screen::Math::Vector3f cam;
-	Screen::Math::Matrix4x4f view,proj,rotX,rotY,rotZ;
+	screen::core::objects::VertexBufferHandler vb1;
+	screen::core::objects::IndexBuffer<unsigned short>::SmartPtr ib;
+	screen::core::objects::Texture texture;
+	screen::math::Vector3f cam;
+	screen::math::Matrix4x4f view,proj,rotX,rotY,rotZ;
 };
 
 #endif
