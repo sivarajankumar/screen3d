@@ -25,7 +25,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace Screen {
+namespace screen {
 	namespace Test {
 		class TestBuffer : public CppUnit::TestFixture {
 			CPPUNIT_TEST_SUITE(TestBuffer);

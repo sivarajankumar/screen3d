@@ -19,17 +19,17 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/PixelFormat.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/core/objects/PixelFormat.h>
+#include <screen/utils/Exception.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
-			using namespace Screen::Core;
+namespace screen {
+	namespace core {
+		namespace objects {
+			using namespace screen::core;
 			
 			template <unsigned int Src, unsigned int Dest>
 			inline void convertPixelT(const unsigned char* src, unsigned char* dest){
-				throw Screen::Utils::Exception("Unsupported pixel convertion");
+				throw screen::utils::Exception("Unsupported pixel convertion");
 			}
 			
 #define CONVERT_FUNCTION(DEST) \
@@ -283,23 +283,23 @@ namespace Screen {
 			typedef void (*ConvertionFunc) (const unsigned char*, unsigned char*);
 							
 			#define CONV_LINE(PXF) { \
-				&convertPixelT<PXF, Screen::Core::PXF_L8>, \
-				&convertPixelT<PXF, Screen::Core::PXF_A8L8>, \
-				&convertPixelT<PXF, Screen::Core::PXF_A1R5G5B5>, \
-				&convertPixelT<PXF, Screen::Core::PXF_A4R4G4B4>, \
-				&convertPixelT<PXF, Screen::Core::PXF_R8G8B8>, \
-				&convertPixelT<PXF, Screen::Core::PXF_A8R8G8B8> \
+				&convertPixelT<PXF, screen::core::PXF_L8>, \
+				&convertPixelT<PXF, screen::core::PXF_A8L8>, \
+				&convertPixelT<PXF, screen::core::PXF_A1R5G5B5>, \
+				&convertPixelT<PXF, screen::core::PXF_A4R4G4B4>, \
+				&convertPixelT<PXF, screen::core::PXF_R8G8B8>, \
+				&convertPixelT<PXF, screen::core::PXF_A8R8G8B8> \
 			}
 							
 			//line = src
 			//column = dest
-			const ConvertionFunc convertFuncTable[Screen::Core::NB_PXF][Screen::Core::NB_PXF] = {
-				CONV_LINE(Screen::Core::PXF_L8),
-				CONV_LINE(Screen::Core::PXF_A8L8),
-				CONV_LINE(Screen::Core::PXF_A1R5G5B5),
-				CONV_LINE(Screen::Core::PXF_A4R4G4B4),
-				CONV_LINE(Screen::Core::PXF_R8G8B8),
-				CONV_LINE(Screen::Core::PXF_A8R8G8B8)
+			const ConvertionFunc convertFuncTable[screen::core::NB_PXF][screen::core::NB_PXF] = {
+				CONV_LINE(screen::core::PXF_L8),
+				CONV_LINE(screen::core::PXF_A8L8),
+				CONV_LINE(screen::core::PXF_A1R5G5B5),
+				CONV_LINE(screen::core::PXF_A4R4G4B4),
+				CONV_LINE(screen::core::PXF_R8G8B8),
+				CONV_LINE(screen::core::PXF_A8R8G8B8)
 			};
 			
 			#undef CONV_LINE
@@ -309,7 +309,7 @@ namespace Screen {
 				(*(convertFuncTable[srcFormat][destFormat]))(src,dest);
 			}
 			
-			PixelConverter::PixelConverter(Screen::Core::PixelFormat srcFormat, Screen::Core::PixelFormat destFormat)
+			PixelConverter::PixelConverter(screen::core::PixelFormat srcFormat, screen::core::PixelFormat destFormat)
 				:srcFormat(srcFormat),destFormat(destFormat),func(*(convertFuncTable[srcFormat][destFormat])){
 				SCREEN_DECL_CONSTRUCTOR(PixelConverter)
 			}
@@ -349,7 +349,7 @@ namespace Screen {
 		        unsigned char rpos, gpos, bpos, apos, lpos;
 		    };
 		    
-		    const PixelFormatDescription pfdTable[Screen::Core::NB_PXF] = {
+		    const PixelFormatDescription pfdTable[screen::core::NB_PXF] = {
 		    	//PXF_L8
 		    	{
 		    		"PXF_L8",
@@ -400,17 +400,17 @@ namespace Screen {
 		    	}		    	
 		    };
 		    
-		    const char* PixelFormatDescriptor::getName(Screen::Core::PixelFormat pxf){
+		    const char* PixelFormatDescriptor::getName(screen::core::PixelFormat pxf){
 		    	return pfdTable[pxf].name;
 		    }
-		    unsigned int PixelFormatDescriptor::getBytesPerPixels(Screen::Core::PixelFormat pxf){
+		    unsigned int PixelFormatDescriptor::getBytesPerPixels(screen::core::PixelFormat pxf){
 		    	return pfdTable[pxf].nbBytes;
 		    }
-		    bool PixelFormatDescriptor::isCompressed(Screen::Core::PixelFormat pxf){
+		    bool PixelFormatDescriptor::isCompressed(screen::core::PixelFormat pxf){
 		    	return (pfdTable[pxf].flags & PXFF_COMPRESSED)!=0;
 		    }
 		    
-		    PixelFormatDescriptor::PixelFormatDescriptor(Screen::Core::PixelFormat pxf)
+		    PixelFormatDescriptor::PixelFormatDescriptor(screen::core::PixelFormat pxf)
 		    	:pxf(pxf)
 		    {}
 		    PixelFormatDescriptor::~PixelFormatDescriptor(){}

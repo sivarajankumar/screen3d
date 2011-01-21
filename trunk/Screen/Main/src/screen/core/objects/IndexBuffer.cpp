@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/IndexBuffer.h>
+#include <screen/core/objects/IndexBuffer.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			template <class T>
 			SCREEN_MAIN_EXPORT IndexBuffer<T>::IndexBuffer(BufferBase* buffer)
 				:Buffer<T>(buffer){

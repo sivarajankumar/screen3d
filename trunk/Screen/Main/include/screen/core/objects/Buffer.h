@@ -22,15 +22,15 @@
 #ifndef SCREEN_BUFFER_H
 #define SCREEN_BUFFER_H
 
-#include <Screen/Core/Objects/BufferBase.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/core/objects/BufferBase.h>
+#include <screen/core/Enums.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 		
 			/** 
 			 @brief
@@ -42,7 +42,7 @@ namespace Screen {
 			 */
 		    template <class T>
 		    class Buffer{
-		    	SCREEN_DECL_CLASS(Screen::Core::Object::Buffer)
+		    	SCREEN_DECL_CLASS(screen::core::Object::Buffer)
 		    public :
 		        Buffer(BufferBase* buffer = NULL)
 		        	:buffer(buffer){
@@ -53,7 +53,7 @@ namespace Screen {
 		        	SCREEN_DECL_DESTRUCTOR(~Buffer)
 		        }
 
-		        T* lock(unsigned long offset = 0, unsigned long size = 0, Screen::Core::LockFlag flags = Screen::Core::LOCK_READ_WRITE){
+		        T* lock(unsigned long offset = 0, unsigned long size = 0, screen::core::LockFlag flags = screen::core::LOCK_READ_WRITE){
 		        	SCREEN_DECL_METHOD(lock)
 		        	return reinterpret_cast<T*>(buffer->lock(offset * sizeof(T), size * sizeof(T), flags));
 		        }
@@ -98,7 +98,7 @@ namespace Screen {
 		    
 		    template <>
 		    class Buffer<void>{
-		    	SCREEN_DECL_CLASS(Screen::Core::Object::Buffer)
+		    	SCREEN_DECL_CLASS(screen::core::Object::Buffer)
 		    public :
 		        Buffer(BufferBase* buffer = NULL, unsigned int elementSize = 0)
 		        	:buffer(buffer),elementSize(elementSize){
@@ -109,7 +109,7 @@ namespace Screen {
 		        	SCREEN_DECL_DESTRUCTOR(~Buffer)
 		        }
 
-		        void* lock(unsigned long offset = 0, unsigned long size = 0, Screen::Core::LockFlag flags = Screen::Core::LOCK_READ_WRITE){
+		        void* lock(unsigned long offset = 0, unsigned long size = 0, screen::core::LockFlag flags = screen::core::LOCK_READ_WRITE){
 		        	SCREEN_DECL_METHOD(lock)
 		        	return buffer->lock(offset * elementSize, size * elementSize, flags);
 		        }

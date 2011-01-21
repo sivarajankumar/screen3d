@@ -22,36 +22,36 @@
 #ifndef SCREEN_RENDERER_H
 #define SCREEN_RENDERER_H
 
-#include <Screen/Utils/Plugin.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Core/Color.h>
-#include <Screen/Core/Objects/BufferBase.h>
-#include <Screen/Core/Objects/VertexBuffer.h>
-#include <Screen/Core/Objects/VertexBufferFiller.h>
-#include <Screen/Core/Objects/IndexBuffer.h>
-//#include <Screen/Core/Objects/IndexBufferFiller.h>
-#include <Screen/Core/Objects/TextureBase.h>
-#include <Screen/Core/Objects/Texture.h>
-#include <Screen/Core/Renderer/RenderWindow.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Math/Matrix4x4f.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/utils/Plugin.h>
+#include <screen/main/Export.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/core/Color.h>
+#include <screen/core/objects/BufferBase.h>
+#include <screen/core/objects/VertexBuffer.h>
+#include <screen/core/objects/VertexBufferFiller.h>
+#include <screen/core/objects/IndexBuffer.h>
+//#include <screen/core/objects/IndexBufferFiller.h>
+#include <screen/core/objects/TextureBase.h>
+#include <screen/core/objects/Texture.h>
+#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/core/Enums.h>
+#include <screen/math/Matrix4x4f.h>
+#include <screen/math/Vector2i.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-    namespace Core {
-		using Screen::Core::Objects::VertexBuffer;
-		using Screen::Core::Objects::VertexBufferFiller;
-		using Screen::Core::Objects::IndexBuffer;
-//		using Screen::Core::Objects::IndexBufferFiller;
-		using Screen::Core::Objects::BufferBase;
-		using Screen::Core::Objects::VertexFormat;
-		using Screen::Core::Objects::Texture;
-		using Screen::Core::Objects::TextureBase;
+namespace screen {
+    namespace core {
+		using screen::core::objects::VertexBuffer;
+		using screen::core::objects::VertexBufferFiller;
+		using screen::core::objects::IndexBuffer;
+//		using screen::core::objects::IndexBufferFiller;
+		using screen::core::objects::BufferBase;
+		using screen::core::objects::VertexFormat;
+		using screen::core::objects::Texture;
+		using screen::core::objects::TextureBase;
 		
 		class SCREEN_MAIN_EXPORT Renderer {
-			SCREEN_DECL_CLASS(Screen::Core::Renderer)
+			SCREEN_DECL_CLASS(screen::core::Renderer)
 		public:
 			Renderer();
 			virtual ~Renderer();
@@ -59,27 +59,27 @@ namespace Screen {
 			static Renderer* get();
 			static void destroy();
 			
-			virtual bool hasCapability(Screen::Core::ApiCapability caps) const = 0;
+			virtual bool hasCapability(screen::core::ApiCapability caps) const = 0;
 
-			virtual void pushMatrix(Screen::Core::MatrixType type) = 0;
-			virtual void popMatrix(Screen::Core::MatrixType type) = 0;
-			virtual void setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix) = 0;
-			virtual void multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix) = 0;
-			virtual void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix) = 0;
+			virtual void pushMatrix(screen::core::MatrixType type) = 0;
+			virtual void popMatrix(screen::core::MatrixType type) = 0;
+			virtual void setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix) = 0;
+			virtual void multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix) = 0;
+			virtual void getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix) = 0;
 			
 			virtual unsigned long convertColor(const Color& color) const = 0;
 			virtual const Color& retrieveColor(unsigned long color) const = 0;
 
-			template <class T> inline VertexBuffer<T> createVertexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const;
-			template <class T> inline VertexBuffer<T> createVertexBuffer(const VertexBufferFiller& vbf, Screen::Core::BufferFlag flags) const;
-			template <class T> inline IndexBuffer<T> createIndexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data) const;
-//			template <class T> inline IndexBuffer<T> createIndexBuffer(const IndexBufferFiller& ibf, Screen::Core::BufferFlag flags) const;
+			template <class T> inline VertexBuffer<T> createVertexBuffer(unsigned long size, screen::core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const;
+			template <class T> inline VertexBuffer<T> createVertexBuffer(const VertexBufferFiller& vbf, screen::core::BufferFlag flags) const;
+			template <class T> inline IndexBuffer<T> createIndexBuffer(unsigned long size, screen::core::BufferFlag flags, const T* data) const;
+//			template <class T> inline IndexBuffer<T> createIndexBuffer(const IndexBufferFiller& ibf, screen::core::BufferFlag flags) const;
 			template <class T> inline void setVertexBuffer(const VertexBuffer<T>& buffer, unsigned long minVertex = 0, unsigned long maxVertex = 0);
 			template <class T> inline void setIndexBuffer(const IndexBuffer<T>& buffer);
 	        
 	        virtual void drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const = 0;
 	        
-	        virtual TextureBase* createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const = 0;
+	        virtual TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const = 0;
 			void setTexture(const Texture& texture);
 	        
 			void init();
@@ -89,28 +89,28 @@ namespace Screen {
 			
 			bool isRunning();
 
-			void setRenderWindow(Screen::Core::RenderWindow* renderWindow);
+			void setRenderWindow(screen::core::RenderWindow* renderWindow);
 		protected:
-			virtual BufferBase* createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const = 0;
-	        virtual BufferBase* createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const = 0;
+			virtual BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const = 0;
+	        virtual BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const = 0;
 	        
 	        virtual void setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf) = 0;
 	        virtual void setIB(const BufferBase* buffer, unsigned long stride) = 0;
 	        
 	        virtual void setTextureBase(const TextureBase* texture) = 0;
 			
-			Screen::Core::RenderWindow* renderWindow;
+			screen::core::RenderWindow* renderWindow;
 			
 			virtual void initialize() = 0;
 		private:
 			static Renderer* renderer;
-			static Screen::Utils::Plugin<Renderer> sharedLibrary;
+			static screen::utils::Plugin<Renderer> sharedLibrary;
 		};
 		
 		//inline method body
 		
 		template <class T>
-		inline VertexBuffer<T> Renderer::createVertexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const{
+		inline VertexBuffer<T> Renderer::createVertexBuffer(unsigned long size, screen::core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const{
 			SCREEN_DECL_METHOD(createVertexBuffer)
 			if(!vf->isLocked()){
 				SCREEN_LOG_WARNING("Vertex format isn't locked while creating a VertexBuffer => forced lock")
@@ -124,13 +124,13 @@ namespace Screen {
 		}
 		
 		template <class T>
-		inline VertexBuffer<T> Renderer::createVertexBuffer(const VertexBufferFiller& vbf, Screen::Core::BufferFlag flags) const{
+		inline VertexBuffer<T> Renderer::createVertexBuffer(const VertexBufferFiller& vbf, screen::core::BufferFlag flags) const{
 			SCREEN_DECL_METHOD(createVertexBuffer)
 			return createVertexBuffer(vbf.getSize(),flags,vbf.get<T>(),vbf.getVertexFormat());
 		}
 
 		template <class T>
-		inline IndexBuffer<T> Renderer::createIndexBuffer(unsigned long size, Screen::Core::BufferFlag flags, const T* data) const{
+		inline IndexBuffer<T> Renderer::createIndexBuffer(unsigned long size, screen::core::BufferFlag flags, const T* data) const{
 			SCREEN_DECL_METHOD(createIndexBuffer)
 			IndexBuffer<T> buffer(createIB(size, sizeof(T), flags));
 		    if (data!=NULL)
@@ -139,7 +139,7 @@ namespace Screen {
 		}
 		
 //		template <class T>
-//		inline IndexBuffer<T> Renderer::createIndexBuffer(const IndexBufferFiller& ibf, Screen::Core::BufferFlag flags) const{
+//		inline IndexBuffer<T> Renderer::createIndexBuffer(const IndexBufferFiller& ibf, screen::core::BufferFlag flags) const{
 //			SCREEN_DECL_METHOD(createIndexBuffer)
 //			return createIndexBuffer(ibf.getSize(),flags,ibf.get<T>());
 //		}

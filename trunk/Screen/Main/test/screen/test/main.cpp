@@ -6,16 +6,16 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/XmlOutputter.h>
 #include <iostream>
-#include <Screen/Utils/Profiler.h>
-#include <Screen/Utils/ProfilerReporter.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/LoggerReporter.h>
-#include <Screen/Utils/Timer.h>
+#include <screen/utils/Profiler.h>
+#include <screen/utils/ProfilerReporter.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/LoggerReporter.h>
+#include <screen/utils/Timer.h>
 
 int main(){
-	SCREEN_ATTACH_LOGGER_REPORTER(new Screen::Utils::FileLoggerReporter("out.log"))
-	SCREEN_ATTACH_TIMER(new Screen::Utils::Timer())
-	SCREEN_ATTACH_PROFILE_REPORTER(new Screen::Utils::FileProfilerReporter("profiler.log"))
+	SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))
+	SCREEN_ATTACH_TIMER(new screen::utils::Timer())
+	SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 	
 	// Create the event manager and test controller
 	CPPUNIT_NS::TestResult controller;

@@ -22,45 +22,45 @@
 #ifndef SCREEN_FAKE_RENDERER_H
 #define SCREEN_FAKE_RENDERER_H
 
-#include <Screen/Core/Renderer/Renderer.h>
+#include <screen/core/Renderer/Renderer.h>
 
-namespace Screen {
+namespace screen {
 	namespace Test {
-		namespace Utils {
-			using Screen::Core::Objects::VertexBuffer;
-			using Screen::Core::Objects::IndexBuffer;
-			using Screen::Core::Objects::BufferBase;
-			using Screen::Core::Objects::VertexFormat;
-			using Screen::Core::Objects::Texture;
-			using Screen::Core::Objects::TextureBase;
-			using Screen::Core::Color;
-			using Screen::Core::PrimitiveType;
+		namespace utils {
+			using screen::core::objects::VertexBuffer;
+			using screen::core::objects::IndexBuffer;
+			using screen::core::objects::BufferBase;
+			using screen::core::objects::VertexFormat;
+			using screen::core::objects::Texture;
+			using screen::core::objects::TextureBase;
+			using screen::core::Color;
+			using screen::core::PrimitiveType;
 			
-			class FakeRenderer : public Screen::Core::Renderer {
+			class FakeRenderer : public screen::core::Renderer {
 			public:
 				FakeRenderer();
 				virtual ~FakeRenderer();
 				
-				virtual bool hasCapability(Screen::Core::ApiCapability caps) const;
+				virtual bool hasCapability(screen::core::ApiCapability caps) const;
 				
-				virtual void pushMatrix(Screen::Core::MatrixType type);
-				virtual void popMatrix(Screen::Core::MatrixType type);
-				virtual void setMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
-				virtual void multipleMatrix(Screen::Core::MatrixType type, const Screen::Math::Matrix4x4f& matrix);
-				virtual void getMatrix(Screen::Core::MatrixType type, Screen::Math::Matrix4x4f& matrix);
+				virtual void pushMatrix(screen::core::MatrixType type);
+				virtual void popMatrix(screen::core::MatrixType type);
+				virtual void setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix);
+				virtual void multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix);
+				virtual void getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix);
 				
 				virtual unsigned long convertColor(const Color& color) const;
-				virtual const Screen::Core::Color& retrieveColor(unsigned long color) const;
+				virtual const screen::core::Color& retrieveColor(unsigned long color) const;
 				
 				virtual void drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
 					        
-		        virtual TextureBase* createTexture(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, Screen::Core::TextureFlag flags) const;
+		        virtual TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
 				
 				virtual void beginScene();
 				virtual void endScene();
 				
-				virtual BufferBase* createVB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const;
-		        virtual BufferBase* createIB(unsigned long size, unsigned long stride, Screen::Core::BufferFlag flags) const;
+				virtual BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
+		        virtual BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
 		        
 		        virtual void setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf);
 		        virtual void setIB(const BufferBase* buffer, unsigned long stride);

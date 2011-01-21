@@ -19,34 +19,34 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Core/Objects/PixelFormat.h>
-#include <Screen/Core/Managers/TextureManager.h>
-#include <Screen/Math/Vector2f.h>
+#include <screen/core/objects/Image.h>
+#include <screen/core/objects/PixelFormat.h>
+#include <screen/core/Managers/TextureManager.h>
+#include <screen/math/Vector2f.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 		
-			using Screen::Core::Objects::PixelConverter;
-			using Screen::Core::Objects::PixelFormatDescriptor;
+			using screen::core::objects::PixelConverter;
+			using screen::core::objects::PixelFormatDescriptor;
 			
-			Image::Image(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf)
+			Image::Image(const screen::math::Vector2i& size, screen::core::PixelFormat pxf)
 				:size(size), pxf(pxf), pixels(size.getX() * size.getY() * PixelFormatDescriptor::getBytesPerPixels(pxf), 0x00){
 				SCREEN_DECL_CONSTRUCTOR(Image)
 			}
 	
-			Image::Image(const Screen::Math::Vector2i& size, Screen::Core::PixelFormat pxf, const unsigned char* pixels)
+			Image::Image(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, const unsigned char* pixels)
 				:size(size), pxf(pxf), pixels(pixels, pixels + size.getX() * size.getY() * PixelFormatDescriptor::getBytesPerPixels(pxf)){
 				SCREEN_DECL_CONSTRUCTOR(Image)
 			}
 	
-			const Screen::Math::Vector2i& Image::getSize() const{
+			const screen::math::Vector2i& Image::getSize() const{
 				SCREEN_DECL_METHOD(getSize)
 			    return size;
 			}
 	
-			Screen::Core::PixelFormat Image::getPixelFormat() const{
+			screen::core::PixelFormat Image::getPixelFormat() const{
 				SCREEN_DECL_METHOD(getPixelFormat)
 				return pxf;
 			}
@@ -62,7 +62,7 @@ namespace Screen {
 			    copy(*image);
 			}
 	
-			void Image::fill(const Screen::Core::Color& color){
+			void Image::fill(const screen::core::Color& color){
 				SCREEN_DECL_METHOD(fill)
 			    setPixel(0, 0, color);
 
@@ -80,11 +80,11 @@ namespace Screen {
 			    	&pixels[(x + y * size.getX()) * PixelFormatDescriptor::getBytesPerPixels(pxf)]);
 			}
 	
-			void Image::setPixel(int x, int y, const Screen::Core::Color& color){
+			void Image::setPixel(int x, int y, const screen::core::Color& color){
 				SCREEN_DECL_METHOD(setPixel)
 				unsigned char* pixel = &pixels[(x + y * size.getX()) * PixelFormatDescriptor::getBytesPerPixels(pxf)];
 			    unsigned char components[4] = {color.getBlue(), color.getGreen(), color.getRed(), color.getAlpha()};
-			    PixelConverter::convertPixel(Screen::Core::PXF_A8R8G8B8, components, pxf, pixel);
+			    PixelConverter::convertPixel(screen::core::PXF_A8R8G8B8, components, pxf, pixel);
 			}
 	
 			void Image::getPixel(int x, int y, unsigned char* pixel) const{
@@ -93,12 +93,12 @@ namespace Screen {
 			    std::copy(begin, begin + PixelFormatDescriptor::getBytesPerPixels(pxf), pixel);
 			}
 	
-			Screen::Core::Color Image::getPixel(int x, int y) const{
+			screen::core::Color Image::getPixel(int x, int y) const{
 				SCREEN_DECL_METHOD(getPixel)
 				unsigned char components[4];
 			    const unsigned char* pixel = &pixels[(x + y * size.getX()) * PixelFormatDescriptor::getBytesPerPixels(pxf)];
 			    PixelConverter::convertPixel(pxf, pixel, PXF_A8R8G8B8, components);
-			    return Screen::Core::Color(components[0], components[1], components[2], components[3]);
+			    return screen::core::Color(components[0], components[1], components[2], components[3]);
 			}
 	
 			void Image::copy(const Image& src){

@@ -22,27 +22,27 @@
 #ifndef SCREEN_FPSCOUNTER_H
 #define SCREEN_FPSCOUNTER_H
 
-#include <Screen/Utils/Timer.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/Timer.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 #include <iostream>
 
-namespace Screen {
-	namespace Core {
+namespace screen {
+	namespace core {
 		/*!  \class FPSCounter
 		 *   \brief Counter for frames per second
 		 *   \author Ratouit Thomas
 		 */
 
 		class SCREEN_MAIN_EXPORT FPSCounter {
-			SCREEN_DECL_CLASS(Screen::Core::FPSCounter)
+			SCREEN_DECL_CLASS(screen::core::FPSCounter)
 		public:
 			FPSCounter(double secondsPerUpdate, std::ostream& stream);
 			~FPSCounter();
 			
 			void count();
 		private:
-			Screen::Utils::Timer timer;
+			screen::utils::Timer timer;
 			double secondsPerUpdate;
 			std::ostream& stream;
 			int counter;

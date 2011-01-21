@@ -22,39 +22,39 @@
 #ifndef SCREEN_TEXTURE_BASE_H
 #define SCREEN_TEXTURE_BASE_H
 
-#include <Screen/Core/Enums.h>
-#include <Screen/Core/Objects/Image.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Math/Rectangle.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Resource.h>
-#include <Screen/Utils/Declaration.h>
+#include <screen/core/Enums.h>
+#include <screen/core/objects/Image.h>
+#include <screen/Math/Vector2i.h>
+#include <screen/Math/Rectangle.h>
+#include <screen/main/Export.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Resource.h>
+#include <screen/utils/Declaration.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			/*!  \class TextureBase
 			 *   \brief 
 			 *   \author Ratouit Thomas
 			 *   \date 11 nov. 09
 			 */
 
-			class SCREEN_MAIN_EXPORT TextureBase : public Screen::Utils::Resource<> {
+			class SCREEN_MAIN_EXPORT TextureBase : public screen::utils::Resource<> {
 				friend class Texture;
-				SCREEN_DECL_CLASS(Screen::Core::TextureBase)
+				SCREEN_DECL_CLASS(screen::core::TextureBase)
 			public:
-				TextureBase(Screen::Math::Vector2i size, Screen::Core::PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap);
+				TextureBase(screen::math::Vector2i size, screen::core::PixelFormat pxf, screen::core::TextureMipMap hasMipMap);
 				virtual ~TextureBase();
 				
-				virtual void update(const Screen::Math::Rectangle& rect) = 0;
+				virtual void update(const screen::math::Rectangle& rect) = 0;
 				
-				typedef Screen::Utils::SmartPtr<TextureBase,Screen::Utils::ResourceSmartPolicy> SmartPtr;
+				typedef screen::utils::SmartPtr<TextureBase,screen::utils::ResourceSmartPolicy> SmartPtr;
 			protected:
-				Screen::Core::Objects::Image image;
-				Screen::Math::Vector2i size;
-				Screen::Core::PixelFormat pxf;
-				Screen::Core::TextureMipMap hasMipMap;
+				screen::core::objects::Image image;
+				screen::math::Vector2i size;
+				screen::core::PixelFormat pxf;
+				screen::core::TextureMipMap hasMipMap;
 			};
 		}
 	}

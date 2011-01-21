@@ -22,13 +22,13 @@
 #ifndef SCREEN_VERTEX_BUFFER_H
 #define SCREEN_VERTEX_BUFFER_H
 
-#include <Screen/Core/Objects/Buffer.h>
-#include <Screen/Core/Objects/VertexFormat.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Exception.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/core/objects/Buffer.h>
+#include <screen/core/objects/VertexFormat.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Exception.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
+#include <screen/utils/Exception.h>
 #include <string>
 
 #define CHECK_VERTEX_FORMAT(vf,T) \
@@ -37,12 +37,12 @@
 		ss << "different size between vertex element type and vertex format size\n" \
 		   << "\t- Element type size = " << sizeof(T) << "\n" \
 		   << "\t- Vertex format size = " << vf->getSize() << "\n"; \
-		throw Screen::Utils::Exception(ss.str()); \
+		throw screen::utils::Exception(ss.str()); \
 	}
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 			/*!  \class VertexBuffer
 			 *   \brief 
 			 *   \author Ratouit Thomas
@@ -51,7 +51,7 @@ namespace Screen {
 			
 			template <class T>
 			class VertexBuffer : public Buffer<T> {
-				SCREEN_DECL_CLASS(Screen::Core::Object::VertexBuffer)
+				SCREEN_DECL_CLASS(screen::core::Object::VertexBuffer)
 			public:
 				VertexBuffer(BufferBase* buffer, const VertexFormat::SmartPtr& vf)
 					:Buffer<T>(buffer),vf(vf){
@@ -68,14 +68,14 @@ namespace Screen {
 					return vf;
 				}
 				
-				typedef Screen::Utils::SmartPtr<VertexBuffer<T> > SmartPtr;
+				typedef screen::utils::SmartPtr<VertexBuffer<T> > SmartPtr;
 			private:
 				VertexFormat::SmartPtr vf;
 			};
 			
 			template <>
 			class VertexBuffer<void> : public Buffer<void> {
-				SCREEN_DECL_CLASS(Screen::Core::Object::VertexBuffer)
+				SCREEN_DECL_CLASS(screen::core::Object::VertexBuffer)
 			public:
 				VertexBuffer(BufferBase* buffer, const VertexFormat::SmartPtr& vf)
 					:Buffer<void>(buffer,vf->getSize()),vf(vf){
@@ -91,7 +91,7 @@ namespace Screen {
 					return vf;
 				}
 				
-				typedef Screen::Utils::SmartPtr<VertexBuffer<void> > SmartPtr;
+				typedef screen::utils::SmartPtr<VertexBuffer<void> > SmartPtr;
 			private:
 				VertexFormat::SmartPtr vf;
 			};

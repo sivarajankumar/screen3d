@@ -22,18 +22,18 @@
 #ifndef SCREEN_COLOR_H
 #define SCREEN_COLOR_H
 
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
+namespace screen {
+	namespace core {
 		/*!  \class Color
 		 *   \brief color definition
 		 *   \author Ratouit Thomas
 		 */
 
 		class SCREEN_MAIN_EXPORT Color {
-			SCREEN_DECL_CLASS(Screen::Core::Color)
+			SCREEN_DECL_CLASS(screen::core::Color)
 		public:
 				Color(unsigned long color = 0xFF000000);
 				Color(unsigned char b, unsigned char g, unsigned char r, unsigned char a = 0xFF);

@@ -19,9 +19,9 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/BufferBase.h>
+#include <screen/core/objects/BufferBase.h>
 
-using Screen::Core::Objects::BufferBase;
+using screen::core::objects::BufferBase;
 
 BufferBase::BufferBase(unsigned long count)
 	:count(count){

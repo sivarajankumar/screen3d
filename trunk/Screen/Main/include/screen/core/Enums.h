@@ -22,8 +22,8 @@
 #ifndef SCREEN_MATRIX_TYPE_H
 #define SCREEN_MATRIX_TYPE_H
 
-namespace Screen{
-	namespace Core{
+namespace screen{
+	namespace core{
 		enum MatrixType{
 			MATRIX_VIEW,
 			MATRIX_PROJECTION,

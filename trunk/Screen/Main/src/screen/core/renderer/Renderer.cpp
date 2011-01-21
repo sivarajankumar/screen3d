@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Renderer/Renderer.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/core/Renderer/Renderer.h>
+#include <screen/utils/Exception.h>
 
-namespace Screen {
-    namespace Core {
+namespace screen {
+    namespace core {
     	Renderer::Renderer(){
     		SCREEN_DECL_CONSTRUCTOR(Renderer)
     	}
@@ -50,7 +50,7 @@ namespace Screen {
 			renderer = NULL;
 		}
 		
-		void Renderer::setTexture(const Screen::Core::Objects::Texture& texture){
+		void Renderer::setTexture(const screen::core::objects::Texture& texture){
 			SCREEN_DECL_METHOD(setTexture)
 			setTextureBase(texture.getTexture());
 		}
@@ -66,12 +66,12 @@ namespace Screen {
 			return renderWindow->isRunning();
 		}
 		
-		void Renderer::setRenderWindow(Screen::Core::RenderWindow* renderWindow){
+		void Renderer::setRenderWindow(screen::core::RenderWindow* renderWindow){
 			SCREEN_DECL_METHOD(setRenderWindow)
 			this->renderWindow = renderWindow;
 		}
 		
-		Screen::Utils::Plugin<Renderer> Renderer::sharedLibrary;
+		screen::utils::Plugin<Renderer> Renderer::sharedLibrary;
 		Renderer* Renderer::renderer = NULL;
     }
 }

@@ -22,14 +22,14 @@
 #ifndef SCREEN_INDEX_BUFFER_H
 #define SCREEN_INDEX_BUFFER_H
 
-#include <Screen/Core/Objects/Buffer.h>
-#include <Screen/Utils/SmartPtr.h>
-#include <Screen/Utils/Declaration.h>
-#include <Screen/Main/Export.h>
+#include <screen/core/objects/Buffer.h>
+#include <screen/utils/SmartPtr.h>
+#include <screen/utils/Declaration.h>
+#include <screen/main/Export.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
+namespace screen {
+	namespace core {
+		namespace objects {
 		
 			/**
 			 @brief
@@ -42,12 +42,12 @@ namespace Screen {
 			 */
 			template<class T>
 			class SCREEN_MAIN_EXPORT IndexBuffer : public Buffer<T> {
-				SCREEN_DECL_CLASS(Screen::Core::Object::IndexBuffer)
+				SCREEN_DECL_CLASS(screen::core::Object::IndexBuffer)
 			public:
 				IndexBuffer(BufferBase* buffer);
 				~IndexBuffer();
 				
-				typedef Screen::Utils::SmartPtr<IndexBuffer<T> > SmartPtr;
+				typedef screen::utils::SmartPtr<IndexBuffer<T> > SmartPtr;
 			};
 		}
 	}

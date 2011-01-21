@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Color.h>
+#include <screen/core/Color.h>
 
-namespace Screen {
-	namespace Core {
+namespace screen {
+	namespace core {
 		Color::Color(unsigned long color)
 			:color(color){
 			SCREEN_DECL_CONSTRUCTOR(Color)

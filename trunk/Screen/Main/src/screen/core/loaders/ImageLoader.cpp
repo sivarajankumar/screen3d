@@ -19,15 +19,15 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Loaders/ImageLoader.h>
-#include <Screen/Core/Enums.h>
-#include <Screen/Math/Vector2i.h>
-#include <Screen/Utils/Exception.h>
+#include <screen/core/Loaders/ImageLoader.h>
+#include <screen/core/Enums.h>
+#include <screen/math/Vector2i.h>
+#include <screen/utils/Exception.h>
 #include <IL/il.h>
 
-namespace Screen {
-	namespace Core {
-		using Screen::Core::Objects::Image;
+namespace screen {
+	namespace core {
+		using screen::core::objects::Image;
 		
 		ImageLoader::ImageLoader(){
 			SCREEN_DECL_CONSTRUCTOR(ImageLoader)
@@ -51,11 +51,11 @@ namespace Screen {
 		    ilBindImage(texture);
 
 		    if (!ilLoadImage(const_cast<ILstring>(filename.c_str())))
-		        throw Screen::Utils::LoadingException(filename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
+		        throw screen::utils::LoadingException(filename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
 
-		    Screen::Math::Vector2i size(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
+		    screen::math::Vector2i size(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
 		    const unsigned char* pixels = ilGetData();
-		    Image* image = new Image(size, Screen::Core::PXF_A8R8G8B8, pixels);
+		    Image* image = new Image(size, screen::core::PXF_A8R8G8B8, pixels);
 
 		    ilBindImage(0);
 		    ilDeleteImages(1, &texture);

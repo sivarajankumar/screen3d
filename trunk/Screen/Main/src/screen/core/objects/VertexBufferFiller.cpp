@@ -19,29 +19,29 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/VertexBufferFiller.h>
-#include <Screen/Core/Renderer/Renderer.h>
-#include <Screen/Core/Color.h>
-#include <Screen/Math/Vector2f.h>
-#include <Screen/Math/Vector3f.h>
+#include <screen/core/objects/VertexBufferFiller.h>
+#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/Color.h>
+#include <screen/math/Vector2f.h>
+#include <screen/math/Vector3f.h>
 
-const unsigned int vertexTypeSize[Screen::Core::NB_VERTEX_TYPE] = {1,2,3,4,1};
+const unsigned int vertexTypeSize[screen::core::NB_VERTEX_TYPE] = {1,2,3,4,1};
 
 #define BUFFER_MIN_SIZE 10
 
-namespace Screen{
-	namespace Core{
-		namespace Objects{
+namespace screen{
+	namespace core{
+		namespace objects{
 			VertexBufferFiller::VertexBufferFiller(const VertexFormat::SmartPtr& vf)
 				:vf(vf),stepSize(0),buffer(BUFFER_MIN_SIZE,0),bufferSize(0){
 				SCREEN_DECL_CONSTRUCTOR(VertexBufferFiller)
 				//fill table with position and size of the usage
-				for(unsigned int i=0; i<Screen::Core::NB_VERTEX_USAGE; i++){
+				for(unsigned int i=0; i<screen::core::NB_VERTEX_USAGE; i++){
 					vertexInfo[i].first = -1;
 					vertexInfo[i].second = -1;
 				}
 				unsigned int currentPosition = 0;
-				for (Screen::Core::Objects::VertexFormat::const_iterator it = vf->begin(); it != vf->end(); ++it){
+				for (screen::core::objects::VertexFormat::const_iterator it = vf->begin(); it != vf->end(); ++it){
 					vertexInfo[(*it)->getUsage()].first = currentPosition;
 					vertexInfo[(*it)->getUsage()].second = vertexTypeSize[(*it)->getType()];
 					currentPosition += vertexTypeSize[(*it)->getType()];
@@ -50,7 +50,7 @@ namespace Screen{
 #ifdef SCREEN_AUTHORIZE_LOG_DEBUG
 				SCREEN_LOG_DEBUG("VertexBufferFiller / vertexInfo table :");
 				SCREEN_LOG_DEBUG("step size = " << stepSize);
-				for(unsigned int i=0; i<Screen::Core::NB_VERTEX_USAGE; i++){
+				for(unsigned int i=0; i<screen::core::NB_VERTEX_USAGE; i++){
 					SCREEN_LOG_DEBUG("[ " << vertexInfo[i].first << " / " << vertexInfo[i].second << " ]");
 				}
 #endif
@@ -100,38 +100,38 @@ namespace Screen{
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
 	color = Renderer::get()->retrieveColor(buffer[cur]);
 			
-			void VertexBufferFiller::setPositionAt(unsigned int i, const Screen::Math::Vector3f& vector){
+			void VertexBufferFiller::setPositionAt(unsigned int i, const screen::math::Vector3f& vector){
 				SCREEN_DECL_METHOD(setPositionAt)
-				SET_VECTOR(Screen::Core::VERTEX_USAGE_POSITION,3);
+				SET_VECTOR(screen::core::VERTEX_USAGE_POSITION,3);
 			}
-			void VertexBufferFiller::setNormalAt(unsigned int i, const Screen::Math::Vector3f& vector){
+			void VertexBufferFiller::setNormalAt(unsigned int i, const screen::math::Vector3f& vector){
 				SCREEN_DECL_METHOD(setNormalAt)
-				SET_VECTOR(Screen::Core::VERTEX_USAGE_NORMAL,3);
+				SET_VECTOR(screen::core::VERTEX_USAGE_NORMAL,3);
 			}
-			void VertexBufferFiller::setDiffuseAt(unsigned int i, const Screen::Core::Color& color){
+			void VertexBufferFiller::setDiffuseAt(unsigned int i, const screen::core::Color& color){
 				SCREEN_DECL_METHOD(setDiffuseAt)
-				SET_COLOR(Screen::Core::VERTEX_USAGE_DIFFUSE);
+				SET_COLOR(screen::core::VERTEX_USAGE_DIFFUSE);
 			}
-			void VertexBufferFiller::setTextureAt(unsigned int i, unsigned int textureNumber, const Screen::Math::Vector2f& vector){
+			void VertexBufferFiller::setTextureAt(unsigned int i, unsigned int textureNumber, const screen::math::Vector2f& vector){
 				SCREEN_DECL_METHOD(setTextureAt)
-				SET_VECTOR(Screen::Core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
+				SET_VECTOR(screen::core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
 			}
 			
-			void VertexBufferFiller::getPositionAt(unsigned int i, Screen::Math::Vector3f& vector) const{
+			void VertexBufferFiller::getPositionAt(unsigned int i, screen::math::Vector3f& vector) const{
 				SCREEN_DECL_METHOD(getPositionAt)
-				GET_VECTOR(Screen::Core::VERTEX_USAGE_POSITION,3);
+				GET_VECTOR(screen::core::VERTEX_USAGE_POSITION,3);
 			}
-			void VertexBufferFiller::getNormalAt(unsigned int i, Screen::Math::Vector3f& vector) const{
+			void VertexBufferFiller::getNormalAt(unsigned int i, screen::math::Vector3f& vector) const{
 				SCREEN_DECL_METHOD(getNormalAt)
-				GET_VECTOR(Screen::Core::VERTEX_USAGE_NORMAL,3);
+				GET_VECTOR(screen::core::VERTEX_USAGE_NORMAL,3);
 			}
-			void VertexBufferFiller::getDiffuseAt(unsigned int i, Screen::Core::Color& color) const{
+			void VertexBufferFiller::getDiffuseAt(unsigned int i, screen::core::Color& color) const{
 				SCREEN_DECL_METHOD(getDiffuseAt)
-				GET_COLOR(Screen::Core::VERTEX_USAGE_DIFFUSE);
+				GET_COLOR(screen::core::VERTEX_USAGE_DIFFUSE);
 			}
-			void VertexBufferFiller::getTextureAt(unsigned int i, unsigned int textureNumber, Screen::Math::Vector2f& vector) const{
+			void VertexBufferFiller::getTextureAt(unsigned int i, unsigned int textureNumber, screen::math::Vector2f& vector) const{
 				SCREEN_DECL_METHOD(getTextureAt)
-				GET_VECTOR(Screen::Core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
+				GET_VECTOR(screen::core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
 			}
 			
 			unsigned int VertexBufferFiller::getSize() const{

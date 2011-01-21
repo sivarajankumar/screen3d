@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/IndexBufferHandler.h>
+#include <screen/core/objects/IndexBufferHandler.h>
 
-namespace Screen{
-	namespace Core{
-		namespace Objects{
+namespace screen{
+	namespace core{
+		namespace objects{
 			IndexBufferHandler::IndexBufferHandler()
 				:any(){
 				SCREEN_DECL_CONSTRUCTOR(IndexBufferHandler)

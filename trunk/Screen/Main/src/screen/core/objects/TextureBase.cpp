@@ -19,12 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/TextureBase.h>
+#include <screen/core/objects/TextureBase.h>
 
-namespace Screen {
-	namespace Core {
-		namespace Objects {
-			TextureBase::TextureBase(Screen::Math::Vector2i size, Screen::Core::PixelFormat pxf, Screen::Core::TextureMipMap hasMipMap)
+namespace screen {
+	namespace core {
+		namespace objects {
+			TextureBase::TextureBase(screen::math::Vector2i size, screen::core::PixelFormat pxf, screen::core::TextureMipMap hasMipMap)
 				:image(size,pxf), size(size), pxf(pxf), hasMipMap(hasMipMap){
 				SCREEN_DECL_CONSTRUCTOR(TextureBase)
 			}

@@ -19,11 +19,11 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <Screen/Core/Objects/VertexBufferHandler.h>
+#include <screen/core/objects/VertexBufferHandler.h>
 
-namespace Screen{
-	namespace Core{
-		namespace Objects{
+namespace screen{
+	namespace core{
+		namespace objects{
 			VertexBufferHandler::VertexBufferHandler()
 				:any(){
 				SCREEN_DECL_CONSTRUCTOR(VertexBufferHandler)
