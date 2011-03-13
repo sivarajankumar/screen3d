@@ -21,9 +21,11 @@ This part will allow you to have the benefits of latest snapshot versions of SBS
 For Screen developers, you would modify SBS and commit your changes.
 
 First of all, you must install three softwares :
-  * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6)
-  * [http://maven.apache.org/download.html Maven2]
-  * [http://java.sun.com/javase/downloads/index.jsp Java] (minimum version 1.4)
+  * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6, version 2.8 recommended)
+  * [http://maven.apache.org/download.html Maven2 or Maven3]
+  * [http://java.sun.com/javase/downloads/index.jsp Java] (version 1.7 or later)
+
+Note : SBS needs Java 7 because it uses new NIO.2 package to generate symbolic and hard links.
 
 Then, check out SBS trunk sources (on the repository, trunk/Tools/SBS/)
 
