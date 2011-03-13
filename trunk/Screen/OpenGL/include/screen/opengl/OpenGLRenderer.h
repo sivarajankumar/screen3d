@@ -22,7 +22,7 @@
 #ifndef SCREEN_OPENGL_RENDERER_H
 #define SCREEN_OPENGL_RENDERER_H
 
-#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/renderer/Renderer.h>
 #include <screen/utils/Singleton.h>
 #include <screen/core/Enums.h>
 #include <screen/utils/Declaration.h>

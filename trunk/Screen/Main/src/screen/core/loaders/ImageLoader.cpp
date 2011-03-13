@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/core/Loaders/ImageLoader.h>
+#include <screen/core/loaders/ImageLoader.h>
 #include <screen/core/Enums.h>
 #include <screen/math/Vector2i.h>
 #include <screen/utils/Exception.h>

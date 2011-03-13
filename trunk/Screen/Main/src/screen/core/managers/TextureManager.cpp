@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/core/Managers/TextureManager.h>
+#include <screen/core/managers/TextureManager.h>
 #include <screen/utils/ResourceManager.h>
 
 namespace screen {

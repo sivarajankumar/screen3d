@@ -22,8 +22,8 @@
 #include <screen/core/Root.h>
 #include <screen/utils/Timer.h>
 #include <screen/core/FPSCounter.h>
-#include <screen/core/Renderer/Renderer.h>
-#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/core/renderer/Renderer.h>
+#include <screen/core/renderer/RenderWindow.h>
 #include <screen/utils/MediaManager.h>
 
 #include <iostream>

@@ -22,7 +22,7 @@
 #ifndef SFML_OPENGL_RENDER_WINDOW_H
 #define SFML_OPENGL_RENDER_WINDOW_H
 
-#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/core/renderer/RenderWindow.h>
 #include <screen/utils/Export.h>
 
 namespace sf{

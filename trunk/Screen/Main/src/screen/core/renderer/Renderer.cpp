@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/renderer/Renderer.h>
 #include <screen/utils/Exception.h>
 
 namespace screen {
