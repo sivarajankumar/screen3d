@@ -24,8 +24,8 @@
 
 #include <screen/core/Enums.h>
 #include <screen/core/objects/Image.h>
-#include <screen/Math/Vector2i.h>
-#include <screen/Math/Rectangle.h>
+#include <screen/math/Vector2i.h>
+#include <screen/math/Rectangle.h>
 #include <screen/main/Export.h>
 #include <screen/utils/SmartPtr.h>
 #include <screen/utils/Resource.h>

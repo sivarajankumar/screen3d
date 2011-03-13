@@ -19,10 +19,10 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/Test/utils/FakeRenderer.h>
+#include <screen/test/utils/FakeRenderer.h>
 
 namespace screen {
-	namespace Test {
+	namespace test {
 		namespace utils {
 			FakeRenderer::FakeRenderer(){}
 			FakeRenderer::~FakeRenderer(){}

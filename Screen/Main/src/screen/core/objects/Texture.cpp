@@ -20,9 +20,9 @@
  *****************************************************************************/
 
 #include <screen/core/objects/Texture.h>
-#include <screen/core/Managers/TextureManager.h>
+#include <screen/core/managers/TextureManager.h>
 #include <screen/core/objects/PixelFormat.h>
-#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/renderer/Renderer.h>
 #include <screen/utils/ResourceManager.h>
 #include <screen/math/Other.h>
 

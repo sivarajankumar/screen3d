@@ -19,16 +19,16 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/Test/TestBuffer.h>
+#include <screen/test/TestBuffer.h>
 #include <screen/core/objects/BufferBase.h>
 #include <screen/core/objects/Buffer.h>
 #include <screen/core/objects/IndexBuffer.h>
 #include <screen/core/objects/VertexBuffer.h>
 #include <screen/core/objects/VertexFormat.h>
 #include <screen/core/Enums.h>
-#include <screen/Test/utils/FakeRenderer.h>
+#include <screen/test/utils/FakeRenderer.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION(screen::Test::TestBuffer);
+CPPUNIT_TEST_SUITE_REGISTRATION(screen::test::TestBuffer);
 
 #define BUFFER_SIZE 1000
 
@@ -39,7 +39,7 @@ struct Vertex1{
 };
 
 namespace screen {
-	namespace Test {
+	namespace test {
 		class FakeBufferBase : public screen::core::objects::BufferBase {
 		public:
 			FakeBufferBase()
@@ -55,7 +55,7 @@ namespace screen {
 			}
 		};
 		
-		class FakeBufferRenderer : public screen::Test::utils::FakeRenderer{
+		class FakeBufferRenderer : public screen::test::utils::FakeRenderer{
 		public:
 			FakeBufferRenderer(){}		
 			virtual ~FakeBufferRenderer(){}

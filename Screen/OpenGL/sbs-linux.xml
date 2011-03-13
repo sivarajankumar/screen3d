@@ -11,10 +11,14 @@
 			<dependency name="Screen/Utils" version="0.1.0"/>
 			<dependency name="OpenGL">
 				<libraries>
-					<lib version="195.36.1">GL</lib>
-					<lib version="1.3.07">GLU</lib>
+					<lib>GL</lib>
+					<lib>GLU</lib>
 				</libraries>
 			</dependency>
 		</dependencies>
 	</main>
+	<descriptions>
+		<library name="GL" type="static" compile-name="GL" />
+		<library name="GLU" type="static" compile-name="GLU" />
+	</descriptions>
 </pack>

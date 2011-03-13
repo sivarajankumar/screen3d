@@ -22,10 +22,10 @@
 #ifndef SCREEN_FAKE_RENDERER_H
 #define SCREEN_FAKE_RENDERER_H
 
-#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/renderer/Renderer.h>
 
 namespace screen {
-	namespace Test {
+	namespace test {
 		namespace utils {
 			using screen::core::objects::VertexBuffer;
 			using screen::core::objects::IndexBuffer;

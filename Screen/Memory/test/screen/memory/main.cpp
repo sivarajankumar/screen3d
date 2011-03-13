@@ -6,10 +6,10 @@
 #include <cppunit/TestRunner.h>
 #include <cppunit/XmlOutputter.h>
 #include <iostream>
-#include <Screen/Utils/Profiler.h>
-#include <Screen/Utils/ProfilerReporter.h>
-#include <Screen/Utils/Logger.h>
-#include <Screen/Utils/LoggerReporter.h>
+#include <screen/utils/Profiler.h>
+#include <screen/utils/ProfilerReporter.h>
+#include <screen/utils/Logger.h>
+#include <screen/utils/LoggerReporter.h>
 
 int main(){
 	SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))

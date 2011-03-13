@@ -20,7 +20,7 @@
  *****************************************************************************/
 
 #include <screen/core/objects/VertexBufferFiller.h>
-#include <screen/core/Renderer/Renderer.h>
+#include <screen/core/renderer/Renderer.h>
 #include <screen/core/Color.h>
 #include <screen/math/Vector2f.h>
 #include <screen/math/Vector3f.h>

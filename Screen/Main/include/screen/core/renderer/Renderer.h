@@ -33,7 +33,7 @@
 //#include <screen/core/objects/IndexBufferFiller.h>
 #include <screen/core/objects/TextureBase.h>
 #include <screen/core/objects/Texture.h>
-#include <screen/core/Renderer/RenderWindow.h>
+#include <screen/core/renderer/RenderWindow.h>
 #include <screen/core/Enums.h>
 #include <screen/math/Matrix4x4f.h>
 #include <screen/math/Vector2i.h>
