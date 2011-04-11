@@ -24,12 +24,16 @@
 #include <screen/math/Other.h>
 #include <malloc.h>
 
+#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
 #define LOG_STACKS \
 	SCREEN_LOG_DEBUG("stacks :") \
 	for(int i=0; i<numberOfStack; i++){ \
 		SCREEN_LOG_DEBUG("\tall  #" << i << " " << buffers[i].size()); \
 		SCREEN_LOG_DEBUG("\tfree #" << i << " " << unlockedBuffers[i].size()); \
 	}
+#else
+#define LOG_STACKS 
+#endif
 
 
 namespace screen {
@@ -87,26 +91,40 @@ namespace screen {
 				//in case of asked buffer is larger than the maximum size of a buffer => new big buffer
 				SCREEN_LOG_DEBUG("allocate big buffer of size " << size << " and effective size " << bufferSize);
 				createBuffer(buffer,bufferSize);
-				BufferBase bigBase(buffer, size);
-				//Assert(buffer!=NULL);
+
+				//bad way to retrieve and update (2 finds into map)
+				/*BufferBase bigBase(buffer, size);
 				bigBuffers[buffer] = bigBase;
-				//Assert(bigBuffers[buffer].getBuffer()==buffer);
-				return &(bigBuffers[buffer]);
+				return &(bigBuffers[buffer]);*/
+				
+				//new way : avoid dual map search
+				BufferBase& bigBase = bigBuffers[buffer];
+				bigBase.bufferPtr = buffer;
+				bigBase.size = size;
+				return &bigBase;
+				
 			} else if(unlockedBuffers[i].empty()){
 				//if there aren't free buffers of the same size => new buffer
 				SCREEN_LOG_DEBUG("allocate new buffer in stack " << i << " of size " << size << " and effective size " << bufferSize);
 				createBuffer(newBuffer,bufferSize);
-				buffers[i][newBuffer] = BufferBase(newBuffer, size);
-				//Assert(buffers[i].top().getBuffer()!=NULL);
-				return &(buffers[i][newBuffer]);
+				
+				//bad way to retrieve and update (2 finds into map)
+				/*buffers[i][newBuffer] = BufferBase(newBuffer, size);
+				return &(buffers[i][newBuffer]);*/
+				
+				//new way : avoid dual map search
+				BufferBase& base = buffers[i][newBuffer];
+				base.bufferPtr = newBuffer;
+				base.size = size;
+				return &base;
 			} else {
 				//if there are free buffers of the same size => reuse buffer
 				SCREEN_LOG_DEBUG("reuse buffer in stack " << i << ", buffer size " << size << " and effective size " << bufferSize);
+
 				BufferBase* base = unlockedBuffers[i].top();
-				base->setSize(size);
+				base->size = size;
 				unlockedBuffers[i].pop();
-				//Assert(base!=NULL);
-				//Assert(base->getBuffer()!=NULL);
+
 				return base;
 			}
 		}
@@ -116,41 +134,39 @@ namespace screen {
 		void BufferManager::addToUnlocked(BufferBase* bufferBase){
 			SCREEN_DECL_METHOD(addToUnlocked)
 			LOG_STACKS;
-			if(bufferBase->getSize()>SCREEN_MEMORY_DEFAULT_MAX_SIZE){
+			if(bufferBase->size > SCREEN_MEMORY_DEFAULT_MAX_SIZE){
 				//if it's big buffer => delete this
 				SCREEN_LOG_DEBUG("delete big buffer");
-				void* bigBuffer = bufferBase->getBuffer();
-				//Assert(bigBuffer!=NULL);
-				bigBuffers.erase(bigBuffer);
+				bigBuffers.erase(bufferBase->bufferPtr);
 			} else {
 				//if it isn't big buffer => add buffer to free stack
-				int i = calculateStackNumber(bufferBase->getSize());
+				int i = calculateStackNumber(bufferBase->size);
 				SCREEN_LOG_DEBUG("unlock buffer by adding to free stack " << i);
 				unlockedBuffers[i].push(bufferBase);
-				bufferBase->setSize(0);
+				bufferBase->size = 0;
 			}
 		}
 		
 		BufferBase* BufferManager::replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize){
 			SCREEN_DECL_METHOD(replaceBufferBase)
-			if(oldBufferBase->getSize()>=newSize){
+			if(oldBufferBase->size>=newSize){
 				//if the new buffer is smaller than the old, reuse the old
 				SCREEN_LOG_DEBUG("no new buffer due to smaller input buffer size");
 				return oldBufferBase;
 			}
-			int oldNumber = calculateStackNumber(oldBufferBase->getSize());
+			int oldNumber = calculateStackNumber(oldBufferBase->size);
 			int newNumber = calculateStackNumber(newSize);
 			if(oldNumber==newNumber){
 				//if the effective old buffer size is the new one, reuse the old buffer
 				SCREEN_LOG_DEBUG("no new buffer due to equal effective buffer sizes");
-				oldBufferBase->setSize(newSize);
+				oldBufferBase->size = newSize;
 				return oldBufferBase;
 			} else {
 				SCREEN_LOG_DEBUG("new buffer due to upper effective buffer size");
 				//create a new buffer
 				BufferBase* newBufferBase = getNewBufferBase(newSize);
 				//copy old buffer into new
-				::memcpy(newBufferBase->getBuffer(), oldBufferBase->getBuffer(), oldBufferBase->getSize());
+				::memcpy(newBufferBase->bufferPtr, oldBufferBase->bufferPtr, oldBufferBase->size);
 				//free old buffer
 				addToUnlocked(oldBufferBase);
 
@@ -163,7 +179,7 @@ namespace screen {
 			for(int i=0; i<numberOfStack; i++){
 				while(!unlockedBuffers[i].empty()){
 					BufferBase* bb = unlockedBuffers[i].top();
-					void* buffer = bb->getBuffer();
+					void* buffer = bb->bufferPtr;
 					buffers[i].erase(buffer);
 					unlockedBuffers[i].pop();
 					totalFreeSize += calculateSizeFromStack(i);

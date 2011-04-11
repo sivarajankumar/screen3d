@@ -24,6 +24,7 @@
 					<lib>cppunit</lib>
 				</libraries>
 			</dependency>
+			<dependency name="boost" version="1.42"/><!-- for boost.pool -->
 		</dependencies>
 	</test>
 </pack>

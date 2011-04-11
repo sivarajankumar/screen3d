@@ -1,7 +1,7 @@
-/*****************************************************************************
+ /*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
- * Copyright (c) 2008-2009 Ratouit Thomas                                    *
+ * Copyright (c) 2008-2011 Ratouit Thomas                                    *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify it   *
  * under the terms of the GNU Lesser General Public License as published by  *
@@ -19,34 +19,31 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_MEMORY_TEST_H
-#define SCREEN_MEMORY_TEST_H
-
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include <screen/memory/AllocBufferMap.h>
+#include <screen/memory/BufferBase.h>
 
 namespace screen {
-	namespace memory {
-		class Test : public CppUnit::TestFixture {
-			CPPUNIT_TEST_SUITE(Test);
-			CPPUNIT_TEST(testBufferCreation);
-			CPPUNIT_TEST(testBufferImproveSize);
-			CPPUNIT_TEST(testBigBuffer);
-			CPPUNIT_TEST(testGarbage);
-			CPPUNIT_TEST(testTypedBuffer);
-			CPPUNIT_TEST(testAllocator);
-			CPPUNIT_TEST(testStressAllocator);
-			CPPUNIT_TEST_SUITE_END();
-		public:
-			void testBufferCreation();
-			void testBufferImproveSize();
-			void testBigBuffer();
-			void testGarbage();
-			void testTypedBuffer();
-			void testAllocator();
-			void testStressAllocator();
-		};
-	}
+    namespace memory {
+		SINGLETON_IMPL(UniqueSingleton,AllocBufferMap)
+	
+    	void AllocBufferMap::addBufferBase(const void* ptr, BufferBase* buf){
+    		bufferBaseMap[ptr] = buf;
+    	}
+    	
+    	BufferBase* AllocBufferMap::popBufferBase(const void* ptr) const{
+    		std::map<const void*, BufferBase*>::const_iterator it = bufferBaseMap.find(ptr);
+    		if(it == bufferBaseMap.end()){
+    			SCREEN_LOG_WARNING("Can't find buffer base for address " << ptr);
+    			return NULL;
+    		}
+    		else{
+    			BufferBase* buf = it->second;
+    			
+    			//optimisation tip : instead of cleaning map member, just set as NULL
+    			const_cast<BufferBase*&>(it->second) = NULL;
+    			
+    			return buf;
+    		}
+    	}
+    }
 }
-
-#endif

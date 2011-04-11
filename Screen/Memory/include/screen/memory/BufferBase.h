@@ -42,7 +42,7 @@ namespace screen {
 			unsigned int getSize() const;
 			void setSize(unsigned int size);
 
-		private:
+		public:
 			void* bufferPtr;
 			unsigned int size;
         };

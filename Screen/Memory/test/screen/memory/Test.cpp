@@ -24,7 +24,11 @@
 #include <screen/memory/BufferManager.h>
 #include <screen/memory/TypedBuffer.h>
 #include <screen/memory/Defaults.h>
+#include <screen/memory/Allocator.h>
 #include <screen/math/Other.h>
+#include <screen/utils/Timer.h>
+#include <boost/pool/pool_alloc.hpp>
+#include <vector>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(screen::memory::Test);
 
@@ -204,6 +208,190 @@ namespace screen {
 			CPPUNIT_ASSERT(*buf1.getAt(2)==5678);
 			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
 			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long))==42);			
+			
+			BufferManager::instance()->garbage();
+		}
+		
+		void Test::testAllocator(){
+			std::vector<long,screen::memory::Allocator<long> > vec1;
+			vec1.push_back(42);
+			CPPUNIT_ASSERT(vec1[0]==42);
+			CPPUNIT_ASSERT(vec1.size()==1);			
+			BufferManager::instance()->garbage();
+		}
+		
+		template<template <class> class Alloc>
+		void testOneVector(){
+			std::vector<long,Alloc<long> > vec1;
+			for(long i = 0; i<10000000; i++){
+				vec1.push_back(i);
+			}
+		}
+		
+		template<template <class> class Alloc>
+		void testMultiVector(){
+			std::vector<long,Alloc<long> > vec1[1000];
+			for(int i = 0; i<1000; i++){
+				for(long j = 0; j<100000; j++){
+					vec1[i].push_back(j);
+				}
+			}
+		}
+		
+		template<template <class> class Alloc>
+		void testOneVectorManualSize(){
+			int size = 20;
+			std::vector<long,Alloc<long> > vec1(size);
+			for(long i = 0; i<10000000; i++){
+				if(i>=size){
+					size*=2;
+					vec1.resize(size);
+				}
+				vec1[i]=i;
+			}
+		}
+		
+		template<template <class> class Alloc>
+		void testMultiVectorManualSize(){
+			std::vector<long,Alloc<long> > vec1[1000];
+			for(long i = 0; i<1000; i++){
+				int size = 20;
+				vec1[i].resize(size);
+				for(long j = 0; j<100000; j++){
+					if(j>=size){
+						size*=2;
+						vec1[i].resize(size);
+					}
+					vec1[i][j] = j;
+				}
+			}
+		}
+		
+		void Test::testStressAllocator(){
+			BufferManager::instance()->garbage();
+			screen::utils::Timer timer;
+			
+			double stlOne = 0.0;
+			double stlMulti = 0.0;
+			double stlOneManual = 0.0;
+			double stlMultiManual = 0.0;
+			double poolOne = 0.0;
+			double poolMulti = 0.0;
+			double poolOneManual = 0.0;
+			double poolMultiManual = 0.0;
+			double fastPoolOne = 0.0;
+			double fastPoolMulti = 0.0;
+			double fastPoolOneManual = 0.0;
+			double fastPoolMultiManual = 0.0;
+			double screenOne = 0.0;
+			double screenMulti = 0.0;
+			double screenOneManual = 0.0;
+			double screenMultiManual = 0.0;
+			
+			//stl stress test
+			{
+				timer.reset();
+				testOneVector<std::allocator>();
+				stlOne = timer.getSeconds();
+				
+				timer.reset();
+				testMultiVector<std::allocator>();
+				stlMulti = timer.getSeconds();
+				
+				timer.reset();
+				testOneVectorManualSize<std::allocator>();
+				stlOneManual = timer.getSeconds();
+				
+				timer.reset();
+				testMultiVectorManualSize<std::allocator>();
+				stlMultiManual = timer.getSeconds();
+			}
+			//boost pool stress test
+			{
+				timer.reset();
+				testOneVector<boost::pool_allocator>();
+				poolOne = timer.getSeconds();
+				
+				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testMultiVector<boost::pool_allocator>();
+				poolMulti = timer.getSeconds();
+				
+				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testOneVectorManualSize<boost::pool_allocator>();
+				poolOneManual = timer.getSeconds();
+				
+				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testMultiVectorManualSize<boost::pool_allocator>();
+				poolMultiManual = timer.getSeconds();
+				
+				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
+			}
+			//boost fast pool stress test
+			/*{
+				timer.reset();
+				testOneVector<boost::fast_pool_allocator>();
+				fastPoolOne = timer.getSeconds();
+				
+				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testMultiVector<boost::fast_pool_allocator>();
+				fastPoolMulti = timer.getSeconds();
+				
+				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testOneVectorManualSize<boost::fast_pool_allocator>();
+				fastPoolOneManual = timer.getSeconds();
+				
+				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
+				
+				timer.reset();
+				testMultiVectorManualSize<boost::fast_pool_allocator>();
+				fastPoolMultiManual = timer.getSeconds();
+				
+				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
+			}*/
+			//screen memory stress test
+			{
+				timer.reset();
+				testOneVector<screen::memory::Allocator>();
+				screenOne = timer.getSeconds();
+				
+				BufferManager::instance()->garbage();
+				
+				timer.reset();
+				testMultiVector<screen::memory::Allocator>();
+				screenMulti = timer.getSeconds();
+				
+				BufferManager::instance()->garbage();
+
+				timer.reset();
+				testOneVectorManualSize<screen::memory::Allocator>();
+				screenOneManual = timer.getSeconds();
+				
+				BufferManager::instance()->garbage();
+				
+				timer.reset();
+				testMultiVectorManualSize<screen::memory::Allocator>();
+				screenMultiManual = timer.getSeconds();
+				
+				BufferManager::instance()->garbage();
+
+			}
+
+			
+			SCREEN_LOG_INFO("Stress Result : ");
+			SCREEN_LOG_INFO("    * STL : [" << stlOne << ", " << stlMulti << ", " << stlOneManual << ", " << stlMultiManual << "]");
+			SCREEN_LOG_INFO("    * Boost.pool : [" << poolOne << ", " << poolMulti << ", " << poolOneManual << ", " << poolMultiManual << "]");
+			//SCREEN_LOG_INFO("    * Boost.fast_pool : [" << fastPoolOne << ", " << fastPoolMulti << ", " << fastPoolOneManual << ", " << fastPoolMultiManual << "]");
+			SCREEN_LOG_INFO("    * Screen.Memory : [" << screenOne << ", " << screenMulti << ", " << screenOneManual << ", " << screenMultiManual << "]");
 		}
 	}
 }
