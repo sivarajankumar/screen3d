@@ -1,7 +1,7 @@
-/*****************************************************************************
+ /*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
- * Copyright (c) 2008-2009 Ratouit Thomas                                    *
+ * Copyright (c) 2008-2011 Ratouit Thomas                                    *
  *                                                                           *
  * This program is free software; you can redistribute it and/or modify it   *
  * under the terms of the GNU Lesser General Public License as published by  *
@@ -19,33 +19,25 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_MEMORY_TEST_H
-#define SCREEN_MEMORY_TEST_H
+#ifndef SCREEN_MEMORY_ALLOC_BUFFER_MAP_H
+#define SCREEN_MEMORY_ALLOC_BUFFER_MAP_H
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include <screen/utils/Declaration.h>
+#include <screen/memory/BufferBase.h>
 
-namespace screen {
-	namespace memory {
-		class Test : public CppUnit::TestFixture {
-			CPPUNIT_TEST_SUITE(Test);
-			CPPUNIT_TEST(testBufferCreation);
-			CPPUNIT_TEST(testBufferImproveSize);
-			CPPUNIT_TEST(testBigBuffer);
-			CPPUNIT_TEST(testGarbage);
-			CPPUNIT_TEST(testTypedBuffer);
-			CPPUNIT_TEST(testAllocator);
-			CPPUNIT_TEST(testStressAllocator);
-			CPPUNIT_TEST_SUITE_END();
-		public:
-			void testBufferCreation();
-			void testBufferImproveSize();
-			void testBigBuffer();
-			void testGarbage();
-			void testTypedBuffer();
-			void testAllocator();
-			void testStressAllocator();
-		};
+namespace screen{
+	namespace memory{
+		class BufferBase;
+		
+		class SCREEN_MEMORY_EXPORT AllocBufferMap : public screen::utils::UniqueSingleton<AllocBufferMap>{
+				SCREEN_DECL_CLASS(screen::memory::AllocBufferMap)
+				SINGLETON_DECL(UniqueSingleton,AllocBufferMap)
+			public:
+				void addBufferBase(const void* ptr, BufferBase* buf);
+				BufferBase* popBufferBase(const void* ptr) const;
+			private:
+				std::map<const void*, BufferBase*> bufferBaseMap;
+		};		
 	}
 }
 
