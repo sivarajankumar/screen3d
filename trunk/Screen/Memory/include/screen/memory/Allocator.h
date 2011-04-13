@@ -93,7 +93,7 @@ namespace screen{
 			
 			size_type max_size() const throw(){
 				SCREEN_DECL_METHOD(max_size)
-				return std::numeric_limits<size_type>::max;
+				  return std::numeric_limits<size_type>::max();
 			}
 			
 			void construct(pointer p, const_reference val){
