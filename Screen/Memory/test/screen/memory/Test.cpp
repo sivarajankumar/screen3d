@@ -220,17 +220,17 @@ namespace screen {
 			BufferManager::instance()->garbage();
 		}
 		
-		template<template <class> class Alloc>
+		template<class Alloc>
 		void testOneVector(){
-			std::vector<long,Alloc<long> > vec1;
+			std::vector<long,Alloc > vec1;
 			for(long i = 0; i<10000000; i++){
 				vec1.push_back(i);
 			}
 		}
 		
-		template<template <class> class Alloc>
+		template<class Alloc>
 		void testMultiVector(){
-			std::vector<long,Alloc<long> > vec1[1000];
+			std::vector<long,Alloc > vec1[1000];
 			for(int i = 0; i<1000; i++){
 				for(long j = 0; j<100000; j++){
 					vec1[i].push_back(j);
@@ -238,10 +238,10 @@ namespace screen {
 			}
 		}
 		
-		template<template <class> class Alloc>
+		template<class Alloc>
 		void testOneVectorManualSize(){
 			int size = 20;
-			std::vector<long,Alloc<long> > vec1(size);
+			std::vector<long,Alloc > vec1(size);
 			for(long i = 0; i<10000000; i++){
 				if(i>=size){
 					size*=2;
@@ -251,9 +251,9 @@ namespace screen {
 			}
 		}
 		
-		template<template <class> class Alloc>
+	        template<class Alloc>
 		void testMultiVectorManualSize(){
-			std::vector<long,Alloc<long> > vec1[1000];
+			std::vector<long,Alloc > vec1[1000];
 			for(long i = 0; i<1000; i++){
 				int size = 20;
 				vec1[i].resize(size);
@@ -291,43 +291,43 @@ namespace screen {
 			//stl stress test
 			{
 				timer.reset();
-				testOneVector<std::allocator>();
+				testOneVector<std::allocator<long> >();
 				stlOne = timer.getSeconds();
 				
 				timer.reset();
-				testMultiVector<std::allocator>();
+				testMultiVector<std::allocator<long> >();
 				stlMulti = timer.getSeconds();
 				
 				timer.reset();
-				testOneVectorManualSize<std::allocator>();
+				testOneVectorManualSize<std::allocator<long> >();
 				stlOneManual = timer.getSeconds();
 				
 				timer.reset();
-				testMultiVectorManualSize<std::allocator>();
+				testMultiVectorManualSize<std::allocator<long> >();
 				stlMultiManual = timer.getSeconds();
 			}
 			//boost pool stress test
 			{
 				timer.reset();
-				testOneVector<boost::pool_allocator>();
+				testOneVector<boost::pool_allocator<long> >();
 				poolOne = timer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
 				timer.reset();
-				testMultiVector<boost::pool_allocator>();
+				testMultiVector<boost::pool_allocator<long> >();
 				poolMulti = timer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
 				timer.reset();
-				testOneVectorManualSize<boost::pool_allocator>();
+				testOneVectorManualSize<boost::pool_allocator<long> >();
 				poolOneManual = timer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
 				timer.reset();
-				testMultiVectorManualSize<boost::pool_allocator>();
+				testMultiVectorManualSize<boost::pool_allocator<long> >();
 				poolMultiManual = timer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
@@ -361,25 +361,25 @@ namespace screen {
 			//screen memory stress test
 			{
 				timer.reset();
-				testOneVector<screen::memory::Allocator>();
+				testOneVector<screen::memory::Allocator<long> >();
 				screenOne = timer.getSeconds();
 				
 				BufferManager::instance()->garbage();
 				
 				timer.reset();
-				testMultiVector<screen::memory::Allocator>();
+				testMultiVector<screen::memory::Allocator<long> >();
 				screenMulti = timer.getSeconds();
 				
 				BufferManager::instance()->garbage();
 
 				timer.reset();
-				testOneVectorManualSize<screen::memory::Allocator>();
+				testOneVectorManualSize<screen::memory::Allocator<long> >();
 				screenOneManual = timer.getSeconds();
 				
 				BufferManager::instance()->garbage();
 				
 				timer.reset();
-				testMultiVectorManualSize<screen::memory::Allocator>();
+				testMultiVectorManualSize<screen::memory::Allocator<long> >();
 				screenMultiManual = timer.getSeconds();
 				
 				BufferManager::instance()->garbage();
