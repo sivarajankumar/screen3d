@@ -10,22 +10,37 @@
 
 This part explains how you will install SBS, which is a mandatory part for all environment configuration tutorial (you can also create your dependencies by hand :s )
 
+= Prerequisites =
+
+To use SBS, you need some softwares on your machine :
+  * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6, version 2.8 recommended)
+  * [http://java.sun.com/javase/downloads/index.jsp Java] (version 1.6 or later)
+
+Once those softwares are installed, you could choose to install SBS from pre-built installer to download or by compiling sources.
+If you are not an SBS developer, I advice you to install it by installer
+
 = Install from download =
 
-TODO
+== on Windows ==
+
+Go to SBS site in download session, and choose the last installer :
+http://code.google.com/p/sbs/downloads/list
+
+Download it and execute it. Then just follow instructions.
+
+That's it, SBS is installed. Now you could verify it works by going to First launch part.
+
+== on Linux ==
+
+For now there is no existing installer for linux. You could still install it from the sources
 
 = Install from sources =
 
-This part is optional if you did _Install from download_.
 This part will allow you to have the benefits of latest snapshot versions of SBS.
 For Screen developers, you would modify SBS and commit your changes.
 
-First of all, you must install three softwares :
-  * [http://www.cmake.org/cmake/resources/software.html CMake] (minimum version 2.6, version 2.8 recommended)
+First of all, you must install this software in addition for Java and CMake to compile SBS sources :
   * [http://maven.apache.org/download.html Maven2 or Maven3]
-  * [http://java.sun.com/javase/downloads/index.jsp Java] (version 1.7 or later)
-
-Note : SBS needs Java 7 because it uses new NIO.2 package to generate symbolic and hard links.
 
 Then, check out SBS trunk sources (on the repository, trunk/Tools/SBS/)
 
@@ -50,3 +65,7 @@ First, open a new command terminal and write :
 sbs -h
 }}}
 You will see all commands available with SBS.
+
+= Configure SBS for Screen =
+
+TODO
