@@ -11,7 +11,10 @@
 
 In the previous part, we installed everything we need to configure SBS for Screen development
 
-In this session, we will introduce several development environments. For all of them, there are specific instructions to completely configure and use SBS for Screen project.
+In this session, we will introduce several development environments.
+
+For all of them, there are specific instructions to completely configure and use SBS for Screen project.
+
 With this, you will be prepared to develop Screen components with your favorite development environment.
 
 = Under Windows =
