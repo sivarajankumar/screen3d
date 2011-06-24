@@ -1,9 +1,8 @@
 #summary How to install SBS to compile Screen Project
 
-  * *Prerequisites*
-    * [ProjectOrientedSourceManagement Project/Pack oriented source management]
   * *Back links*
     * [MainPage Main page of Screen Wiki]
+  * *Next session*
     * [DevelopmentEnvironment Development environment]
 
 = Introduction =
