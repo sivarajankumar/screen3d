@@ -1,4 +1,4 @@
-#summary POSM : Project/Pack oriented source management
+#summary POSM : Project/Pack oriented source management (__deprecated__)
 
   * *Back links*
     * [MainPage Main page of Screen Wiki]
