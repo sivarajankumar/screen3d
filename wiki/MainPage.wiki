@@ -13,7 +13,7 @@ Welcome to Screen project wiki. This wiki is designed for developers who want to
 
 = Screen Developers =
 
-  * [SBSInstall How to install SBS and configure it for Screen]
+  * [SBSInstall How to install SBS and prepare it for Screen]
   * [DevelopmentEnvironment Development environment]
   * Read and write specifications
   * Tasks and bugs tracking
