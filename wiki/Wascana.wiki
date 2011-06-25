@@ -39,18 +39,30 @@ Then validate the workspace and you arrive on the main Wascana window.
 
 If it is not, select the C++ view.
 
-In next parts, we configure a project for Screen/Main pack. Other pack configuration are similar.
+In next parts, we configure all projects for Screen at once (we will have one project per component).
 
 == Project creation ==
 
-first, if you didn't do it, check-out the sources of the pack (In our case Screen/Main)
-then, if it isn't already done, install SBS : [SBSInstall How to install SBS], and in a command prompt, write :
-{{{
-sbs <path-of-your-sbs.xml> generate -e wascana -e <your-specific-config>
-}}}
-For further information about the uses of SBS, see [ProjectOrientedSourceManagement Project/Pack oriented source management]
+First, if you didn't do it, check-out Screen sources and install SBS : [SBSInstall How to install SBS].
 
-Then, in your Wascana environment :
+Then, in a command prompt, write :
+{{{
+sbs generate -g -e wascana -e config -e user
+}}}
+
+In the same command prompt, go to Screen root file and write :
+{{{
+generate-screen-debug.bat
+}}}
+or
+{{{
+generate-screen-release.bat
+}}}
+It will prepare all projects for respectively release or debug mode
+
+Now you must open every generated project one by one into you Wascana IDE.
+
+It do it :
 
 `File > New > Project`
 
@@ -88,5 +100,3 @@ Then launch the executable of your pack.
 To configure a test project, use the option -t with the sbs command, and create a project with the root into the _test_ folder of the pack
 
 = MSYS =
-
-== Build Xerces ==
