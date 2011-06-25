@@ -52,11 +52,11 @@ sbs generate -g -e wascana -e config -e user
 
 In the same command prompt, go to Screen root file and write :
 {{{
-generate-screen-debug.bat
+generate-screen-release.bat
 }}}
 or
 {{{
-generate-screen-release.bat
+generate-screen-debug.bat
 }}}
 It will prepare all projects for respectively release or debug mode
 
