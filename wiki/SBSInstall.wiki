@@ -65,6 +65,14 @@ sbs -h
 }}}
 You will see all commands available with SBS.
 
-= Configure SBS for Screen =
+= Prepare SBS for Screen =
 
-TODO
+== screen.config ==
+
+To use SBS you need one additional config file that contains general flags used
+To use, it take *screen.config* file from SVN Screen root folder, and put it on your SBS root folder.
+
+== Prepare your repository ==
+
+This part depends on the operating system and the environment you choose.
+To continue your configiration, go to next seesion.
