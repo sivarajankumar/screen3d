@@ -74,5 +74,34 @@ To use, it take *screen.config* file from SVN Screen root folder, and put it on 
 
 == Prepare your repository ==
 
-This part depends on the operating system and the environment you choose.
-To continue your configiration, go to next seesion.
+Screen needs several external libraries to compile (boost, cppunit, ...)
+Some build has been created and deployed as SBS components, that are only available as a simple additional repository reserved to some SBS developers (on a Dropbox shared folder).
+
+We must find a way to easily share those resources; Please be patient
+
+For those who have access to this Dropbox repository, you can resume this tutorial.
+
+= Configure SBS repositories for SBS =
+
+By default, SBS only knows one repository, set with REPOSITORY_ROOT variable.
+Your must configure SBS to take the Dropbox repository.
+To do it, edit repositories/repositories.xml file and add the repository  and filter definition. You shoud have something like :
+
+{{{
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories>
+	<data>
+		<repository id="1" type="local,snapshot,internal" path="${REPOSITORY_ROOT}" comment="main local repository" />
+		<repository id="2" type="local,release,internal"  path="C:/.../Documents/My Dropbox/ScreenFrameWork/SBS-repository" comment="Screen dropbox repository" />
+	</data>
+	<filters>
+		<!-- by default, a component is taken in the main local repository in order to obtain the latest snapshot version of the component.
+		     if it is not into the main local repository, it would be found in another repository
+		-->
+		<filter id="1" component-name=".*" component-version=".*" compiler=".*" repository-id="1" />
+		<filter id="2" component-name=".*" component-version=".*" compiler=".*" repository-id="2" />
+	</filters>
+</repositories>
+}}}
+
+From now, you shouldn't need anymore to touch SBS files. In the next session, you will choose your environment variable and launch last configuration commands.
