@@ -61,7 +61,7 @@ mvn install
 
 First, open a new command terminal and write :
 {{{
-sbs -h
+sbs help
 }}}
 You will see all commands available with SBS.
 
