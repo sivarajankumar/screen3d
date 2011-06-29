@@ -31,7 +31,7 @@
 
 namespace screen {
 	namespace utils {
-		class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
+                class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
 		public:
 			SingletonLazyInstanceInterface();
 			virtual ~SingletonLazyInstanceInterface();
@@ -39,7 +39,7 @@ namespace screen {
 		};
 		
 		template <class T, class ThreadingModel = SingleThreadingModel>
-		class SCREEN_UTILS_EXPORT SingletonLazyInstance : public SingletonLazyInstanceInterface {
+                class SingletonLazyInstance : public SingletonLazyInstanceInterface {
 		public:
 		    SingletonLazyInstance()
 				:SingletonLazyInstanceInterface(),instance(NULL){}
