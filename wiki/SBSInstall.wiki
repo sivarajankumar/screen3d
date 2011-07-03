@@ -69,8 +69,9 @@ You will see all commands available with SBS.
 
 == screen.config ==
 
-To use SBS you need one additional config file that contains general flags used
-To use, it take *screen.config* file from SVN Screen root folder, and put it on your SBS root folder.
+To use SBS you need one additional config file that contains several flags used by Screen.
+
+Take *screen.config* file from SVN Screen root folder, and put it into your SBS root folder.
 
 == Prepare your repository ==
 
