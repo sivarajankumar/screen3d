@@ -17,9 +17,9 @@
 				</libraries>
 			</dependency>
 		</dependencies>
+		<descriptions>
+			<library name="opengl32" type="static" compile-name="opengl32" />
+			<library name="glu32" type="static" compile-name="glu32" />
+		</descriptions>
 	</main>
-	<descriptions>
-		<library name="opengl32" type="static" compile-name="opengl32" />
-		<library name="glu32" type="static" compile-name="glu32" />
-	</descriptions>
 </pack>

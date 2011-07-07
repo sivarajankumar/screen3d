@@ -16,9 +16,9 @@
 				</libraries>
 			</dependency>
 		</dependencies>
+		<descriptions>
+			<library name="GL" type="static" compile-name="GL" />
+			<library name="GLU" type="static" compile-name="GLU" />
+		</descriptions>
 	</main>
-	<descriptions>
-		<library name="GL" type="static" compile-name="GL" />
-		<library name="GLU" type="static" compile-name="GLU" />
-	</descriptions>
 </pack>
