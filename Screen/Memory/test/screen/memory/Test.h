@@ -35,7 +35,9 @@ namespace screen {
 			CPPUNIT_TEST(testGarbage);
 			CPPUNIT_TEST(testTypedBuffer);
 			CPPUNIT_TEST(testAllocator);
+#ifdef SCREEN_MEMORY_RUN_STRESS_TEST
 			CPPUNIT_TEST(testStressAllocator);
+#endif
 			CPPUNIT_TEST_SUITE_END();
 		public:
 			void testBufferCreation();
