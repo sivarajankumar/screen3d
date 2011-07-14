@@ -27,6 +27,9 @@
 #include <screen/core/renderer/RenderWindow.h>
 #include <screen/utils/MediaManager.h>
 
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #define PI 3.141592654f
 
 SFMLRoot::SFMLRoot()
@@ -77,14 +80,14 @@ void SFMLRoot::init(){
 	screen::core::objects::VertexBufferFiller vbf1(vf1);
 	
 	//set vextex points
-	vbf1.setPositionAt(0,screen::math::Vector3f(-1.0f, -1.0f,  1.0f));
-	vbf1.setPositionAt(1,screen::math::Vector3f(-1.0f,  1.0f,  1.0f));
-	vbf1.setPositionAt(2,screen::math::Vector3f( 1.0f,  1.0f,  1.0f));
-	vbf1.setPositionAt(3,screen::math::Vector3f( 1.0f, -1.0f,  1.0f));
-	vbf1.setPositionAt(4,screen::math::Vector3f(-1.0f, -1.0f, -1.0f));
-	vbf1.setPositionAt(5,screen::math::Vector3f(-1.0f,  1.0f, -1.0f));
-	vbf1.setPositionAt(6,screen::math::Vector3f( 1.0f,  1.0f, -1.0f));
-	vbf1.setPositionAt(7,screen::math::Vector3f( 1.0f, -1.0f, -1.0f));
+        vbf1.setPositionAt(0,glm::vec3(-1.0f, -1.0f,  1.0f));
+        vbf1.setPositionAt(1,glm::vec3(-1.0f,  1.0f,  1.0f));
+        vbf1.setPositionAt(2,glm::vec3( 1.0f,  1.0f,  1.0f));
+        vbf1.setPositionAt(3,glm::vec3( 1.0f, -1.0f,  1.0f));
+        vbf1.setPositionAt(4,glm::vec3(-1.0f, -1.0f, -1.0f));
+        vbf1.setPositionAt(5,glm::vec3(-1.0f,  1.0f, -1.0f));
+        vbf1.setPositionAt(6,glm::vec3( 1.0f,  1.0f, -1.0f));
+        vbf1.setPositionAt(7,glm::vec3( 1.0f, -1.0f, -1.0f));
 	
 	//set vextex colors
 	vbf1.setDiffuseAt(0,0xFF0000FF);
@@ -97,14 +100,14 @@ void SFMLRoot::init(){
 	vbf1.setDiffuseAt(7,0xFFFFC0C0);
 	
 	//set texture vextices
-	vbf1.setTextureAt(0,0,screen::math::Vector2f(0.0f, 1.0f));
-	vbf1.setTextureAt(1,0,screen::math::Vector2f(0.0f, 0.0f));
-	vbf1.setTextureAt(2,0,screen::math::Vector2f(1.0f, 0.0f));
-	vbf1.setTextureAt(3,0,screen::math::Vector2f(1.0f, 1.0f));
-	vbf1.setTextureAt(4,0,screen::math::Vector2f(0.0f, 1.0f));
-	vbf1.setTextureAt(5,0,screen::math::Vector2f(0.0f, 0.0f));
-	vbf1.setTextureAt(6,0,screen::math::Vector2f(1.0f, 0.0f));
-	vbf1.setTextureAt(7,0,screen::math::Vector2f(1.0f, 1.0f));
+        vbf1.setTextureAt(0,0,glm::vec2(0.0f, 1.0f));
+        vbf1.setTextureAt(1,0,glm::vec2(0.0f, 0.0f));
+        vbf1.setTextureAt(2,0,glm::vec2(1.0f, 0.0f));
+        vbf1.setTextureAt(3,0,glm::vec2(1.0f, 1.0f));
+        vbf1.setTextureAt(4,0,glm::vec2(0.0f, 1.0f));
+        vbf1.setTextureAt(5,0,glm::vec2(0.0f, 0.0f));
+        vbf1.setTextureAt(6,0,glm::vec2(1.0f, 0.0f));
+        vbf1.setTextureAt(7,0,glm::vec2(1.0f, 1.0f));
 	
 //	vb1 = new screen::core::objects::VertexBuffer<Vertex>(
 //			renderer->createVertexBuffer<Vertex>(vbf1->getSize(),screen::core::STATIC_DRAW,vbf1->get<Vertex>(),vf1));
@@ -118,17 +121,26 @@ void SFMLRoot::init(){
 
 	texture.createFromFile("SCREEN.png", screen::core::PXF_A8R8G8B8);
 	
-	cam.set(0.0f, 2.5f, 2.5f);
-	view.lookAt(cam, cam + screen::math::Vector3f(0.0f, -1.0f, -1.0f));
-	proj.perspectiveFOV(PI/2, 800.0f / 600.0f, 0.1f, 1000.0f);
+        cam = glm::vec3(0.0f, 5.0f, 5.0f);
+        view = glm::lookAt(cam, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        proj = glm::perspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
 
 }
 
-bool SFMLRoot::renderFrame(){
-	rotX.setRotationX((float)timer->getMilliseconds() * 0.05f / 180 * PI);
-	rotY.setRotationY((float)timer->getMilliseconds() * 0.03f / 180 * PI);
-	rotZ.setRotationZ((float)timer->getMilliseconds() * 0.09f / 180 * PI);
-	renderer->setMatrix(screen::core::MATRIX_VIEW, (rotX*rotY*rotZ*view));
+bool SFMLRoot::renderFrame(){        
+        glm::mat4 rotX = glm::rotate(
+                    view,
+                    (float)timer->getMilliseconds() * 0.05f,
+                    glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::mat4 rotXY = glm::rotate(
+                    rotX,
+                    (float)timer->getMilliseconds() * 0.03f,
+                    glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 rotXYZ = glm::rotate(
+                    rotXY,
+                    (float)timer->getMilliseconds() * 0.08f,
+                    glm::vec3(0.0f, 0.0f, 1.0f));
+        renderer->setMatrix(screen::core::MATRIX_VIEW, rotXYZ);
 	renderer->setMatrix(screen::core::MATRIX_PROJECTION, proj);
 	renderer->setTexture(texture);
 	renderer->setVertexBuffer(*(vb1.get<Vertex>()));
