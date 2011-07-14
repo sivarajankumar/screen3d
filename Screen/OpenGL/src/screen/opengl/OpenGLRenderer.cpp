@@ -27,6 +27,7 @@
 #include <screen/core/objects/TextureBase.h>
 #include <screen/math/Matrix4x4f.h>
 #include <screen/math/Vector2i.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #define BUFFER_OFFSET(n) ((char*)NULL + (n))
 
@@ -140,27 +141,27 @@ namespace screen {
     	    glPopMatrix();
     	}
 
-    	void OpenGLRenderer::setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){
+        void OpenGLRenderer::setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){
     	    if (type >= screen::core::MATRIX_TEXTURE0)
     	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
-    	    glLoadMatrixf(matrix);
+            glLoadMatrixf(glm::value_ptr(matrix));
     	}
 
-    	void OpenGLRenderer::multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix){
+        void OpenGLRenderer::multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){
     	    if (type >= screen::core::MATRIX_TEXTURE0)
     	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
     	    glMatrixMode(glMatrixType[type]);
-    	    glMultMatrixf(matrix);
+            glMultMatrixf(glm::value_ptr(matrix));
     	}
 
-    	void OpenGLRenderer::getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix){
+        void OpenGLRenderer::getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix){
     	    if (type >= screen::core::MATRIX_TEXTURE0)
     	        glActiveTextureARB(GL_TEXTURE0_ARB + type - screen::core::MATRIX_TEXTURE0);
 
-    	    glGetFloatv(glMatrixType[type], matrix);
+            glGetFloatv(glMatrixType[type], glm::value_ptr(matrix));
     	}
     	
     	unsigned long OpenGLRenderer::convertColor(const screen::core::Color& color) const{

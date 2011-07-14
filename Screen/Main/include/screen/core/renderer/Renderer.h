@@ -35,7 +35,7 @@
 #include <screen/core/objects/Texture.h>
 #include <screen/core/renderer/RenderWindow.h>
 #include <screen/core/Enums.h>
-#include <screen/math/Matrix4x4f.h>
+#include <glm/glm.hpp>
 #include <screen/math/Vector2i.h>
 #include <screen/utils/Declaration.h>
 
@@ -63,9 +63,9 @@ namespace screen {
 
 			virtual void pushMatrix(screen::core::MatrixType type) = 0;
 			virtual void popMatrix(screen::core::MatrixType type) = 0;
-			virtual void setMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix) = 0;
-			virtual void multipleMatrix(screen::core::MatrixType type, const screen::math::Matrix4x4f& matrix) = 0;
-			virtual void getMatrix(screen::core::MatrixType type, screen::math::Matrix4x4f& matrix) = 0;
+                        virtual void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
+                        virtual void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
+                        virtual void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix) = 0;
 			
 			virtual unsigned long convertColor(const Color& color) const = 0;
 			virtual const Color& retrieveColor(unsigned long color) const = 0;

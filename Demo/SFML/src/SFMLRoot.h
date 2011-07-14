@@ -27,9 +27,8 @@
 #include <screen/core/objects/IndexBuffer.h>
 #include <screen/core/objects/Texture.h>
 #include <screen/core/objects/VertexBufferFiller.h>
-#include <screen/math/Vector3f.h>
-#include <screen/math/Matrix4x4f.h>
 #include <screen/core/Root.h>
+
 
 class SFMLRoot : public screen::core::Root {
 public:
@@ -48,8 +47,8 @@ private:
 	screen::core::objects::VertexBufferHandler vb1;
 	screen::core::objects::IndexBuffer<unsigned short>::SmartPtr ib;
 	screen::core::objects::Texture texture;
-	screen::math::Vector3f cam;
-	screen::math::Matrix4x4f view,proj,rotX,rotY,rotZ;
+        glm::vec3 cam;
+        glm::mat4x4 view,proj,rotX,rotY,rotZ;
 };
 
 #endif

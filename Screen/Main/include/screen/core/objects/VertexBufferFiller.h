@@ -27,6 +27,7 @@
 #include <screen/core/Enums.h>
 #include <screen/utils/Declaration.h>
 #include <screen/main/Export.h>
+#include <glm/glm.hpp>
 #include <vector>
 
 namespace screen{
@@ -43,15 +44,15 @@ namespace screen{
 				VertexBufferFiller(const VertexFormat::SmartPtr& vf);
 				~VertexBufferFiller();
 				
-				void setPositionAt(unsigned int i, const screen::math::Vector3f& vector);
-				void setNormalAt(unsigned int i, const screen::math::Vector3f& vector);
+                                void setPositionAt(unsigned int i, const glm::vec3& vector);
+                                void setNormalAt(unsigned int i, const glm::vec3& vector);
 				void setDiffuseAt(unsigned int i, const screen::core::Color& color);
-				void setTextureAt(unsigned int i, unsigned int textureNumber, const screen::math::Vector2f& vector);
+                                void setTextureAt(unsigned int i, unsigned int textureNumber, const glm::vec2& vector);
 				
-				void getPositionAt(unsigned int i, screen::math::Vector3f& vector) const;
-				void getNormalAt(unsigned int i, screen::math::Vector3f& vector) const;
+                                void getPositionAt(unsigned int i, glm::vec3& vector) const;
+                                void getNormalAt(unsigned int i, glm::vec3& vector) const;
 				void getDiffuseAt(unsigned int i, screen::core::Color& color) const;
-				void getTextureAt(unsigned int i, unsigned int textureNumber, screen::math::Vector2f& vector) const;
+                                void getTextureAt(unsigned int i, unsigned int textureNumber, glm::vec2& vector) const;
 				
 				template <class T>
 				const T* get() const;
