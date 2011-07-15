@@ -71,7 +71,7 @@ namespace screen{
 		unsigned long val = 0; \
 		SCREEN_LOG_DEBUG("current buffer assignment = " << cur+j); \
                 ::memcpy(&val,&vector[j],sizeof(unsigned long)); \
-		SCREEN_LOG_DEBUG("|" << val << "|" << vector(j) << "|"); \
+                SCREEN_LOG_DEBUG("|" << val << "|" << vector[j] << "|"); \
 		buffer[cur+j] = val; \
 	} \
 	bufferSize = max(bufferSize,i+1);
