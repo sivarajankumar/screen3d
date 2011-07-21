@@ -38,10 +38,11 @@
 
 namespace screen {
 	namespace memory {
-		SINGLETON_IMPL(UniqueSingleton,BufferManager)
+		SINGLETON_IMPL(UniqueSingleton,BufferManager);
 
 		BufferManager::BufferManager(){
-			SCREEN_DECL_CONSTRUCTOR(BufferManager)
+			SCREEN_DECL_CONSTRUCTOR(BufferManager);
+			policy = new screen::memory::policies::BufferPolicyHandler<>(*this);
 			LOG_STACKS;
 		}
 		BufferManager::~BufferManager(){
@@ -67,20 +68,7 @@ namespace screen {
 		unsigned int BufferManager::calculateSizeFromStack(int stackNumber){
 			SCREEN_DECL_STATIC_METHOD(calculateSizeFromStack)
 			return SCREEN_MEMORY_DEFAULT_MIN_SIZE*screen::math::power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
-		}
-
-#define createBuffer(buffer,bufferSize) \
-	void* buffer = ::malloc(bufferSize); \
-	if(buffer==NULL){ \
-		garbage(); \
-		buffer = ::malloc(bufferSize); \
-		if(buffer==NULL){ \
-			std::stringstream ss; \
-			ss << "Unable to allocate a buffer of size " << bufferSize; \
-			throw screen::utils::Exception(ss.str()); \
-		} \
-	}
-		
+		}		
 
 		BufferBase* BufferManager::getNewBufferBase(unsigned int size){
 			SCREEN_DECL_METHOD(getNewBufferBase)
@@ -90,14 +78,8 @@ namespace screen {
 			if(i>=numberOfStack) {
 				//in case of asked buffer is larger than the maximum size of a buffer => new big buffer
 				SCREEN_LOG_DEBUG("allocate big buffer of size " << size << " and effective size " << bufferSize);
-				createBuffer(buffer,bufferSize);
+				void* buffer = policy->createBuffer(bufferSize);
 
-				//bad way to retrieve and update (2 finds into map)
-				/*BufferBase bigBase(buffer, size);
-				bigBuffers[buffer] = bigBase;
-				return &(bigBuffers[buffer]);*/
-				
-				//new way : avoid dual map search
 				BufferBase& bigBase = bigBuffers[buffer];
 				bigBase.bufferPtr = buffer;
 				bigBase.size = size;
@@ -106,13 +88,8 @@ namespace screen {
 			} else if(unlockedBuffers[i].empty()){
 				//if there aren't free buffers of the same size => new buffer
 				SCREEN_LOG_DEBUG("allocate new buffer in stack " << i << " of size " << size << " and effective size " << bufferSize);
-				createBuffer(newBuffer,bufferSize);
+				void* newBuffer = policy->createBuffer(bufferSize);
 				
-				//bad way to retrieve and update (2 finds into map)
-				/*buffers[i][newBuffer] = BufferBase(newBuffer, size);
-				return &(buffers[i][newBuffer]);*/
-				
-				//new way : avoid dual map search
 				BufferBase& base = buffers[i][newBuffer];
 				base.bufferPtr = newBuffer;
 				base.size = size;
@@ -129,8 +106,6 @@ namespace screen {
 			}
 		}
 
-#undef createBuffer
-		
 		void BufferManager::addToUnlocked(BufferBase* bufferBase){
 			SCREEN_DECL_METHOD(addToUnlocked)
 			LOG_STACKS;

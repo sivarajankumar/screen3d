@@ -24,25 +24,30 @@
 
 #include <screen/utils/Singleton.h>
 #include <screen/utils/Declaration.h>
+#include <screen/utils/SmartPtr.h>
 #include <screen/memory/Export.h>
 #include <screen/memory/BufferBase.h>
 #include <screen/memory/Defaults.h>
+#include <screen/memory/policies/BufferPolicyHandler.h>
 #include <stack>
 #include <set>
 
 namespace screen {
 	namespace memory {
 		class SCREEN_MEMORY_EXPORT BufferManager : public screen::utils::UniqueSingleton<BufferManager>{
-			SCREEN_DECL_CLASS(screen::memory::BufferManager)
-			SINGLETON_DECL(UniqueSingleton,BufferManager)
+			SCREEN_DECL_CLASS(screen::memory::BufferManager);
+			SINGLETON_DECL(UniqueSingleton,BufferManager);
 			friend class Buffer;
 		public:
 			BufferManager();
 			~BufferManager();
 
+			void attachPolicyHandler(screen::memory::policies::BufferPolicyHandlerInterface* policy);
+
 			BufferBase* getNewBufferBase(unsigned int size);
 			void addToUnlocked(BufferBase* bufferBase);
-			BufferBase* replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize);			unsigned int garbage();
+			BufferBase* replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize);
+			unsigned int garbage();
 
 		private:
 			static int calculateStackNumber(unsigned int size);
@@ -66,6 +71,10 @@ namespace screen {
 			std::map<void*,BufferBase> buffers[numberOfStack];
 			std::stack<BufferBase*> unlockedBuffers[numberOfStack];
 			std::map<void*,BufferBase> bigBuffers;
+
+			screen::utils::SmartPtr<
+				screen::memory::policies::BufferPolicyHandlerInterface,
+				screen::utils::ScopePolicy> policy;
 		};
 	}
 }
