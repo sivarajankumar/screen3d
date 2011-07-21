@@ -58,10 +58,6 @@ namespace screen {
 	        int* counter;
 	    };
 	
-	    ////////////////////////////////////////////////////////////
-	    /// Police de pointeur intelligent :
-	    /// objets COM et ressources du moteur - comptage de référence intrusif
-	    ////////////////////////////////////////////////////////////
 	    template <class T>
 	    class ResourceSmartPolicy{
 	    	SCREEN_DECL_CLASS(ResourceSmartPolicy)
@@ -83,6 +79,31 @@ namespace screen {
 	        	SCREEN_DECL_METHOD(swap)
 	        }
 	    };
+
+		template <class T>
+		class ScopePolicy{
+			SCREEN_DECL_CLASS(ScopePolicy)
+		public :
+			T* clone(T* ptr){
+				SCREEN_DECL_METHOD(clone)
+				if (ptr){
+					T* newPtr = new T(*ptr);
+					return newPtr;
+				}
+				else
+					return NULL;
+			}
+
+			void release(T* ptr){
+				SCREEN_DECL_METHOD(release)
+				delete ptr;
+			}
+
+			void swap(ScopePolicy& ssp){
+				SCREEN_DECL_METHOD(swap)
+			}
+		};
+
 	}
 }
 
