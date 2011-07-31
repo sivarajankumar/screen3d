@@ -19,31 +19,37 @@
 * http://www.gnu.org/copyleft/lesser.txt.                                   *
 *****************************************************************************/
 
-#include <screen/memory/policies/CreateWithMalloc.h>
+#include <screen/memory/policies/BasicStackSelector.h>
 #include <screen/memory/policies/BufferPolicyHandler.h>
+#include <screen/math/Other.h>
 #include <screen/utils/Exception.h>
 
 namespace screen{
 	namespace memory{
 		namespace policies{
-			CreateWithMalloc::CreateWithMalloc(BufferPolicyHandlerInterface* interface)
+			BasicStackSelector::BasicStackSelector(BufferPolicyHandlerInterface* interface)
 				:interface(interface){
-				SCREEN_DECL_CONSTRUCTOR(CreateWithMalloc);
+				SCREEN_DECL_CONSTRUCTOR(StackSelector);
 			}
 
-			void* CreateWithMalloc::createBuffer(size_t bufferSize){
-				SCREEN_DECL_METHOD(createBuffer);
-				void* buffer = ::malloc(bufferSize);
-				if(buffer==NULL){
-					interface->garbage();
-					buffer = ::malloc(bufferSize);
-					if(buffer==NULL){
-						std::stringstream ss;
-						ss << "Unable to allocate a buffer of size " << bufferSize;
-						throw screen::utils::Exception(ss.str());
-					}
+			int BasicStackSelector::calculateStackNumber(unsigned int size){
+				SCREEN_DECL_METHOD(calculateStackNumber);
+				unsigned int tmp = size;
+				unsigned int ret = SCREEN_MEMORY_DEFAULT_MIN_SIZE;
+				unsigned int number = 0;
+
+				while (tmp > SCREEN_MEMORY_DEFAULT_MIN_SIZE){
+					tmp /= SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER;
+					ret *= SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER;
+					++number;
 				}
-				return buffer;
+
+				return ret >= size ? number : number+1;
+			}
+
+			unsigned int BasicStackSelector::calculateSizeFromStack(int stackNumber){
+				SCREEN_DECL_METHOD(calculateSizeFromStack);
+				return SCREEN_MEMORY_DEFAULT_MIN_SIZE*screen::math::power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,stackNumber);
 			}
 		}
 	}

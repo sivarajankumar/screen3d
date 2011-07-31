@@ -81,7 +81,9 @@ namespace screen {
 
 		unsigned int Buffer::effectiveSize() const{
 			SCREEN_DECL_METHOD(effectiveSize)
-			return BufferManager::calculateSizeFromStack(BufferManager::calculateStackNumber(size()));
+			return BufferManager::instance()->calculateSizeFromStack(
+						BufferManager::instance()->calculateStackNumber(size())
+					);
 		}
 
 		void Buffer::unlock(){

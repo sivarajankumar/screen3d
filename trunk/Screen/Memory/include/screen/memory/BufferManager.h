@@ -27,7 +27,6 @@
 #include <screen/utils/SmartPtr.h>
 #include <screen/memory/Export.h>
 #include <screen/memory/BufferBase.h>
-#include <screen/memory/Defaults.h>
 #include <screen/memory/policies/BufferPolicyHandler.h>
 #include <stack>
 #include <set>
@@ -49,28 +48,8 @@ namespace screen {
 			BufferBase* replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize);
 			unsigned int garbage();
 
-		private:
-			static int calculateStackNumber(unsigned int size);
-			static unsigned int calculateSizeFromStack(int stackNumber);
-					
-			template <unsigned int min, unsigned int max, unsigned int multiplier>
-			struct _NumberOfStacks {
-				enum{ result = _NumberOfStacks<min*multiplier, max, multiplier >::result+1 };
-			};
-
-			template <unsigned int value, unsigned int multiplier>
-			struct _NumberOfStacks<value, value, multiplier> {
-				enum{ result = 1 };
-			};
-
-			static const unsigned int numberOfStack = _NumberOfStacks<
-					SCREEN_MEMORY_DEFAULT_MIN_SIZE,
-					SCREEN_MEMORY_DEFAULT_MAX_SIZE,
-					SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER >::result;
-
-			std::map<void*,BufferBase> buffers[numberOfStack];
-			std::stack<BufferBase*> unlockedBuffers[numberOfStack];
-			std::map<void*,BufferBase> bigBuffers;
+			int calculateStackNumber(unsigned int size);
+			unsigned int calculateSizeFromStack(int stackNumber);
 
 			screen::utils::SmartPtr<
 				screen::memory::policies::BufferPolicyHandlerInterface,
