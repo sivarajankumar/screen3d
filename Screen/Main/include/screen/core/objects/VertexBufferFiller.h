@@ -25,6 +25,7 @@
 #include <screen/core/objects/VertexFormat.h>
 #include <screen/utils/SmartPtr.h>
 #include <screen/core/Enums.h>
+#include <screen/memory/TypedBuffer.h>
 #include <screen/utils/Declaration.h>
 #include <screen/main/Export.h>
 #include <glm/glm.hpp>
@@ -68,8 +69,7 @@ namespace screen{
 				typedef std::pair<VertexInfoPosition,VertexInfoSize> VertexInfo;
 				VertexInfo vertexInfo[screen::core::NB_VERTEX_USAGE];
 				unsigned int stepSize;
-				std::vector<unsigned long> buffer;
-				unsigned int bufferSize;
+				screen::memory::TypedBuffer<unsigned long> buffer;
 			};
 			
 			template <class T>
@@ -79,12 +79,14 @@ namespace screen{
 				SCREEN_LOG_DEBUG("buffer");
 				std::stringstream s;
 				s << "|";
-				for(int i=0; i<buffer.size(); i++){
-					s << buffer[i] << "|";
+				const unsigned long* bufferContent = buffer.getAt(0);
+				size_t size = buffer.size();
+				for(int i=0; i<size; i++){
+					s << bufferContent[i] << "|";
 				}
 				SCREEN_LOG_DEBUG(s.str());
 #endif
-				return reinterpret_cast<const T*>(&buffer[0]);
+				return reinterpret_cast<const T*>(buffer.getAt(0));
 			}
 		}
 	}
