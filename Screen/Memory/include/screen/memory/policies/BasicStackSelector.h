@@ -19,32 +19,48 @@
 * http://www.gnu.org/copyleft/lesser.txt.                                   *
 *****************************************************************************/
 
-#include <screen/memory/policies/CreateWithMalloc.h>
-#include <screen/memory/policies/BufferPolicyHandler.h>
-#include <screen/utils/Exception.h>
+#ifndef SCREEN_MEMORY_POLICIES_STACK_SELECTOR_H
+#define SCREEN_MEMORY_POLICIES_STACK_SELECTOR_H
+
+#include <screen/utils/Declaration.h>
+#include <screen/memory/Defaults.h>
+#include <screen/memory/Export.h>
 
 namespace screen{
 	namespace memory{
 		namespace policies{
-			CreateWithMalloc::CreateWithMalloc(BufferPolicyHandlerInterface* interface)
-				:interface(interface){
-				SCREEN_DECL_CONSTRUCTOR(CreateWithMalloc);
-			}
+			class BufferPolicyHandlerInterface;
 
-			void* CreateWithMalloc::createBuffer(size_t bufferSize){
-				SCREEN_DECL_METHOD(createBuffer);
-				void* buffer = ::malloc(bufferSize);
-				if(buffer==NULL){
-					interface->garbage();
-					buffer = ::malloc(bufferSize);
-					if(buffer==NULL){
-						std::stringstream ss;
-						ss << "Unable to allocate a buffer of size " << bufferSize;
-						throw screen::utils::Exception(ss.str());
-					}
-				}
-				return buffer;
-			}
+			class SCREEN_MEMORY_EXPORT BasicStackSelector{
+				SCREEN_DECL_CLASS(screen::memory::policies::BasicStackSelector);
+			public:
+				BasicStackSelector(BufferPolicyHandlerInterface* interface);
+				int calculateStackNumber(unsigned int size);
+				unsigned int calculateSizeFromStack(int stackNumber);
+
+				template <unsigned int min, unsigned int max, unsigned int multiplier>
+				struct _NumberOfStacks {
+					enum{ result = _NumberOfStacks<min*multiplier, max, multiplier >::result+1 };
+				};
+
+				template <unsigned int value, unsigned int multiplier>
+				struct _NumberOfStacks<value, value, multiplier> {
+					enum{ result = 1 };
+				};
+
+				enum {
+					minBufferSize = SCREEN_MEMORY_DEFAULT_MIN_SIZE,
+					maxBufferSize = SCREEN_MEMORY_DEFAULT_MAX_SIZE,
+					numberOfStacks = _NumberOfStacks<
+						SCREEN_MEMORY_DEFAULT_MIN_SIZE,
+						SCREEN_MEMORY_DEFAULT_MAX_SIZE,
+						SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER >::result
+				};
+			private:
+				BufferPolicyHandlerInterface* interface;
+			};
 		}
 	}
 }
+
+#endif

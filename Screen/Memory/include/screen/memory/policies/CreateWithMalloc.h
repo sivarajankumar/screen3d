@@ -27,15 +27,16 @@
 
 namespace screen{
 	namespace memory{
-		class BufferManager;
-
 		namespace policies{
+			class BufferPolicyHandlerInterface;
+
 			class SCREEN_MEMORY_EXPORT CreateWithMalloc{
+				SCREEN_DECL_CLASS(screen::memory::policies::CreateWithMalloc);
 			public:
-				CreateWithMalloc(screen::memory::BufferManager& bufferManager);
+				CreateWithMalloc(BufferPolicyHandlerInterface* interface);
 				void* createBuffer(size_t bufferSize);
 			private:
-				screen::memory::BufferManager& bufferManager;
+				BufferPolicyHandlerInterface* interface;
 			};
 		}
 	}

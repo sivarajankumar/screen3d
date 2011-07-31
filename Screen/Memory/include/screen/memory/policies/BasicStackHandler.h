@@ -19,32 +19,44 @@
 * http://www.gnu.org/copyleft/lesser.txt.                                   *
 *****************************************************************************/
 
-#include <screen/memory/policies/CreateWithMalloc.h>
-#include <screen/memory/policies/BufferPolicyHandler.h>
-#include <screen/utils/Exception.h>
+#ifndef SCREEN_MEMORY_POLICIES_BASIC_STACK_HANDLER_H
+#define SCREEN_MEMORY_POLICIES_BASIC_STACK_HANDLER_H
+
+#include <screen/utils/Declaration.h>
+#include <screen/memory/BufferBase.h>
+#include <screen/memory/Export.h>
 
 namespace screen{
 	namespace memory{
 		namespace policies{
-			CreateWithMalloc::CreateWithMalloc(BufferPolicyHandlerInterface* interface)
-				:interface(interface){
-				SCREEN_DECL_CONSTRUCTOR(CreateWithMalloc);
-			}
+			class BufferPolicyHandlerInterface;
 
-			void* CreateWithMalloc::createBuffer(size_t bufferSize){
-				SCREEN_DECL_METHOD(createBuffer);
-				void* buffer = ::malloc(bufferSize);
-				if(buffer==NULL){
-					interface->garbage();
-					buffer = ::malloc(bufferSize);
-					if(buffer==NULL){
-						std::stringstream ss;
-						ss << "Unable to allocate a buffer of size " << bufferSize;
-						throw screen::utils::Exception(ss.str());
-					}
-				}
-				return buffer;
-			}
+			template<class StackSelectorPolicy>
+			class SCREEN_MEMORY_EXPORT BasicStackHandler{
+				SCREEN_DECL_CLASS(screen::memory::policies::BasicStackHandler);
+			public:
+				BasicStackHandler(BufferPolicyHandlerInterface* interface);
+				~BasicStackHandler();
+
+				BufferBase* getNewBufferBase(unsigned int size);
+				void addToUnlocked(BufferBase* bufferBase);
+				BufferBase* replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize);
+				unsigned int garbage();
+
+				enum {
+					minBufferSize = StackSelectorPolicy::minBufferSize,
+					maxBufferSize = StackSelectorPolicy::maxBufferSize,
+					numberOfStacks = StackSelectorPolicy::numberOfStacks
+				};
+			private:
+				BufferPolicyHandlerInterface* interface;
+
+				std::map<void*,BufferBase> buffers[numberOfStacks];
+				std::stack<BufferBase*> unlockedBuffers[numberOfStacks];
+				std::map<void*,BufferBase> bigBuffers;
+			};
 		}
 	}
 }
+
+#endif
