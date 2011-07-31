@@ -27,13 +27,11 @@
 
 const unsigned int vertexTypeSize[screen::core::NB_VERTEX_TYPE] = {1,2,3,4,1};
 
-#define BUFFER_MIN_SIZE 10
-
 namespace screen{
 	namespace core{
 		namespace objects{
 			VertexBufferFiller::VertexBufferFiller(const VertexFormat::SmartPtr& vf)
-				:vf(vf),stepSize(0),buffer(BUFFER_MIN_SIZE,0),bufferSize(0){
+				:vf(vf),stepSize(0),buffer(){
 				SCREEN_DECL_CONSTRUCTOR(VertexBufferFiller)
 				//fill table with position and size of the usage
 				for(unsigned int i=0; i<screen::core::NB_VERTEX_USAGE; i++){
@@ -61,50 +59,32 @@ namespace screen{
 			}
 			
 #define SET_VECTOR(vertexUsage,inputSize) \
-	using namespace std; \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
-	if(cur+vertexInfo[vertexUsage].second>buffer.size()){ \
-		SCREEN_LOG_DEBUG("resize vextex buffer"); \
-		buffer.resize(buffer.size()*2,0); \
-	} \
-	for(int j=0; j<vertexInfo[vertexUsage].second; j++){ \
-		unsigned long val = 0; \
-		SCREEN_LOG_DEBUG("current buffer assignment = " << cur+j); \
-                ::memcpy(&val,&vector[j],sizeof(unsigned long)); \
-                SCREEN_LOG_DEBUG("|" << val << "|" << vector[j] << "|"); \
-		buffer[cur+j] = val; \
-	} \
-	bufferSize = max(bufferSize,i+1);
+	const unsigned long* longBuffer = reinterpret_cast<const unsigned long*>(&vector[0]); \
+	buffer.setAt(cur, longBuffer, inputSize);
 			
 #define GET_VECTOR(vertexUsage,inputSize) \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
 	for(unsigned int j=0; j<vertexInfo[vertexUsage].second; j++){ \
 		float val; \
-		::memcpy(&val,&buffer[cur+j],sizeof(float)); \
-                vector[j] = val; \
+		::memcpy(&val,buffer.getAt(cur+j),sizeof(float)); \
+		vector[j] = val; \
 	}
 			
 #define SET_COLOR(vertexUsage) \
-	using namespace std; \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
-	if(cur+vertexInfo[vertexUsage].second>buffer.size()){ \
-		SCREEN_LOG_DEBUG("resize vextex buffer"); \
-		buffer.resize(buffer.size()*2,0); \
-	} \
-	SCREEN_LOG_DEBUG("current buffer assignment = " << cur); \
-	buffer[cur] = Renderer::get()->convertColor(color); \
-	SCREEN_LOG_DEBUG("|" << color.convertABGR() << "|"); \
-	bufferSize = max(bufferSize,i+1);
+	unsigned long longColor = Renderer::get()->convertColor(color); \
+	buffer.setAt(cur, &longColor, 1);
 
 #define GET_COLOR(vertexUsage) \
 	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
-	color = Renderer::get()->retrieveColor(buffer[cur]);
+	color = Renderer::get()->retrieveColor(*(buffer.getAt(cur)));
 			
-                        void VertexBufferFiller::setPositionAt(unsigned int i, const glm::vec3& vector){
+			void VertexBufferFiller::setPositionAt(unsigned int i, const glm::vec3& vector){
 				SCREEN_DECL_METHOD(setPositionAt)
 				SET_VECTOR(screen::core::VERTEX_USAGE_POSITION,3);
 			}
-                        void VertexBufferFiller::setNormalAt(unsigned int i, const glm::vec3& vector){
+			void VertexBufferFiller::setNormalAt(unsigned int i, const glm::vec3& vector){
 				SCREEN_DECL_METHOD(setNormalAt)
 				SET_VECTOR(screen::core::VERTEX_USAGE_NORMAL,3);
 			}
@@ -112,16 +92,16 @@ namespace screen{
 				SCREEN_DECL_METHOD(setDiffuseAt)
 				SET_COLOR(screen::core::VERTEX_USAGE_DIFFUSE);
 			}
-                        void VertexBufferFiller::setTextureAt(unsigned int i, unsigned int textureNumber, const glm::vec2& vector){
+			void VertexBufferFiller::setTextureAt(unsigned int i, unsigned int textureNumber, const glm::vec2& vector){
 				SCREEN_DECL_METHOD(setTextureAt)
 				SET_VECTOR(screen::core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
 			}
 			
-                        void VertexBufferFiller::getPositionAt(unsigned int i, glm::vec3& vector) const{
+			void VertexBufferFiller::getPositionAt(unsigned int i, glm::vec3& vector) const{
 				SCREEN_DECL_METHOD(getPositionAt)
 				GET_VECTOR(screen::core::VERTEX_USAGE_POSITION,3);
 			}
-                        void VertexBufferFiller::getNormalAt(unsigned int i, glm::vec3& vector) const{
+			void VertexBufferFiller::getNormalAt(unsigned int i, glm::vec3& vector) const{
 				SCREEN_DECL_METHOD(getNormalAt)
 				GET_VECTOR(screen::core::VERTEX_USAGE_NORMAL,3);
 			}
@@ -129,15 +109,15 @@ namespace screen{
 				SCREEN_DECL_METHOD(getDiffuseAt)
 				GET_COLOR(screen::core::VERTEX_USAGE_DIFFUSE);
 			}
-                        void VertexBufferFiller::getTextureAt(unsigned int i, unsigned int textureNumber, glm::vec2& vector) const{
+			void VertexBufferFiller::getTextureAt(unsigned int i, unsigned int textureNumber, glm::vec2& vector) const{
 				SCREEN_DECL_METHOD(getTextureAt)
 				GET_VECTOR(screen::core::VERTEX_USAGE_TEXCOORD0 + textureNumber,2);
 			}
 			
 			unsigned int VertexBufferFiller::getSize() const{
 				SCREEN_DECL_METHOD(getSize)
-				SCREEN_LOG_DEBUG("Vertex buffer size = " << bufferSize);
-				return bufferSize;
+				SCREEN_LOG_DEBUG("Vertex buffer size = " << buffer.size());
+				return buffer.size();
 			}
 			
 			const VertexFormat::SmartPtr& VertexBufferFiller::getVertexFormat() const{
