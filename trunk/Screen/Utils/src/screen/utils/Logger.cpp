@@ -88,6 +88,5 @@ screen::utils::Logger::Logger()
         :reporter(NULL) {}
 
 screen::utils::Logger::~Logger() {
-    if(reporter==NULL)
-        delete reporter;
+    delete reporter;
 }
