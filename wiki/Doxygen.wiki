@@ -104,8 +104,8 @@ There are several other useful commands to use inside a comment bloc :
  * {{{\c}}} : to use a typewriter font for the next word.
  * {{{\e}}} or {{{\em}}} : to use italic font for the next word.
  * {{{\code}}} : to start a bloc of code (end with {{{\endcode}}}).
- * {{{\dot}}} : to start a bloc containing a valid description of a dot graph (end with {{{\enddot}}}). See Doxygen documentation for more informations.
- * {{{\msc}}} : to start a bloc containing a valid description message sequence chart (end with {{{\endmsc}}}). See Doxygen documentation for more informations.
+ * {{{\dot}}} : to start a bloc containing a valid description of a dot graph (end with {{{\enddot}}}). See Doxygen documentation for more information.
+ * {{{\msc}}} : to start a bloc containing a valid description message sequence chart (end with {{{\endmsc}}}). See Doxygen documentation for more information.
  * {{{\verbatim}}} : to start a bloc where commands are not interpreted (end with {{{\endverbatim}}}).
  * {{{\f$}}} : to start an in-line LateX mathematics formula (end with {{{\f$}}}). See Latex Documentation.
  * {{{\f[}}} : to start an long LateX mathematics formula (end with {{{\f]}}}). See Latex Documentation.
