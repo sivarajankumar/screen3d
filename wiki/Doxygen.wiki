@@ -192,7 +192,7 @@ namespace DoxygenPres
      void add(std::string thing);
 
   };
-};
+}
 
 #endif
 
