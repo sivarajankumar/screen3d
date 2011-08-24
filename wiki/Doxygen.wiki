@@ -178,7 +178,7 @@ namespace DoxygenPres
      *  \param[int] thing: thing to add
      *  \return true if added
      */
-    bool add(std::string thing);
+    bool add2(std::string thing);
 
     /**
      * \brief add to list
