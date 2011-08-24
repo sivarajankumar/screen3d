@@ -83,6 +83,12 @@ void memcpy(void *dest, const void *src, size_t n);
 
 }}}
 
+== \tparam command ==
+
+Starts a template parameter for a class or function template parameter with name \<template-parameter-name\>, followed by a description of the template parameter.
+You must use it like this:
+{{{\tparam <template-parameter-name> { description }}}}
+
 == \return command ==
 
 The \return command, describe the return value of a function.
