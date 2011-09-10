@@ -23,7 +23,9 @@
 #include <screen/core/objects/BufferBase.h>
 #include <screen/core/objects/Buffer.h>
 #include <screen/core/objects/IndexBuffer.h>
+#include <screen/core/objects/IndexBufferFiller.h>
 #include <screen/core/objects/VertexBuffer.h>
+#include <screen/core/objects/VertexBufferFiller.h>
 #include <screen/core/objects/VertexFormat.h>
 #include <screen/core/Enums.h>
 #include <screen/test/utils/FakeRenderer.h>
@@ -140,5 +142,45 @@ namespace screen {
 			}
 			VertexBuffer<void> vb4 = renderer.createVertexBuffer<void>(8,STATIC_DRAW,Vertices1,vf2);
 		}
+
+		void TestBuffer::testIndexBufferFiller(){
+			screen::core::objects::IndexBufferFiller indexBufferFiller;
+			indexBufferFiller.setAt(0,42);
+			indexBufferFiller.setAt(1,69);
+
+			//basic tests
+
+			unsigned int fourtyTwo = 0;
+			indexBufferFiller.getAt(0,fourtyTwo);
+			CPPUNIT_ASSERT(fourtyTwo == 42);
+
+			unsigned int sexyNumber = 0;
+			indexBufferFiller.getAt(1,sexyNumber);
+			CPPUNIT_ASSERT(sexyNumber == 69);
+
+			CPPUNIT_ASSERT(indexBufferFiller.getIndexSize() == 2);
+
+			const unsigned short* shortBuffer = indexBufferFiller.get<unsigned short>();
+			CPPUNIT_ASSERT(shortBuffer[0] == 42);
+			CPPUNIT_ASSERT(shortBuffer[1] == 69);
+
+			//short -> long convertion tests
+			indexBufferFiller.setAt(4000,65536);
+
+			unsigned int big = 0;
+			indexBufferFiller.getAt(4000,big);
+			CPPUNIT_ASSERT(big == 65536);
+
+			CPPUNIT_ASSERT(indexBufferFiller.getIndexSize() == 4);
+
+			const unsigned long* longBuffer = indexBufferFiller.get<unsigned long>();
+			CPPUNIT_ASSERT(longBuffer[0] == 42);
+			CPPUNIT_ASSERT(longBuffer[1] == 69);
+			CPPUNIT_ASSERT(longBuffer[4000] == 65536);
+		}
+
+		void TestBuffer::testVertexBufferFiller(){
+		}
+
 	}
 }

@@ -32,12 +32,16 @@ namespace screen {
 			CPPUNIT_TEST(testBuffer);
 			CPPUNIT_TEST(testIndexBuffer);
 			CPPUNIT_TEST(testVertexBuffer);
+			CPPUNIT_TEST(testIndexBufferFiller);
+			CPPUNIT_TEST(testVertexBufferFiller);
 			CPPUNIT_TEST_SUITE_END();
 		public:
 			
 			void testBuffer();
 			void testIndexBuffer();
 			void testVertexBuffer();
+			void testIndexBufferFiller();
+			void testVertexBufferFiller();
 		};
 	}
 }
