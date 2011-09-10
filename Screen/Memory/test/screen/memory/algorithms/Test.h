@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2009 Ratouit Thomas                                    *
@@ -19,42 +19,24 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_MEMORY_BUFFER_H
-#define SCREEN_MEMORY_BUFFER_H
+#ifndef SCREEN_MEMORY_ALGORITHMS_TEST_H
+#define SCREEN_MEMORY_ALGORITHMS_TEST_H
 
-#include <screen/utils/Declaration.h>
-#include <screen/memory/Export.h>
+#include <cppunit/TestFixture.h>
+#include <cppunit/extensions/HelperMacros.h>
 
 namespace screen {
-    namespace memory {
-		class BufferBase;
-		
-		class SCREEN_MEMORY_EXPORT Buffer {
-        	SCREEN_DECL_CLASS(screen::memory::Buffer)
-        public:
-			typedef void* pointer;
-			typedef const void* const_pointer;
-
-			Buffer();
-			Buffer(const Buffer& buffer);
-			const Buffer& operator= (const Buffer& buffer);
-            virtual ~Buffer();
-
-			void setAt(unsigned int position,const void* buffer, unsigned int size);
-			const void* getAt(unsigned int position) const;
-			void* getAt(unsigned int position);
-			unsigned int size() const;
-			unsigned int effectiveSize() const;
-			void allocate(unsigned int size);
-				
-			void unlock();
-		protected:
-			bool isLocked() const;
-			void swap(const Buffer& buffer);
-
-			BufferBase* bufferBase;
-        };
-    }
+	namespace memory {
+		namespace algorithms{
+			class Test : public CppUnit::TestFixture {
+				CPPUNIT_TEST_SUITE(Test);
+				CPPUNIT_TEST(testBufferConverter);
+				CPPUNIT_TEST_SUITE_END();
+			public:
+				void testBufferConverter();
+			};
+		}
+	}
 }
 
 #endif
