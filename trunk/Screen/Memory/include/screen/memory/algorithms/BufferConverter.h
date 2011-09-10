@@ -19,75 +19,65 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_MEMORY_TYPED_BUFFER_H
-#define SCREEN_MEMORY_TYPED_BUFFER_H
+#ifndef SCREEN_MEMORY_ALGORITHMS_BUFFER_CONVERTER_H
+#define SCREEN_MEMORY_ALGORITHMS_BUFFER_CONVERTER_H
 
 #include <screen/memory/Buffer.h>
+#include <screen/memory/TypedBuffer.h>
 #include <screen/utils/Declaration.h>
 #include <screen/memory/Export.h>
 
 namespace screen {
     namespace memory {
-		template <class T>		
-		class TypedBuffer {
-        	SCREEN_DECL_CLASS(screen::memory::TypedBuffer)
-        public:
-			typedef T value_type;
-			typedef T* pointer;
-			typedef T& reference;
-			typedef const T* const_pointer;
-			typedef const T& const_reference;
+		namespace algorithms {
+			template <
+				typename Input,
+				typename Output,
+				class Func>
+			class TypedBufferConverter {
+				SCREEN_DECL_CLASS(screen::memory::TypedBufferConverter)
+			public:
+				TypedBufferConverter(){
+					SCREEN_DECL_CONSTRUCTOR(TypedBufferConverter);
+				}
+				TypedBufferConverter(const Func& func)
+					:func(func){
+					SCREEN_DECL_CONSTRUCTOR(TypedBufferConverter);
+				}
+				virtual ~TypedBufferConverter(){
+					SCREEN_DECL_DESTRUCTOR(~TypedBufferConverter);
+				}
 
-			TypedBuffer(){
-				SCREEN_DECL_CONSTRUCTOR(TypedBuffer)
-			}
-			TypedBuffer(const TypedBuffer& typedBuffer)
-				:buffer(typedBuffer.buffer)
-			{
-				SCREEN_DECL_CONSTRUCTOR(TypedBuffer)
-			}
-			const TypedBuffer& operator= (const TypedBuffer& typedBuffer){
-				SCREEN_DECL_METHOD(operator=)
-				buffer = typedBuffer.buffer;
-				return *this;
-			}
-			virtual ~TypedBuffer(){
-				SCREEN_DECL_DESTRUCTOR(~TypedBuffer)
-			}
+				void convert(const screen::memory::TypedBuffer<Input>& input,
+							 screen::memory::TypedBuffer<Output>& output){
+					SCREEN_DECL_METHOD(convert);
 
-			void setAt(unsigned int position,const T* _buffer, unsigned int size){
-				SCREEN_DECL_METHOD(setAt)
-				buffer.setAt(position*sizeof(T),_buffer,size*sizeof(T));
-			}
-			const T* getAt(unsigned int position) const{
-				SCREEN_DECL_METHOD(getAt)
-				return static_cast<const T*>(buffer.getAt(position*sizeof(T)));
-			}
-			T* getAt(unsigned int position){
-				SCREEN_DECL_METHOD(getAt)
-				return static_cast<T*>(buffer.getAt(position*sizeof(T)));
-			}
-			unsigned int size() const{
-				SCREEN_DECL_METHOD(size)
-				return buffer.size()/sizeof(T);
-			}
-			unsigned int effectiveSize() const{
-				SCREEN_DECL_METHOD(effectiveSize)
-				return buffer.effectiveSize()/sizeof(T);
-			}
-			void allocate(unsigned int size){
-				SCREEN_DECL_METHOD(allocate);
-				buffer.allocate(size*sizeof(T));
-			}
+					unsigned int inputSize = input.size();
+					output.allocate(inputSize);
 
-			void unlock(){
-				SCREEN_DECL_METHOD(unlock)
-				buffer.unlock();
-			}
-		private:
-			Buffer buffer;
-        };
-    }
+					const Input* inputTable = input.getAt(0);
+					Output* outputTable = output.getAt(0);
+
+					for(unsigned int i = 0; i<inputSize; i++){
+						func(inputTable[i], outputTable[i]);
+					}
+				}
+
+			private:
+				Func func;
+			};
+
+			template <
+				typename Input,
+				typename Output>
+			struct DefautTypedBufferConverterFunc{
+				void operator ()(const Input& input, Output& output){
+					output = input;
+				}
+			};
+
+		}
+	}
 }
 
 #endif

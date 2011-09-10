@@ -53,10 +53,7 @@ namespace screen {
 		void Buffer::setAt(unsigned int position,const void* buffer, unsigned int size){
 			SCREEN_DECL_METHOD(setAt)
 			int bufSize = position+size;
-			if(!isLocked())
-				bufferBase = BufferManager::instance()->getNewBufferBase(bufSize);
-			else
-				bufferBase = BufferManager::instance()->replaceBufferBase(bufferBase, bufSize);
+			allocate(bufSize);
 			//Assert(bufferBase!=NULL);
 			//Assert(bufferBase->getBuffer()!=NULL);
 			::memcpy((char*)bufferBase->getBuffer()+position, buffer, size);
@@ -70,6 +67,16 @@ namespace screen {
 			}else
 				return NULL;
 		}
+
+		void* Buffer::getAt(unsigned int position){
+			SCREEN_DECL_METHOD(getAt)
+			if(bufferBase != NULL){
+				//Assert(bufferBase->getBuffer()!=NULL);
+				return (char*)bufferBase->getBuffer()+position;
+			}else
+				return NULL;
+		}
+
 		
 		unsigned int Buffer::size() const{
 			SCREEN_DECL_METHOD(size)
@@ -84,6 +91,14 @@ namespace screen {
 			return BufferManager::instance()->calculateSizeFromStack(
 						BufferManager::instance()->calculateStackNumber(size())
 					);
+		}
+
+		void Buffer::allocate(unsigned int size){
+			SCREEN_DECL_METHOD(allocate);
+			if(!isLocked())
+				bufferBase = BufferManager::instance()->getNewBufferBase(size);
+			else
+				bufferBase = BufferManager::instance()->replaceBufferBase(bufferBase, size);
 		}
 
 		void Buffer::unlock(){
