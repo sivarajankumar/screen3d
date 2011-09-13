@@ -55,7 +55,8 @@ namespace screen{
 						converter.convert(shortBuffer,newLongBuffer);
 
 						//set the value in the new buffer
-						operator()(newLongBuffer);
+						unsigned long longValue = value;
+						newLongBuffer.setAt(pos,&longValue,1);
 
 						//set the new long buffer as filler buffer
 						filler.buffer = newLongBuffer;
