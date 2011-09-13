@@ -55,7 +55,7 @@ namespace screen{
 						converter.convert(shortBuffer,newLongBuffer);
 
 						//set the value in the new buffer
-						operator ()(newLongBuffer);
+						operator()(newLongBuffer);
 
 						//set the new long buffer as filler buffer
 						filler.buffer = newLongBuffer;
