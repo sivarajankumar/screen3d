@@ -63,9 +63,9 @@ namespace screen {
 
 			virtual void pushMatrix(screen::core::MatrixType type) = 0;
 			virtual void popMatrix(screen::core::MatrixType type) = 0;
-                        virtual void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
-                        virtual void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
-                        virtual void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix) = 0;
+			virtual void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
+			virtual void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix) = 0;
+			virtual void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix) = 0;
 			
 			virtual unsigned long convertColor(const Color& color) const = 0;
 			virtual const Color& retrieveColor(unsigned long color) const = 0;
@@ -80,7 +80,7 @@ namespace screen {
 	        virtual void drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const = 0;
 	        
 	        virtual TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const = 0;
-			void setTexture(const Texture& texture);
+			void setTexture(unsigned int textureNumber, const Texture& texture);
 	        
 			void init();
 
@@ -97,7 +97,7 @@ namespace screen {
 	        virtual void setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf) = 0;
 	        virtual void setIB(const BufferBase* buffer, unsigned long stride) = 0;
 	        
-	        virtual void setTextureBase(const TextureBase* texture) = 0;
+			virtual void setTextureBase(unsigned int textureNumber, const TextureBase* texture) = 0;
 			
 			screen::core::RenderWindow* renderWindow;
 			

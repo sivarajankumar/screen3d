@@ -323,8 +323,8 @@ namespace screen {
             return new OpenGLTexture(texture, size, pxf, screen::core::TEXTURE_NO_MIPMAP);
         }
         
-        void OpenGLRenderer::setTextureBase(const screen::core::objects::TextureBase* texture){
-            glActiveTextureARB(GL_TEXTURE0_ARB);
+		void OpenGLRenderer::setTextureBase(unsigned int textureNumber, const screen::core::objects::TextureBase* texture){
+			glActiveTextureARB(GL_TEXTURE0_ARB + textureNumber);
             const OpenGLTexture* glTexture = dynamic_cast<const OpenGLTexture*>(texture);
 
             if (glTexture != NULL){

@@ -45,29 +45,29 @@ namespace screen {
 				
 				virtual void pushMatrix(screen::core::MatrixType type);
 				virtual void popMatrix(screen::core::MatrixType type);
-                                virtual void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
-                                virtual void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
-                                virtual void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix);
+				virtual void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
+				virtual void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
+				virtual void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix);
 				
 				virtual unsigned long convertColor(const Color& color) const;
 				virtual const screen::core::Color& retrieveColor(unsigned long color) const;
 				
 				virtual void drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
 					        
-                                virtual TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
+				virtual TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
 				
 				virtual void beginScene();
 				virtual void endScene();
 				
 				virtual BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
-                                virtual BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
+				virtual BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
 
-                                virtual void setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf);
-                                virtual void setIB(const BufferBase* buffer, unsigned long stride);
+				virtual void setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf);
+				virtual void setIB(const BufferBase* buffer, unsigned long stride);
 
-                                virtual void setTextureBase(const TextureBase* texture);
+				virtual void setTextureBase(unsigned int textureNumber, const TextureBase* texture);
 
-                                virtual void initialize();
+				virtual void initialize();
 			private:
 			};
 		}

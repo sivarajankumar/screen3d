@@ -47,22 +47,22 @@ namespace screen{
 			
 			void pushMatrix(screen::core::MatrixType type);
 			void popMatrix(screen::core::MatrixType type);
-                        void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
-                        void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
-                        void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix);
+			void setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
+			void multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix);
+			void getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix);
 			
 			unsigned long convertColor(const screen::core::Color& color) const;
 			const screen::core::Color& retrieveColor(unsigned long color) const;
 			
 			screen::core::BufferBase* createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const;
 			screen::core::BufferBase* createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const; 
-                        void setVB(const screen::core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex, const screen::core::VertexFormat& vf);
-                        void setIB(const screen::core::BufferBase* buffer, unsigned long stride);
-	        
-                        void drawIndexedPrimitives(screen::core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
+			void setVB(const screen::core::BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex, const screen::core::VertexFormat& vf);
+			void setIB(const screen::core::BufferBase* buffer, unsigned long stride);
 
-                        screen::core::objects::TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
-                        void setTextureBase(const screen::core::objects::TextureBase* texture);
+			void drawIndexedPrimitives(screen::core::PrimitiveType type, unsigned long firstIndex, unsigned long count) const;
+
+			screen::core::objects::TextureBase* createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const;
+			void setTextureBase(unsigned int textureNumber, const screen::core::objects::TextureBase* texture);
 		private:
 			std::string openGLExtensions;
 			bool capabilityTable[screen::core::NB_CAP];
@@ -73,24 +73,24 @@ namespace screen{
 			static unsigned long glMatrixType[];
 			static unsigned long glBufferFlags[];
 		public:
-                        static PFNGLBINDBUFFERARBPROC          glBindBufferARB;
-                        static PFNGLDELETEBUFFERSARBPROC       glDeleteBuffersARB;
-                        static PFNGLGENBUFFERSARBPROC          glGenBuffersARB;
-                        static PFNGLBUFFERDATAARBPROC          glBufferDataARB;
-                        static PFNGLBUFFERSUBDATAARBPROC       glBufferSubDataARB;
-                        static PFNGLGETBUFFERSUBDATAARBPROC    glGetBufferSubDataARB;
-                        static PFNGLMAPBUFFERARBPROC           glMapBufferARB;
-                        static PFNGLUNMAPBUFFERARBPROC         glUnmapBufferARB;
-                        static PFNGLACTIVETEXTUREARBPROC       glActiveTextureARB;
-                        static PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
-                        static PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC  glCompressedTexSubImage2DARB;
+			static PFNGLBINDBUFFERARBPROC          glBindBufferARB;
+			static PFNGLDELETEBUFFERSARBPROC       glDeleteBuffersARB;
+			static PFNGLGENBUFFERSARBPROC          glGenBuffersARB;
+			static PFNGLBUFFERDATAARBPROC          glBufferDataARB;
+			static PFNGLBUFFERSUBDATAARBPROC       glBufferSubDataARB;
+			static PFNGLGETBUFFERSUBDATAARBPROC    glGetBufferSubDataARB;
+			static PFNGLMAPBUFFERARBPROC           glMapBufferARB;
+			static PFNGLUNMAPBUFFERARBPROC         glUnmapBufferARB;
+			static PFNGLACTIVETEXTUREARBPROC       glActiveTextureARB;
+			static PFNGLCLIENTACTIVETEXTUREARBPROC glClientActiveTextureARB;
+			static PFNGLCOMPRESSEDTEXSUBIMAGE2DARBPROC  glCompressedTexSubImage2DARB;
 #ifdef WIN32
-                        static PFNWGLCHOOSEPIXELFORMATARBPROC  wglChoosePixelFormatARB;
-                        static PFNWGLCREATEPBUFFERARBPROC      wglCreatePbufferARB;
-                        static PFNWGLGETPBUFFERDCARBPROC       wglGetPbufferDCARB;
-                        static PFNWGLRELEASEPBUFFERDCARBPROC   wglReleasePbufferDCARB;
-                        static PFNWGLDESTROYPBUFFERARBPROC     wglDestroyPbufferARB;
-                        static PFNWGLQUERYPBUFFERARBPROC       wglQueryPbufferARB;
+			static PFNWGLCHOOSEPIXELFORMATARBPROC  wglChoosePixelFormatARB;
+			static PFNWGLCREATEPBUFFERARBPROC      wglCreatePbufferARB;
+			static PFNWGLGETPBUFFERDCARBPROC       wglGetPbufferDCARB;
+			static PFNWGLRELEASEPBUFFERDCARBPROC   wglReleasePbufferDCARB;
+			static PFNWGLDESTROYPBUFFERARBPROC     wglDestroyPbufferARB;
+			static PFNWGLQUERYPBUFFERARBPROC       wglQueryPbufferARB;
 #else
 	        
 #endif

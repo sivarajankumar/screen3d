@@ -127,7 +127,7 @@ bool SFMLRoot::renderFrame(){
                     glm::vec3(0.0f, 0.0f, 1.0f));
         renderer->setMatrix(screen::core::MATRIX_VIEW, rotXYZ);
 	renderer->setMatrix(screen::core::MATRIX_PROJECTION, proj);
-	renderer->setTexture(texture);
+	renderer->setTexture(0,texture);
 	renderer->setVertexBuffer(*(vb1.get<Vertex>()));
 	renderer->setIndexBuffer(*(ib1.get<unsigned short>()));
 	renderer->drawIndexedPrimitives(screen::core::PRIMITIVE_TRIANGLELIST, 0, 12);
