@@ -22,8 +22,6 @@
 #include <screen/core/objects/VertexBufferFiller.h>
 #include <screen/core/renderer/Renderer.h>
 #include <screen/core/Color.h>
-#include <screen/math/Vector2f.h>
-#include <screen/math/Vector3f.h>
 
 const unsigned int vertexTypeSize[screen::core::NB_VERTEX_TYPE] = {1,2,3,4,1};
 

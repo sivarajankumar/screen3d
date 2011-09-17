@@ -22,7 +22,6 @@
 #include <screen/core/objects/Image.h>
 #include <screen/core/objects/PixelFormat.h>
 #include <screen/core/managers/TextureManager.h>
-#include <screen/math/Vector2f.h>
 
 namespace screen {
 	namespace core {

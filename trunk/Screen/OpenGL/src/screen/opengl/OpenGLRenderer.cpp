@@ -25,7 +25,6 @@
 #include <screen/opengl/OpenGLTexture.h>
 #include <screen/opengl/OpenGLPixelFormat.h>
 #include <screen/core/objects/TextureBase.h>
-#include <screen/math/Matrix4x4f.h>
 #include <screen/math/Vector2i.h>
 #include <glm/gtc/type_ptr.hpp>
 
