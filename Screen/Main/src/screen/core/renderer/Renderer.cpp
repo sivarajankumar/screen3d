@@ -50,9 +50,9 @@ namespace screen {
 			renderer = NULL;
 		}
 		
-		void Renderer::setTexture(const screen::core::objects::Texture& texture){
+		void Renderer::setTexture(unsigned int textureNumber, const screen::core::objects::Texture& texture){
 			SCREEN_DECL_METHOD(setTexture)
-			setTextureBase(texture.getTexture());
+			setTextureBase(textureNumber, texture.getTexture());
 		}
 		
 		void Renderer::init(){

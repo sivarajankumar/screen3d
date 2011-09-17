@@ -29,21 +29,21 @@ namespace screen {
 			bool FakeRenderer::hasCapability(screen::core::ApiCapability caps) const{return true;}
 			void FakeRenderer::pushMatrix(screen::core::MatrixType type){}
 			void FakeRenderer::popMatrix(screen::core::MatrixType type){}
-                        void FakeRenderer::setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){}
-                        void FakeRenderer::multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){}
-                        void FakeRenderer::getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix){}
+			void FakeRenderer::setMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){}
+			void FakeRenderer::multipleMatrix(screen::core::MatrixType type, const glm::mat4x4& matrix){}
+			void FakeRenderer::getMatrix(screen::core::MatrixType type, glm::mat4x4& matrix){}
 			unsigned long FakeRenderer::convertColor(const Color& color) const{return 0;}
 			const screen::core::Color& FakeRenderer::retrieveColor(unsigned long color) const{static screen::core::Color c; return c;}
 			void FakeRenderer::drawIndexedPrimitives(PrimitiveType type, unsigned long firstIndex, unsigned long count) const{}
-                        TextureBase* FakeRenderer::createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const{return NULL;}
+			TextureBase* FakeRenderer::createTexture(const screen::math::Vector2i& size, screen::core::PixelFormat pxf, screen::core::TextureFlag flags) const{return NULL;}
 			void FakeRenderer::beginScene(){}
 			void FakeRenderer::endScene(){}
 			BufferBase* FakeRenderer::createVB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{return NULL;}
-                        BufferBase* FakeRenderer::createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{return NULL;}
-                        void FakeRenderer::setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf){}
-                        void FakeRenderer::setIB(const BufferBase* buffer, unsigned long stride){}
-                        void FakeRenderer::setTextureBase(const TextureBase* texture){}
-                        void FakeRenderer::initialize(){}
+			BufferBase* FakeRenderer::createIB(unsigned long size, unsigned long stride, screen::core::BufferFlag flags) const{return NULL;}
+			void FakeRenderer::setVB(const BufferBase* buffer, unsigned long stride, unsigned long minVertex, unsigned long maxVertex,const VertexFormat& vf){}
+			void FakeRenderer::setIB(const BufferBase* buffer, unsigned long stride){}
+			void FakeRenderer::setTextureBase(unsigned int textureNumber, const TextureBase* texture){}
+			void FakeRenderer::initialize(){}
 		}
 	}
 }
