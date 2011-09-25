@@ -21,11 +21,11 @@ With this, you will be prepared to develop Screen components with your favorite 
 
   * [Wascana Wascana]
   * [VisualStudio2008 Visual Studio 2008]
-  * [QtCreator QtCreator]
+  * [QtCreatorWindows QtCreator]
   * Code::Blocks
 
 = Under Linux =
 
   * Eclipse C++
-  * [QtCreator QtCreator]
+  * [QtCreatorLinux QtCreator]
   * Code::Blocks
