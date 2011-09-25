@@ -2,10 +2,8 @@
 
   * *Back links*
     * [MainPage Main page of Screen Wiki]
-
-= Prerequisites =
-
-  * [SBSInstall How to install SBS and prepare it for Screen]
+  * *Prerequisites*
+    * [SBSInstall How to install SBS and prepare it for Screen]
 
 = Instructions =
 
