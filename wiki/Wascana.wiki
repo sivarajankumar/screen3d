@@ -47,7 +47,7 @@ First, if you didn't do it, check-out Screen sources and install SBS : [SBSInsta
 
 Then, in a command prompt, write :
 {{{
-sbs generate -g -e wascana -e config -e user
+sbs configure -g -e wascana -e screen -e user
 }}}
 
 In the same command prompt, go to Screen root file and write :
