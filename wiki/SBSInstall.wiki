@@ -67,11 +67,20 @@ You will see all commands available with SBS.
 
 = Prepare SBS for Screen =
 
+== Note about SBS paths ==
+
+There are 2 main paths uses by SBS :
+  * *SBS_HOME*, in which you could find configuration files and the default repository . By default, if your user is "toto", your *SBS_HOME* is :
+    * Under linux, /user/toto/.sbs
+    * Under Windows Vista/7, C:/Users/Toto/.sbs
+    * Under Windows Xp, C:/Documents and Settings/Toto/.sbs
+  * *SBS_ROOT*, which is the SBS installation path
+
 == screen.config ==
 
 To use SBS you need one additional config file that contains several flags used by Screen.
 
-Take *screen.config* file from SVN Screen root folder, and put it into your SBS root folder.
+Take *screen.config* file from SVN Screen root folder, and put it into your *SBS_HOME* folder.
 
 == Prepare your repository ==
 
@@ -86,7 +95,7 @@ For those who have access to this Dropbox repository, you can resume this tutori
 
 By default, SBS only knows one repository, set with REPOSITORY_ROOT variable.
 Your must configure SBS to take the Dropbox repository.
-To do it, edit repositories/repositories.xml file and add the repository  and filter definition. You shoud have something like :
+To do it, edit *SBS_HOME*/repositories/repositories.xml file and add the repository  and filter definition. You shoud have something like :
 
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
