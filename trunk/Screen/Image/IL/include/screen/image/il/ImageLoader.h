@@ -19,48 +19,34 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#include <screen/core/loaders/ImageLoader.h>
-#include <screen/core/Enums.h>
-#include <screen/math/Vector2i.h>
-#include <screen/utils/Exception.h>
-#include <IL/il.h>
+#ifndef SCREEN_IMAGE_LOADER_H
+#define SCREEN_IMAGE_LOADER_H
+
+#include <screen/utils/Loader.h>
+#include <screen/core/objects/Image.h>
+#include <screen/utils/Declaration.h>
+#include <screen/image/il/Export.h>
 
 namespace screen {
-	namespace core {
-		using screen::core::objects::Image;
-		
-		ImageLoader::ImageLoader(){
-			SCREEN_DECL_CONSTRUCTOR(ImageLoader)
-		    ilInit();
-		    ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
-		    ilEnable(IL_ORIGIN_SET);
-		    //ilEnable(IL_FILE_OVERWRITE);
-		    ilSetInteger(IL_FORMAT_MODE, IL_BGRA);
-		    ilEnable(IL_FORMAT_SET);
-		}
+	namespace image {
+		namespace il{
+			/*!  \class ImageLoader
+			 *   \brief
+			 *   \author Ratouit Thomas
+			 *   \date 5 déc. 09
+			 */
 
-		ImageLoader::~ImageLoader(){
-			SCREEN_DECL_DESTRUCTOR(~ImageLoader)
-		    ilShutDown();
-		}
+			class SCREEN_IMAGE_IL_EXPORT ImageLoader : public screen::utils::Loader<screen::core::objects::Image> {
+				SCREEN_DECL_CLASS(screen::image::il::ImageLoader)
+				SCREEN_DECL_LOADER(screen::image::il::ImageLoader,screen::core::objects::Image)
+			public:
+				ImageLoader();
+				~ImageLoader();
 
-		Image* ImageLoader::loadFromFile(const std::string& filename) const{
-			SCREEN_DECL_METHOD(loadFromFile)
-		    ILuint texture;
-		    ilGenImages(1, &texture);
-		    ilBindImage(texture);
-
-		    if (!ilLoadImage(const_cast<ILstring>(filename.c_str())))
-		        throw screen::utils::LoadingException(filename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
-
-		    screen::math::Vector2i size(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
-		    const unsigned char* pixels = ilGetData();
-		    Image* image = new Image(size, screen::core::PXF_A8R8G8B8, pixels);
-
-		    ilBindImage(0);
-		    ilDeleteImages(1, &texture);
-
-		    return image;
+				screen::core::objects::Image* loadFromFile(const std::string& filename) const;
+			};
 		}
 	}
 }
+
+#endif

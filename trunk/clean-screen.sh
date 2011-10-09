@@ -7,5 +7,6 @@ $SBS_ROOT/sbs.sh clean Screen/Fields
 $SBS_ROOT/sbs.sh clean Screen/XML
 $SBS_ROOT/sbs.sh clean Screen/Main -i sbs-linux.xml -b
 $SBS_ROOT/sbs.sh clean Screen/OpenGL -i sbs-linux.xml
+$SBS_ROOT/sbs.sh clean Screen/Image/IL
 $SBS_ROOT/sbs.sh clean Demo/SFML
 

@@ -29,7 +29,7 @@
 #include "screen/utils/LoggerReporter.h"
 #include "screen/utils/File.h"
 #include "screen/utils/Path.h"
-#include "screen/core/loaders/ImageLoader.h"
+#include "screen/image/il/ImageLoader.h"
 #include "screen/core/managers/TextureManager.h"
 //
 #include "SFMLOpenGLRenderWindow.h"
@@ -45,7 +45,7 @@ int main() {
 		SCREEN_LOG_DEBUG("coucou")
 		
 		screen::core::Renderer::load("ScreenOpenGL");
-		screen::core::TextureManager::instance()->registerLoader<screen::core::objects::Image>(new screen::core::ImageLoader, "jpg|png|bmp|tga");
+		screen::core::TextureManager::instance()->registerLoader<screen::core::objects::Image>(new screen::image::il::ImageLoader, "jpg|png|bmp|tga");
 		screen::core::TextureManager::instance()->addPath(".");
 		
 		screen::utils::SmartPtr<screen::core::Root> root(new SFMLRoot());
