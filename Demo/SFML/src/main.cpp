@@ -42,7 +42,7 @@ int main() {
 		SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))
 		SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 		
-		SCREEN_LOG_DEBUG("coucou")
+		SCREEN_LOG_DEBUG("Hello world !!");
 		
 		screen::core::Renderer::load("ScreenOpenGL");
 		screen::core::TextureManager::instance()->registerLoader<screen::core::objects::Image>(new screen::image::il::ImageLoader, "jpg|png|bmp|tga");
@@ -59,13 +59,13 @@ int main() {
 		screen::core::TextureManager::instance()->unregisterLoader<screen::core::objects::Image>("jpg|png|bmp|tga");
 
 	}catch(const screen::utils::Exception& e){
-		SCREEN_LOG_ERROR("Exception controlée : " << std::endl << e.what())
+		SCREEN_LOG_ERROR("Screen Exception : " << std::endl << e.what());
 		throw;
 	}catch(const std::exception& e){
-		SCREEN_LOG_ERROR("Exception non controlée : " << std::endl << e.what())
+		SCREEN_LOG_ERROR("Standard Exception : " << std::endl << e.what());
 		throw;
 	}catch(...){
-		SCREEN_LOG_ERROR("Exception non controlée")
+		SCREEN_LOG_ERROR("Unknown Exception");
 		throw;
 	}
 
