@@ -27,19 +27,25 @@
 #include <screen/utils/Declaration.h>
 
 #ifdef WIN32
-#include <windows.h>
-#define SCREEN_HANDLER_DYN_LIB HMODULE
-#define SCREEN_UNLOAD_DYN_LIB FreeLibrary
-#define SCREEN_LOAD_DYN_LIB LoadLibrary
-#define SCREEN_LOAD_FUNCTION_DYN_LIB GetProcAddress
-#define SCREEN_EXT_DYN_LIB ".dll"
+#	include <windows.h>
+#	define SCREEN_HANDLER_DYN_LIB HMODULE
+#	define SCREEN_UNLOAD_DYN_LIB FreeLibrary
+#	define SCREEN_LOAD_DYN_LIB LoadLibrary
+#	define SCREEN_LOAD_FUNCTION_DYN_LIB GetProcAddress
+#	define SCREEN_EXT_DYN_LIB ".dll"
+#	ifdef _MSC_VER
+#		define SCREEN_PREFIX_DYN_LIB ""
+#	else
+#		define SCREEN_PREFIX_DYN_LIB "lib"
+#	endif
 #else
-#include <dlfcn.h>
-#define SCREEN_HANDLER_DYN_LIB void*
-#define SCREEN_UNLOAD_DYN_LIB dlclose
-#define SCREEN_LOAD_DYN_LIB(a) dlopen(a, RTLD_LAZY)
-#define SCREEN_LOAD_FUNCTION_DYN_LIB dlsym
-#define SCREEN_EXT_DYN_LIB ".so"
+#	include <dlfcn.h>
+#	define SCREEN_HANDLER_DYN_LIB void*
+#	define SCREEN_UNLOAD_DYN_LIB dlclose
+#	define SCREEN_LOAD_DYN_LIB(a) dlopen(a, RTLD_LAZY)
+#	define SCREEN_LOAD_FUNCTION_DYN_LIB dlsym
+#	define SCREEN_EXT_DYN_LIB ".so"
+#	define SCREEN_PREFIX_DYN_LIB "lib"
 #endif
 
 namespace screen {
@@ -62,12 +68,13 @@ namespace screen {
 
 			T* load(const std::string& fileName){
 //				SCREEN_DECL_METHOD(load)
-				sharedLibrary = SCREEN_LOAD_DYN_LIB((fileName+SCREEN_EXT_DYN_LIB).c_str());
+				std::string fullFileName = std::string(SCREEN_PREFIX_DYN_LIB)+fileName+SCREEN_EXT_DYN_LIB;
+				sharedLibrary = SCREEN_LOAD_DYN_LIB(fullFileName.c_str());
 				if(sharedLibrary==NULL)
-					throw LoadingException(fileName+SCREEN_EXT_DYN_LIB,"Shared library load failed");
+					throw LoadingException(fullFileName,"Shared library load failed");
 				LoadFunct ptr = reinterpret_cast<LoadFunct>(SCREEN_LOAD_FUNCTION_DYN_LIB(sharedLibrary,loadFunctionName));
 				if(ptr==NULL)
-					throw LoadingException(fileName+SCREEN_EXT_DYN_LIB,(std::string)"No function for loading instance ("+loadFunctionName+")");
+					throw LoadingException(fullFileName,(std::string)"No function for loading instance ("+loadFunctionName+")");
 				return (*ptr)();
 			}
 		private:
