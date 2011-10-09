@@ -19,8 +19,8 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_IMAGE_LOADER_H
-#define SCREEN_IMAGE_LOADER_H
+#ifndef SCREEN_IMAGE_IL_LOADER_H
+#define SCREEN_IMAGE_IL_LOADER_H
 
 #include <screen/utils/Loader.h>
 #include <screen/core/objects/Image.h>
