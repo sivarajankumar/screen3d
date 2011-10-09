@@ -19,32 +19,23 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
-#ifndef SCREEN_IMAGE_LOADER_H
-#define SCREEN_IMAGE_LOADER_H
+#ifndef SCREEN_IMAGE_IL_EXPORT_H
+#define SCREEN_IMAGE_IL_EXPORT_H
 
-#include <screen/utils/Loader.h>
-#include <screen/core/objects/Image.h>
-#include <screen/utils/Declaration.h>
-#include <screen/main/Export.h>
+#if defined (_MSC_VER)
+# pragma warning(disable: 4251) //disable dll export warning
+# pragma warning(disable: 4275)//disable dll export warning
+# pragma warning(disable: 4996)//disable depreciated function warning
+#endif
 
-namespace screen {
-	namespace core {
-		/*!  \class ImageLoader
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 5 déc. 09
-		 */
-
-		class SCREEN_MAIN_EXPORT ImageLoader : public screen::utils::Loader<screen::core::objects::Image> {
-			SCREEN_DECL_CLASS(screen::core::ImageLoader)
-			SCREEN_DECL_LOADER(screen::core::ImageLoader,screen::core::objects::Image)
-		public:
-			ImageLoader();
-			~ImageLoader();
-			
-			screen::core::objects::Image* loadFromFile(const std::string& filename) const;
-		};
-	}
-}
+#ifdef WIN32
+#	ifdef SCREEN_IMAGE_IL_BUILD_SHARED_LIBRARY
+#  		define SCREEN_IMAGE_IL_EXPORT __declspec(dllexport)
+#	else
+#		define SCREEN_IMAGE_IL_EXPORT __declspec(dllimport)
+#	endif
+#else
+#	define SCREEN_IMAGE_IL_EXPORT
+#endif
 
 #endif

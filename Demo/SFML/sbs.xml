@@ -9,6 +9,7 @@
 		<dependencies>
 			<dependency name="Screen/Utils" version="0.1.0"/>
 			<dependency name="Screen/Main" version="0.1.0"/>
+			<dependency name="Screen/Image/IL" version="0.1.0"/>			
 			<dependency name="SFML" version="1.5">
 				<libraries>
 					<lib>sfml-system</lib>

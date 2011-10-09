@@ -7,4 +7,5 @@ $SBS_ROOT/sbs.sh build Screen/Memory -b
 #$SBS_ROOT/sbs.sh build Screen/XML
 $SBS_ROOT/sbs.sh build Screen/Main -b
 $SBS_ROOT/sbs.sh build Screen/OpenGL -i sbs-linux.xml
+$SBS_ROOT/sbs.sh build Screen/Image/IL
 $SBS_ROOT/sbs.sh build Demo/SFML
