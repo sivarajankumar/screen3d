@@ -81,7 +81,7 @@ It will also generates CMake files
 
 Now you must create every project in your Screen session.
 
-It do it, do `File > Open file or project`, and open the generated CMakeFiles.txt file. It will completely create the project and ask to execute Cmake to completely configure it. Do it for each Screen component.
+It do it, do `File > Open file or project`, and open the generated CMakeLists.txt file. It will completely create the project and ask to execute Cmake to completely configure it. Do it for each Screen component.
 
 Note : Each time you will recreate the CMake files, !QtCreator will ask ot execute CMake. You will be need to accept it. 
 
