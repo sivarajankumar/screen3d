@@ -85,6 +85,16 @@ It do it, do `File > Open file or project`, and open the generated CMakeLists.tx
 
 Note : Each time you will recreate the CMake files, !QtCreator will ask ot execute CMake. You will be need to accept it. 
 
+== Some additional configurations ==
+
+We will set the comportment for tabulation.
+
+To do it, go into Tools > Options ... > Text Editor > Behavior
+
+First uncheck _Insert spaces instead of tabs_ and check _Enable automatic indentation_
+
+Then set _Tab size_ and _Indent size_ to 4
+
 == Dependencies ==
 
 SBS/!QtCreator environment doesn't compile needed dependencies by itself. You need to build external and Screen libraries.
