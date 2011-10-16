@@ -87,7 +87,7 @@ Note : Each time you will recreate the CMake files, !QtCreator will ask ot execu
 
 == Some additional configurations ==
 
-We will set the comportment for tabulation.
+We will set the behaviour for tabulation.
 
 To do it, go into Tools > Options ... > Text Editor > Behavior
 
