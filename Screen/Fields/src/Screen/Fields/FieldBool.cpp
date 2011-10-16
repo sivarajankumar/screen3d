@@ -28,8 +28,8 @@
 #include <Screen/Fields/FieldBool.h>
 #include <cstring>
 
-namespace Screen{
-	namespace Fields{
+namespace screen{
+	namespace fields{
 		FieldBool::FieldBool()
 			:Field(){
 			SCREEN_DECL_CONSTRUCTOR(FieldBool)

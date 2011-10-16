@@ -34,12 +34,12 @@
 /**
  * Namespace for all screen classes
  */
-namespace Screen{
+namespace screen{
 
 	/**
 	 * Namespace for all Fields classes
 	 */
-	namespace Fields{
+	namespace fields{
 
 		/**
 		 * \brief Float implementation of the field class
@@ -75,28 +75,28 @@ namespace Screen{
 
 			/**
 			 * \brief string setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(const char* value) and set(char* value)
 			 */
 			virtual void set(const std::string& value);
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(char* value)
 			 */
 			virtual void set(const char* value);
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(const char* value)
 			 */
 			virtual void set(char* value);
 
 			/**
 			 * \brief float setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 */
 			virtual void set(float value);
 
@@ -105,7 +105,7 @@ namespace Screen{
 			float _value; ///< Internal value
 
 		}; // FieldFloat class
-	} // Field namespace
-} // Screen namespace
+	} // fields namespace
+} // screen namespace
 
-#endif
+#endif // SCREEN_FIELD_FLOAT_H

@@ -26,8 +26,8 @@
 
 #include <Screen/Fields/Field.h>
 
-namespace Screen{
-	namespace Fields{
+namespace screen{
+	namespace fields{
 
 		Field::Field()
 			:_isVoid(true),_isValid(false){

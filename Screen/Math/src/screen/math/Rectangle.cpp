@@ -18,6 +18,15 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Rectangle.cpp
+ * \brief Rectangle code source file for screen::math
+ * \author Ratouit Thomas
+ * \date 29 nov. 09
+ *
+ * Rectangle definition and mathematical operations on rectangles
+ */
+
 #include <screen/math/Rectangle.h>
 
 namespace screen {

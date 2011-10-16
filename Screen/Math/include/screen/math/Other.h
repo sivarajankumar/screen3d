@@ -19,11 +19,31 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
+/**
+ * \file Other.h
+ * \brief Other mathematical operations header file for screen::math
+ * \author Ratouit Thomas
+ *
+ * Set of mathematical functions
+ */
+
 #ifndef SCREEN_MATH_OTHER_H
 #define SCREEN_MATH_OTHER_H
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all math classes
+	 */
 	namespace math {
+
+		/**
+		 * \brief Returns the nearest power of two of the given value
+		 * \param[in] value input value
+		 * \return The nearest power of two of the given value
+		 */
 		unsigned int nearestPowerOfTwo(unsigned int value){
 	        unsigned int tmp = value;
 	        unsigned int ret = 1;
@@ -36,6 +56,12 @@ namespace screen {
 	        return ret == value ? ret : ret << 1;
 		}
 
+		/**
+		 * \brief Compute an integer power another
+		 * \param[in] value1 base value
+		 * \param[in] value2 power value
+		 * \return value1 power value2
+		 */
 		unsigned int power(unsigned int value1, unsigned int value2){
 	        unsigned int ret = 1;
 
@@ -45,7 +71,8 @@ namespace screen {
 
 	        return ret;
 		}
-	}
-}
 
-#endif
+	} // math namespace
+} // screen namespace
+
+#endif // SCREEN_MATH_OTHER_H
