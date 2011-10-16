@@ -103,7 +103,7 @@ The \deprecated can be used to add a paragraph to precise if the commented eleme
 
 == \sa command ==
 
-The \sa cqn be used to create a reference to another method
+The \sa can be used to create a reference to another method
 
 == Other commands ==
 
