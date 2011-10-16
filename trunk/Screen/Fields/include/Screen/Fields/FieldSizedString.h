@@ -35,12 +35,12 @@
 /**
  * Namespace for all screen classes
  */
-namespace Screen{
+namespace screen{
 
 	/**
 	 * Namespace for all Fields classes
 	 */
-	namespace Fields{
+	namespace fields{
 
 		/**
 		 * \brief Sized string implementation of the field class
@@ -82,7 +82,7 @@ namespace Screen{
 
 			/**
 			 * \brief string setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(const char* value) and set(char* value)
 			 * \todo present behavior in case of too long or too short strings
 			 * use exception command to describe thrown exception
@@ -91,14 +91,14 @@ namespace Screen{
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(char* value)
 			 */
 			virtual void set(const char* value);
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(const char* value)
 			 */
 			virtual void set(char* value);
@@ -112,7 +112,7 @@ namespace Screen{
 			char _value[maxSize]; ///< Internal value
 
 		}; // FieldSizedString class
-	} // Fields namespace
-} // Screen namespace
+	} // fields namespace
+} // screen namespace
 
-#endif
+#endif // SCREEN_FIELD_SIZED_STRING_H

@@ -19,6 +19,14 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 
+/**
+ * \file Screen/Math/Export.h
+ * \brief Export header file for screen::math
+ * \author Thomas Ratouit
+ *
+ * Pre-processor definitions for screen::math component
+ */
+
 #ifndef SCREEN_MATH_EXPORT_H
 #define SCREEN_MATH_EXPORT_H
 
@@ -36,6 +44,6 @@
 #	endif
 #else
 #	define SCREEN_MATH_EXPORT
-#endif
+#endif // WIN32
 
-#endif
+#endif // SCREEN_MATH_EXPORT_H

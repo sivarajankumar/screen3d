@@ -18,6 +18,15 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Vector2i.cpp
+ * \brief Vector2i source code file for screen::math
+ * \author Ratouit Thomas
+ * \date 11 nov. 09
+ *
+ * Two-dimensional vector definition and mathematical definitions on 2-dimensional vectors
+ */
+
 
 #include <screen/math/Vector2i.h>
 
@@ -156,5 +165,6 @@ namespace screen {
         	SCREEN_DECL_FUNCTION(operator *)
         	return v*t;
         }
-	}
-}
+
+	} // math namespace
+} // screen namespace

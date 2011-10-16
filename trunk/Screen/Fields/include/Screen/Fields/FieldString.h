@@ -35,12 +35,12 @@
 /**
  * Namespace for all screen classes
  */
-namespace Screen{
+namespace screen{
 
 	/**
 	 * Namespace for all Fields classes
 	 */
-	namespace Fields{
+	namespace fields{
 
 		/**
 		 * \brief String implementation of the field class
@@ -76,21 +76,21 @@ namespace Screen{
 
 			/**
 			 * \brief string setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(const char* value) and set(char* value)
 			 */
 			virtual void set(const std::string& value);
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(char* value)
 			 */
 			virtual void set(const char* value);
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(const char* value)
 			 */
 			virtual void set(char* value);
@@ -100,7 +100,7 @@ namespace Screen{
 			std::string _value; ///< Internal value
 
 		}; // FieldString class
-	} // Fields namespace
-} // Screen Namespace
+	} // fields namespace
+} // screen Namespace
 
-#endif
+#endif // SCREEN_FIELD_STRING_H

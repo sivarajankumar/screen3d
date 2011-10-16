@@ -20,10 +20,10 @@
  *****************************************************************************/
 /**
  * \file Screen/Fields/Export.h
- * \brief Export header file for Screen::Fields
+ * \brief Export header file for screen::fields
  * \author
  *
- * Pre-processor definitions for Screen::Fileds component
+ * Pre-processor definitions for screen::fileds component
  */
 
 #ifndef SCREEN_FIELDS_EXPORT_H
@@ -43,6 +43,6 @@
 #	endif
 #else
 #	define SCREEN_FIELDS_EXPORT
-#endif
+#endif // WIN32
 
-#endif
+#endif // SCREEN_FIELDS_EXPORT_H

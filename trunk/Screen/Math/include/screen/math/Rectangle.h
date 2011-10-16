@@ -18,6 +18,14 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Rectangle.h
+ * \brief Rectangle header file for screen::math
+ * \author Ratouit Thomas
+ * \date 29 nov. 09
+ *
+ * Rectangle definition and mathematical operations on rectangles
+ */
 
 #ifndef SCREEN_RECTANGLE_H
 #define SCREEN_RECTANGLE_H
@@ -26,23 +34,34 @@
 #include <screen/utils/Declaration.h>
 #include <screen/math/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all math classes
+	 */
 	namespace math {
+
+		/**
+		 * \brief Possible iutersections values
+		 */
 		enum RectangleIntersection{
-	    	RECT_INT_IN,
-	    	RECT_INT_INTERSECT,
-	    	RECT_INT_OUT
+			RECT_INT_IN,			///< The rectangle in totally inside
+			RECT_INT_INTERSECT,		///< The rectangle intersect with the other (partially inside)
+			RECT_INT_OUT			///< The rectangle is totally outside the other
 	    };
 	
-		/*!  \class Rectangle
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 29 nov. 09
+		/**
+		 *   \brief Rectangle class
 		 */
-
 		class SCREEN_MATH_EXPORT Rectangle {
+
 			SCREEN_DECL_CLASS(screen::math::Rectangle)
+
 		public:
+
+
 			Rectangle(const Vector2i& leftTop = Vector2i(0, 0), const Vector2i& size = Vector2i(0, 0));
 			Rectangle(int left, int top, int width, int height);
 			~Rectangle();
@@ -83,8 +102,9 @@ namespace screen {
 		private:
 			Vector2i leftTop;
 			Vector2i size;
-		};
-	}
-}
 
-#endif
+		}; // Rectangle class
+	} // math namespace
+} // screen namespace
+
+#endif // SCREEN_RECTANGLE_H

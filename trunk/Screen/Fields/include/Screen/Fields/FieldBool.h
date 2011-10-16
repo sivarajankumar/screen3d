@@ -35,12 +35,12 @@
 /**
  * Namespace for all screen classes
  */
-namespace Screen{
+namespace screen{
 
 	/**
 	 * Namespace for all Fields classes
 	 */
-	namespace Fields{
+	namespace fields{
 
 		/**
 		 * \brief Boolean implementation of the field class
@@ -80,7 +80,7 @@ namespace Screen{
 			 *
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 *
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(const char* value) and set(char* value)
 			 */
 			virtual void set(const std::string& value);
@@ -91,7 +91,7 @@ namespace Screen{
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 * NULL value is considered as set to void.
 			 *
-			 * \param[in] value: value to set
+			 * \param[in] valu: value to set
 			 * \sa set(std::sring value) and set(char* value)
 			 */
 			virtual void set(const char* value);
@@ -102,14 +102,14 @@ namespace Screen{
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 * NULL value considered as set to void.
 			 *
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 * \sa set(std::sring value) and set(const char* value)
 			 */
 			virtual void set(char* value);
 
 			/**
 			 * \brief boolean setter
-			 * \param[in] value: value to set
+			 * \param[in] value value to set
 			 */
 			virtual void set(bool value);
 
@@ -118,7 +118,7 @@ namespace Screen{
 			bool _value; ///< Internal value
 
 		}; // FieldBool class
-	} // Field namespace
-} // Screen namespace
+	} // fields namespace
+} // screen namespace
 
-#endif
+#endif // SCREEN_FIELD_BOOL_H
