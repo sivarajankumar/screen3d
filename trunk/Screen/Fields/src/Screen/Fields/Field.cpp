@@ -18,15 +18,22 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Field.cpp
+ * \brief Field source code
+ * \author
+ */
 
 #include <Screen/Fields/Field.h>
 
 namespace Screen{
 	namespace Fields{
+
 		Field::Field()
 			:_isVoid(true),_isValid(false){
 			SCREEN_DECL_CONSTRUCTOR(Field)
 		}
+
 		Field::~Field(){
 			SCREEN_DECL_DESTRUCTOR(Field)
 		}

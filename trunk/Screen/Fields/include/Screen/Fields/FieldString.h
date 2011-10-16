@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file FieldString.h
+ * \brief FieldString header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_FIELD_STRING_H
 #define SCREEN_FIELD_STRING_H
@@ -26,24 +32,75 @@
 #include <Screen/Utils/Declaration.h>
 #include <Screen/Fields/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace Screen{
+
+	/**
+	 * Namespace for all Fields classes
+	 */
 	namespace Fields{
+
+		/**
+		 * \brief String implementation of the field class
+		 */
 		class SCREEN_FIELDS_EXPORT FieldString : public Field{
+
 			SCREEN_DECL_CLASS(Screen::Fields::FieldString)
+
 		public:
+
+			/**
+			 * \brief Constructor
+			 */
 			FieldString();
+
+			/**
+			 * \brief Destructor
+			 */
 			virtual ~FieldString();
 			
+			/**
+			 * \brief Get the value of the field as a string
+			 *
+			 * \return value of the field converted in a string
+			 */
 			virtual std::string getAsString() const;
+
+			/**
+			 * \brief Get the value of the field
+			 * \return value of the field in string
+			 */
 			virtual const std::string& get() const;
 
+			/**
+			 * \brief string setter
+			 * \param[in] value: value to set
+			 * \sa set(const char* value) and set(char* value)
+			 */
 			virtual void set(const std::string& value);
+
+			/**
+			 * \brief const char* setter
+			 * \param[in] value: value to set
+			 * \sa set(std::sring value) and set(char* value)
+			 */
 			virtual void set(const char* value);
+
+			/**
+			 * \brief char* setter
+			 * \param[in] value: value to set
+			 * \sa set(std::sring value) and set(const char* value)
+			 */
 			virtual void set(char* value);
+
 		protected:
-			std::string _value;
-		};	
-	}
-}
+
+			std::string _value; ///< Internal value
+
+		}; // FieldString class
+	} // Fields namespace
+} // Screen Namespace
 
 #endif

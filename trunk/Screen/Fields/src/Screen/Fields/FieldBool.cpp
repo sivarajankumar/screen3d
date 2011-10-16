@@ -19,6 +19,12 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
  
+/**
+ * \file FieldBool.cpp
+ * \brief FieldBool source code
+ * \author
+ */
+
 #include <Screen/Fields/FieldBool.h>
 #include <cstring>
 
