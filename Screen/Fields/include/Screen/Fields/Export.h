@@ -18,6 +18,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Export.h
+ * \brief Export header file for Screen::Fields
+ * \author
+ *
+ * Pre-processor definitions for Screen::Fileds component
+ */
 
 #ifndef SCREEN_FIELDS_EXPORT_H
 #define SCREEN_FIELDS_EXPORT_H
