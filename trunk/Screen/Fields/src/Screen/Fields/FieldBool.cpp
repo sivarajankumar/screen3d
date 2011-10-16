@@ -20,7 +20,7 @@
  *****************************************************************************/
  
 /**
- * \file FieldBool.cpp
+ * \file Screen/Fields/FieldBool.cpp
  * \brief FieldBool source code
  * \author
  */

@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file FieldInt.h
+ * \file Screen/Fields/FieldInt.h
  * \brief FieldInt header file
  * \author
  *
