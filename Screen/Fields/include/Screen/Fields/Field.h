@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file Field.h
+ * \file Screen/Fields/Field.h
  * \brief Field header file
  * \author
  *

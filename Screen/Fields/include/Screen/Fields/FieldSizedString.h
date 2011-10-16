@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file FieldSizedString.h
+ * \file Screen/Fields/FieldSizedString.h
  * \brief FieldSizedString header file
  * \author
  *

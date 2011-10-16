@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file Field.cpp
+ * \file Screen/Fields/Field.cpp
  * \brief Field source code
  * \author
  */

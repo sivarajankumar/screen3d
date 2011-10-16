@@ -19,7 +19,7 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file FieldFloat.h
+ * \file Screen/Fields/FieldFloat.h
  * \brief FieldFloat header file
  * \author
  *
