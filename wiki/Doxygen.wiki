@@ -101,6 +101,10 @@ The \bug command can be used to describe a known bug for this class or function.
 
 The \deprecated can be used to add a paragraph to precise if the commented element is deprecated.
 
+== \sa command ==
+
+The \sa cqn be used to create a reference to another method
+
 == Other commands ==
 
 There are several other useful commands to use inside a comment bloc :
