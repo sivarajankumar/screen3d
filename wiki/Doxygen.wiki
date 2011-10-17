@@ -20,9 +20,9 @@ Sometimes there is several ways to do the same thing, but i will just explain on
 
 All commands, can be written using \ or @. So \brief is the same as @brief.
 
-== Bloc Documentation ==
+== Block Documentation ==
 
-There is four ways to create a comment bloc for Doxygen. We will use the double {{{*}}} C comments. 
+There is four ways to create a comment block for Doxygen. We will use the double {{{*}}} C comments. 
 
 {{{
 /**
@@ -30,11 +30,11 @@ There is four ways to create a comment bloc for Doxygen. We will use the double 
  */
 }}}
 
-Note that the stars inside the bloc (at the beginning the each lines) are useless.
+Note that the stars inside the block (at the beginning the each lines) are useless.
 
-Those blocs must be added before the element you need to comment (or at the beginning of file for file comment).
+Those blocks must be added before the element you need to comment (or at the beginning of file for file comment).
 
-In those blocs, you will add commands, and a long description. Some commands work for an entire paragraph. Paragraph are separated by empty lines.
+In those blocks, you will add commands, and a long description. Some commands work for an entire paragraph. Paragraph are separated by empty lines.
 
 == Line Documentation ==
 
@@ -42,7 +42,7 @@ A line documentation will be done using a C++ triple / comment :
 {{{
  ///  ... Documentation ...
 }}}
-As for blocs, line work for the code that follow the comment. But if your want to comment the element before, you must use '<' command :
+As for blocks, line work for the code that follow the comment. But if your want to comment the element before, you must use '<' command :
 
 {{{
 int i = 0; ///< index i.
@@ -51,7 +51,7 @@ It is very useful to comment class variables, or function arguments.
 
 == \file command ==
 
-The \file command must be used in the bloc at the beginning of the file, and contains the file name.
+The \file command must be used in the block at the beginning of the file, and contains the file name.
 
 == \brief command ==
 
@@ -59,7 +59,7 @@ The \brief command is used in all the bloc to set a brief description of the ele
 
 == \author command ==
 
-The \file command must be used in the bloc at the beginning of the file, and contains the author name. You can have several /author commands, if you have several authors.
+The \file command must be used in the block at the beginning of the file, and contains the author name. You can have several /author commands, if you have several authors.
 
 == \param command ==
 
@@ -95,7 +95,7 @@ The \return command, describe the return value of a function.
 
 == \bug command ==
 
-The \bug command can be used to describe a known bug for this class or function. You can use several \bug commands in a bloc.
+The \bug command can be used to describe a known bug for this class or function. You can use several \bug commands in a block.
 
 == \deprecated command ==
 
@@ -107,16 +107,16 @@ The \sa can be used to create a reference to another method, class or file. Same
 
 == Other commands ==
 
-There are several other useful commands to use inside a comment bloc :
+There are several other useful commands to use inside a comment block :
 
  * {{{\a}}} : to use a special font for the next word.
  * {{{\b}}} : to use bold font for the next word.
  * {{{\c}}} : to use a typewriter font for the next word.
  * {{{\e}}} or {{{\em}}} : to use italic font for the next word.
- * {{{\code}}} : to start a bloc of code (end with {{{\endcode}}}).
- * {{{\dot}}} : to start a bloc containing a valid description of a dot graph (end with {{{\enddot}}}). See Doxygen documentation for more information.
- * {{{\msc}}} : to start a bloc containing a valid description message sequence chart (end with {{{\endmsc}}}). See Doxygen documentation for more information.
- * {{{\verbatim}}} : to start a bloc where commands are not interpreted (end with {{{\endverbatim}}}).
+ * {{{\code}}} : to start a block of code (end with {{{\endcode}}}).
+ * {{{\dot}}} : to start a block containing a valid description of a dot graph (end with {{{\enddot}}}). See Doxygen documentation for more information.
+ * {{{\msc}}} : to start a block containing a valid description message sequence chart (end with {{{\endmsc}}}). See Doxygen documentation for more information.
+ * {{{\verbatim}}} : to start a block where commands are not interpreted (end with {{{\endverbatim}}}).
  * {{{\f$}}} : to start an in-line LateX mathematics formula (end with {{{\f$}}}). See Latex Documentation.
  * {{{\f[}}} : to start an long LateX mathematics formula (end with {{{\f]}}}). See Latex Documentation.
  * {{{\image <format> <file> ["caption"] [<sizeindication>=<size>]}}} : to include an image.
@@ -125,7 +125,7 @@ There are several other useful commands to use inside a comment bloc :
  
 == Unused commands : \class \fn \struct \def ... ==
 
-We will not use \class, \fn .. commands, because in Screen project you will always define comment bloc just before the element definition. 
+We will not use \class, \fn .. commands, because in Screen project you will always define comment block just before the element definition. 
 
 = Sample =
 
@@ -147,7 +147,7 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 /**
  * namspace for Doxygen presentation
  */
-namespace DoxygenPres
+namespace doxygenPres
 {
   /**
    * \brief brief class description
@@ -168,7 +168,7 @@ namespace DoxygenPres
      *
      *  Sample class constructor
      *
-     *  \param[in] list: a list in parameters
+     *  \param[in] list a list in parameters
      */
     Sample(std::list<string> list);
 
@@ -185,7 +185,7 @@ namespace DoxygenPres
      *
      *  Method that add a \e thing to the list and return \e true if added
      *
-     *  \param[int] thing: thing to add
+     *  \param[int] thing thing to add
      *  \return true if added
      */
     bool add2(std::string thing);
@@ -201,8 +201,8 @@ namespace DoxygenPres
      */
      void add(std::string thing);
 
-  };
-}
+  }; // Sample class
+} // doxygenPres namespace
 
 #endif
 
