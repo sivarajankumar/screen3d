@@ -1,0 +1,6 @@
+#summary How to write good Screen code
+
+  * *Back links*
+    * [MainPage Main page of Screen Wiki]
+
+= Introduction =
