@@ -147,7 +147,7 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 /**
  * namspace for Doxygen presentation
  */
-namespace doxygenPres
+namespace doxygen
 {
   /**
    * \brief brief class description
@@ -202,7 +202,7 @@ namespace doxygenPres
      void add(std::string iThing);
 
   }; // Sample class
-} // doxygenPres namespace
+} // doxygen namespace
 
 #endif
 
