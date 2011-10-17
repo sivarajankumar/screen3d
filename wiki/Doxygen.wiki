@@ -158,8 +158,8 @@ namespace doxygenPres
   class Sample
   {
   private:
-    std::list<string> aList; ///< a list
-    std::list<string>::iterator listIt; ///< iterator on list
+    std::list<std::string> _list; ///< a list
+    std::list<std::string>::iterator _listIt; ///< iterator on list
                                                 
 
   public:
@@ -170,7 +170,7 @@ namespace doxygenPres
      *
      *  \param[in] list a list in parameters
      */
-    Sample(std::list<string> list);
+    Sample(std::list<std::string> iList);
 
     /**
      *  \brief Destructor
@@ -185,21 +185,21 @@ namespace doxygenPres
      *
      *  Method that add a \e thing to the list and return \e true if added
      *
-     *  \param[int] thing thing to add
+     *  \param[int] iThing thing to add
      *  \return true if added
      */
-    bool add2(std::string thing);
+    bool add2(std::string iThing);
 
     /**
      * \brief add to list
      *
      * Method that add a \e thing to the list
      *
-     * \param[int] thing: thing to add
+     * \param[int] iThing thing to add
      *
      * \deprecated this method is deprecated
      */
-     void add(std::string thing);
+     void add(std::string iThing);
 
   }; // Sample class
 } // doxygenPres namespace
