@@ -18,48 +18,77 @@ This document list all recommanted coding rules for Screen project's developpers
 === Tabulations ===
 
 Tabulation policy: all tabs
+
 Tabulation size: 4
 
 === Indent ===
 
 Indent 'public', 'protected', 'private' within class body: 
+
 Indent declarations relatively to 'public', 'protected', 'private':
+
 Indent statement within function body:
+
 Indent statements within blocks:
+
 Indent statements within 'switch' body:
+
 Indent statements within 'case' body:
+
 Indent 'break' statement:
+
 Indent declarations within 'namespace' definition:
+
 Indent empty lines:
+
 
 === Braces positions ===
 
 Class declaration: (next or same line)
+
 Namespace declaration:
+
 Function declaration:
+
 Blocks (if, for, while, do ...):
+
 Block in 'switch' statement:
+
 Block in 'case' statement:
+
 Initializer List: (ex: int digits[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };)
+
 
 === White spaces ===
 
 TODO
+
 (optional , too many options to be readable)
+
 Only list when add space ?
+
 
 === Control statements ===
 
 Insert new line before 'else' in an 'if' statement:
+
 Insert new line before 'catch' in a 'try' statement:
+
 Insert new line before 'while' in a 'do' statement:
 
+
 Keep the 'then' statement on same line:
+
 Keep simple 'if' statement on one line:
+
 Keep 'else' stateent on same line:
+
 Keep 'else if' on one line:
+
 
 === Line Wrapping ===
 
-Policy : exemple wrap all elements, except first element if not necessary
+Policy : exemple wrap all elements, except first element if not 
+necessary
+
 Indentation: exemple indent on column
