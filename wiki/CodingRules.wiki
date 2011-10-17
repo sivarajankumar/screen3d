@@ -63,10 +63,3 @@ Keep 'else if' on one line:
 
 Policy : exemple wrap all elements, except first element if not necessary
 Indentation: exemple indent on column
-
-ex: void foo(int arg1,
-             int arg2,
-	     int arg3,
-	     int arg4,
-	     int arg5,
-	     int arg6)
