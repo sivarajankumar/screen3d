@@ -68,7 +68,7 @@ All static (variables, methods, functions) starts by an upper case (if the varia
 
 Macro names should be in upper case. If composed by several words, wordls should beseparated by {{{_}}}. The macro should begin and end with a {{{_}}}.
 
-Example: _A_MACRO_
+Example: {{{_A_MACRO_}}}
 
 == Enum ==
 
