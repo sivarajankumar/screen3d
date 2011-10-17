@@ -101,9 +101,9 @@ The \bug command can be used to describe a known bug for this class or function.
 
 The \deprecated can be used to add a paragraph to precise if the commented element is deprecated.
 
-== \sa command ==
+== \sa or \see command ==
 
-The \sa can be used to create a reference to another method
+The \sa can be used to create a reference to another method, class or file. Same than \see command.
 
 == Other commands ==
 
