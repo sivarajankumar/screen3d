@@ -10,6 +10,84 @@ This document list all recommanted coding rules for Screen project's developpers
 
 = Naming conventions =
 
+_This paragraph is not validated yet, it is a proposition. Maybe we could use this for ideas: [http://geosoft.no/development/cppstyle.html geosoft ccp style]_
+
+If not said, for all names composed of several word, each first character of the word is in upper case (ex: AClassName).
+
+== Class names ==
+
+Class name must start by a upper case.
+
+== Struture name ==
+
+See class names.
+
+== Types ==
+
+Types starts with upper case and end with _t.
+
+Example: {{{TypeName_t}}}
+
+== Methods ==
+
+Methods names start by a lower case (except for static).
+
+== Functions ==
+
+Function are handled like methods, but a {{{_fn}}} is added in the name.
+
+== Variables ==
+
+Non static variables start with a lower case.
+
+Class attributes, start with a {{{_}}}.
+
+Methods or functions arguments start by the letter {{{i}}}, {{{o}}} or {{{io}}} depending if they are input, outputs or both.
+
+Local variables start with the letter {{{a}}}.
+
+Global variables start with the letter {{{g}}}.
+
+One letter variables (i, j, k ...) should be avoid.
+
+
+Examples:
+{{{
+int _attribute;
+float _StaticAttribute;
+void method(const int iArgument, int &oOutput, std::string& ioInputAndOutput);
+int aLocalVariable;
+int gGlobalVariable;
+}}}
+
+== Static ==
+
+All static (variables, methods, functions) starts by an upper case (if the variable starts with a non-alphabetic symbol, the first real letter of the name is in upper case).
+
+== Macro ==
+
+Macro names should be in upper case. If composed by several words, wordls should beseparated by {{{_}}}. The macro should begin and end with a {{{_}}}.
+
+Example: _A_MACRO_
+
+== Enum ==
+
+Enum should be like classes (or maybe change the end).
+
+The content of the enum should be all in upper case. If composed of several words, the words should be separated by {{{_}}}.
+
+Example: 
+{{{
+typedef enum MyEnum
+{
+  VALUE_1,
+  VALUE_2
+} MyEnum_t;
+}}}
+
+== Namespaces ==
+
+Namespaces should all be in lower case.
 
 = Code style =
 
