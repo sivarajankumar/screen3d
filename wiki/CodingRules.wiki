@@ -111,68 +111,54 @@ Tabulation size: 4
 
 === Indent ===
 
-Indent 'public', 'protected', 'private' within class body: 
+Indent 'public', 'protected', 'private' within class body: N
 
-Indent declarations relatively to 'public', 'protected', 'private':
+Indent declarations relatively to 'public', 'protected', 'private': Y
 
-Indent statement within function body:
+Indent statement within function body: Y
 
-Indent statements within blocks:
+Indent statements within blocks: Y
 
-Indent statements within 'switch' body:
+Indent statements within 'switch' body: Y 
 
-Indent statements within 'case' body:
+Indent statements within 'case' body: Y
 
-Indent 'break' statement:
+Indent 'break' statement: N
 
-Indent declarations within 'namespace' definition:
+Indent declarations within 'namespace' definition: Y
 
-Indent empty lines:
+Indent empty lines: Y
 
 
 === Braces positions ===
 
-Class declaration: (next or same line)
+Class declaration: open brace on the same line
 
-Namespace declaration:
+Namespace declaration: open brace on the same line
 
-Function declaration:
+Function declaration: open brace on the same line
 
-Blocks (if, for, while, do ...):
+Blocks (if, for, while, do ...): open brace on the same line
 
-Block in 'switch' statement:
+Block in 'switch' statement: open brace on the same line
 
-Block in 'case' statement:
+Block in 'case' statement: open brace on the same line
 
 Initializer List: (ex: int digits[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };)
 
 
-=== White spaces ===
-
-TODO
-
-(optional , too many options to be readable)
-
-Only list when add space ?
-
-
 === Control statements ===
 
-Insert new line before 'else' in an 'if' statement:
+Insert new line before 'else' in an 'if' statement: yes
 
-Insert new line before 'catch' in a 'try' statement:
+Insert new line before 'catch' in a 'try' statement: yes
 
-Insert new line before 'while' in a 'do' statement:
+Insert new line before 'while' in a 'do' statement: no
 
 
-Keep the 'then' statement on same line:
+Keep simple 'if' statement on one line: yes
 
-Keep simple 'if' statement on one line:
-
-Keep 'else' stateent on same line:
-
-Keep 'else if' on one line:
-
+Keep 'else if' on one line: yes
 
 === Line Wrapping ===
 
