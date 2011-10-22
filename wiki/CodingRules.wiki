@@ -24,9 +24,9 @@ See class names.
 
 == Types ==
 
-Types starts with upper case and end with _t.
+See class names.
 
-Example: {{{TypeName_t}}}
+Example: {{{TypeName}}}
 
 == Methods ==
 
