@@ -77,7 +77,7 @@ If you have an independant piece of code in a macro you should declare it like t
 do {                 \
 <your code>          \
 <your code again>    \
-}while(0);       
+}while(0)      
 }}}
 
 == Enum ==
