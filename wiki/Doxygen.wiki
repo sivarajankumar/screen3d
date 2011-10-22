@@ -147,16 +147,14 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 /**
  * namspace for Doxygen presentation
  */
-namespace doxygen
-{
+namespace doxygen{
   /**
    * \brief brief class description
    * \bug this class doesn't do anything
    *
    *  Long class description
    */
-  class Sample
-  {
+  class Sample{
   private:
     std::list<std::string> _list; ///< a list
     std::list<std::string>::iterator _listIt; ///< iterator on list
@@ -185,7 +183,7 @@ namespace doxygen
      *
      *  Method that add a \e thing to the list and return \e true if added
      *
-     *  \param[int] iThing thing to add
+     *  \param[in] iThing thing to add
      *  \return true if added
      */
     bool add2(std::string iThing);
@@ -195,14 +193,14 @@ namespace doxygen
      *
      * Method that add a \e thing to the list
      *
-     * \param[int] iThing thing to add
+     * \param[in] iThing thing to add
      *
      * \deprecated this method is deprecated
      */
      void add(std::string iThing);
 
-  }; // Sample class
-} // doxygen namespace
+  };
+} 
 
 #endif
 
