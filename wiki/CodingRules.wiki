@@ -16,7 +16,7 @@ If not said, for all names composed of several word, each first character of the
 
 == Class names ==
 
-Class name must start by a upper case.
+Class name must start with a upper case.
 
 == Struture name ==
 
@@ -30,11 +30,11 @@ Example: {{{TypeName}}}
 
 == Methods ==
 
-Methods names start by a lower case (except for static).
+Methods names start with a lower case (except for static).
 
 == Functions ==
 
-Function are handled like methods, but a {{{_fn}}} is added in the name.
+Function names start with a upper case.
 
 == Variables ==
 
@@ -46,9 +46,9 @@ Methods or functions arguments start by the letter {{{i}}}, {{{o}}} or {{{io}}} 
 
 Local variables start with the letter {{{a}}}.
 
-Global variables start with the letter {{{g}}}.
+Global variables start with the letter {{{g}}}. Should not be used
 
-One letter variables (i, j, k ...) should be avoid.
+One letter variables (i, j, k ...) should not be used.
 
 
 Examples:
