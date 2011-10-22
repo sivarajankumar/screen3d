@@ -56,6 +56,7 @@ Examples:
 int _attribute;
 float _StaticAttribute;
 void method(const int iArgument, int &oOutput, std::string& ioInputAndOutput);
+void StaticMethod(const int iArgument, int &oOutput, std::string& ioInputAndOutput);
 int aLocalVariable;
 int gGlobalVariable;
 }}}
