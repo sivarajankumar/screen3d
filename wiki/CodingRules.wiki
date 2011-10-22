@@ -67,9 +67,18 @@ All static (variables, methods, functions) starts by an upper case (if the varia
 
 == Macro ==
 
-Macro names should be in upper case. If composed by several words, wordls should beseparated by {{{_}}}. The macro should begin and end with a {{{_}}}.
+Macro names should be in upper case. If composed by several words, wordls should beseparated by {{{_}}}. 
 
-Example: {{{_A_MACRO_}}}
+Example: {{{A_MACRO}}}
+
+If you have an independant piece of code in a macro you should declare it like this:
+
+{{{
+do {                 \
+<your code>          \
+<your code again>    \
+}while(0).           
+}}}
 
 == Enum ==
 
@@ -79,11 +88,11 @@ The content of the enum should be all in upper case. If composed of several word
 
 Example: 
 {{{
-typedef enum MyEnum
+MyEnum
 {
   VALUE_1,
   VALUE_2
-} MyEnum_t;
+};
 }}}
 
 == Namespaces ==
