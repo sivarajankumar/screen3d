@@ -18,6 +18,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/Image/IL/ImageLoader.h
+ * \brief Image loader header file
+ * \author
+ *
+ * Image loader classe using devIL
+ */
 
 #ifndef SCREEN_IMAGE_IL_LOADER_H
 #define SCREEN_IMAGE_IL_LOADER_H
@@ -27,23 +34,46 @@
 #include <screen/utils/Declaration.h>
 #include <screen/image/il/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all image classes
+	 */
 	namespace image {
+		/**
+		 * Namespace for all classes based on devIL
+		 */
 		namespace il{
-			/*!  \class ImageLoader
-			 *   \brief
-			 *   \author Ratouit Thomas
-			 *   \date 5 déc. 09
-			 */
 
+			/**
+			 * \brief Class used to load a image using devIL
+			 */
 			class SCREEN_IMAGE_IL_EXPORT ImageLoader : public screen::utils::Loader<screen::core::objects::Image> {
+
 				SCREEN_DECL_CLASS(screen::image::il::ImageLoader)
 				SCREEN_DECL_LOADER(screen::image::il::ImageLoader,screen::core::objects::Image)
+
 			public:
+
+				/**
+				 * \brief Constructor
+				 */
 				ImageLoader();
+
+				/**
+				 * \brief Destructor
+				 */
 				~ImageLoader();
 
-				screen::core::objects::Image* loadFromFile(const std::string& filename) const;
+				/**
+				 * \brief load an image from a file name
+				 * \param[in] iFilename name of the image file to load
+				 * \return returns a pointer of an image object, created from the file
+				 */
+				screen::core::objects::Image* loadFromFile(const std::string& iFilename) const;
+
 			};
 		}
 	}

@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/OpenGL/Any.h
+ * \brief FieldSizedString header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_ANY_H
 #define SCREEN_ANY_H
@@ -25,70 +31,123 @@
 #include <screen/utils/Exception.h>
 #include <screen/utils/Declaration.h>
 
-namespace screen {
-	namespace utils {
-		/*!  \class Any
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 17 oct. 09
-		 */
 
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+	/**
+	 * Namespace for all utility classes
+	 */
+	namespace utils {
+
+		/**
+		 * \brief Container used to store any type of classes
+		 */
 		class Any {
+
 			SCREEN_DECL_CLASS(screen::utils::Any)
+
 	        template<class T>
 	        friend T * any_cast(Any *);
+
 		public:
+
+			/**
+			 * \brief Constructor
+			 *
+			 * Holder is set to NULL
+			 */
 			Any()
-				:holder(NULL){
+				:_holder(NULL){
 				SCREEN_DECL_CONSTRUCTOR(Any)
 			}
 			
+			/**
+			 * \brief Constructor
+			 *
+			 * \tparam T class to hold
+			 * \param[in] iValue instance of the classe stored
+			 */
 			template<class T>
-			Any(const T& value)
-			          :holder(new Holder<T>(value)){
+			Any(const T& iValue)
+			 :_holder(new Holder<T>(iValue)){
 				SCREEN_DECL_CONSTRUCTOR(Any)
 			}
 			
-	        Any(const Any & any)
-	          :holder(any.holder != NULL ? any.holder->clone() : NULL){
+			/**
+			 * \brief Copy-constructor
+			 */
+			Any(const Any & iAny)
+			  :_holder(iAny._holder != NULL ? iAny._holder->clone() : NULL){
 	        	SCREEN_DECL_CONSTRUCTOR(Any)
 	        }
 			
+			/**
+			 * \brief Destructor
+			 *
+			 * The destructor remove the instance stored
+			 */
 			~Any(){
 				SCREEN_DECL_DESTRUCTOR(~Any)
-				delete holder;
+				delete _holder;
 			}
 			
-			Any& swap(Any & any){
+			/**
+			 * \brief Swape the content of two Any
+			 * \param[in,out] ioAny object to swap with
+			 * \return Returns current object
+			 */
+			Any& swap(Any & ioAny){
 				SCREEN_DECL_METHOD(swap)
-	            std::swap(holder, any.holder);
+				std::swap(_holder, ioAny._holder);
 	            return *this;
 	        }
 	        
+			/**
+			 * \brief Assignation operator
+			 * \tparam T Class assigned
+			 * \param[in] iRhs object to assign
+			 * \return Returns current object
+			 */
 			template<class T>
-	        Any& operator=(const T& rhs){
+			Any& operator=(const T& iRhs){
 				SCREEN_DECL_METHOD(operator=)
-	            Any(rhs).swap(*this);
+				Any(iRhs).swap(*this);
 	            return *this;
 	        }
 
-	        Any & operator=(const Any & rhs){
+			/**
+			 * \brief Assignation operator
+			 * \param[in] iRhs object to assign
+			 * \return Returns current object
+			 */
+			Any & operator=(const Any & iRhs){
 	        	SCREEN_DECL_METHOD(operator=)
-	        	Any(rhs).swap(*this);
+				Any(iRhs).swap(*this);
 	            return *this;
 	        }
 	        
+			/**
+			 * \brief Test if Any container is empty
+			 * \return True if is empty
+			 */
 	        bool isEmpty() const{
 	        	SCREEN_DECL_METHOD(isEmpty)
-	            return holder == NULL;
+				return _holder == NULL;
 	        }
 
+			/**
+			 * \brief Get the type of the object stored in the container
+			 * \return Type of the stored object
+			 * \exception screen::utils::Exception No object stored
+			 */
 	        const std::type_info& getType() const{
 	        	SCREEN_DECL_METHOD(getType)
-	            if(holder == NULL){
+				if(_holder == NULL){
 	            	throw screen::utils::Exception("Any instance doesn't have a type (null instance of holder)");
 	            }
-	            return holder->getType();
+				return _holder->getType();
 	        }
 	        
 	        /* do not use. Use any_cast */
@@ -108,70 +167,114 @@ namespace screen {
 //    		}
 
 		private:
+
+			/**
+			 * \brief Base struct for object held in Any
+			 */
 	        struct HolderBase{    
 	            virtual ~HolderBase(){}
 	            virtual HolderBase * clone() const = 0;
 	            virtual const std::type_info& getType() const = 0;
 	        };
 	        
+			/**
+			 * \brief Struct for object held in Any
+			 * \tparam T class held
+			 */
 	        template<class T>
 	        struct Holder : public HolderBase{
+
 	        	SCREEN_DECL_CLASS(screen::utils::Any::Holder)
-	            Holder(const T& value)
-	            	:value(value){
+
+				/**
+				 * \brief Constructor
+				 * \param[in] iValue instance of the classe stored
+				 */
+				Holder(const T& iValue)
+					:_value(iValue){
 	            	SCREEN_DECL_CONSTRUCTOR(Holder)
 	            }
 	            
+				/**
+				 * \brief Destructor
+				 */
 	            ~Holder(){
 	            	SCREEN_DECL_DESTRUCTOR(~Holder)
 	            }
 
+				/**
+				 * \brief Clone the object
+				 * \return Returns a copy of the object
+				 */
 	            HolderBase* clone() const{
 	            	SCREEN_DECL_METHOD(clone)
-	                return new Holder(value);
+					return new Holder(_value);
 	            }
 	            
+				/**
+				 * \brief Get the type of the internal object
+				 * \return Type of the internal object
+				 */
 	            virtual const std::type_info & getType() const{
 	            	SCREEN_DECL_METHOD(getType)
                     return typeid(T);
                 }
 
-	            T value;
+				T _value;				///< Stored object
 	        };
 			
-			HolderBase* holder;
+			HolderBase* _holder;	///< Holder for the stored class
 		};
 		
+		/**
+		 * \brief Cast a Any pointer into T class pointer
+		 * \tparam T Class to be casted to
+		 * \param[in] iAny pointer to cast
+		 * \return Pointer of the object casted to the correct class or NULL if cast is not posssible
+		 */
 	    template<class T>
-	    T* any_cast(Any * any){
+		T* any_cast(Any * iAny){
 	    	SCREEN_DECL_FUNCTION(any_cast)
-	    	if(any != NULL){
-	    		if(!any->isEmpty()){
-		    		if(any->getType() == typeid(T)){
-		    			return &(static_cast<Any::Holder<T>* >(any->holder)->value);
+			if(iAny != NULL){
+				if(!iAny->isEmpty()){
+					if(iAny->getType() == typeid(T)){
+						return &(static_cast<Any::Holder<T>* >(iAny->_holder)->_value);
 		    		}
 	    		}
 	    	}
 	    	return NULL;
 	    }
 	    
+		/**
+		 * \brief Cast a const Any pointer into const T class pointer
+		 * \tparam T Class to be casted to
+		 * \param[in] iAny pointer to cast
+		 * \return Pointer of the object casted to the correct class or NULL if cast is not posssible
+		 */
 	    template<class T>
-	    const T* any_cast(const Any * any){
+		const T* any_cast(const Any * iAny){
 	    	SCREEN_DECL_FUNCTION(any_cast)
-	    	return any_cast<T>(const_cast<Any *>(any));
+			return any_cast<T>(const_cast<Any *>(iAny));
 	    }
 
+		/**
+		 * \brief Cast a const Any instance into const T class instance
+		 * \tparam T Class to be casted to
+		 * \param[in] iAny instance to cast
+		 * \return Instance of the object casted to the correct class
+		 * \exception screen::utils::Exception Cast not possible
+		 */
 	    template<class T>
-	    T any_cast(const Any & any){
+		T any_cast(const Any & iAny){
 	    	SCREEN_DECL_FUNCTION(any_cast)
-	        const T* result = any_cast<T>(&any);
-	        if(result == NULL){
-				std::stringstream buf;
-				buf << "Bad any_cast from type " << any.getType().name()
+			const T* aResult = any_cast<T>(&iAny);
+			if(aResult == NULL){
+				std::stringstream aBuf;
+				aBuf << "Bad any_cast from type " << iAny.getType().name()
 					<< " to " << typeid(T).name();
-				throw screen::utils::Exception(buf.str());
+				throw screen::utils::Exception(aBuf.str());
 			}
-	        return *result;
+			return *aResult;
 	    }
 	}
 }

@@ -43,6 +43,6 @@
 #	endif
 #else
 #	define SCREEN_FIELDS_EXPORT
-#endif // WIN32
+#endif
 
-#endif // SCREEN_FIELDS_EXPORT_H
+#endif

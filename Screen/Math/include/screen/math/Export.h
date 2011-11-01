@@ -44,6 +44,6 @@
 #	endif
 #else
 #	define SCREEN_MATH_EXPORT
-#endif // WIN32
+#endif
 
-#endif // SCREEN_MATH_EXPORT_H
+#endif

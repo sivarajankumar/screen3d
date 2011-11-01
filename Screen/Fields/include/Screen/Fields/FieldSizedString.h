@@ -47,8 +47,8 @@ namespace screen{
 		 *
 		 * String Field with size boundaries.
 		 *
-		 * \tparam MinSize: minimum size of the string
-		 * \tparam MaxSiwe: maximum siwe of the string
+		 * \tparam MinSize minimum size of the string
+		 * \tparam MaxSiwe maximum siwe of the string
 		 */
 		template <unsigned int MinSize, unsigned int MaxSize>
 		class FieldSizedString : public Field{
@@ -82,37 +82,37 @@ namespace screen{
 
 			/**
 			 * \brief string setter
-			 * \param[in] value value to set
-			 * \sa set(const char* value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(const char* iValue) and set(char* iValue)
 			 * \todo present behavior in case of too long or too short strings
 			 * use exception command to describe thrown exception
 			 */
-			virtual void set(const std::string& value);
+			virtual void set(const std::string& iValue);
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(char* value)
+			 * \param[in] value iValue to set
+			 * \sa set(std::sring iValue) and set(char* iValue)
 			 */
-			virtual void set(const char* value);
+			virtual void set(const char* iValue);
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(const char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(const char* iValue)
 			 */
-			virtual void set(char* value);
+			virtual void set(char* iValue);
 			
 			enum{
-				minSize = MinSize,	///< Minimum size of the string
-				maxSize = MaxSize	///< Maximum size of the string
+				MIN_SIZE = MinSize,	///< Minimum size of the string
+				MAX_SIZE = MaxSize	///< Maximum size of the string
 			};
 		protected:
 
-			char _value[maxSize]; ///< Internal value
+			char _value[MAX_SIZE]; ///< Internal value
 
-		}; // FieldSizedString class
-	} // fields namespace
-} // screen namespace
+		};
+	}
+}
 
-#endif // SCREEN_FIELD_SIZED_STRING_H
+#endif

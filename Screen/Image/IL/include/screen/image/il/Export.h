@@ -18,6 +18,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/Image/IL/Export.h
+ * \brief Export header file for screen::image:il
+ * \author
+ *
+ * Pre-processor definitions for screen::fileds component
+ */
 
 #ifndef SCREEN_IMAGE_IL_EXPORT_H
 #define SCREEN_IMAGE_IL_EXPORT_H

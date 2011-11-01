@@ -76,31 +76,31 @@ namespace screen{
 
 			/**
 			 * \brief string setter
-			 * \param[in] value value to set
-			 * \sa set(const char* value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(const char* iValue) and set(char* iValue)
 			 */
-			virtual void set(const std::string& value);
+			virtual void set(const std::string& iValue);
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(char* iValue)
 			 */
-			virtual void set(const char* value);
+			virtual void set(const char* iValue);
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(const char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(const char* iValue)
 			 */
-			virtual void set(char* value);
+			virtual void set(char* iValue);
 
 		protected:
 
 			std::string _value; ///< Internal value
 
-		}; // FieldString class
-	} // fields namespace
-} // screen Namespace
+		};
+	}
+}
 
-#endif // SCREEN_FIELD_STRING_H
+#endif
