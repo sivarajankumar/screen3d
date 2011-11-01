@@ -72,7 +72,7 @@ namespace screen {
 	        return ret;
 		}
 
-	} // math namespace
-} // screen namespace
+	}
+}
 
 #endif // SCREEN_MATH_OTHER_H

@@ -79,10 +79,10 @@ namespace screen {
             operator const int* () const;
 		private:
 			int x,y;
-		}; // Vector2i class
+		};
 		
 		Vector2i operator *(int t, const Vector2i& v);
-	} // math namespace
-} // screen namespace
+	}
+}
 
-#endif // SCREEN_VECTOR_2_I_H
+#endif

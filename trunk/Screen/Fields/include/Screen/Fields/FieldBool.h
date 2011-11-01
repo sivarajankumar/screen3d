@@ -80,10 +80,10 @@ namespace screen{
 			 *
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 *
-			 * \param[in] value value to set
-			 * \sa set(const char* value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(const char* iValue) and set(char* iValue)
 			 */
-			virtual void set(const std::string& value);
+			virtual void set(const std::string& iValue);
 
 			/**
 			 * \brief const char* setter
@@ -91,10 +91,10 @@ namespace screen{
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 * NULL value is considered as set to void.
 			 *
-			 * \param[in] valu: value to set
-			 * \sa set(std::sring value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring value) and set(char* iValue)
 			 */
-			virtual void set(const char* value);
+			virtual void set(const char* iValue);
 
 			/**
 			 * \brief char* setter
@@ -102,23 +102,23 @@ namespace screen{
 			 * Set the field value with a char*. Only "true" and "false" are valid.
 			 * NULL value considered as set to void.
 			 *
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(const char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(const char* iValue)
 			 */
-			virtual void set(char* value);
+			virtual void set(char* iValue);
 
 			/**
 			 * \brief boolean setter
-			 * \param[in] value value to set
+			 * \param[in] iValue value to set
 			 */
-			virtual void set(bool value);
+			virtual void set(bool iValue);
 
 		protected:
 
 			bool _value; ///< Internal value
 
-		}; // FieldBool class
-	} // fields namespace
-} // screen namespace
+		};
+	}
+}
 
-#endif // SCREEN_FIELD_BOOL_H
+#endif

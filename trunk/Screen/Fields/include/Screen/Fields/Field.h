@@ -43,8 +43,8 @@ namespace screen{
 		/**
 		 * \brief Base class for all Fields classes
 		 */
-		class SCREEN_FIELDS_EXPORT Field
-		{
+		class SCREEN_FIELDS_EXPORT Field{
+
 		SCREEN_DECL_CLASS(Screen::Fields::Field)
 
 		public:
@@ -69,24 +69,24 @@ namespace screen{
 			
 			/**
 			 * \brief string setter
-			 * \param[in] value value to set
-			 * \sa set(const char* value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(const char* iValue) and set(char* iValue)
 			 */
-			virtual void set(const std::string& value) = 0;
+			virtual void set(const std::string& iValue) = 0;
 
 			/**
 			 * \brief const char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(char* iValue)
 			 */
-			virtual void set(const char* value) = 0;
+			virtual void set(const char* iValue) = 0;
 
 			/**
 			 * \brief char* setter
-			 * \param[in] value value to set
-			 * \sa set(std::sring value) and set(const char* value)
+			 * \param[in] iValue value to set
+			 * \sa set(std::sring iValue) and set(const char* iValue)
 			 */
-			virtual void set(char* value) = 0;
+			virtual void set(char* iValue) = 0;
 
 		protected:
 
@@ -105,8 +105,8 @@ namespace screen{
 			bool _isVoid;	///< is field empty
 			bool _isValid;	///< is field valid
 
-		};	// Field class
-	} // fields namespace
-} // screen namespace
+		};
+	}
+}
 
-#endif // SCREEN_FIELD_H
+#endif

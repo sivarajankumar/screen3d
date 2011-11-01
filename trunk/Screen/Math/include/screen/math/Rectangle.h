@@ -44,7 +44,7 @@ namespace screen {
 	namespace math {
 
 		/**
-		 * \brief Possible iutersections values
+		 * \brief Possible intersections values
 		 */
 		enum RectangleIntersection{
 			RECT_INT_IN,			///< The rectangle in totally inside
@@ -103,8 +103,8 @@ namespace screen {
 			Vector2i leftTop;
 			Vector2i size;
 
-		}; // Rectangle class
-	} // math namespace
-} // screen namespace
+		};
+	}
+}
 
-#endif // SCREEN_RECTANGLE_H
+#endif

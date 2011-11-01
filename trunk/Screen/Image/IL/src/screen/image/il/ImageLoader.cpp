@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/Image/IL/ImageLoader.h
+ * \brief Image loader source file
+ * \author
+ *
+ */
 
 #include <screen/image/il/ImageLoader.h>
 #include <screen/core/Enums.h>
@@ -27,7 +33,8 @@
 
 namespace screen {
 	namespace image {
-		namespace il {
+		namespace il{
+
 			using screen::core::objects::Image;
 
 			ImageLoader::ImageLoader(){
@@ -45,23 +52,24 @@ namespace screen {
 				ilShutDown();
 			}
 
-			Image* ImageLoader::loadFromFile(const std::string& filename) const{
-				SCREEN_DECL_METHOD(loadFromFile)
-				ILuint texture;
-				ilGenImages(1, &texture);
-				ilBindImage(texture);
+			Image* ImageLoader::loadFromFile(const std::string& iFilename) const{
+				SCREEN_DECL_METHOD(loadFromFile);
 
-				if (!ilLoadImage(const_cast<ILstring>(filename.c_str())))
-					throw screen::utils::LoadingException(filename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
+				ILuint aTexture;
+				ilGenImages(1, &aTexture);
+				ilBindImage(aTexture);
 
-				screen::math::Vector2i size(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
-				const unsigned char* pixels = ilGetData();
-				Image* image = new Image(size, screen::core::PXF_A8R8G8B8, pixels);
+				if (!ilLoadImage(const_cast<ILstring>(iFilename.c_str())))
+					throw screen::utils::LoadingException(iFilename, "Erreur DevIL : ilLoadImage call failed. Can't load image");
+
+				screen::math::Vector2i aSize(ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT));
+				const unsigned char* aPixels = ilGetData();
+				Image* aImage = new Image(aSize, screen::core::PXF_A8R8G8B8, aPixels);
 
 				ilBindImage(0);
-				ilDeleteImages(1, &texture);
+				ilDeleteImages(1, &aTexture);
 
-				return image;
+				return aImage;
 			}
 		}
 	}

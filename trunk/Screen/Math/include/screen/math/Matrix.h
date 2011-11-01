@@ -245,7 +245,7 @@ namespace screen {
 
 			StaticArray<T,I*J> matrixArray; ///< Internal array representing the matrix
 
-		}; // matrix class
+		}; // Matrix class
         
 
 		/**
@@ -371,9 +371,9 @@ namespace screen {
 
 			StaticArray<T,I> vectorArray;	///< Internal array of representing vector
 
-		}; // Vector class
+		};
 
-	} // math namespace
-} // screen namespace
+	}
+}
 
 #endif // MATRIX_H

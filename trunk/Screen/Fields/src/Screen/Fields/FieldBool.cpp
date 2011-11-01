@@ -49,12 +49,12 @@ namespace screen{
 			return _value;
 		}
 		
-		void FieldBool::set(const std::string& value){
-			if(value == "true"){
+		void FieldBool::set(const std::string& iValue){
+			if(iValue == "true"){
 				_value = true;
 				_isValid = true;
 			}
-			else if(value == "false"){
+			else if(iValue == "false"){
 				_value = false;
 				_isValid = true;
 			}
@@ -65,18 +65,18 @@ namespace screen{
 			_isVoid = false;
 		}
 		
-		void FieldBool::set(const char* value){
-			if(value == NULL){
+		void FieldBool::set(const char* iValue){
+			if(iValue == NULL){
 				_value = false;
 				_isValid = false;
 				_isVoid = true;
 			}
-			else if(::strcmp(value,"true") == 0){
+			else if(::strcmp(iValue,"true") == 0){
 				_value = true;
 				_isValid = true;
 				_isVoid = false;
 			}
-			else if(::strcmp(value,"false") == 0){
+			else if(::strcmp(iValue,"false") == 0){
 				_value = false;
 				_isValid = true;
 				_isVoid = false;
@@ -88,18 +88,18 @@ namespace screen{
 			}	
 		}
 		
-		void FieldBool::set(char* value){
-			if(value == NULL){
+		void FieldBool::set(char* iValue){
+			if(iValue == NULL){
 				_value = false;
 				_isValid = false;
 				_isVoid = true;
 			}
-			else if(::strcmp(value,"true") == 0){
+			else if(::strcmp(iValue,"true") == 0){
 				_value = true;
 				_isValid = true;
 				_isVoid = false;
 			}
-			else if(::strcmp(value,"false") == 0){
+			else if(::strcmp(iValue,"false") == 0){
 				_value = false;
 				_isValid = true;
 				_isVoid = false;
@@ -111,8 +111,8 @@ namespace screen{
 			}
 		}
 		
-		void FieldBool::set(bool value){
-			_value = value;
+		void FieldBool::set(bool iValue){
+			_value = iValue;
 			_isValid = true;
 			_isVoid = false;
 		}
