@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/TypedBuffer.h
+ * \brief Screen memory typed buffer header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_MEMORY_TYPED_BUFFER_H
 #define SCREEN_MEMORY_TYPED_BUFFER_H
@@ -26,9 +32,25 @@
 #include <screen/utils/Declaration.h>
 #include <screen/memory/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-    namespace memory {
-		template <class T>		
+	/**
+	 * Namespace for all memory classes
+	 */
+	namespace memory {
+
+		/**
+		 * \brief Generic buffer implementation for Screen/Memory component
+		 *
+		 * It represents the minimalistic user interface to handle a buffer instance
+		 * for a given type.
+		 * It hides all explicit BufferBase instance handling and allocation
+		 *
+		 * \tparam T Content instance type
+		 */
+		template <class T>
 		class TypedBuffer {
         	SCREEN_DECL_CLASS(screen::memory::TypedBuffer)
         public:
@@ -38,54 +60,130 @@ namespace screen {
 			typedef const T* const_pointer;
 			typedef const T& const_reference;
 
+			/**
+			 * \brief Default constructor
+			 */
 			TypedBuffer(){
 				SCREEN_DECL_CONSTRUCTOR(TypedBuffer)
 			}
-			TypedBuffer(const TypedBuffer& typedBuffer)
-				:buffer(typedBuffer.buffer)
+
+			/**
+			 * \brief Copy contructor
+			 *
+			 * \param[in] iTypedBuffer Buffer instance to copy
+			 */
+			TypedBuffer(const TypedBuffer& iTypedBuffer)
+				:_buffer(iTypedBuffer._buffer)
 			{
 				SCREEN_DECL_CONSTRUCTOR(TypedBuffer)
 			}
-			const TypedBuffer& operator= (const TypedBuffer& typedBuffer){
+
+			/**
+			 * \brief Copy operator
+			 *
+			 * \param[in] iBuffer Buffer instance to copy
+			 * \return copied buffer instance
+			 */
+			const TypedBuffer& operator= (const TypedBuffer& iTypedBuffer){
 				SCREEN_DECL_METHOD(operator=)
-				buffer = typedBuffer.buffer;
+				_buffer = iTypedBuffer._buffer;
 				return *this;
 			}
+
+			/**
+			 * \brief Destructor
+			 *
+			 * Release BufferBase instance
+			 */
 			virtual ~TypedBuffer(){
 				SCREEN_DECL_DESTRUCTOR(~TypedBuffer)
 			}
 
-			void setAt(unsigned int position,const T* _buffer, unsigned int size){
+			/**
+			 * \brief Copy an input buffer content into a memory buffer part
+			 *
+			 * It automatically handles BufferBase instance allocation and replacement
+			 *
+			 * \param[in] iPosition position into memory buffer to copy the input buffer
+			 * \param[in] iBuffer Input buffer to copy
+			 * \param[in] iSize Buffer size to copy
+			 */
+			void setAt(unsigned int iPosition,const T* iBuffer, unsigned int iSize){
 				SCREEN_DECL_METHOD(setAt)
-				buffer.setAt(position*sizeof(T),_buffer,size*sizeof(T));
-			}
-			const T* getAt(unsigned int position) const{
-				SCREEN_DECL_METHOD(getAt)
-				return static_cast<const T*>(buffer.getAt(position*sizeof(T)));
-			}
-			T* getAt(unsigned int position){
-				SCREEN_DECL_METHOD(getAt)
-				return static_cast<T*>(buffer.getAt(position*sizeof(T)));
-			}
-			unsigned int size() const{
-				SCREEN_DECL_METHOD(size)
-				return buffer.size()/sizeof(T);
-			}
-			unsigned int effectiveSize() const{
-				SCREEN_DECL_METHOD(effectiveSize)
-				return buffer.effectiveSize()/sizeof(T);
-			}
-			void allocate(unsigned int size){
-				SCREEN_DECL_METHOD(allocate);
-				buffer.allocate(size*sizeof(T));
+				_buffer.setAt(iPosition*sizeof(T),iBuffer,iSize*sizeof(T));
 			}
 
+			/**
+			 * \brief Retrieve memory buffer pointer
+			 *
+			 * \param[in] iPosition position into memory buffer to retrieve
+			 * \return Memory buffer pointer
+			 */
+			const T* getAt(unsigned int iPosition) const{
+				SCREEN_DECL_METHOD(getAt)
+				return static_cast<const T*>(_buffer.getAt(iPosition*sizeof(T)));
+			}
+
+			/**
+			 * \brief Retrieve memory buffer pointer
+			 *
+			 * \param[in] iPosition position into memory buffer to retrieve
+			 * \return Memory buffer pointer
+			 */
+			T* getAt(unsigned int iPosition){
+				SCREEN_DECL_METHOD(getAt)
+				return static_cast<T*>(_buffer.getAt(iPosition*sizeof(T)));
+			}
+
+			/**
+			 * \brief Retrieve memory buffer size
+			 *
+			 * \return Memory buffer size
+			 */
+			unsigned int size() const{
+				SCREEN_DECL_METHOD(size)
+				return _buffer.size()/sizeof(T);
+			}
+
+			/**
+			 * \brief Retrieve the effective memory buffer size
+			 *
+			 * It represents the size internal allocated size for a buffer,
+			 * depending of the chosen policies.
+			 * The effective size is always upper than the user-side size.
+			 *
+			 * \return Memory buffer size
+			 */
+			unsigned int effectiveSize() const{
+				SCREEN_DECL_METHOD(effectiveSize)
+				return _buffer.effectiveSize()/sizeof(T);
+			}
+
+			/**
+			 * \brief Allocate a minimal size for the buffer
+			 *
+			 * Could be used if the user know the final size, or at least the minimal one.
+			 * Could also be uses to manually set the buffer content without use setAt
+			 * method.
+			 *
+			 * \param[in] iSize size to allocate
+			 */
+			void allocate(unsigned int iSize){
+				SCREEN_DECL_METHOD(allocate);
+				_buffer.allocate(iSize*sizeof(T));
+			}
+
+			/**
+			 * \brief Release the BufferBase instance
+			 *
+			 * All buffer content is lost
+			 */
 			void unlock(){
 				SCREEN_DECL_METHOD(unlock)
-				buffer.unlock();
+				_buffer.unlock();
 			}
 		private:
-			Buffer buffer;
+			Buffer _buffer; ///< internal buffer instance with no type
         };
     }
 }

@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/AllocBufferMap.h
+ * \brief Screen memory allocation buffer map header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_MEMORY_ALLOC_BUFFER_MAP_H
 #define SCREEN_MEMORY_ALLOC_BUFFER_MAP_H
@@ -25,18 +31,46 @@
 #include <screen/utils/Declaration.h>
 #include <screen/memory/BufferBase.h>
 
-namespace screen{
-	namespace memory{
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+	/**
+	 * Namespace for all memory classes
+	 */
+	namespace memory {
 		class BufferBase;
 		
+		/**
+		 * \brief Mapping between allocated memory by Allocator and BufferBase instance
+		 *
+		 * On some implementations, allocator are stateless.
+		 * The purpose of this mapping is to keep the state
+		 * thanks to the fact the allocated pointer remains.
+		 *
+		 */
 		class SCREEN_MEMORY_EXPORT AllocBufferMap : public screen::utils::UniqueSingleton<AllocBufferMap>{
 				SCREEN_DECL_CLASS(screen::memory::AllocBufferMap)
 				SINGLETON_DECL(UniqueSingleton,AllocBufferMap)
 			public:
-				void addBufferBase(const void* ptr, BufferBase* buf);
-				BufferBase* popBufferBase(const void* ptr) const;
+
+				/**
+				 * \brief Store the mapping between the pointer and the BufferBase.
+				 *
+				 * \param[in] iPtr Allocated pointer
+				 * \param[in] iBuf Buffer base pointer
+				 */
+				void addBufferBase(const void* iPtr, BufferBase* iBuf);
+
+				/**
+				 * \brief Retrieve and pop from mapping the buffer base.
+				 *
+				 * \param[in] iPtr allocated pointer
+				 * \return Buffer base pointer
+				 */
+				BufferBase* popBufferBase(const void* iPtr) const;
 			private:
-				std::map<const void*, BufferBase*> bufferBaseMap;
+				std::map<const void*, BufferBase*> _bufferBaseMap; ///< allocated pointer / buffer base map
 		};		
 	}
 }

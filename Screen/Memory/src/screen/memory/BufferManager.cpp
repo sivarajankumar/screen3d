@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/BufferManager.cpp
+ * \brief Screen memory buffer manager source file
+ * \author
+ *
+ */
 
 #include <screen/memory/BufferManager.h>
 #include <screen/utils/Exception.h>
@@ -29,40 +35,40 @@ namespace screen {
 
 		BufferManager::BufferManager(){
 			SCREEN_DECL_CONSTRUCTOR(BufferManager);
-			policy = new screen::memory::policies::BufferPolicyHandler<>();
+			_policy = new screen::memory::policies::BufferPolicyHandler<>();
 		}
 		BufferManager::~BufferManager(){
 			SCREEN_DECL_DESTRUCTOR(~BufferManager);
 		}
 
-		BufferBase* BufferManager::getNewBufferBase(unsigned int size){
+		BufferBase* BufferManager::getNewBufferBase(unsigned int iSize){
 			SCREEN_DECL_METHOD(getNewBufferBase);
-			return policy->getNewBufferBase(size);
+			return _policy->getNewBufferBase(iSize);
 		}
 
-		void BufferManager::addToUnlocked(BufferBase* bufferBase){
+		void BufferManager::addToUnlocked(BufferBase* iBufferBase){
 			SCREEN_DECL_METHOD(addToUnlocked);
-			policy->addToUnlocked(bufferBase);
+			_policy->addToUnlocked(iBufferBase);
 		}
 
-		BufferBase* BufferManager::replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize){
+		BufferBase* BufferManager::replaceBufferBase(BufferBase* iOldBufferBase, unsigned int iNewSize){
 			SCREEN_DECL_METHOD(replaceBufferBase);
-			return policy->replaceBufferBase(oldBufferBase,newSize);
+			return _policy->replaceBufferBase(iOldBufferBase,iNewSize);
 		}
 
 		unsigned int BufferManager::garbage(){
 			SCREEN_DECL_METHOD(garbage);
-			return policy->garbage();
+			return _policy->garbage();
 		}
 
-		int BufferManager::calculateStackNumber(unsigned int size){
+		int BufferManager::calculateStackNumber(unsigned int iSize){
 			SCREEN_DECL_METHOD(calculateStackNumber);
-			return policy->calculateStackNumber(size);
+			return _policy->calculateStackNumber(iSize);
 		}
 
-		unsigned int BufferManager::calculateSizeFromStack(int stackNumber){
+		unsigned int BufferManager::calculateSizeFromStack(int iStackNumber){
 			SCREEN_DECL_METHOD(calculateSizeFromStack);
-			return policy->calculateSizeFromStack(stackNumber);
+			return _policy->calculateSizeFromStack(iStackNumber);
 		}
 	}
 }

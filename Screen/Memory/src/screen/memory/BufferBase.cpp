@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/BufferBase.cpp
+ * \brief Screen memory buffer base source file
+ * \author
+ *
+ */
 
 #include <screen/memory/BufferBase.h>
 #include <malloc.h>
@@ -25,49 +31,49 @@
 namespace screen {
     namespace memory {
 		BufferBase::BufferBase()
-			:bufferPtr(NULL),size(0){
+			:_bufferPtr(NULL),_size(0){
 			SCREEN_DECL_CONSTRUCTOR(BufferBase)
 		}
-        BufferBase::BufferBase(void* bufferPtr, unsigned int size)
-			:bufferPtr(bufferPtr),size(size){
+		BufferBase::BufferBase(void* iBufferPtr, unsigned int iSize)
+			:_bufferPtr(iBufferPtr),_size(iSize){
 			SCREEN_DECL_CONSTRUCTOR(BufferBase)
 		}
 
-		BufferBase::BufferBase(const BufferBase& bufferBase)
-			:bufferPtr(bufferBase.bufferPtr),size(bufferBase.size){
+		BufferBase::BufferBase(const BufferBase& iBufferBase)
+			:_bufferPtr(iBufferBase._bufferPtr),_size(iBufferBase._size){
 			SCREEN_DECL_CONSTRUCTOR(BufferBase)
-			const_cast<BufferBase&>(bufferBase).bufferPtr = NULL;
+			const_cast<BufferBase&>(iBufferBase)._bufferPtr = NULL;
 		}
 	
-		const BufferBase& BufferBase::operator=(const BufferBase& bufferBase){
+		const BufferBase& BufferBase::operator=(const BufferBase& iBufferBase){
 			SCREEN_DECL_METHOD(operator=)
-			BufferBase& base = const_cast<BufferBase&>(bufferBase);
-			std::swap(bufferPtr,base.bufferPtr);
-			std::swap(size,base.size);
+			BufferBase& aBase = const_cast<BufferBase&>(iBufferBase);
+			std::swap(_bufferPtr,aBase._bufferPtr);
+			std::swap(_size,aBase._size);
 		}
 		
         BufferBase::~BufferBase(){
 			SCREEN_DECL_DESTRUCTOR(~BufferBase)
-			if(bufferPtr!=NULL)
-				::free(bufferPtr);
+			if(_bufferPtr!=NULL)
+				::free(_bufferPtr);
 		}
 
 		const void* BufferBase::getBuffer() const{
 			SCREEN_DECL_METHOD(getBuffer)
-			return bufferPtr;
+			return _bufferPtr;
 		}
 		void* BufferBase::getBuffer(){
 			SCREEN_DECL_METHOD(getBuffer)
-			return bufferPtr;
+			return _bufferPtr;
 		}
 
 		unsigned int BufferBase::getSize() const{
 			SCREEN_DECL_METHOD(getSize)
-			return size;
+			return _size;
 		}
-		void BufferBase::setSize(unsigned int size){
+		void BufferBase::setSize(unsigned int iSize){
 			SCREEN_DECL_METHOD(setSize)
-			this->size = size;
+			_size = iSize;
 		}
 	}
 }

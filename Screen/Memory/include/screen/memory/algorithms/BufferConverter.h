@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,7 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
-
+/**
+ * \file screen/memory/algorithms/BufferConverter.h
+ * \brief Buffer convertion algorithms header file
+ * \author
+ *
+ */
 #ifndef SCREEN_MEMORY_ALGORITHMS_BUFFER_CONVERTER_H
 #define SCREEN_MEMORY_ALGORITHMS_BUFFER_CONVERTER_H
 
@@ -27,55 +32,106 @@
 #include <screen/utils/Declaration.h>
 #include <screen/memory/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-    namespace memory {
+	/**
+	 * Namespace for all memory classes
+	 */
+	namespace memory {
+		/**
+		 * Namespace for all algorithms classes
+		 */
 		namespace algorithms {
-			template <
-				typename Input,
-				typename Output,
-				class Func>
+
+			/**
+			 * \brief Algorithm for generic typed buffer convertion.
+			 * \tparam Input class parameter of the origin typed buffer
+			 * \tparam Output class parameter of the target typed buffer
+			 * \tparam Func convertion functor between Input and Output instancies
+			 */
+			template <  typename Input,
+						typename Output,
+						class Func>
 			class TypedBufferConverter {
 				SCREEN_DECL_CLASS(screen::memory::TypedBufferConverter)
 			public:
+
+				/**
+				 * \brief Default constructor. Create a default functor instance.
+				 */
 				TypedBufferConverter(){
 					SCREEN_DECL_CONSTRUCTOR(TypedBufferConverter);
 				}
-				TypedBufferConverter(const Func& func)
-					:func(func){
+
+				/**
+				 * \brief Constructor with specified functor instance.
+				 */
+				TypedBufferConverter(const Func& iFunc)
+					:_func(iFunc){
 					SCREEN_DECL_CONSTRUCTOR(TypedBufferConverter);
 				}
+
+				/**
+				 * \brief Destructor.
+				 */
 				virtual ~TypedBufferConverter(){
 					SCREEN_DECL_DESTRUCTOR(~TypedBufferConverter);
 				}
 
-				void convert(const screen::memory::TypedBuffer<Input>& input,
-							 screen::memory::TypedBuffer<Output>& output){
+				/**
+				 * \brief Main convertion method.
+				 *
+				 * Completely convert a Input typed buffer into an output one.
+				 *
+				 * \param[in] iInput origin typed buffer
+				 * \param[out] oOutput target typed buffer
+				 */
+				void convert(const screen::memory::TypedBuffer<Input>& iInput,
+							 screen::memory::TypedBuffer<Output>& oOutput){
 					SCREEN_DECL_METHOD(convert);
 
-					unsigned int inputSize = input.size();
-					output.allocate(inputSize);
+					//preallocate target memory
+					unsigned int aInputSize = iInput.size();
+					oOutput.allocate(aInputSize);
 
-					const Input* inputTable = input.getAt(0);
-					Output* outputTable = output.getAt(0);
+					//retrieve pointers to the beginning of buffers
+					const Input* aInputTable = iInput.getAt(0);
+					Output* aOutputTable = oOutput.getAt(0);
 
-					for(unsigned int i = 0; i<inputSize; i++){
-						func(inputTable[i], outputTable[i]);
+					//convert each instance
+					for(unsigned int i = 0; i<aInputSize; i++){
+						_func(aInputTable[i], aOutputTable[i]);
 					}
 				}
 
 			private:
-				Func func;
+				Func _func; ///< Convertion functor.
 			};
 
-			template <
-				typename Input,
-				typename Output>
+
+			/**
+			 * \brief Default typed buffer convertion functor.
+			 * \tparam Input class parameter of the origin typed buffer
+			 * \tparam Output class parameter of the target typed buffer
+			 */
+			template <  typename Input,
+						typename Output>
 			struct DefautTypedBufferConverterFunc{
-				void operator ()(const Input& input, Output& output){
-					output = input;
+
+				/**
+				 * \brief Convertion operator.
+				 *
+				 * Completely convert a Input instance into an output instance.
+				 *
+				 * \param[in] iInput origin instance
+				 * \param[out] oOutput target instance
+				 */
+				void operator ()(const Input& iInput, Output& oOutput){
+					oOutput = iInput;
 				}
 			};
-
 		}
 	}
 }

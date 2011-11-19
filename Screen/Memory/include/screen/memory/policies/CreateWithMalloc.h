@@ -1,23 +1,29 @@
 /*****************************************************************************
-* This source file is part of SCREEN (SCalable REndering ENgine)            *
-*                                                                           *
-* Copyright (c) 2008-2011 Ratouit Thomas                                    *
-*                                                                           *
-* This program is free software; you can redistribute it and/or modify it   *
-* under the terms of the GNU Lesser General Public License as published by  *
-* the Free Software Foundation; either version 3 of the License, or (at     *
-* your option) any later version.                                           *
-*                                                                           *
-* This program is distributed in the hope that it will be useful, but       *
-* WITHOUT ANY WARRANTY; without even the implied warranty of                *
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser   *
-* General Public License for more details.                                  *
-*                                                                           *
-* You should have received a copy of the GNU Lesser General Public License  *
-* along with this program; if not, write to the Free Software Foundation,   *
-* Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
-* http://www.gnu.org/copyleft/lesser.txt.                                   *
-*****************************************************************************/
+ * This source file is part of SCREEN (SCalable REndering ENgine)            *
+ *                                                                           *
+ * Copyright (c) 2008-2011 Ratouit Thomas                                    *
+ *                                                                           *
+ * This program is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Lesser General Public License as published by  *
+ * the Free Software Foundation; either version 3 of the License, or (at     *
+ * your option) any later version.                                           *
+ *                                                                           *
+ * This program is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser   *
+ * General Public License for more details.                                  *
+ *                                                                           *
+ * You should have received a copy of the GNU Lesser General Public License  *
+ * along with this program; if not, write to the Free Software Foundation,   *
+ * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
+ * http://www.gnu.org/copyleft/lesser.txt.                                   *
+ *****************************************************************************/
+/**
+ * \file screen/memory/policies/CreateWithMalloc.h
+ * \brief Memory allocation policy interface header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_MEMORY_POLICIES_CREATE_WITH_MALLOC_H
 #define SCREEN_MEMORY_POLICIES_CREATE_WITH_MALLOC_H
@@ -25,18 +31,43 @@
 #include <screen/utils/Declaration.h>
 #include <screen/memory/Export.h>
 
-namespace screen{
-	namespace memory{
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+	/**
+	 * Namespace for all memory classes
+	 */
+	namespace memory {
+		/**
+		 * Namespace for all policies classes
+		 */
 		namespace policies{
 			class BufferPolicyHandlerInterface;
 
+			/**
+			 * \brief Malloc memory allocation policy for buffers.
+			 */
 			class SCREEN_MEMORY_EXPORT CreateWithMalloc{
 				SCREEN_DECL_CLASS(screen::memory::policies::CreateWithMalloc);
 			public:
-				CreateWithMalloc(BufferPolicyHandlerInterface* interface);
-				void* createBuffer(size_t bufferSize);
+
+				/**
+				 * \brief Constructor with common buffer policy interface.
+				 *
+				 * \param[in,out] ioInterface Common buffer policy interface
+				 */
+				CreateWithMalloc(BufferPolicyHandlerInterface* ioInterface);
+
+				/**
+				 * \brief Simply allocate memory to give it to BufferBase instance.
+				 *
+				 * \param[in] iBufferSize Size to allocate
+				 * \return allocated memory pointer
+				 */
+				void* createBuffer(size_t iBufferSize);
 			private:
-				BufferPolicyHandlerInterface* interface;
+				BufferPolicyHandlerInterface* _interface; ///< common buffer policy interface
 			};
 		}
 	}
