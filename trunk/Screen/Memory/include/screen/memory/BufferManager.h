@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/BufferManager.h
+ * \brief Screen memory buffer manager header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_MEMORY_BUFFER_MANAGER_H
 #define SCREEN_MEMORY_BUFFER_MANAGER_H
@@ -31,29 +37,110 @@
 #include <stack>
 #include <set>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all memory classes
+	 */
 	namespace memory {
+
+		/**
+		 * \brief Internal buffer manager class for Screen/Memory
+		 *
+		 * Handle the BufferBase instances and policies
+		 *
+		 */
 		class SCREEN_MEMORY_EXPORT BufferManager : public screen::utils::UniqueSingleton<BufferManager>{
 			SCREEN_DECL_CLASS(screen::memory::BufferManager);
 			SINGLETON_DECL(UniqueSingleton,BufferManager);
 			friend class Buffer;
 		public:
+
+			/**
+			 * \brief Default constructor
+			 */
 			BufferManager();
+
+			/**
+			 * \brief Destructor
+			 */
 			~BufferManager();
 
-			void attachPolicyHandler(screen::memory::policies::BufferPolicyHandlerInterface* policy);
+			/**
+			 * \brief Attach a policy handler to the buffer manager
+			 *
+			 * Warning : do not change policy handler after first buffer allocation
+			 * All allocated buffers will be destroyed
+			 * Buffer transfert between policies should be implemented
+			 *
+			 * \param[in,out] ioPolicy Policy handler
+			 */
+			void attachPolicyHandler(screen::memory::policies::BufferPolicyHandlerInterface* ioPolicy);
 
-			BufferBase* getNewBufferBase(unsigned int size);
-			void addToUnlocked(BufferBase* bufferBase);
-			BufferBase* replaceBufferBase(BufferBase* oldBufferBase, unsigned int newSize);
+			/**
+			 * \brief Allocate an new buffer with a given size.
+			 *
+			 * If there is an unused buffer into the stack, it will reuse this buffer
+			 * instead of create a new one.
+			 *
+			 * \param[in] iSize Size of the buffer that need to be allocated
+			 * \return Returns the new buffer
+			 */
+			BufferBase* getNewBufferBase(unsigned int iSize);
+
+			/**
+			 * \brief Unlock a buffer.
+			 *
+			 * This method is called when the user want to desallocate a buffer.
+			 * The buffer will not be desallocated but put in unlocked buffer stack
+			 * in order to be reused.
+			 *
+			 * \param[in] iBufferBase buffer to unlock
+			 */
+			void addToUnlocked(BufferBase* iBufferBase);
+
+			/**
+			 * \brief Copy the current buffer into a bigger buffer.
+			 *
+			 * This method is called when the user want to increase the size of the buffer.
+			 * If the current buffer is big enough, we keep this one.
+			 * In other cases, the current buffer is cloned into a new bigger one
+			 * and the old buffer is put into unlocked stack.
+			 *
+			 * \param[in] iOldBufferBase buffer to copy
+			 * \param[in] iNewSize size of the new buffer
+			 * \return Returns the new buffer
+			 */
+			BufferBase* replaceBufferBase(BufferBase* iOldBufferBase, unsigned int iNewSize);
+
+			/**
+			 * \brief Clear unlocked stack and delete all unlocked buffers.
+			 *
+			 * \return Returns total buffer size that has been deleted
+			 */
 			unsigned int garbage();
 
-			int calculateStackNumber(unsigned int size);
-			unsigned int calculateSizeFromStack(int stackNumber);
+			/**
+			 * \brief Compute stack number from expected buffer size.
+			 *
+			 * \param[in] iSize expected buffer size
+			 * \return Returns stack number
+			 */
+			int calculateStackNumber(unsigned int iSize);
+
+			/**
+			 * \brief Compute real buffer size from stack number.
+			 *
+			 * \param[in] iStackNumber stack number
+			 * \return Returns real buffer size
+			 */
+			unsigned int calculateSizeFromStack(int iStackNumber);
 
 			screen::utils::SmartPtr<
 				screen::memory::policies::BufferPolicyHandlerInterface,
-				screen::utils::ScopePolicy> policy;
+				screen::utils::ScopePolicy> _policy; ///< policy handler pointer
 		};
 	}
 }

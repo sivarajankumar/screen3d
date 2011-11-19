@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/AllocBufferMap.cpp
+ * \brief Screen memory allocation buffer map source file
+ * \author
+ *
+ */
 
 #include <screen/memory/AllocBufferMap.h>
 #include <screen/memory/BufferBase.h>
@@ -26,23 +32,23 @@ namespace screen {
     namespace memory {
 		SINGLETON_IMPL(UniqueSingleton,AllocBufferMap)
 	
-    	void AllocBufferMap::addBufferBase(const void* ptr, BufferBase* buf){
-    		bufferBaseMap[ptr] = buf;
+		void AllocBufferMap::addBufferBase(const void* iPtr, BufferBase* iBuf){
+			_bufferBaseMap[iPtr] = iBuf;
     	}
     	
-    	BufferBase* AllocBufferMap::popBufferBase(const void* ptr) const{
-    		std::map<const void*, BufferBase*>::const_iterator it = bufferBaseMap.find(ptr);
-    		if(it == bufferBaseMap.end()){
-    			SCREEN_LOG_WARNING("Can't find buffer base for address " << ptr);
+		BufferBase* AllocBufferMap::popBufferBase(const void* iPtr) const{
+			std::map<const void*, BufferBase*>::const_iterator aIt = _bufferBaseMap.find(iPtr);
+			if(aIt == _bufferBaseMap.end()){
+				SCREEN_LOG_WARNING("Can't find buffer base for address " << iPtr);
     			return NULL;
     		}
     		else{
-    			BufferBase* buf = it->second;
+				BufferBase* aBuf = aIt->second;
     			
     			//optimisation tip : instead of cleaning map member, just set as NULL
-    			const_cast<BufferBase*&>(it->second) = NULL;
+				const_cast<BufferBase*&>(aIt->second) = NULL;
     			
-    			return buf;
+				return aBuf;
     		}
     	}
     }

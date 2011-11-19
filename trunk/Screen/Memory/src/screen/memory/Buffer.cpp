@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/Buffer.cpp
+ * \brief Screen memory buffer source file
+ * \author
+ *
+ */
 
 #include <screen/memory/Buffer.h>
 #include <screen/memory/BufferBase.h>
@@ -29,19 +35,19 @@
 namespace screen {
     namespace memory {
 		Buffer::Buffer()
-			:bufferBase(NULL){
+			:_bufferBase(NULL){
 			SCREEN_DECL_CONSTRUCTOR(Buffer)
 		}
 
-		Buffer::Buffer(const Buffer& buffer)
-			:bufferBase(NULL){
+		Buffer::Buffer(const Buffer& iBuffer)
+			:_bufferBase(NULL){
 			SCREEN_DECL_CONSTRUCTOR(Buffer)
-			swap(buffer);
+			swap(iBuffer);
 		}
 
-		const Buffer& Buffer::operator= (const Buffer& buffer){
+		const Buffer& Buffer::operator= (const Buffer& iBuffer){
 			SCREEN_DECL_METHOD(operator=)
-			swap(buffer);
+			swap(iBuffer);
 			return *this;
 		}
 		
@@ -50,38 +56,42 @@ namespace screen {
 			unlock();
 		}
 
-		void Buffer::setAt(unsigned int position,const void* buffer, unsigned int size){
+		void Buffer::setAt(unsigned int iPosition,const void* iBuffer, unsigned int iSize){
 			SCREEN_DECL_METHOD(setAt)
-			int bufSize = position+size;
-			allocate(bufSize);
+			int aBufSize = iPosition+iSize;
+			allocate(aBufSize);
 			//Assert(bufferBase!=NULL);
 			//Assert(bufferBase->getBuffer()!=NULL);
-			::memcpy((char*)bufferBase->getBuffer()+position, buffer, size);
+			::memcpy((char*)_bufferBase->getBuffer()+iPosition, iBuffer, iSize);
 		}
 		
-		const void* Buffer::getAt(unsigned int position) const{
+		const void* Buffer::getAt(unsigned int iPosition) const{
 			SCREEN_DECL_METHOD(getAt)
-			if(bufferBase != NULL){
+			if(_bufferBase != NULL){
 				//Assert(bufferBase->getBuffer()!=NULL);
-				return (char*)bufferBase->getBuffer()+position;
-			}else
+				return (char*)_bufferBase->getBuffer()+iPosition;
+			}
+			else{
 				return NULL;
+			}
 		}
 
-		void* Buffer::getAt(unsigned int position){
+		void* Buffer::getAt(unsigned int iPosition){
 			SCREEN_DECL_METHOD(getAt)
-			if(bufferBase != NULL){
+			if(_bufferBase != NULL){
 				//Assert(bufferBase->getBuffer()!=NULL);
-				return (char*)bufferBase->getBuffer()+position;
-			}else
+				return (char*)_bufferBase->getBuffer()+iPosition;
+			}
+			else{
 				return NULL;
+			}
 		}
 
 		
 		unsigned int Buffer::size() const{
 			SCREEN_DECL_METHOD(size)
-			if(bufferBase != NULL)
-				return bufferBase->getSize();
+			if(_bufferBase != NULL)
+				return _bufferBase->getSize();
 			else
 				return 0;
 		}
@@ -93,31 +103,31 @@ namespace screen {
 					);
 		}
 
-		void Buffer::allocate(unsigned int size){
+		void Buffer::allocate(unsigned int iSize){
 			SCREEN_DECL_METHOD(allocate);
 			if(!isLocked())
-				bufferBase = BufferManager::instance()->getNewBufferBase(size);
+				_bufferBase = BufferManager::instance()->getNewBufferBase(iSize);
 			else
-				bufferBase = BufferManager::instance()->replaceBufferBase(bufferBase, size);
+				_bufferBase = BufferManager::instance()->replaceBufferBase(_bufferBase, iSize);
 		}
 
 		void Buffer::unlock(){
 			SCREEN_DECL_METHOD(unlock)
 			if(isLocked()){
-				BufferManager::instance()->addToUnlocked(bufferBase);
-				bufferBase = NULL;
+				BufferManager::instance()->addToUnlocked(_bufferBase);
+				_bufferBase = NULL;
 			}
 		}
 		
 		bool Buffer::isLocked() const{
 			SCREEN_DECL_METHOD(isLocked)
-			return bufferBase != NULL;
+			return _bufferBase != NULL;
 		}
 
-		void Buffer::swap(const Buffer& buffer){
+		void Buffer::swap(const Buffer& iBuffer){
 			SCREEN_DECL_METHOD(swap)
-			Buffer& modifBuffer = const_cast<Buffer&>(buffer);
-			std::swap(bufferBase, modifBuffer.bufferBase);
+			Buffer& aModifBuffer = const_cast<Buffer&>(iBuffer);
+			std::swap(_bufferBase, aModifBuffer._bufferBase);
 		}
     }
 }

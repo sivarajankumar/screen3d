@@ -1,4 +1,4 @@
- /*****************************************************************************
+/*****************************************************************************
  * This source file is part of SCREEN (SCalable REndering ENgine)            *
  *                                                                           *
  * Copyright (c) 2008-2011 Ratouit Thomas                                    *
@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/memory/Defaults.h
+ * \brief Screen memory default values for buffer stacks header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_MEMORY_DEFAULTS_H
 #define SCREEN_MEMORY_DEFAULTS_H
@@ -37,6 +43,5 @@
 #ifndef SCREEN_MEMORY_DEFAULT_STACK_SIZE
 #define SCREEN_MEMORY_DEFAULT_STACK_SIZE 2000
 #endif
-
 
 #endif

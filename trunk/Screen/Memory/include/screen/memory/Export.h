@@ -18,6 +18,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/Memory/Export.h
+ * \brief Export header file for screen::memory
+ * \author
+ *
+ * Pre-processor definitions for screen::memory component
+ */
 
 #ifndef SCREEN_MEMORY_EXPORT_H
 #define SCREEN_MEMORY_EXPORT_H
