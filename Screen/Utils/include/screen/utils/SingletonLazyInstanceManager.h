@@ -31,13 +31,13 @@ namespace screen {
 		
 		class SCREEN_UTILS_EXPORT SingletonLazyInstanceManager{
 			public:
-				static void registerLazy(SingletonLazyInstanceInterface* base);
+				static void registerLazy(SingletonLazyInstanceInterface* ioBase);
 			private:
 				SingletonLazyInstanceManager();
 				~SingletonLazyInstanceManager();
 
-				static SingletonLazyInstanceManager instance;
-				std::stack<SingletonLazyInstanceInterface*> stack;
+				static SingletonLazyInstanceManager _Instance;
+				std::stack<SingletonLazyInstanceInterface*> _stack;
 		};
 	}
 }

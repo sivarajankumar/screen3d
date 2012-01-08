@@ -24,19 +24,19 @@
 
 namespace screen {
 	namespace utils {
-		SingletonLazyInstanceManager SingletonLazyInstanceManager::instance;
+		SingletonLazyInstanceManager SingletonLazyInstanceManager::_Instance;
 		
-		void SingletonLazyInstanceManager::registerLazy(SingletonLazyInstanceInterface* base){
-			instance.stack.push(base);
+		void SingletonLazyInstanceManager::registerLazy(SingletonLazyInstanceInterface* ioBase){
+			_Instance._stack.push(ioBase);
 		}
 
 		SingletonLazyInstanceManager::SingletonLazyInstanceManager(){}
 		SingletonLazyInstanceManager::~SingletonLazyInstanceManager(){
-			while(!stack.empty()){
-				SingletonLazyInstanceInterface* base = instance.stack.top();
-				base->destroy();
-				delete base;
-				instance.stack.pop();
+			while(!_stack.empty()){
+				SingletonLazyInstanceInterface* ioBase = _stack.top();
+				ioBase->destroy();
+				delete ioBase;
+				_stack.pop();
 			}				
 		}
 	}

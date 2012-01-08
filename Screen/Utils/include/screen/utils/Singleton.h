@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Singleton.h
+ * \brief Screen/Utils singleton implementation header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_SINGLETON_H
 #define SCREEN_SINGLETON_H
@@ -27,222 +33,320 @@
 #include <screen/utils/Export.h>
 #include <screen/utils/SingletonLazyInstance.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-    namespace utils {
+	/**
+	 * Namespace for all utility classes
+	 */
+	namespace utils {
 
-        /*!  \class SingletonModel
-          *  \brief most generic singleton model.
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          *
-          *  for multithreading, this singleton is not optimised for undestroyable singleton.\n
-          *  in order to optimise in this case, use WeakSingletonModel
-          */
-        template <
-        class T,
-        template <class> class CreationPolicy,
-        class ThreadingModel,
-        class LifeTimePolicy >
+		/**
+		 * \brief Most generic singleton model.
+		 *
+		 *  For multithreading, this singleton is not optimised for undestroyable singleton.\n
+		 *  in order to optimise in this case, use WeakSingletonModel
+		 *
+		 * \tparam T Instance type
+		 * \tparam TCreationPolicy Policy to choose the way to create the instance
+		 * \tparam TThreadingModel Single or multiple threading policy
+		 * \tparam TLifeTimePolicy Policy to determine if a singleton could be manually destroyed, ...
+		 */
+		template <	class T,
+					template <class> class TCreationPolicy,
+					class TThreadingModel,
+					class TLifeTimePolicy >
         class SingletonModel {
         public:
-            static T* instance();
-            static void destroy();
-        protected:
+			/**
+			 * \brief Return the singleton instance pointer
+			 *
+			 * This method will create the instance
+			 * if it does not exist
+			 *
+			 * \return Returns a singleton instance pointer
+			 */
+			static T* Instance();
+
+			/**
+			 * \brief Destroy the instance depending on the lifetime policy
+			 */
+			static void Destroy();
+
+			typedef TLifeTimePolicy LifeTimePolicy;
+			typedef TThreadingModel ThreadingModel;
+		protected:
+			/**
+			 * \brief Default constructor
+			 */
             SingletonModel() {}
-            virtual ~SingletonModel() {}
-        private:
-            static LifeTimePolicy lifeTime;
-            static typename ThreadingModel::MutexType mutex;
+
+			/**
+			 * \brief Destructor
+			 */
+			virtual ~SingletonModel() {}
         };
         
-        /*!  \class WeakSingletonModel
-          *  \brief generic singleton model for multithread, unique and undestroyable singleton.
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
-        template <
+		/**
+		 * \brief Generic singleton model for multithread, unique and undestroyable singleton.
+		 *
+		 * \tparam T Instance type
+		 * \tparam TCreationPolicy Policy to choose the way to create the instance
+		 * \tparam TThreadingModel Single or multiple threading policy
+		 */
+		template <
         class T,
-        template <class> class CreationPolicy,
-        class ThreadingModel
+		template <class> class TCreationPolicy,
+		class TThreadingModel
         >
         class WeakSingletonModel {
         public:
-            static T* instance();
-        protected:
-            WeakSingletonModel() {}
-            virtual ~WeakSingletonModel() {}
-        private:
-            static typename ThreadingModel::MutexType mutex;
-            static T* instancePtr;
+			/**
+			 * \brief Return the singleton instance pointer
+			 *
+			 * This method will create the instance
+			 * if it does not exist
+			 *
+			 * \return Returns a singleton instance pointer
+			 */
+			static T* Instance();
+
+			typedef NoDestructionLifeTime LifeTimePolicy;
+			typedef TThreadingModel ThreadingModel;
+		protected:
+			/**
+			 * \brief Default constructor
+			 */
+			WeakSingletonModel() {}
+
+			/**
+			 * \brief Default constructor
+			 */
+			virtual ~WeakSingletonModel() {}
         };
-        
-	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
-	    LifeTimePolicy SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::lifeTime;
-	
-	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
-	    typename ThreadingModel::MutexType SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::mutex;
-	
-	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
-	    T* SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::instance() {
-			if(T::_policy_instance_ptr==NULL) {
-				typename ThreadingModel::ScopeLockType guard(mutex);
-    			if(T::_policy_instance_ptr==NULL) {
-    				T::_policy_instance_ptr = CreationPolicy<T>::Create();
-    				lifeTime.Instanciated();
+        		
+		template <	class T,
+					template <class> class CreationPolicy,
+					class ThreadingModel,
+					class LifeTimePolicy >
+		T* SingletonModel<	T,
+							CreationPolicy,
+							ThreadingModel,
+							LifeTimePolicy
+		>::Instance() {
+			if(T::_PolicyInstancePtr==NULL) {
+				typename ThreadingModel::ScopeLockType aGuard(T::_Mutex);
+				if(T::_PolicyInstancePtr==NULL) {
+					T::_PolicyInstancePtr = CreationPolicy<T>::Create();
+					T::_LifeTime.instanciated();
     			}
 			}
-	        lifeTime.InstanceUsed();
-	        return T::_policy_instance_ptr;
+			T::_LifeTime.instanceUsed();
+			return T::_PolicyInstancePtr;
 	    }
 	
-	    template <class T, template <class> class CreationPolicy, class ThreadingModel, class LifeTimePolicy >
-	    void SingletonModel<T, CreationPolicy, ThreadingModel, LifeTimePolicy>::destroy() {
-	        if(lifeTime.IsAuthorisedDeletion()) {
-				typename ThreadingModel::ScopeLockType guard(mutex);
-	        	if(lifeTime.IsAuthorisedDeletion()) {
-	            	CreationPolicy<T>::Delete(T::_policy_instance_ptr);
+		template <	class T,
+					template <class> class CreationPolicy,
+					class ThreadingModel,
+					class LifeTimePolicy >
+		void SingletonModel<	T,
+								CreationPolicy,
+								ThreadingModel,
+								LifeTimePolicy
+		>::Destroy() {
+			if(T::_LifeTime.isAuthorisedDeletion()) {
+				typename ThreadingModel::ScopeLockType aGuard(T::_Mutex);
+				if(T::_LifeTime.isAuthorisedDeletion()) {
+					CreationPolicy<T>::Delete(T::_PolicyInstancePtr);
 	        	}
 			}
-			lifeTime.Deleted();
+			T::_LifeTime.Deleted();
 	    }
 
-        template <class T, template <class> class CreationPolicy, class ThreadingModel>
-        typename ThreadingModel::MutexType WeakSingletonModel<T, CreationPolicy, ThreadingModel>::mutex;
-
-        template <class T, template <class> class CreationPolicy, class ThreadingModel>
-        T* WeakSingletonModel<T, CreationPolicy, ThreadingModel>::instance() {
-            if(T::_policy_instance_ptr==NULL) {
-                typename ThreadingModel::ScopeLockType guard(mutex);
-                if(T::_policy_instance_ptr==NULL) {
-                	T::_policy_instance_ptr = CreationPolicy<T>::Create();
+		template <	class T,
+					template <class> class CreationPolicy,
+					class ThreadingModel>
+		T* WeakSingletonModel<	T,
+								CreationPolicy,
+								ThreadingModel
+		>::Instance() {
+			if(T::_PolicyInstancePtr==NULL) {
+				typename ThreadingModel::ScopeLockType aGuard(T::_Mutex);
+				if(T::_PolicyInstancePtr==NULL) {
+					T::_PolicyInstancePtr = CreationPolicy<T>::Create();
                 }
             }
-            return T::_policy_instance_ptr;
+			return T::_PolicyInstancePtr;
         }
 	    
         /* Singleton Types*/
 
+		/**
+		 * \brief Classical singleton class
+		 *
+		 * The singleton instanciation is thread safe
+		 * Destroy method is not available
+		 * The instanciation is a lazy one (i.e not created as program start)
+		 *
+		 */
 	    template <class T>
-        class UniqueSingleton
-                    : public WeakSingletonModel <
-                    T,
-					CreationWithLazy,
-                    SingleThreadingModel> {
-        protected:
-            UniqueSingleton() {}
-        }
-        ;
+		class UniqueSingleton : public WeakSingletonModel <	T,
+															CreationWithLazy,
+															MultipleThreadingModel> {
+        };
+
+		/**
+		 * \brief Classical singleton class (not thread safe)
+		 *
+		 * The singleton instanciation is thread safe
+		 * Destroy method is not available
+		 * The instanciation is a lazy and safe one
+		 * (i.e not created as program start and automatic destruction)
+		 *
+		 */
+		template <class T>
+		class ThreadUnsafeUniqueSingleton : public WeakSingletonModel <	T,
+																		CreationWithLazy,
+																		SingleThreadingModel>{
+		};
+
+		/**
+		 * \brief Destroyable singleton class
+		 *
+		 * The singleton instanciation/destruction is thread safe
+		 * Destroy method is available and always destroy the instance (if it exists)
+		 * The instanciation/destruction is a dynamic one
+		 *
+		 */
+		template <class T>
+		class PhoenixSingleton : public SingletonModel <	T,
+															CreationWithNew,
+															MultipleThreadingModel,
+															DestroyableInstanceLifeTime >{
+		};
+
+		/**
+		 * \brief Destroyable singleton class (not thread safe)
+		 *
+		 * The singleton instanciation/destruction is thread safe
+		 * Destroy method is available and always destroy the instance (if it exists)
+		 * The instanciation/destruction is a dynamic one
+		 *
+		 */
+		template <class T>
+		class ThreadUnsafeSafePhoenixSingleton : public SingletonModel <	T,
+																	CreationWithNew,
+																	SingleThreadingModel,
+																	DestroyableInstanceLifeTime >{
+		};
+
+		/* Dangerous class, so no support about this for now
+		template <class T>
+		class RefCountSingleton : public SingletonModel <	T,
+															CreationWithNew,
+															MultipleThreadingModel,
+															ReferenceCountLifeTime >{
+		};
 
         template <class T>
-        class ThreadSafeUniqueSingleton
-                    : public WeakSingletonModel <
-                    T,
-					CreationWithLazy,
-                    MultipleThreadingModel>
-        {}
-        ;
-
-        template <class T>
-        class PhoenixSingleton
-                    : public SingletonModel <
-                    T,
-                    CreationWithNew,
-                    SingleThreadingModel,
-                    DestroyableInstanceLifeTime >
-    	{}
-        ;
-
-        template <class T>
-        class ThreadSafePhoenixSingleton
-                    : public SingletonModel <
-                    T,
-                    CreationWithNew,
-                    MultipleThreadingModel,
-                    DestroyableInstanceLifeTime >
-        {}
-        ;
-
-        template <class T>
-        class RefCountSingleton
-                    : public SingletonModel <
-                    T,
-                    CreationWithNew,
-                    SingleThreadingModel,
-                    ReferenceCountLifeTime >
-        {}
-        ;
-
-        template <class T>
-        class ThreadRefCountSingleton
-                    : public SingletonModel <
-                    T,
-                    CreationWithNew,
-                    MultipleThreadingModel,
-                    ReferenceCountLifeTime >
-        {}
-        ;
-        
-//        template <class T>
-//	    class SharedSingleton
-//	                : public WeakSingletonModel <
-//	                T,
-//	                CreationWithSharedMemory,
-//	                MultipleThreadingModel >{
-//        protected:
-//        	SharedSingleton(){}
-//        	~SharedSingleton(){}
-//        };
+		class ThreadUnsafeRefCountSingleton : public SingletonModel <	T,
+																CreationWithNew,
+																SingleThreadingModel,
+																ReferenceCountLifeTime >{
+		};
+		*/
     }
 }
 
-#define SINGLETON_DECL(singletonType,T) \
-	SINGLETON_DECL_##singletonType(T)
-	
-#define SINGLETON_IMPL(singletonType,T) SINGLETON_IMPL_##singletonType(T)
+/* Common macros */
 
-//singleton macros
+#define SINGLETON_DECL(SingletonType,T) \
+	SINGLETON_DECL_COMMON(T) \
+	SINGLETON_DECL_##SingletonType(T)
 
-/*
+#define SINGLETON_IMPL(SingletonType,T) \
+	SINGLETON_IMPL_COMMON(T) \
+	SINGLETON_IMPL_##SingletonType(T)
+
+#define SINGLETON_DECL_COMMON(T) \
+	static typename T::ThreadingModel::MutexType _Mutex; \
+	static typename T::LifeTimePolicy _LifeTime;
+
+#define SINGLETON_IMPL_COMMON(T) \
+	typename T::ThreadingModel::MutexType T::_Mutex; \
+	typename T::LifeTimePolicy T::_LifeTime;
+
+/* UniqueSingleton macros */
+
 #define SINGLETON_DECL_UniqueSingleton(T) \
-		friend class screen::utils::WeakSingletonModel <T, \
-						screen::utils::CreationWithStatic, \
-						screen::utils::SingleThreadingModel>; \
-		SINGLETON_DECL_CreationWithStatic(T)
+	friend class screen::utils::WeakSingletonModel <T, \
+						screen::utils::CreationWithLazy, \
+						screen::utils::MultipleThreadingModel>; \
+	SINGLETON_DECL_CreationWithLazy(T)
 
 #define SINGLETON_IMPL_UniqueSingleton(T) \
-		SINGLETON_IMPL_CreationWithStatic(T)
-*/
-// under Linux, we can never predict the relative execution order of static initializers,
-// so we use explicit lazy instanciation for unique singletons
-#	define SINGLETON_DECL_UniqueSingleton(T) \
-		friend class screen::utils::WeakSingletonModel <T, \
+	SINGLETON_IMPL_CreationWithLazy(T)
+
+/* ThreadUnsafeUniqueSingleton macros */
+
+#define SINGLETON_DECL_ThreadUnsafeUniqueSingleton(T) \
+	friend class screen::utils::WeakSingletonModel <T, \
 						screen::utils::CreationWithLazy, \
 						screen::utils::SingleThreadingModel>; \
-		SINGLETON_DECL_CreationWithLazy(T)
+	SINGLETON_DECL_CreationWithLazy(T)
 
-#	define SINGLETON_IMPL_UniqueSingleton(T) \
-		SINGLETON_IMPL_CreationWithLazy(T)
-//#endif
+#define SINGLETON_IMPL_ThreadUnsafeUniqueSingleton(T) \
+	SINGLETON_IMPL_CreationWithLazy(T)
 
-//policies macros
+/* PhoenixSingleton macros */
+
+#define SINGLETON_DECL_PhoenixSingleton(T) \
+	friend class screen::utils::SingletonModel <T, \
+						screen::utils::CreationWithNew, \
+						screen::utils::MultipleThreadingModel, \
+						screen::utils::DestroyableInstanceLifeTime>; \
+	SINGLETON_DECL_CreationWithNew(T)
+
+#define SINGLETON_IMPL_PhoenixSingleton(T) \
+	SINGLETON_IMPL_CreationWithNew(T)
+
+/* ThreadUnsafePhoenixSingleton macros */
+
+#define SINGLETON_DECL_ThreadUnsafePhoenixSingleton(T) \
+	friend class screen::utils::SingletonModel <T, \
+						screen::utils::CreationWithNew, \
+						screen::utils::SingleThreadingModel, \
+						screen::utils::DestroyableInstanceLifeTime>; \
+	SINGLETON_DECL_CreationWithNew(T)
+
+#define SINGLETON_IMPL_PhoenixSingleton(T) \
+	SINGLETON_IMPL_CreationWithNew(T)
+
+/* Policy macros */
 
 #define SINGLETON_DECL_CreationWithStatic(T) \
 	friend class screen::utils::CreationWithStatic<T>; \
-	static T _policy_instance; \
-	static T* _policy_instance_ptr;
+	static T _PolicyInstance; \
+	static T* _PolicyInstancePtr;
 
 #define SINGLETON_IMPL_CreationWithStatic(T) \
-	T T::_policy_instance; \
-	T* T::_policy_instance_ptr = NULL;
+	T T::_PolicyInstance; \
+	T* T::_PolicyInstancePtr = NULL;
 
 #define SINGLETON_DECL_CreationWithLazy(T) \
 	friend class screen::utils::CreationWithLazy<T>; \
 	friend class screen::utils::SingletonLazyInstance<T>; \
-	static T* _policy_instance_ptr;
+	static T* _PolicyInstancePtr;
 
 #define SINGLETON_IMPL_CreationWithLazy(T) \
-	T* T::_policy_instance_ptr = NULL;
+	T* T::_PolicyInstancePtr = NULL;
+
+#define SINGLETON_DECL_CreationWithNew(T) \
+	friend class screen::utils::CreationWithNew<T>; \
+	static T* _PolicyInstancePtr;
+
+#define SINGLETON_IMPL_CreationWithNew(T) \
+	T* T::_PolicyInstancePtr = NULL;
 
 #endif

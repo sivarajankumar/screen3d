@@ -98,23 +98,23 @@ namespace screen {
 
 		unsigned int Buffer::effectiveSize() const{
 			SCREEN_DECL_METHOD(effectiveSize)
-			return BufferManager::instance()->calculateSizeFromStack(
-						BufferManager::instance()->calculateStackNumber(size())
+			return BufferManager::Instance()->calculateSizeFromStack(
+						BufferManager::Instance()->calculateStackNumber(size())
 					);
 		}
 
 		void Buffer::allocate(unsigned int iSize){
 			SCREEN_DECL_METHOD(allocate);
 			if(!isLocked())
-				_bufferBase = BufferManager::instance()->getNewBufferBase(iSize);
+				_bufferBase = BufferManager::Instance()->getNewBufferBase(iSize);
 			else
-				_bufferBase = BufferManager::instance()->replaceBufferBase(_bufferBase, iSize);
+				_bufferBase = BufferManager::Instance()->replaceBufferBase(_bufferBase, iSize);
 		}
 
 		void Buffer::unlock(){
 			SCREEN_DECL_METHOD(unlock)
 			if(isLocked()){
-				BufferManager::instance()->addToUnlocked(_bufferBase);
+				BufferManager::Instance()->addToUnlocked(_bufferBase);
 				_bufferBase = NULL;
 			}
 		}

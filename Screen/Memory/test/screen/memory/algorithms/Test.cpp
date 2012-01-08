@@ -62,7 +62,7 @@ namespace screen {
 				CPPUNIT_ASSERT(longTable[0] == 42);
 				CPPUNIT_ASSERT(longTable[1] == 69);
 
-				screen::memory::BufferManager::instance()->garbage();
+				screen::memory::BufferManager::Instance()->garbage();
 			}
 		}
 	}

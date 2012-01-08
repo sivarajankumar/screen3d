@@ -38,17 +38,17 @@ namespace screen {
 		
 		Image::SmartPtr TextureManager::loadImageFromFile(const screen::utils::File& filename) const{
 			SCREEN_DECL_METHOD(loadImageFromFile)
-			Image* ptr = screen::utils::ResourceManager::instance()->get<Image>(filename.getFullname());
+			Image* ptr = screen::utils::ResourceManager::Instance()->get<Image>(filename.getFullname());
 			if(ptr==NULL){
 	    		ptr = loadMediaFromFile<Image>(filename);
-	    		screen::utils::ResourceManager::instance()->add(filename.getFullname(),ptr);
+				screen::utils::ResourceManager::Instance()->add(filename.getFullname(),ptr);
 	    	}
 	    	return ptr;
 		}
 		
 		TextureBase::SmartPtr TextureManager::loadTextureFromFile(const screen::utils::File& filename) const{
 			SCREEN_DECL_METHOD(loadTextureFromFile)
-			TextureBase* ptr = screen::utils::ResourceManager::instance()->get<TextureBase>(filename.getFullname());
+			TextureBase* ptr = screen::utils::ResourceManager::Instance()->get<TextureBase>(filename.getFullname());
 			// not automaticly loaded, use Texture::load
 	    	return ptr;
 		}

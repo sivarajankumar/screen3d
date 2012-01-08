@@ -57,7 +57,7 @@ namespace screen {
 	
 			void Image::loadFromFile(const std::string& filename){
 				SCREEN_DECL_METHOD(loadFromFile)
-				Image::SmartPtr image = TextureManager::instance()->loadImageFromFile(filename);
+				Image::SmartPtr image = TextureManager::Instance()->loadImageFromFile(filename);
 			    copy(*image);
 			}
 	

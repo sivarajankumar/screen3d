@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Policies.h
+ * \brief Screen/Utils policy header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_POLICIES_H
 #define SCREEN_POLICIES_H
@@ -29,51 +35,104 @@
 #include <exception>
 #include <cstring>
 
-/* Creation Policies*/
-
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-    namespace utils {
+	/**
+	 * Namespace for all utility classes
+	 */
+	namespace utils {
 
-        /*!  \class CreationWithNew
-          *  \brief policy for the creation and the destruction that use new and delete
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
+		/**
+		 * \brief policy for the creation and the destruction that use new and delete
+		 *
+		 * \tparam T Instance type
+		 */
         template <class T>
         class CreationWithNew {
         public:
-            static T* Create();
-            static void Delete(T* inst);
+			/**
+			 * \brief Create a new instance and returns its pointer
+			 *
+			 * \return Returns an instance pointer
+			 */
+			static T* Create(){
+				return new T();
+			}
+
+			/**
+			 * \brief Destroy an instance
+			 *
+			 * \param[in] iInst instance to destroy
+			 */
+			static void Delete(T* iInst){
+				delete iInst;
+			}
         };
 
-        /*!  \class CreationWithStatic
-          *  \brief policy for the creation and the destruction that use a static instance
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          *  \warning The instance can't be destroy. If the same policy is reused, the state of the instance is the same.
-          */
+		/**
+		 * \brief policy for the creation and the destruction that use a static instance
+		 *
+		 * Be careful. The instance can't manually be destroy.
+		 * If the same policy is reused, the state of the instance is the same.
+		 *
+		 * \tparam T Instance type
+		 */
         template <class T>
         class CreationWithStatic {
         public:
-            static T* Create();
-            static void Delete(T* inst);
-        };
+			/**
+			 * \brief Returns the static instance pointer
+			 *
+			 * \return Returns an instance pointer
+			 */
+			static T* Create(){
+				return &T::_policy_instance;
+			}
 
-		/*!  \class CreationWithStatic
-          *  \brief policy for the creation and the destruction that use a static instance
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          *  \warning The instance can't be destroy. If the same policy is reused, the state of the instance is the same.
-          */
+			/**
+			 * \brief To nothing
+			 *
+			 * This method is here to be compatible with all creation policies
+			 * In pratice, the method does nothing
+			 *
+			 * \param[in] iInst instance to destroy
+			 */
+			static void Delete(T* iInst){}
+		};
+
+		/**
+		 * \brief policy for the creation and the destruction that use a static instance
+		 *
+		 * Be careful. The instance can't manually be destroy.
+		 * If the same policy is reused, the state of the instance is the same.
+		 *
+		 * \tparam T Instance type
+		 */
         template <class T>
         class CreationWithLazy {
         public:
-            static T* Create();
-            static void Delete(T* inst);
-        };		 
+			/**
+			 * \brief Returns the lazy instance pointer
+			 *
+			 * \return Returns an instance pointer
+			 */
+			static T* Create(){
+				SingletonLazyInstance<T>* instance = new screen::utils::SingletonLazyInstance<T>();
+				return &instance->get();
+			}
+
+			/**
+			 * \brief To nothing
+			 *
+			 * This method is here to be compatible with all creation policies
+			 * In pratice, the method does nothing
+			 *
+			 * \param[in] iInst instance to destroy
+			 */
+			static void Delete(T* iInst){}
+		};
         
 //        /*!  \class CreationWithStatic
 //	      *  \brief policy for the creation and the destruction that use a static instance
@@ -151,150 +210,108 @@ namespace screen {
 //        
 //        template <class T>
 //        typename CreationWithSharedMemory<T>::SharedMemoryHandler CreationWithSharedMemory<T>::smh;
-
-		template <class T>
-		T* CreationWithNew<T>::Create() {
-            return new T();
-        }
-
-		template <class T>
-		void CreationWithNew<T>::Delete(T* inst) {
-            delete inst;
-        }
         
-		template <class T>
-		T* CreationWithStatic<T>::Create() {
-            return &T::_policy_instance;
-        }
-
-		template <class T>
-		void CreationWithStatic<T>::Delete(T* inst) {}
-
-		template <class T>
-		T* CreationWithLazy<T>::Create() {
-			SingletonLazyInstance<T>* instance = new screen::utils::SingletonLazyInstance<T>();
-            return &instance->get();
-        }
-
-		template <class T>
-		void CreationWithLazy<T>::Delete(T* inst) {}
-        
-        /*!  \class LifeTimePolicyMother
-          *  \brief interface of all life-time policies
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
-        struct LifeTimePolicyMother {
+		/**
+		 * \brief policy interface for the instance lifetime
+		 */
+		struct LifeTimePolicyMother {
             LifeTimePolicyMother() {}
             virtual ~LifeTimePolicyMother() {}
-            virtual inline void Instanciated() = 0;
-            virtual inline void InstanceUsed() = 0;
-            virtual inline bool IsAuthorisedDeletion() = 0;
-            virtual inline void Deleted() = 0;
+			virtual inline void instanciated() = 0;
+			virtual inline void instanceUsed() = 0;
+			virtual inline bool isAuthorisedDeletion() = 0;
+			virtual inline void deleted() = 0;
         };
 
-        /*!  \class NoDestructionLifeTime
-          *  \brief life-time policy for objet that can't be destructed
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
-        struct NoDestructionLifeTime : public LifeTimePolicyMother {
+		/**
+		 * \brief policy for undestroyable instance
+		 */
+		struct NoDestructionLifeTime : public LifeTimePolicyMother {
             NoDestructionLifeTime()
                     :LifeTimePolicyMother() {}
             ~NoDestructionLifeTime() {}
-            inline void Instanciated() {}
-            inline void InstanceUsed() {}
-            inline bool IsAuthorisedDeletion() {
+			inline void instanciated() {}
+			inline void instanceUsed() {}
+			inline bool isAuthorisedDeletion() {
                 return false;
             }
-            inline void Deleted() {}
+			inline void deleted() {}
         }
         ;
 
-        /*!  \class DestroyableInstanceLifeTime
-          *  \brief life-time policy for objet that are destructed each time the Deleted method is invoked
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
-        struct DestroyableInstanceLifeTime : public LifeTimePolicyMother {
+		/**
+		 * \brief policy for destroyable instance
+		 */
+		struct DestroyableInstanceLifeTime : public LifeTimePolicyMother {
             DestroyableInstanceLifeTime()
-                    :LifeTimePolicyMother(),instanced(true) {}
+					:LifeTimePolicyMother(),_instanced(true) {}
             ~DestroyableInstanceLifeTime() {}
-            inline void Instanciated() {
-                instanced=true;
+			inline void instanciated() {
+				_instanced=true;
             }
-            inline void InstanceUsed() {}
-            inline bool IsAuthorisedDeletion() {
-                return instanced;
+			inline void instanceUsed() {}
+			inline bool isAuthorisedDeletion() {
+				return _instanced;
             }
-            inline void Deleted() {
-                instanced=false;
+			inline void deleted() {
+				_instanced=false;
             }
 private:
-            bool instanced;
+			bool _instanced;
         };
 
-        /*!  \class ReferenceCountLifeTime
-          *  \brief life-time policy for reference count
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          */
-        struct ReferenceCountLifeTime : public LifeTimePolicyMother {
+		/**
+		 * \brief policy for destroyable instance based on reference count
+		 */
+		struct ReferenceCountLifeTime : public LifeTimePolicyMother {
             ReferenceCountLifeTime()
-                    :LifeTimePolicyMother(),refcount(-1) {}
+					:LifeTimePolicyMother(),_refcount(-1) {}
             ~ReferenceCountLifeTime() {}
-            inline void Instanciated() {
-                refcount=0;
+			inline void instanciated() {
+				_refcount=0;
             }
-            inline void InstanceUsed() {
-                ++refcount;
+			inline void instanceUsed() {
+				++_refcount;
             }
-            inline bool IsAuthorisedDeletion() {
-                return (refcount<0);
+			inline bool isAuthorisedDeletion() {
+				return (_refcount<0);
             }
-            inline void Deleted() {
-                --refcount;
+			inline void deleted() {
+				--_refcount;
             }
 private:
-            int refcount;
+			int _refcount;
         };
 
-        /*!  \class SafeReferenceCountLifeTime
-          *  \brief life-time policy for reference count with exceptions
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          *
-          *  Exception is thrown when too many calls of Delete methodes
-          */
-        struct SafeReferenceCountLifeTime : public LifeTimePolicyMother {
+		/**
+		 * \brief policy for destroyable instance based on reference count
+		 *
+		 * Throws exception if too many destructions
+		 */
+		struct SafeReferenceCountLifeTime : public LifeTimePolicyMother {
             SafeReferenceCountLifeTime()
-                    :LifeTimePolicyMother(),refcount(-1) {}
+					:LifeTimePolicyMother(),_refcount(-1) {}
             ~SafeReferenceCountLifeTime() {}
-            inline void Instanciated() {
-                if (refcount>=0)
+			inline void instanciated() {
+				if (_refcount>=0)
                     throw std::exception(); /*too many instanciations*/
                 else
-                    refcount=0;
+					_refcount=0;
             }
-            inline void InstanceUsed() {
-                ++refcount;
+			inline void instanceUsed() {
+				++_refcount;
             }
-            inline bool IsAuthorisedDeletion() {
-                return (refcount==0);
+			inline bool isAuthorisedDeletion() {
+				return (_refcount==0);
             }
-            inline void Deleted() {
-                if (refcount>=0)
-                    --refcount;
+			inline void deleted() {
+				if (_refcount>=0)
+					--_refcount;
                 else
                     throw std::exception();  /*too many deletions*/
             }
 private:
-            int refcount;
+			int _refcount;
         };
     }
 }
