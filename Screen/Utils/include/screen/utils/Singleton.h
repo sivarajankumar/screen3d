@@ -270,12 +270,12 @@ namespace screen {
 	SINGLETON_IMPL_##SingletonType(T)
 
 #define SINGLETON_DECL_COMMON(T) \
-	static typename T::ThreadingModel::MutexType _Mutex; \
-	static typename T::LifeTimePolicy _LifeTime;
+    static T::ThreadingModel::MutexType _Mutex; \
+    static T::LifeTimePolicy _LifeTime;
 
 #define SINGLETON_IMPL_COMMON(T) \
-	typename T::ThreadingModel::MutexType T::_Mutex; \
-	typename T::LifeTimePolicy T::_LifeTime;
+    T::ThreadingModel::MutexType T::_Mutex; \
+    T::LifeTimePolicy T::_LifeTime;
 
 /* UniqueSingleton macros */
 

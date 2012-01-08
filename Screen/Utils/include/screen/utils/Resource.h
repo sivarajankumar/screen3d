@@ -67,7 +67,7 @@ namespace screen {
             Resource()
             	:ResourceBase(){
             	SCREEN_DECL_CONSTRUCTOR(Resource)
-            	lifeTime.Instanciated();
+                lifeTime.instanciated();
             }
             
             virtual ~Resource(){
@@ -76,13 +76,13 @@ namespace screen {
             
             void add(){
             	SCREEN_DECL_METHOD(add)
-            	lifeTime.InstanceUsed();
+                lifeTime.instanceUsed();
             }
             
             bool remove(){
             	SCREEN_DECL_METHOD(remove)
-            	lifeTime.Deleted();
-            	bool ret = lifeTime.IsAuthorisedDeletion();
+                lifeTime.deleted();
+                bool ret = lifeTime.isAuthorisedDeletion();
             	if(ret)
             		delete this;
             	return ret;
