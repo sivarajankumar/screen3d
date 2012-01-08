@@ -105,7 +105,7 @@ The \deprecated can be used to add a paragraph to precise if the commented eleme
 
 The \sa can be used to create a reference to another method, class or file. Same than \see command.
 
-== \exception or \throws or \throw
+== \exception or \throws or \throw ==
 
 The \exception <Exception object> {description} can be used to tell which exception can be thrown by the method. Same than \throws or \throw commands.
 
