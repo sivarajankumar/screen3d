@@ -45,8 +45,8 @@ namespace screen {
 		/**
 		 * \brief Most generic singleton model.
 		 *
-		 *  For multithreading, this singleton is not optimised for undestroyable singleton.\n
-		 *  in order to optimise in this case, use WeakSingletonModel
+         *  For multithreading, this singleton is not optimised for undestroyable singleton.
+         *  In order to optimise in this case, use WeakSingletonModel.
 		 *
 		 * \tparam T Instance type
 		 * \tparam TCreationPolicy Policy to choose the way to create the instance
