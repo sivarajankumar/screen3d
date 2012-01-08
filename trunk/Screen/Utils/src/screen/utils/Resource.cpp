@@ -32,7 +32,7 @@ namespace screen {
 		ResourceBase::~ResourceBase(){
 			SCREEN_DECL_DESTRUCTOR(~ResourceBase)
 			if(name!="")
-				ResourceManager::instance()->remove(name);
+				ResourceManager::Instance()->remove(name);
 		}
 		
         const std::string& ResourceBase::getName() const{

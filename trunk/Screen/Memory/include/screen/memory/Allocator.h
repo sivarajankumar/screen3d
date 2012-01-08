@@ -117,11 +117,11 @@ namespace screen {
 				SCREEN_LOG_DEBUG("Size to allocate = " << aNeededSize);
 				
 				//allocate new buffer
-				BufferBase* aBufferBase = BufferManager::instance()->getNewBufferBase(aNeededSize);
+				BufferBase* aBufferBase = BufferManager::Instance()->getNewBufferBase(aNeededSize);
 				
 				//register buffer in order to retrieve it into deallocate
 				void * aPtr = aBufferBase->_bufferPtr;
-				AllocBufferMap::instance()->addBufferBase(aPtr,aBufferBase);
+				AllocBufferMap::Instance()->addBufferBase(aPtr,aBufferBase);
 				
 				SCREEN_LOG_DEBUG("Allocated address = " << aPtr);
 				SCREEN_LOG_DEBUG("Allocated buffer base = " << aBufferBase);
@@ -138,12 +138,12 @@ namespace screen {
 			 */
 			void deallocate( pointer iP, size_type iN ){
 				SCREEN_DECL_METHOD(deallocate)
-				BufferBase* aBufferBase = AllocBufferMap::instance()->popBufferBase(iP);
+				BufferBase* aBufferBase = AllocBufferMap::Instance()->popBufferBase(iP);
 
 				SCREEN_LOG_DEBUG("Desallocated address = " << iP);
 				SCREEN_LOG_DEBUG("Desallocated buffer base = " << aBufferBase);
 
-				BufferManager::instance()->addToUnlocked(aBufferBase);
+				BufferManager::Instance()->addToUnlocked(aBufferBase);
 			}
 
 			/**

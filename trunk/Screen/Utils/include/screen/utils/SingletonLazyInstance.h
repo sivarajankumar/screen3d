@@ -31,41 +31,41 @@
 
 namespace screen {
 	namespace utils {
-                class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
+		class SCREEN_UTILS_EXPORT SingletonLazyInstanceInterface {
 		public:
 			SingletonLazyInstanceInterface();
 			virtual ~SingletonLazyInstanceInterface();
 			virtual void destroy() = 0;
 		};
 		
-		template <class T, class ThreadingModel = SingleThreadingModel>
-                class SingletonLazyInstance : public SingletonLazyInstanceInterface {
+		template <class T,
+				  class ThreadingModel = SingleThreadingModel>
+		class SingletonLazyInstance : public SingletonLazyInstanceInterface {
 		public:
 		    SingletonLazyInstance()
-				:SingletonLazyInstanceInterface(),instance(NULL){}
+				:SingletonLazyInstanceInterface(),_instance(NULL){}
 		
 		    virtual ~SingletonLazyInstance(){}
 		
 		    T& get() {
-		        if(instance==NULL) {
-		            typename ThreadingModel::ScopeLockType guard(mutex);
-		            if(instance==NULL) {
-						//std::cout << typeid(T).name() << std::endl;
-		                instance = new T();
-						SingletonLazyInstanceInterface* base = this;
-						SingletonLazyInstanceManager::registerLazy(base);
+				if(_instance==NULL) {
+					typename ThreadingModel::ScopeLockType aGuard(_mutex);
+					if(_instance==NULL) {
+						_instance = new T();
+						SingletonLazyInstanceInterface* aBase = this;
+						SingletonLazyInstanceManager::registerLazy(aBase);
 		            }
 		        }
-		        return (*instance);
+				return (*_instance);
 		    }
 
 			void destroy(){
-				delete instance;
+				delete _instance;
 			}
 		
 		private:
-		    typename ThreadingModel::MutexType mutex;
-		    T* instance;
+			typename ThreadingModel::MutexType _mutex;
+			T* _instance;
 		};
 	}
 }

@@ -43,9 +43,9 @@ namespace screen {
 	        void Texture::createFromFile(const std::string& filename,
 	        							 screen::core::PixelFormat pxf,
 	        							 screen::core::TextureFlag flags){
-	            texture = screen::core::TextureManager::instance()->loadTextureFromFile(filename);
+				texture = screen::core::TextureManager::Instance()->loadTextureFromFile(filename);
 	            if(texture==NULL){
-	            	Image::SmartPtr image = screen::core::TextureManager::instance()->loadImageFromFile(filename);
+					Image::SmartPtr image = screen::core::TextureManager::Instance()->loadImageFromFile(filename);
 	            	load(*image, pxf, flags, filename);
 	            }
 	        }
@@ -54,7 +54,7 @@ namespace screen {
 	        							  screen::core::PixelFormat pxf,
 	        							  screen::core::TextureFlag flags,
 	        							  const std::string& name){
-	        	texture = screen::core::TextureManager::instance()->loadTextureFromFile(name);
+				texture = screen::core::TextureManager::Instance()->loadTextureFromFile(name);
 	            if(texture==NULL){
 	            	load(image, pxf, flags, name);
 	            }
@@ -122,7 +122,7 @@ namespace screen {
 		        texture = Renderer::get()->createTexture(size, pxf, flags);
 		
 		        if (name != ""){
-		            screen::utils::ResourceManager::instance()->add(name, texture);
+					screen::utils::ResourceManager::Instance()->add(name, texture);
 		        }
 		
 		        // Copie des pixels

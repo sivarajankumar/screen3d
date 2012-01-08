@@ -45,8 +45,8 @@ int main() {
 		SCREEN_LOG_DEBUG("Hello world !!");
 		
 		screen::core::Renderer::load("ScreenOpenGL");
-		screen::core::TextureManager::instance()->registerLoader<screen::core::objects::Image>(new screen::image::il::ImageLoader, "jpg|png|bmp|tga");
-		screen::core::TextureManager::instance()->addPath(".");
+		screen::core::TextureManager::Instance()->registerLoader<screen::core::objects::Image>(new screen::image::il::ImageLoader, "jpg|png|bmp|tga");
+		screen::core::TextureManager::Instance()->addPath(".");
 		
 		screen::utils::SmartPtr<screen::core::Root> root(new SFMLRoot());
 		screen::utils::SmartPtr<screen::core::RenderWindow> rw(new screen::utils::SFMLOpenGLRenderWindow());
@@ -56,7 +56,7 @@ int main() {
 		root->init();
 		root->startRendering();
 		
-		screen::core::TextureManager::instance()->unregisterLoader<screen::core::objects::Image>("jpg|png|bmp|tga");
+		screen::core::TextureManager::Instance()->unregisterLoader<screen::core::objects::Image>("jpg|png|bmp|tga");
 
 	}catch(const screen::utils::Exception& e){
 		SCREEN_LOG_ERROR("Screen Exception : " << std::endl << e.what());

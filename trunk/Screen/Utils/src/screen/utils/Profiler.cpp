@@ -68,11 +68,11 @@ screen::utils::ProfileScope::ProfileScope(const std::string& info)
     profile->info=info;
     profile->ended=false;
     profile->ending=0;
-    Profiler::instance()->attachProfile(profile);
-    profile->beginning=Profiler::instance()->timer->getMilliseconds();
+	Profiler::Instance()->attachProfile(profile);
+	profile->beginning=Profiler::Instance()->timer->getMilliseconds();
 }
 
 screen::utils::ProfileScope::~ProfileScope() {
-    profile->ending=Profiler::instance()->timer->getMilliseconds();
+	profile->ending=Profiler::Instance()->timer->getMilliseconds();
     profile->ended=true;
 }

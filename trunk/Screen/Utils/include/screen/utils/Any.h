@@ -19,8 +19,8 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file Screen/OpenGL/Any.h
- * \brief FieldSizedString header file
+ * \file screen/utils/Any.h
+ * \brief Screen/Utils generic instance handler implementation header file
  * \author
  *
  */

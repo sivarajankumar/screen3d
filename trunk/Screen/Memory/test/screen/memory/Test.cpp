@@ -135,13 +135,13 @@ namespace screen {
 			unsigned long magic = 42;
 			
 			//first garbage in order to not be impacted by over tests
-			BufferManager::instance()->garbage();
+			BufferManager::Instance()->garbage();
 			
 			Buffer buf1;
 			buf1.setAt(0,&magic,sizeof(unsigned long));
 			buf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&magic,sizeof(unsigned long));
 
-			CPPUNIT_ASSERT(BufferManager::instance()->garbage()==SCREEN_MEMORY_DEFAULT_MIN_SIZE);
+			CPPUNIT_ASSERT(BufferManager::Instance()->garbage()==SCREEN_MEMORY_DEFAULT_MIN_SIZE);
 
 			Buffer buf2;
 			buf2.setAt(0,&magic,sizeof(unsigned long));
@@ -161,7 +161,7 @@ namespace screen {
 				SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,4)+
 				SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,5)+
 				SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,6);
-			CPPUNIT_ASSERT(BufferManager::instance()->garbage()==value);
+			CPPUNIT_ASSERT(BufferManager::Instance()->garbage()==value);
 		}
 
 		void Test::testTypedBuffer(){
@@ -209,7 +209,7 @@ namespace screen {
 			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
 			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long))==42);			
 			
-			BufferManager::instance()->garbage();
+			BufferManager::Instance()->garbage();
 		}
 		
 		void Test::testAllocator(){
@@ -217,7 +217,7 @@ namespace screen {
 			vec1.push_back(42);
 			CPPUNIT_ASSERT(vec1[0]==42);
 			CPPUNIT_ASSERT(vec1.size()==1);			
-			BufferManager::instance()->garbage();
+			BufferManager::Instance()->garbage();
 		}
 		
 		template<class Alloc>
@@ -268,7 +268,7 @@ namespace screen {
 		}
 		
 		void Test::testStressAllocator(){
-			BufferManager::instance()->garbage();
+			BufferManager::Instance()->garbage();
 			screen::utils::Timer timer;
 			
 			double stlOne = 0.0;
@@ -364,25 +364,25 @@ namespace screen {
 				testOneVector<screen::memory::Allocator<long> >();
 				screenOne = timer.getSeconds();
 				
-				BufferManager::instance()->garbage();
+				BufferManager::Instance()->garbage();
 				
 				timer.reset();
 				testMultiVector<screen::memory::Allocator<long> >();
 				screenMulti = timer.getSeconds();
 				
-				BufferManager::instance()->garbage();
+				BufferManager::Instance()->garbage();
 
 				timer.reset();
 				testOneVectorManualSize<screen::memory::Allocator<long> >();
 				screenOneManual = timer.getSeconds();
 				
-				BufferManager::instance()->garbage();
+				BufferManager::Instance()->garbage();
 				
 				timer.reset();
 				testMultiVectorManualSize<screen::memory::Allocator<long> >();
 				screenMultiManual = timer.getSeconds();
 				
-				BufferManager::instance()->garbage();
+				BufferManager::Instance()->garbage();
 
 			}
 
