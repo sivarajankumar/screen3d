@@ -215,72 +215,179 @@ namespace screen {
 		 * \brief policy interface for the instance lifetime
 		 */
 		struct LifeTimePolicyMother {
+            /**
+             * \brief Default constructor
+             */
             LifeTimePolicyMother() {}
+
+            /**
+             * \brief Destructor
+             */
             virtual ~LifeTimePolicyMother() {}
-			virtual inline void instanciated() = 0;
-			virtual inline void instanceUsed() = 0;
-			virtual inline bool isAuthorisedDeletion() = 0;
-			virtual inline void deleted() = 0;
+
+            /**
+             * \brief Register the fact that an instanciation has been performed
+             */
+            virtual inline void instanciated() = 0;
+
+            /**
+             * \brief Register the instance usage
+             */
+            virtual inline void instanceUsed() = 0;
+
+            /**
+             * \brief Indicate if the deletion of the instance is allowed
+             *
+             * \return Is deletion allowed
+             */
+            virtual inline bool isAuthorisedDeletion() = 0;
+
+            /**
+             * \brief Register the fact that an instance has been deleted
+             */
+            virtual inline void deleted() = 0;
         };
 
 		/**
 		 * \brief policy for undestroyable instance
 		 */
 		struct NoDestructionLifeTime : public LifeTimePolicyMother {
+            /**
+             * \brief Default constructor
+             */
             NoDestructionLifeTime()
                     :LifeTimePolicyMother() {}
+
+            /**
+             * \brief Destructor
+             */
             ~NoDestructionLifeTime() {}
-			inline void instanciated() {}
-			inline void instanceUsed() {}
-			inline bool isAuthorisedDeletion() {
+
+            /**
+             * \brief To nothing
+             */
+            inline void instanciated() {}
+
+            /**
+             * \brief To nothing
+             */
+            inline void instanceUsed() {}
+
+            /**
+             * \brief Always refuse instance deletion
+             */
+            inline bool isAuthorisedDeletion() {
                 return false;
             }
-			inline void deleted() {}
-        }
-        ;
+
+            /**
+             * \brief To nothing
+             */
+            inline void deleted() {}
+        };
 
 		/**
 		 * \brief policy for destroyable instance
 		 */
 		struct DestroyableInstanceLifeTime : public LifeTimePolicyMother {
+            /**
+             * \brief Default constructor
+             */
             DestroyableInstanceLifeTime()
 					:LifeTimePolicyMother(),_instanced(true) {}
+
+            /**
+             * \brief Destructor
+             */
             ~DestroyableInstanceLifeTime() {}
+
+            /**
+             * \brief Register the fact that an instanciation has been performed
+             */
 			inline void instanciated() {
 				_instanced=true;
             }
+
+            /**
+             * \brief Register the instance usage
+             *
+             * Do nothing in this case
+             */
 			inline void instanceUsed() {}
+
+            /**
+             * \brief Indicate if the deletion of the instance is allowed
+             *
+             * \return Is deletion allowed
+             */
 			inline bool isAuthorisedDeletion() {
 				return _instanced;
             }
+
+            /**
+             * \brief Register the fact that an instance has been deleted
+             */
 			inline void deleted() {
 				_instanced=false;
             }
-private:
-			bool _instanced;
+        private:
+            bool _instanced; ///< Internal flag
         };
 
 		/**
 		 * \brief policy for destroyable instance based on reference count
 		 */
 		struct ReferenceCountLifeTime : public LifeTimePolicyMother {
+            /**
+             * \brief Default constructor
+             */
             ReferenceCountLifeTime()
 					:LifeTimePolicyMother(),_refcount(-1) {}
+
+            /**
+             * \brief Destructor
+             */
             ~ReferenceCountLifeTime() {}
-			inline void instanciated() {
+
+            /**
+             * \brief Register the fact that an instanciation has been performed
+             *
+             * Set the counter to 0
+             */
+            inline void instanciated() {
 				_refcount=0;
             }
+
+            /**
+             * \brief Register the instance usage
+             *
+             * Bump the counter
+             */
 			inline void instanceUsed() {
 				++_refcount;
             }
+
+            /**
+             * \brief Indicate if the deletion of the instance is allowed
+             *
+             * the deletion is allowed if count is -1
+             *
+             * \return Is deletion allowed
+             */
 			inline bool isAuthorisedDeletion() {
 				return (_refcount<0);
             }
+
+            /**
+             * \brief Register the fact that an instance has been deleted
+             *
+             * Decrease the counter
+             */
 			inline void deleted() {
 				--_refcount;
             }
-private:
-			int _refcount;
+        private:
+            int _refcount; ///< Internal counter
         };
 
 		/**
@@ -289,29 +396,62 @@ private:
 		 * Throws exception if too many destructions
 		 */
 		struct SafeReferenceCountLifeTime : public LifeTimePolicyMother {
+            /**
+             * \brief Default constructor
+             */
             SafeReferenceCountLifeTime()
 					:LifeTimePolicyMother(),_refcount(-1) {}
+
+            /**
+             * \brief Destructor
+             */
             ~SafeReferenceCountLifeTime() {}
+
+            /**
+             * \brief Register the fact that an instanciation has been performed
+             *
+             * Set the counter to 0
+             */
 			inline void instanciated() {
 				if (_refcount>=0)
                     throw std::exception(); /*too many instanciations*/
                 else
 					_refcount=0;
             }
+
+            /**
+             * \brief Register the instance usage
+             *
+             * Bump the counter
+             */
 			inline void instanceUsed() {
 				++_refcount;
             }
+
+            /**
+             * \brief Indicate if the deletion of the instance is allowed
+             *
+             * the deletion is allowed if count is -1
+             *
+             * \return Is deletion allowed
+             */
 			inline bool isAuthorisedDeletion() {
-				return (_refcount==0);
+                return (_refcount<0);
             }
-			inline void deleted() {
+
+            /**
+             * \brief Register the fact that an instance has been deleted
+             *
+             * Decrease the counter
+             */
+            inline void deleted() {
 				if (_refcount>=0)
 					--_refcount;
                 else
                     throw std::exception();  /*too many deletions*/
             }
-private:
-			int _refcount;
+        private:
+            int _refcount; ///< Internal counter
         };
     }
 }
