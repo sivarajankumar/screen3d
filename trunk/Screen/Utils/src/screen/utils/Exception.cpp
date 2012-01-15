@@ -19,8 +19,8 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file screen/utils/Exception.h
- * \brief Screen/Utils common exception header file
+ * \file screen/utils/Exception.cpp
+ * \brief Screen/Utils common exception source file
  * \author
  *
  */
