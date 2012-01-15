@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/SingletonLazyInstance.h
+ * \brief Screen/Utils singleton lazy instance handler header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
 #define SCREEN_SINGLETON_LAZY_INSTANCE_MGR_H
@@ -25,19 +31,44 @@
 #include <screen/utils/Export.h>
 #include <stack>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
-		class SingletonLazyInstanceInterface;
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
+        class SingletonLazyInstanceInterface;
 		
-		class SCREEN_UTILS_EXPORT SingletonLazyInstanceManager{
+        /**
+         * \brief Singleton lazy instance manager.
+         *
+         * It handles all singleton instance for UniqueSingleton model.
+         * The current model only allow lazy instance destruction in the reverse order of the instanciation.
+         * It ensure for example the Logger instance will be destroy at the last end if it is instanciated first.
+         */
+        class SCREEN_UTILS_EXPORT SingletonLazyInstanceManager{
 			public:
+                /**
+                 * \brief Register a lazy instance
+                 *
+                 * \param[in,out] ioBase The lazy instance interface to register
+                 */
 				static void registerLazy(SingletonLazyInstanceInterface* ioBase);
 			private:
+                /**
+                 * \brief Default constructor
+                 */
 				SingletonLazyInstanceManager();
+
+                /**
+                 * \brief Destructor
+                 */
 				~SingletonLazyInstanceManager();
 
-				static SingletonLazyInstanceManager _Instance;
-				std::stack<SingletonLazyInstanceInterface*> _stack;
+                static SingletonLazyInstanceManager _Instance; ///< global instance for SingletonLazyInstanceManager
+                std::stack<SingletonLazyInstanceInterface*> _stack; ///< lazy instance stack
 		};
 	}
 }
