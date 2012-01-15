@@ -109,5 +109,17 @@ namespace screen {
             delete _reporter;
             _reporter = NULL;
         }
+
+        ScopeLog::ScopeLog(screen::utils::CallType iType,
+                           const char* iClassName,
+                           const std::string& iFunctionName,
+                           const std::string& iAddress)
+            :_type(iType),_className(iClassName), _functionName(iFunctionName), _address(iAddress){
+            SCREEN_LOG_CALL(screen::utils::CALL_BEGIN,_type,_className,_functionName,_address);
+        }
+
+        ScopeLog::~ScopeLog(){
+            SCREEN_LOG_CALL(screen::utils::CALL_END,_type,_className,_functionName,_address);
+        }
     }
 }
