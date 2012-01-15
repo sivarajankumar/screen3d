@@ -18,32 +18,53 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Exception.h
+ * \brief Screen/Utils common exception header file
+ * \author
+ *
+ */
 
 #include <screen/utils/Exception.h>
 
-screen::utils::Exception::Exception(const std::string& message) throw ()
-        :std::exception(),message("[screen exception] "+message) {
-}
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 
-screen::utils::Exception::Exception(const std::string& file, int line, const std::string& message) throw ()
-        :std::exception(),message("") {
-    std::ostringstream stream;
-    stream << "screen exception = file : " << file;
-    stream << " , line : " << line;
-    stream << " / " << message;
-    this->message = stream.str();
-}
+        Exception::Exception(const std::string& iMessage) throw ()
+                :std::exception(), _message("[screen exception] "+iMessage) {
+        }
 
-screen::utils::Exception::~Exception() throw() {
-}
+        Exception::Exception(const std::string& iFile, int iLine, const std::string& iMessage) throw ()
+                :std::exception(),_message("") {
+            std::ostringstream aStream;
+            aStream << "screen exception = file : " << iFile;
+            aStream << " , line : " << iLine;
+            aStream << " / " << iMessage;
+            _message = aStream.str();
+        }
 
-const char* screen::utils::Exception::what() const throw() {
-    return message.c_str();
-}
+        Exception::~Exception() throw() {}
 
-screen::utils::AssertException::AssertException(const std::string& file, int line, const std::string& what) throw ()
-        :screen::utils::Exception(file,line,"Assertion failed : "+what) {
-}
+        const char* Exception::what() const throw() {
+            return _message.c_str();
+        }
 
-screen::utils::AssertException::~AssertException() throw (){
+        AssertException::AssertException(const std::string& iFile, int iLine, const std::string& iMessage) throw ()
+                :Exception(iFile, iLine, "Assertion failed : "+iMessage){
+        }
+
+        AssertException::~AssertException() throw (){}
+
+        LoadingException::LoadingException(const std::string& iFileName, const std::string& iMessage) throw ()
+            :Exception("Unable to load file : "+iFileName+" / "+iMessage){
+        }
+
+        LoadingException::~LoadingException() throw (){}
+    }
 }

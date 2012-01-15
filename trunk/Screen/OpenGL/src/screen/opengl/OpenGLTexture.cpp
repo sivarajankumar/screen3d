@@ -39,7 +39,7 @@ namespace screen {
 		}
 		
 		void OpenGLTexture::update(const screen::math::Rectangle& rect){
-			Assert(screen::math::Rectangle(0, 0, size.getX(), size.getY()).intersects(rect) == screen::math::RECT_INT_IN);
+            SCREEN_ASSERT(screen::math::Rectangle(0, 0, size.getX(), size.getY()).intersects(rect) == screen::math::RECT_INT_IN);
 			SCREEN_LOG_DEBUG("Texture update :");
 
 			OpenGLPixelFormat texturePxf = oglPxf[pxf];

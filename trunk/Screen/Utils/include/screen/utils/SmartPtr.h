@@ -67,37 +67,37 @@ namespace screen{
 			
 			T& operator * (){
 				SCREEN_DECL_METHOD(operator*)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return *instance;
 			}
 			
 			T* operator ->(){
 				SCREEN_DECL_METHOD(operator->)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return instance;
 			}
 			
 			const T& operator * () const{
 				SCREEN_DECL_METHOD(operator*)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return *instance;
 			}
 			
 			const T* operator ->() const{
 				SCREEN_DECL_METHOD(operator->)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return instance;
 			}
 			
 			T* get(){
 				SCREEN_DECL_METHOD(get)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return instance;
 			}
 			
 			const T* get() const{
 				SCREEN_DECL_METHOD(get)
-				Assert(instance!=NULL);
+                SCREEN_ASSERT(instance!=NULL);
 				return instance;
 			}
 			

@@ -65,7 +65,7 @@ namespace screen {
 		        
 		        void fill(const T* data, std::size_t count){
 		        	SCREEN_DECL_METHOD(fill)
-		        	Assert(data != NULL);
+                    SCREEN_ASSERT(data != NULL);
 	
 		        	T* myData = lock();
 	        	    std::copy(data, data + count, myData);
@@ -121,7 +121,7 @@ namespace screen {
 		        
 		        void fill(const void* data, std::size_t count){
 		        	SCREEN_DECL_METHOD(fill)
-		        	Assert(data != NULL);
+                    SCREEN_ASSERT(data != NULL);
 	
 		        	void* myData = lock();
 		        	memcpy(myData,data,count*elementSize);
