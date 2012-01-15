@@ -62,7 +62,7 @@ namespace screen{
 					const screen::memory::TypedBuffer<unsigned short>* shortBuffer =
 							screen::utils::any_cast<screen::memory::TypedBuffer<unsigned short> >
 							(&buffer);
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
+#ifdef USE_SCREEN_LOG_DEBUG
 					SCREEN_LOG_DEBUG("buffer");
 					std::stringstream s;
 					s << "|";
@@ -80,7 +80,7 @@ namespace screen{
 					const screen::memory::TypedBuffer<unsigned long>* longBuffer =
 							screen::utils::any_cast<screen::memory::TypedBuffer<unsigned long> >
 							(&buffer);
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
+#ifdef USE_SCREEN_LOG_DEBUG
 					SCREEN_LOG_DEBUG("buffer");
 					std::stringstream s;
 					s << "|";

@@ -129,7 +129,7 @@ namespace screen {
     }
 }
 
-# ifdef SCREEN_AUTHORIZE_PROFILE
+# ifdef USE_SCREEN_PROFILE
 #  define SCREEN_ATTACH_TIMER(t)    screen::utils::Profiler::Instance()->attachTimer((t));
 #  define SCREEN_ATTACH_PROFILE_REPORTER(r) screen::utils::Profiler::Instance()->attachReporter((r));
 #  define SCREEN_SCOPE_PROFILE(s)    screen::utils::ProfileScope _pScope((s));
