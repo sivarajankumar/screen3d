@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Declaration.h
+ * \brief Screen/Utils declaration handling header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_DECLARATION_H
 #define SCREEN_DECLARATION_H

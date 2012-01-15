@@ -18,6 +18,13 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file Screen/Utils/Export.h
+ * \brief Export header file for Screen/Utils
+ * \author
+ *
+ * Pre-processor definitions for Screen/Utils component
+ */
 
 #ifndef SCREEN_UTILS_EXPORT_H
 #define SCREEN_UTILS_EXPORT_H
