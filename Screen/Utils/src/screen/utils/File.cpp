@@ -18,59 +18,72 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/File.cpp
+ * \brief Screen/Utils basic file handling source file
+ * \author
+ *
+ */
 
 #include <screen/utils/File.h>
 #include <algorithm>
 #include <fstream>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
-		File::File(const std::string& _file)
-			:file(_file){
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
+
+        File::File(const std::string& iFile)
+            :_file(iFile){
 			SCREEN_DECL_CONSTRUCTOR(File)
 #ifdef WIN32
-		    std::replace(file.begin(), file.end(), '/', '\\');
+            std::replace(_file.begin(), _file.end(), '/', '\\');
 #else
-		    std::replace(file.begin(), file.end(), '\\', '/');
+            std::replace(_file.begin(), _file.end(), '\\', '/');
 #endif
 		}
 	
-		File::File(const char* _file)
-			:file(_file){
+        File::File(const char* iFile)
+            :_file(iFile){
 			SCREEN_DECL_CONSTRUCTOR(File)
 #ifdef WIN32
-		    std::replace(file.begin(), file.end(), '/', '\\');
+            std::replace(_file.begin(), _file.end(), '/', '\\');
 #else
-		    std::replace(file.begin(), file.end(), '\\', '/');
+            std::replace(_file.begin(), _file.end(), '\\', '/');
 #endif
 		}
 	
 		bool File::exists() const{
 			SCREEN_DECL_METHOD(exists)
-			std::ifstream str(file.c_str());
-		    return str.is_open();
+            std::ifstream aStr(_file.c_str());
+            return aStr.is_open();
 		}
 	
 		std::string File::getFullname() const{
 			SCREEN_DECL_METHOD(getFullName)
-		    return file;
+            return _file;
 		}
 	
 		std::string File::getFilename() const{
 			SCREEN_DECL_METHOD(getFileName)
-		    std::string::size_type pos = file.find_last_of("\\/");
+            std::string::size_type aPos = _file.find_last_of("\\/");
 	
-		    if (pos != std::string::npos)
-		        return file.substr(pos + 1, std::string::npos);
+            if (aPos != std::string::npos)
+                return _file.substr(aPos + 1, std::string::npos);
 		    else
-		        return file;
+                return _file;
 		}	
 	
 		std::string File::getExtension() const{
 			SCREEN_DECL_METHOD(getExtension)
-		    std::string::size_type pos = file.find_last_of(".");
-		    if (pos != std::string::npos)
-		        return file.substr(pos + 1, std::string::npos);
+            std::string::size_type aPos = _file.find_last_of(".");
+            if (aPos != std::string::npos)
+                return _file.substr(aPos + 1, std::string::npos);
 		    else
 		        return "";
 		}

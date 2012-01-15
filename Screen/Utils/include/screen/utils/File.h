@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/File.h
+ * \brief Screen/Utils basic file handling header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_FILE_H
 #define SCREEN_FILE_H
@@ -26,27 +32,65 @@
 #include <screen/utils/Export.h>
 #include <string>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
+
+        /**
+         * \brief File file path and name handling class
+         */
 	    class SCREEN_UTILS_EXPORT File{
 	    	SCREEN_DECL_CLASS(screen::utils::File)
 	    public :
-	        File(const std::string& file = "");
-	        File(const char* file);
+            /**
+             * \brief Constructor with full file path and name
+             *
+             * \param[in] iFile file path and name
+             */
+            File(const std::string& iFile = "");
+
+            /**
+             * \brief Constructor with full file path and name
+             *
+             * \param[in] iFile file path and name
+             */
+            File(const char* iFile);
 	
-	        bool exists() const;
+            /**
+             * \brief Verify the file exists on the system
+             *
+             * \return File exists
+             */
+            bool exists() const;
 	
-	        // full file path
-	        std::string getFullname() const;
+            /**
+             * \brief Retrieve full path and name
+             *
+             * \return File name and path
+             */
+            std::string getFullname() const;
 	
-	        // file name (without path)
-	        std::string getFilename() const;
+            /**
+             * \brief Retrieve file name only (i.e without the path)
+             *
+             * \return File name
+             */
+            std::string getFilename() const;
 	
-	        // extension of the file
-	        std::string getExtension() const;
+            /**
+             * \brief Retrieve file extension
+             *
+             * \return File extension
+             */
+            std::string getExtension() const;
 	
 	    private :
-	        std::string file;
+            std::string _file; ///< Full path and name string
 	    };
 	}
 }
