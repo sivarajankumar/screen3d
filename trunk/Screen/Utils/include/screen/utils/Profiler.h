@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Profiler.h
+ * \brief Screen/Utils profile log handling header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_PROFILER_H
 #define SCREEN_PROFILER_H
@@ -27,41 +33,98 @@
 #include <screen/utils/Policies.h>
 #include <screen/utils/Export.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
     namespace utils {
         class ProfilerReporter;
         class Timer;
 
+        /**
+         * \brief Profile data
+         */
         struct SCREEN_UTILS_EXPORT Profile {
-            std::string info;
-            double beginning;
-            double ending;
-            bool ended;
+            std::string _info; ///< Information string
+            double _beginning; ///< Beginning time of scope profile
+            double _ending; ///< Ending time of scope profile
+            bool _ended; ///< Profile completed flags
         };
 
+        /**
+         * \brief Singleton for log message handling
+         *
+         * Must be used with declaration macros (i.e SCREEN_DECL_CONSTRUCTOR, ...)
+         */
         class SCREEN_UTILS_EXPORT Profiler : public UniqueSingleton<Profiler> {
         	SINGLETON_DECL(UniqueSingleton,Profiler)
             friend class ProfileScope;
         public:
-            void attachTimer(screen::utils::Timer* timer);
-            void attachReporter(ProfilerReporter* reporter);
+            /**
+             * \brief Attach the timer
+             *
+             * Please attach the timer at beginning of main function
+             *
+             * \param[in] iTimer the timer instance
+             */
+            void attachTimer(screen::utils::Timer* iTimer);
+
+            /**
+             * \brief Attach a specific reporter
+             *
+             * Please attach the reporter you need at beginning of main function
+             *
+             * \param[in] iReporter The reporter to attach
+             */
+            void attachReporter(ProfilerReporter* iReporter);
         private:
-            void attachProfile(Profile* profile);
+            /**
+             * \brief Attach a new profile to Profiler singleton
+             *
+             * \param[in] iProfile the profile to log
+             */
+            void attachProfile(Profile* iProfile);
+
+            /**
+             * \brief Default constructor
+             */
             Profiler();
+
+            /**
+             * \brief Destructor
+             */
             ~Profiler();
 
-            screen::utils::Timer* timer;
+            screen::utils::Timer* _timer; ///< Timer instance
             typedef std::vector<Profile*> ProfileSet;
-            ProfileSet allProfiles;
-            ProfilerReporter* reporter;
+            ProfileSet _allProfiles; ///< Profile set
+            ProfilerReporter* _reporter; ///< Reporter instance
         };
 
+        /**
+         * \brief Class to automatically handle profile scope destruction
+         *
+         * With this class, you will need only SCREEN_DECL_CONSTRUCTOR, ... to create a complete profile scope
+         */
         class SCREEN_UTILS_EXPORT ProfileScope {
         public:
-            ProfileScope(const std::string& info);
+            /**
+             * \brief Constructor
+             *
+             * \param[in] iInfo Profile information string
+             */
+            ProfileScope(const std::string& iInfo);
+
+
+            /**
+             * \brief Destructor
+             */
             ~ProfileScope();
         private:
-            Profile* profile;
+            Profile* _profile; ///< Profile instance
         };
     }
 }

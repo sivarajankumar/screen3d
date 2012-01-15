@@ -29,10 +29,10 @@ namespace screen {
 		ProfilerReporter::~ProfilerReporter(){}
 		
 		void CoutProfilerReporter::report(Profile* profile) {
-            std::cout << profile->info << " | "
-            << profile->beginning << " | "
-            << profile->ending << " | "
-            << (profile->ended ? "ended" : "crash" ) << std::endl;
+            std::cout << profile->_info << " | "
+            << profile->_beginning << " | "
+            << profile->_ending << " | "
+            << (profile->_ended ? "ended" : "crash" ) << std::endl;
         }
 		
     	FileProfilerReporter::FileProfilerReporter(const char* file)
@@ -41,10 +41,10 @@ namespace screen {
     	
         void FileProfilerReporter::report(Profile* profile) {
         	static std::ofstream fileStream(file);
-        	fileStream << profile->info << " | "
-            << profile->beginning << " | "
-            << profile->ending << " | "
-            << (profile->ended ? "ended" : "crash" ) << std::endl;
+            fileStream << profile->_info << " | "
+            << profile->_beginning << " | "
+            << profile->_ending << " | "
+            << (profile->_ended ? "ended" : "crash" ) << std::endl;
         }
 	}
 }
