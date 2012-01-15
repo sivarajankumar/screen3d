@@ -43,7 +43,7 @@ namespace screen{
 					currentPosition += vertexTypeSize[(*it)->getType()];
 				}
 				stepSize = currentPosition;
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
+#ifdef USE_SCREEN_LOG_DEBUG
 				SCREEN_LOG_DEBUG("VertexBufferFiller / vertexInfo table :");
 				SCREEN_LOG_DEBUG("step size = " << stepSize);
 				for(unsigned int i=0; i<screen::core::NB_VERTEX_USAGE; i++){

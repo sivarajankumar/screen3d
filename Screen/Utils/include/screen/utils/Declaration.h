@@ -27,7 +27,7 @@
 #include <screen/utils/Export.h>
 #include <string>
 
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 namespace screen {
 	namespace _private {
 		class SCREEN_UTILS_EXPORT ScopeLog{
@@ -53,7 +53,7 @@ namespace screen {
 
 //class
 
-#if defined(SCREEN_AUTHORIZE_PROFILE) || defined(SCREEN_AUTHORIZE_LOG_CALL_TRACER)
+#if defined(USE_SCREEN_PROFILE) || defined(USE_SCREEN_LOG_CALL_TRACER)
 #	define SCREEN_DECL_CLASS(c) \
 		inline static const char* _getClassName(){ \
 			static const char ret[] = #c; \
@@ -65,7 +65,7 @@ namespace screen {
 
 //method
 
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_METHOD_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
@@ -74,7 +74,7 @@ namespace screen {
 #	define SCREEN_DECL_METHOD_LOG(m)
 #endif
 
-#ifdef SCREEN_AUTHORIZE_PROFILE
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_METHOD_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "method | " << _getClassName() << "::" << #m << "() | " << this; \
@@ -90,14 +90,14 @@ namespace screen {
 
 //static method
 
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_STATIC_METHOD_LOG(m) \
 		SCREEN_SCOPE_CALL(screen::utils::CALL_STATIC_METHOD,_getClassName(),#m,"");
 #else
 #	define SCREEN_DECL_STATIC_METHOD_LOG(m)
 #endif
 
-#ifdef SCREEN_AUTHORIZE_PROFILE
+#ifdef USE_SCREEN_PROFILE
 #	define SCREEN_DECL_STATIC_METHOD_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "static method | " << _getClassName() << "::" << #m << "()"; \
@@ -113,7 +113,7 @@ namespace screen {
 
 // constructor
 
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_CONSTRUCTOR_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
@@ -122,7 +122,7 @@ namespace screen {
 #	define SCREEN_DECL_CONSTRUCTOR_LOG(m)
 #endif
 
-#ifdef SCREEN_AUTHORIZE_PROFILE
+#ifdef USE_SCREEN_PROFILE
 #	define SCREEN_DECL_CONSTRUCTOR_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "constructor | " << _getClassName() << "::" << #m << "() | " << this; \
@@ -138,7 +138,7 @@ namespace screen {
 
 //destructor
 
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_DESTRUCTOR_LOG(m) \
 		std::stringstream _internal_ss; \
 		_internal_ss << this; \
@@ -147,7 +147,7 @@ namespace screen {
 #	define SCREEN_DECL_DESTRUCTOR_LOG(m)
 #endif
 
-#ifdef SCREEN_AUTHORIZE_PROFILE
+#ifdef USE_SCREEN_PROFILE
 #	define SCREEN_DECL_DESTRUCTOR_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "destructor | " << _getClassName() << "::" << #m << "() | " << this; \
@@ -162,14 +162,14 @@ namespace screen {
 	SCREEN_DECL_DESTRUCTOR_PROFILE(m)
 
 //function
-#ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+#ifdef USE_SCREEN_LOG_CALL_TRACER
 #	define SCREEN_DECL_FUNCTION_LOG(f) \
 		SCREEN_SCOPE_CALL(screen::utils::CALL_FUNCTION,"",#f,"");
 #else
 #	define SCREEN_DECL_FUNCTION_LOG(f)
 #endif
 
-#ifdef SCREEN_AUTHORIZE_PROFILE
+#ifdef USE_SCREEN_PROFILE
 #	define SCREEN_DECL_FUNCTION_PROFILE(f) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "function | " << #f << "()"; \

@@ -30,7 +30,7 @@
 #include <screen/memory/policies/BufferPolicyHandler.h>
 #include <screen/utils/Exception.h>
 
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
+#ifdef USE_SCREEN_LOG_DEBUG
 #define LOG_STACKS \
 	SCREEN_LOG_DEBUG("stacks :") \
 	for(int aIter=0; aIter<NUMBER_OF_STACKS; aIter++){ \

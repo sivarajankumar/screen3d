@@ -75,7 +75,7 @@ namespace screen{
 			template <class T>
 			const T* VertexBufferFiller::get() const{
 				SCREEN_DECL_METHOD(get)
-#ifdef SCREEN_AUTHORIZE_LOG_DEBUG
+#ifdef USE_SCREEN_LOG_DEBUG
 				SCREEN_LOG_DEBUG("buffer");
 				std::stringstream s;
 				s << "|";

@@ -139,37 +139,37 @@ namespace screen {
     }
 }
 
-# if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING) || defined(SCREEN_AUTHORIZE_LOG_ERROR)
+# if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO) || defined(USE_SCREEN_LOG_WARNING) || defined(USE_SCREEN_LOG_ERROR)
 #  define SCREEN_ATTACH_LOGGER_REPORTER(r) screen::utils::Logger::Instance()->attachReporter((r));
 # else
 #  define SCREEN_ATTACH_LOGGER_REPORTER(r)
 # endif
 
-# if defined(SCREEN_AUTHORIZE_LOG_DEBUG)
+# if defined(USE_SCREEN_LOG_DEBUG)
 #  define SCREEN_LOG_DEBUG(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->debug(_ss.str());}
 # else
 #  define SCREEN_LOG_DEBUG(s)
 # endif
 
-# if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO)
+# if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO)
 #  define SCREEN_LOG_INFO(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->info(_ss.str());}
 # else
 #  define SCREEN_LOG_INFO(s)
 # endif
 
-# if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING)
+# if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO) || defined(USE_SCREEN_LOG_WARNING)
 #  define SCREEN_LOG_WARNING(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->warning(_ss.str());}
 # else
 #  define SCREEN_LOG_WARNING(s)
 # endif
 
-# if defined(SCREEN_AUTHORIZE_LOG_DEBUG) || defined(SCREEN_AUTHORIZE_LOG_INFO) || defined(SCREEN_AUTHORIZE_LOG_WARNING) || defined(SCREEN_AUTHORIZE_LOG_ERROR)
+# if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO) || defined(USE_SCREEN_LOG_WARNING) || defined(USE_SCREEN_LOG_ERROR)
 #  define SCREEN_LOG_ERROR(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->error(_ss.str());}
 # else
 #  define SCREEN_LOG_ERROR(s)
 # endif
 
-# ifdef SCREEN_AUTHORIZE_LOG_CALL_TRACER
+# ifdef USE_SCREEN_LOG_CALL_TRACER
 #  define SCREEN_LOG_CALL(p,t,c,f,a) screen::utils::Logger::Instance()->call(p,t,c,f,a);
 # endif
 
