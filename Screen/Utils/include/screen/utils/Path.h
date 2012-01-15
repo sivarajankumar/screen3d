@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Path.h
+ * \brief Screen/Utils basic path handling header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_PATH_H
 #define SCREEN_PATH_H
@@ -26,19 +32,55 @@
 #include <screen/utils/Export.h>
 #include <string>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
+
+        /**
+         * \brief Path handling class
+         */
 	    class SCREEN_UTILS_EXPORT Path{
 	    	SCREEN_DECL_CLASS(screen::utils::Path)
 	    public:
-	    	Path(const std::string& path = "");
-	    	Path(const char* path);
+            /**
+             * \brief Constructor with full path
+             *
+             * \param[in] iPath path string
+             */
+            Path(const std::string& iPath = "");
+
+            /**
+             * \brief Constructor with full path
+             *
+             * \param[in] iPath path string
+             */
+            Path(const char* iPath);
 	
-	        std::string getPath() const;
+            /**
+             * \brief Retrieve the path
+             *
+             * \return Path string
+             */
+            std::string getPath() const;
+
+            /**
+             * \brief Retrieve the path through const char cast operator
+             *
+             * \return Path string
+             */
 	        operator const char* () const;
 	    private:
+            /**
+             * \brief Internale method to convert the path into the specific systam path
+             */
 	    	void format();
-	        std::string path;
+
+            std::string _path; ///< Patyh string
 	    };
 	}
 }

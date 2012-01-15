@@ -18,18 +18,30 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Path.cpp
+ * \brief Screen/Utils basic path handling source file
+ * \author
+ *
+ */
 
 #include <screen/utils/Path.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
-		Path::Path(const std::string& _path)
-			:path(_path){
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
+        Path::Path(const std::string& iPath)
+            :_path(iPath){
 			SCREEN_DECL_CONSTRUCTOR(Path)
 			format();
 		}
-		Path::Path(const char* _path)
-			:path(_path){
+        Path::Path(const char* iPath)
+            :_path(iPath){
 			SCREEN_DECL_CONSTRUCTOR(Path)
 			format();
 		}
@@ -37,23 +49,23 @@ namespace screen {
 		void Path::format(){
 			SCREEN_DECL_METHOD(format)
 #ifdef WIN32
-		    std::replace(path.begin(), path.end(), '/', '\\');
-			if(path.rbegin()[0]!='\\')
-				path += '\\';
+            std::replace(_path.begin(), _path.end(), '/', '\\');
+            if(_path.rbegin()[0]!='\\')
+                _path += '\\';
 #else
-		    std::replace(path.begin(), path.end(), '\\', '/');
-			if(path.rbegin()[0]!='/')
-				path += '/';
+            std::replace(_path.begin(), _path.end(), '\\', '/');
+            if(_path.rbegin()[0]!='/')
+                _path += '/';
 #endif
 		}
 	
 	    std::string Path::getPath() const{
 	    	SCREEN_DECL_METHOD(getPath)
-	    	return path;
+            return _path;
 	    }
 	    Path::operator const char* () const{
 	    	SCREEN_DECL_METHOD(operator const char*)
-	    	return path.c_str();
+            return _path.c_str();
 	    }
 	}
 }
