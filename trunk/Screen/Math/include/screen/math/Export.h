@@ -18,13 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
-
 /**
  * \file Screen/Math/Export.h
- * \brief Export header file for screen::math
- * \author Thomas Ratouit
+ * \brief Export header file for Screen/Math
+ * \author
  *
- * Pre-processor definitions for screen::math component
+ * Pre-processor definitions for Screen/Math component
  */
 
 #ifndef SCREEN_MATH_EXPORT_H
