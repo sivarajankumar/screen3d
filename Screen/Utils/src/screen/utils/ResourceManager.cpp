@@ -43,7 +43,7 @@ namespace screen {
 		
 		void ResourceManager::add(const std::string& name, ResourceBase* resource){
 		    SCREEN_DECL_METHOD(add)
-			Assert(resource != NULL);
+            SCREEN_ASSERT(resource != NULL);
 
 		    if (resourceMap.find(name) != resourceMap.end()){
 		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")

@@ -35,12 +35,12 @@ namespace screen {
 			SCREEN_DECL_STATIC_METHOD(load)
 			delete renderer;
 			renderer = sharedLibrary.load(fileName);
-			Assert(renderer!=NULL);
+            SCREEN_ASSERT(renderer!=NULL);
 		}
 
 		Renderer* Renderer::get(){
 			SCREEN_DECL_STATIC_METHOD(get)
-			Assert(renderer!=NULL);
+            SCREEN_ASSERT(renderer!=NULL);
 			return renderer;
 		}
 

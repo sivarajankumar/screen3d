@@ -60,15 +60,15 @@ namespace screen {
 			SCREEN_DECL_METHOD(setAt)
 			int aBufSize = iPosition+iSize;
 			allocate(aBufSize);
-			//Assert(bufferBase!=NULL);
-			//Assert(bufferBase->getBuffer()!=NULL);
+            SCREEN_ASSERT(_bufferBase!=NULL);
+            SCREEN_ASSERT(_bufferBase->getBuffer()!=NULL);
 			::memcpy((char*)_bufferBase->getBuffer()+iPosition, iBuffer, iSize);
 		}
 		
 		const void* Buffer::getAt(unsigned int iPosition) const{
 			SCREEN_DECL_METHOD(getAt)
 			if(_bufferBase != NULL){
-				//Assert(bufferBase->getBuffer()!=NULL);
+                SCREEN_ASSERT(_bufferBase->getBuffer()!=NULL);
 				return (char*)_bufferBase->getBuffer()+iPosition;
 			}
 			else{
@@ -79,7 +79,7 @@ namespace screen {
 		void* Buffer::getAt(unsigned int iPosition){
 			SCREEN_DECL_METHOD(getAt)
 			if(_bufferBase != NULL){
-				//Assert(bufferBase->getBuffer()!=NULL);
+                SCREEN_ASSERT(_bufferBase->getBuffer()!=NULL);
 				return (char*)_bufferBase->getBuffer()+iPosition;
 			}
 			else{

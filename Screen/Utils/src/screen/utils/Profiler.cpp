@@ -34,7 +34,7 @@ screen::utils::Profiler::~Profiler() {
     if(reporter!=NULL){
 		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
 			Profile* profile = (*i);
-			Assert(profile!=NULL);
+            SCREEN_ASSERT(profile!=NULL);
 			reporter->report(profile);
 			delete profile;
 		}
