@@ -18,11 +18,23 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Policies.cpp
+ * \brief Screen/Utils policy source file
+ * \author
+ *
+ */
 
 #include <screen/utils/Policies.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 
 	}
 }
