@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Profiler.cpp
+ * \brief Screen/Utils profile log handling source file
+ * \author
+ *
+ */
 
 #include <screen/utils/Profiler.h>
 #include <screen/utils/ProfilerReporter.h>
@@ -27,52 +33,67 @@
 
 SINGLETON_IMPL(UniqueSingleton,screen::utils::Profiler)
 
-screen::utils::Profiler::Profiler()
-        :UniqueSingleton<Profiler>(),timer(new screen::utils::Timer()),reporter(NULL) {}
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 
-screen::utils::Profiler::~Profiler() {
-    if(reporter!=NULL){
-		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
-			Profile* profile = (*i);
-            SCREEN_ASSERT(profile!=NULL);
-			reporter->report(profile);
-			delete profile;
-		}
-		delete reporter;
-	}
-	else{
-		for (ProfileSet::const_iterator i = allProfiles.begin(); i != allProfiles.end(); ++i){
-			Profile* profile = (*i);
-			delete profile;
-		}
-	}
-	delete timer;
-}
+        Profiler::Profiler()
+                :UniqueSingleton<Profiler>(),_timer(new screen::utils::Timer()),_reporter(NULL) {}
 
-void screen::utils::Profiler::attachTimer(screen::utils::Timer* timer) {
-	delete this->timer;
-    this->timer = timer;
-}
+        Profiler::~Profiler() {
+            if(_reporter!=NULL){
+                for (ProfileSet::const_iterator aIt = _allProfiles.begin(); aIt != _allProfiles.end(); ++aIt){
+                    Profile* aProfile = (*aIt);
+                    SCREEN_ASSERT(aProfile!=NULL);
+                    _reporter->report(aProfile);
+                    delete aProfile;
+                    aProfile = NULL;
+                }
+                delete _reporter;
+                _reporter = NULL;
+            }
+            else{
+                for (ProfileSet::const_iterator aIt = _allProfiles.begin(); aIt != _allProfiles.end(); ++aIt){
+                    Profile* aProfile = (*aIt);
+                    delete aProfile;
+                    aProfile = NULL;
+                }
+            }
+            delete _timer;
+            _timer = NULL;
+        }
 
-void screen::utils::Profiler::attachReporter(screen::utils::ProfilerReporter* reporter) {
-    delete this->reporter;
-    this->reporter = reporter;
-}
+        void Profiler::attachTimer(screen::utils::Timer* iTimer) {
+            delete _timer;
+            _timer = iTimer;
+        }
 
-void screen::utils::Profiler::attachProfile(Profile* profile) {
-    allProfiles.push_back(profile);
-}
+        void Profiler::attachReporter(ProfilerReporter* iReporter) {
+            delete _reporter;
+            _reporter = iReporter;
+        }
 
-screen::utils::ProfileScope::ProfileScope(const std::string& info)
-        :profile(new screen::utils::Profile()) {
-    profile->info=info;
-    profile->ended=false;
-    profile->ending=0;
-	Profiler::Instance()->attachProfile(profile);
-	profile->beginning=Profiler::Instance()->timer->getMilliseconds();
-}
+        void Profiler::attachProfile(Profile* iProfile) {
+            _allProfiles.push_back(iProfile);
+        }
 
-screen::utils::ProfileScope::~ProfileScope() {
-	profile->ending=Profiler::Instance()->timer->getMilliseconds();
-    profile->ended=true;
+        ProfileScope::ProfileScope(const std::string& iInfo)
+                :_profile(new screen::utils::Profile()) {
+            _profile->_info=iInfo;
+            _profile->_ended=false;
+            _profile->_ending=0;
+            Profiler::Instance()->attachProfile(_profile);
+            _profile->_beginning = Profiler::Instance()->_timer->getMilliseconds();
+        }
+
+        ProfileScope::~ProfileScope() {
+            _profile->_ending= Profiler::Instance()->_timer->getMilliseconds();
+            _profile->_ended=true;
+        }
+    }
 }

@@ -77,7 +77,7 @@ namespace screen {
              *
              * Please attach the reporter you need at beginning of main function
              *
-             * \param[in] iFile file path and name
+             * \param[in] iReporter The reporter to attach
              */
             void attachReporter(LoggerReporter* iReporter);
 
