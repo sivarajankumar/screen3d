@@ -42,7 +42,7 @@ namespace screen {
     namespace utils {
 
         /**
-         * \brief File file path and name handling class
+         * \brief File path and name handling class
          */
 	    class SCREEN_UTILS_EXPORT File{
 	    	SCREEN_DECL_CLASS(screen::utils::File)
