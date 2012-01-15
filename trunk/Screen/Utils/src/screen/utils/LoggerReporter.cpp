@@ -18,157 +18,172 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/LoggerReporter.cpp
+ * \brief Screen/Utils log message output handling source file
+ * \author
+ *
+ */
 
 #include <screen/utils/LoggerReporter.h>
 #include <iostream>
 
-const char* defaultCallPos[] = {
-	"begin",
-	"end"
-};
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 
-const char* defaultCallType[] = {
-	"constructor",
-	"destructor",
-	"method",
-	"static method",
-	"function"
-};
+        const char* _DefaultCallPos[] = {
+            "begin",
+            "end"
+        };
 
-screen::utils::LoggerReporter::LoggerReporter() {}
+        const char* _DefaultCallType[] = {
+            "constructor",
+            "destructor",
+            "method",
+            "static method",
+            "function"
+        };
 
-screen::utils::LoggerReporter::~LoggerReporter() {}
+        LoggerReporter::LoggerReporter() {}
 
-screen::utils::CoutLoggerReporter::CoutLoggerReporter()
-        :screen::utils::LoggerReporter() {}
+        LoggerReporter::~LoggerReporter() {}
 
-screen::utils::CoutLoggerReporter::~CoutLoggerReporter() {}
+        CoutLoggerReporter::CoutLoggerReporter()
+            :screen::utils::LoggerReporter() {}
 
-void screen::utils::CoutLoggerReporter::debug(const std::string& log) {
-    std::cout << "[DEBUG] " << log << std::endl;
-}
+        CoutLoggerReporter::~CoutLoggerReporter() {}
 
-void screen::utils::CoutLoggerReporter::info(const std::string& log) {
-    std::cout << "[INFO] " << log << std::endl;
-}
+        void CoutLoggerReporter::debug(const std::string& iLog) {
+            std::cout << "[DEBUG] " << iLog << std::endl;
+        }
 
-void screen::utils::CoutLoggerReporter::warning(const std::string& log) {
-    std::cout << "[WARNING] " << log << std::endl;
-}
+        void CoutLoggerReporter::info(const std::string& iLog) {
+            std::cout << "[INFO] " << iLog << std::endl;
+        }
 
-void screen::utils::CoutLoggerReporter::error(const std::string& log) {
-    std::cout << "[ERROR] " << log << std::endl;
-}
+        void CoutLoggerReporter::warning(const std::string& iLog) {
+            std::cout << "[WARNING] " << iLog << std::endl;
+        }
 
-void screen::utils::CoutLoggerReporter::call(
-		CallPosition pos,
-		CallType type,
-		const char* className,
-		const std::string& functionName,
-		const std::string& address){
-	switch(type){
-	case CALL_FUNCTION:
-		std::cout 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< functionName
-					<< "]"
-					<< std::endl;
-		break;
-	case CALL_STATIC_METHOD:
-		std::cout 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< className
-					<< "::"
-					<< functionName
-					<< "]"
-					<< std::endl;
-		break;
-	default:
-		std::cout 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< className
-					<< "::"
-					<< functionName
-					<< "][address = "
-					<< address
-					<< "]"
-					<< std::endl;
-		break;
-	}
-}
+        void CoutLoggerReporter::error(const std::string& iLog) {
+            std::cout << "[ERROR] " << iLog << std::endl;
+        }
 
-screen::utils::FileLoggerReporter::FileLoggerReporter(const char* file)
-        :screen::utils::LoggerReporter(), fileStream(file) {}
+        void CoutLoggerReporter::call(CallPosition iPos,
+                                      CallType iType,
+                                      const char* iClassName,
+                                      const std::string& iFunctionName,
+                                      const std::string& iAddress){
+            switch(iType){
+            case CALL_FUNCTION:
+                std::cout 	<< "[CALL] ["
+                            << _DefaultCallPos[iPos]
+                            << "]["
+                            << _DefaultCallType[iType]
+                            << " = "
+                            << iFunctionName
+                            << "]"
+                            << std::endl;
+                break;
+            case CALL_STATIC_METHOD:
+                std::cout 	<< "[CALL] ["
+                            << _DefaultCallPos[iPos]
+                            << "]["
+                            << _DefaultCallType[iType]
+                            << " = "
+                            << iClassName
+                            << "::"
+                            << iFunctionName
+                            << "]"
+                            << std::endl;
+                break;
+            default:
+                std::cout 	<< "[CALL] ["
+                            << _DefaultCallPos[iPos]
+                            << "]["
+                            << _DefaultCallType[iType]
+                            << " = "
+                            << iClassName
+                            << "::"
+                            << iFunctionName
+                            << "][address = "
+                            << iAddress
+                            << "]"
+                            << std::endl;
+                break;
+            }
+        }
 
-screen::utils::FileLoggerReporter::~FileLoggerReporter() {}
+        FileLoggerReporter::FileLoggerReporter(const char* iFile)
+                :LoggerReporter(), _fileStream(iFile) {}
 
-void screen::utils::FileLoggerReporter::debug(const std::string& log) {
-    fileStream << "[DEBUG] " << log << std::endl;
-}
+        FileLoggerReporter::~FileLoggerReporter() {}
 
-void screen::utils::FileLoggerReporter::info(const std::string& log) {
-	fileStream << "[INFO] " << log << std::endl;
-}
+        void FileLoggerReporter::debug(const std::string& iLog) {
+            _fileStream << "[DEBUG] " << iLog << std::endl;
+        }
 
-void screen::utils::FileLoggerReporter::warning(const std::string& log) {
-	fileStream << "[WARNING] " << log << std::endl;
-}
+        void FileLoggerReporter::info(const std::string& iLog) {
+            _fileStream << "[INFO] " << iLog << std::endl;
+        }
 
-void screen::utils::FileLoggerReporter::error(const std::string& log) {
-	fileStream << "[ERROR] " << log << std::endl;
-}
+        void FileLoggerReporter::warning(const std::string& iLog) {
+            _fileStream << "[WARNING] " << iLog << std::endl;
+        }
 
-void screen::utils::FileLoggerReporter::call(
-		CallPosition pos,
-		CallType type,
-		const char* className,
-		const std::string& functionName,
-		const std::string& address){
-	switch(type){
-	case CALL_FUNCTION:
-		fileStream 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< functionName
-					<< "]"
-					<< std::endl;
-		break;
-	case CALL_STATIC_METHOD:
-		fileStream 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< className
-					<< "::"
-					<< functionName
-					<< "]"
-					<< std::endl;
-		break;
-	default:
-		fileStream 	<< "[CALL] ["
-					<< defaultCallPos[pos]
-					<< "]["
-					<< defaultCallType[type]
-					<< " = "
-					<< className
-					<< "::"
-					<< functionName
-					<< "][address = "
-					<< address
-					<< "]"
-					<< std::endl;
-		break;
-	}
+        void FileLoggerReporter::error(const std::string& iLog) {
+            _fileStream << "[ERROR] " << iLog << std::endl;
+        }
+
+        void FileLoggerReporter::call(CallPosition iPos,
+                                      CallType iType,
+                                      const char* iClassName,
+                                      const std::string& iFunctionName,
+                                      const std::string& iAddress){
+            switch(iType){
+            case CALL_FUNCTION:
+                _fileStream 	<< "[CALL] ["
+                                << _DefaultCallPos[iPos]
+                                << "]["
+                                << _DefaultCallType[iType]
+                                << " = "
+                                << iFunctionName
+                                << "]"
+                                << std::endl;
+                break;
+            case CALL_STATIC_METHOD:
+                _fileStream 	<< "[CALL] ["
+                                << _DefaultCallPos[iPos]
+                                << "]["
+                                << _DefaultCallType[iType]
+                                << " = "
+                                << iClassName
+                                << "::"
+                                << iFunctionName
+                                << "]"
+                                << std::endl;
+                break;
+            default:
+                _fileStream 	<< "[CALL] ["
+                                << _DefaultCallPos[iPos]
+                                << "]["
+                                << _DefaultCallType[iType]
+                                << " = "
+                                << iClassName
+                                << "::"
+                                << iFunctionName
+                                << "][address = "
+                                << iAddress
+                                << "]"
+                                << std::endl;
+                break;
+            }
+        }
+    }
 }
