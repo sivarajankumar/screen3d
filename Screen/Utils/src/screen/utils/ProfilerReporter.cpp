@@ -18,33 +18,45 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/ProfilerReporter.cpp
+ * \brief Screen/Utils profile data output handling source file
+ * \author
+ *
+ */
 
 #include <screen/utils/ProfilerReporter.h>
 #include <screen/utils/Profiler.h>
 #include <iostream>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-	namespace utils {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 		ProfilerReporter::ProfilerReporter(){}
 		ProfilerReporter::~ProfilerReporter(){}
 		
-		void CoutProfilerReporter::report(Profile* profile) {
-            std::cout << profile->_info << " | "
-            << profile->_beginning << " | "
-            << profile->_ending << " | "
-            << (profile->_ended ? "ended" : "crash" ) << std::endl;
+        void CoutProfilerReporter::report(Profile* iProfile) {
+            std::cout << iProfile->_info << " | "
+            << iProfile->_beginning << " | "
+            << iProfile->_ending << " | "
+            << (iProfile->_ended ? "ended" : "crash" ) << std::endl;
         }
 		
-    	FileProfilerReporter::FileProfilerReporter(const char* file)
-    		:ProfilerReporter(), file(file)
+        FileProfilerReporter::FileProfilerReporter(const char* iFile)
+            :ProfilerReporter(), _file(iFile)
     	{}
     	
-        void FileProfilerReporter::report(Profile* profile) {
-        	static std::ofstream fileStream(file);
-            fileStream << profile->_info << " | "
-            << profile->_beginning << " | "
-            << profile->_ending << " | "
-            << (profile->_ended ? "ended" : "crash" ) << std::endl;
+        void FileProfilerReporter::report(Profile* iProfile) {
+            static std::ofstream aFileStream(_file);
+            aFileStream << iProfile->_info << " | "
+            << iProfile->_beginning << " | "
+            << iProfile->_ending << " | "
+            << (iProfile->_ended ? "ended" : "crash" ) << std::endl;
         }
 	}
 }
