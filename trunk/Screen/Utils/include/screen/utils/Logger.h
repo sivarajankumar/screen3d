@@ -136,6 +136,42 @@ namespace screen {
 
             LoggerReporter* _reporter; ///< reporter instance
         };
+
+        /**
+         * \brief Class to automatically handle log scope destruction
+         *
+         * With this class, you will need only SCREEN_DECL_CONSTRUCTOR, ... to create a complete log scope
+         */
+        class SCREEN_UTILS_EXPORT ScopeLog{
+        public:
+            /**
+             * \brief Constructor
+             *
+             * Log begin scope call
+             *
+             * \param[in] iType Call type
+             * \param[in] iClassName Class name
+             * \param[in] iFunctionName Function or method name
+             * \param[in] iAddress Instance address to trace
+             */
+            ScopeLog(screen::utils::CallType iType,
+                     const char* iClassName,
+                     const std::string& iFunctionName,
+                     const std::string& iAddress);
+
+            /**
+             * \brief Destructor
+             *
+             * Log end scope call
+             */
+            ~ScopeLog();
+        private:
+            screen::utils::CallType _type; ///< Call type
+            const char* _className; ///< Current class name
+            std::string _functionName; ///< Function or method name
+            std::string _address; ///< Cureent instance address
+        };
+
     }
 }
 
@@ -171,6 +207,7 @@ namespace screen {
 
 # ifdef USE_SCREEN_LOG_CALL_TRACER
 #  define SCREEN_LOG_CALL(p,t,c,f,a) screen::utils::Logger::Instance()->call(p,t,c,f,a);
+#  define SCREEN_SCOPE_CALL(t,c,f,a) screen::utils::ScopeLog _scopeLog(t,c,f,a);
 # endif
 
 #endif

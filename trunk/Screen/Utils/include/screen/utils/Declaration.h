@@ -27,30 +27,6 @@
 #include <screen/utils/Export.h>
 #include <string>
 
-#ifdef USE_SCREEN_LOG_CALL_TRACER
-namespace screen {
-	namespace _private {
-		class SCREEN_UTILS_EXPORT ScopeLog{
-		public:
-			ScopeLog(screen::utils::CallType _type, const char* _className, const std::string& _functionName, const std::string& _address)
-				:type(_type),className(_className), functionName(_functionName), address(_address){
-				SCREEN_LOG_CALL(screen::utils::CALL_BEGIN,type,className,functionName,address);
-			}
-			
-			~ScopeLog(){
-				SCREEN_LOG_CALL(screen::utils::CALL_END,type,className,functionName,address);
-			}
-		private:
-			screen::utils::CallType type;
-			const char* className;
-			std::string functionName;
-			std::string address;
-		};
-	}
-}
-#define SCREEN_SCOPE_CALL(t,c,f,a) screen::_private::ScopeLog _scopeLog(t,c,f,a);
-#endif
-
 //class
 
 #if defined(USE_SCREEN_PROFILE) || defined(USE_SCREEN_LOG_CALL_TRACER)
