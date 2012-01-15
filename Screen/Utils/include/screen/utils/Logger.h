@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Logger.h
+ * \brief Screen/Utils log handling header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_LOGGER_H
 #define SCREEN_LOGGER_H
@@ -27,14 +33,27 @@
 #include <screen/utils/Export.h>
 #include <string>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
     namespace utils {
+
+        /**
+         * \brief Call position (begin or end of scope)
+         */
     	enum CallPosition{
     		CALL_BEGIN,
     		CALL_END
     	};
     	
-    	enum CallType{
+        /**
+         * \brief Call type (constructor, destructor; method, ...)
+         */
+        enum CallType{
     		CALL_CONSTRUCTOR,
     		CALL_DESTRUCTOR,
     		CALL_METHOD,
@@ -44,23 +63,78 @@ namespace screen {
     
         class LoggerReporter;
 
+        /**
+         * \brief Singleton for log message handling
+         *
+         * Must be used with log macros (SCREEN_ATTACH_LOGGER_REPORTER,
+         * SCREEN_LOG_DEBUG, SCREEN_LOG_INFO, SCREEN_LOG_WARNING, SCREEN_LOG_ERROR)
+         */
         class SCREEN_UTILS_EXPORT Logger : public UniqueSingleton<Logger> {
         	SINGLETON_DECL(UniqueSingleton,Logger)
-        public:       	
-            void attachReporter(LoggerReporter* reporter);
-            void debug(const std::string& log);
-            void info(const std::string& log);
-            void warning(const std::string& log);
-            void error(const std::string& log);
-            void call(CallPosition pos,
-            		  CallType type,
-            		  const char* className,
-            		  const std::string& functionName,
-            		  const std::string& address);
+        public:
+            /**
+             * \brief Attach a specific reporter
+             *
+             * Please attach the reporter you need at beginning of main function
+             *
+             * \param[in] iFile file path and name
+             */
+            void attachReporter(LoggerReporter* iReporter);
+
+            /**
+             * \brief Log a debug message
+             *
+             * \param[in] iLog the debug message
+             */
+            void debug(const std::string& iLog);
+
+            /**
+             * \brief Log an info message
+             *
+             * \param[in] iLog the info message
+             */
+            void info(const std::string& iLog);
+
+            /**
+             * \brief Log a warning message
+             *
+             * \param[in] iLog the warning message
+             */
+            void warning(const std::string& iLog);
+
+            /**
+             * \brief Log an error message
+             *
+             * \param[in] iLog the error message
+             */
+            void error(const std::string& iLog);
+
+            /**
+             * \brief Log a call message
+             *
+             * \param[in] iPos The call position (begin or end)
+             * \param[in] iType The call type
+             * \param[in] iClassName The name of the class
+             * \param[in] iFunctionName The function or method name
+             * \param[in] iAddress The address of the traced instance
+             */
+            void call(CallPosition iPos,
+                      CallType iType,
+                      const char* iClassName,
+                      const std::string& iFunctionName,
+                      const std::string& iAddress);
         private:
+            /**
+             * \brief Default constructor
+             */
             Logger();
+
+            /**
+             * \brief Destructor
+             */
             ~Logger();
-            LoggerReporter* reporter;
+
+            LoggerReporter* _reporter; ///< reporter instance
         };
     }
 }

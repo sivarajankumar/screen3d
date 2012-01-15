@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Logger.cpp
+ * \brief Screen/Utils log handling source file
+ * \author
+ *
+ */
 
 
 #include <screen/utils/Logger.h>
@@ -27,66 +33,81 @@
 
 SINGLETON_IMPL(UniqueSingleton,screen::utils::Logger)
 
-void screen::utils::Logger::attachReporter(LoggerReporter* reporter) {
-    if(this->reporter!=NULL)
-        delete this->reporter;
-    this->reporter = reporter;
-}
+/**
+ * Namespace for all screen classes
+ */
+namespace screen {
+    /**
+     * Namespace for all utility classes
+     */
+    namespace utils {
 
-void screen::utils::Logger::debug(const std::string& log) {
-	//std::cout << this << " / " << reporter << std::endl;
-		
-    if(reporter==NULL){
-        std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
-        std::cerr << "To log : [DEBUG] " << log << std::endl;
-        return;
+        void Logger::attachReporter(LoggerReporter* iReporter) {
+            if(_reporter!=NULL)
+                delete _reporter;
+            _reporter = iReporter;
+        }
+
+        void Logger::debug(const std::string& iLog) {
+            if(_reporter==NULL){
+                std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
+                std::cerr << "To log : [DEBUG] " << iLog << std::endl;
+            }
+            else{
+                _reporter->debug(iLog);
+            }
+        }
+
+        void Logger::info(const std::string& iLog) {
+            if(_reporter==NULL){
+                std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
+                std::cerr << "To log : [INFO] " << iLog << std::endl;
+            }
+            else{
+                _reporter->info(iLog);
+            }
+        }
+
+        void Logger::warning(const std::string& iLog) {
+            if(_reporter==NULL){
+                std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
+                std::cerr << "To log : [WARNING] " << iLog << std::endl;
+            }
+            else{
+                _reporter->warning(iLog);
+            }
+        }
+
+        void Logger::error(const std::string& iLog) {
+            if(_reporter==NULL){
+                std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
+                std::cerr << "To log : [ERROR] " << iLog << std::endl;
+            }
+            else{
+                _reporter->error(iLog);
+            }
+        }
+
+        void Logger::call(CallPosition iPos,
+                          CallType iType,
+                          const char* iClassName,
+                          const std::string& iFunctionName,
+                          const std::string& iAddress){
+            if(_reporter==NULL){
+                std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
+                std::cerr << "To log : [CALL] ..." << std::endl;
+            }
+            else{
+                _reporter->call(iPos,iType,iClassName,iFunctionName,iAddress);
+            }
+        }
+
+        Logger::Logger()
+            :_reporter(NULL) {}
+
+        Logger::~Logger() {
+            delete _reporter;
+            _reporter = NULL;
+        }
     }
-    reporter->debug(log);
-}
-
-void screen::utils::Logger::info(const std::string& log) {
-    if(reporter==NULL){
-        std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
-        std::cerr << "To log : [INFO] " << log << std::endl;
-        return;
-    }
-    reporter->info(log);
-}
-
-void screen::utils::Logger::warning(const std::string& log) {
-    if(reporter==NULL){
-        std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
-        std::cerr << "To log : [WARNING] " << log << std::endl;
-        return;
-    }
-    reporter->warning(log);
-}
-
-void screen::utils::Logger::error(const std::string& log) {
-    if(reporter==NULL){
-        std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
-        std::cerr << "To log : [ERROR] " << log << std::endl;
-        return;
-    }
-    reporter->error(log);
-}
-
-void screen::utils::Logger::call(CallPosition pos,
-            		  			 CallType type,
-            		  			 const char* className,
-            		  			 const std::string& functionName,
-            		  			 const std::string& address){
-	if(reporter==NULL){
-        std::cerr << "Can't log : undefined LoggerReporter" << std::endl;
-        std::cerr << "To log : [CALL] ..." << std::endl;
-        return;
-    }
-    reporter->call(pos,type,className,functionName,address);
-}
-
-screen::utils::Logger::Logger()
-        :reporter(NULL) {}
-
-screen::utils::Logger::~Logger() {
-    delete reporter;
 }
