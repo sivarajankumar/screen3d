@@ -18,26 +18,39 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Resource.h
+ * \brief Screen/Utils resource base header file
+ * \author
+ *
+ */
 
 #include <screen/utils/Resource.h>
 #include <screen/utils/ResourceManager.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all utility classes
+	 */
 	namespace utils {
+
 		ResourceBase::ResourceBase()
-			:name(""){
+			:_name(""){
 			SCREEN_DECL_CONSTRUCTOR(ResourceBase)
 		}
 		
 		ResourceBase::~ResourceBase(){
 			SCREEN_DECL_DESTRUCTOR(~ResourceBase)
-			if(name!="")
-				ResourceManager::Instance()->remove(name);
+			if(_name!="")
+				ResourceManager::Instance()->remove(_name);
 		}
 		
         const std::string& ResourceBase::getName() const{
         	SCREEN_DECL_METHOD(getName)
-        	return name;
+			return _name;
         }
 	}
 }

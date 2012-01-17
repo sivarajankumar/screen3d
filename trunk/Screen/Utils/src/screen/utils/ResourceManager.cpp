@@ -50,7 +50,7 @@ namespace screen {
 		    }
 
 		    resourceMap[name] = resource;
-		    resource->name = name;
+			resource->_name = name;
 		}
 		
 		void ResourceManager::remove(const std::string& name){
