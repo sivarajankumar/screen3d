@@ -37,122 +37,122 @@ using screen::math::power;
 namespace screen {
 	namespace memory {
 		void Test::testBufferCreation(){
-			Buffer buf1;
-			CPPUNIT_ASSERT(buf1.size()==0);
-			CPPUNIT_ASSERT(buf1.getAt(0)==NULL);
-			CPPUNIT_ASSERT(buf1.getAt(4000)==NULL);
+			Buffer aBuf1;
+			CPPUNIT_ASSERT(aBuf1.size()==0);
+			CPPUNIT_ASSERT(aBuf1.getAt(0)==NULL);
+			CPPUNIT_ASSERT(aBuf1.getAt(4000)==NULL);
 
-			const char* hello = "hello world !!";
-			buf1.setAt(0,hello,strlen(hello)+1);
+			const char* aHello = "hello world !!";
+			aBuf1.setAt(0,aHello,strlen(aHello)+1);
 
-			CPPUNIT_ASSERT(buf1.size()==strlen(hello)+1);
-			CPPUNIT_ASSERT(buf1.getAt(0)!=NULL);
-			CPPUNIT_ASSERT(strcmp(static_cast<const char*>(buf1.getAt(0)),hello)==0);
-			CPPUNIT_ASSERT(strcmp(static_cast<const char*>(buf1.getAt(2)),&hello[2])==0);			
+			CPPUNIT_ASSERT(aBuf1.size()==strlen(aHello)+1);
+			CPPUNIT_ASSERT(aBuf1.getAt(0)!=NULL);
+			CPPUNIT_ASSERT(strcmp(static_cast<const char*>(aBuf1.getAt(0)),aHello)==0);
+			CPPUNIT_ASSERT(strcmp(static_cast<const char*>(aBuf1.getAt(2)),&aHello[2])==0);
 		}
 
 		void Test::testBufferImproveSize(){
-			Buffer buf1;
-			unsigned long magic = 42;
+			Buffer aBuf1;
+			unsigned long aMagic = 42;
 
 			//minimum border test
-			buf1.setAt(0,&magic,sizeof(unsigned long));
-			unsigned long ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == sizeof(unsigned long));
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
+			aBuf1.setAt(0,&aMagic,sizeof(unsigned long));
+			unsigned long aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == sizeof(unsigned long));
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
 
 			//before next border
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long),&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long))));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long),&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long))));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
 
 			//after next border
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long))));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE)));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == SCREEN_MEMORY_DEFAULT_MIN_SIZE+sizeof(unsigned long));
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE-sizeof(unsigned long))));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE)));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == SCREEN_MEMORY_DEFAULT_MIN_SIZE+sizeof(unsigned long));
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
 		}
 
 		void Test::testBigBuffer(){
-			Buffer buf1;
-			unsigned long magic = 42;
+			Buffer aBuf1;
+			unsigned long aMagic = 42;
 			//minimum border test
-			buf1.setAt(0,&magic,sizeof(unsigned long));
-			unsigned long ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == sizeof(unsigned long));
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
+			aBuf1.setAt(0,&aMagic,sizeof(unsigned long));
+			unsigned long aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == sizeof(unsigned long));
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MIN_SIZE);
 
 			//before next border
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long),&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long))));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE);
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE);
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long),&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long))));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE);
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE);
 
 			//after next border
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(0)));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long))));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
-			CPPUNIT_ASSERT(ret == 42);
-			CPPUNIT_ASSERT(buf1.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE+sizeof(unsigned long));
-			CPPUNIT_ASSERT(buf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(0)));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE-sizeof(unsigned long))));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
+			CPPUNIT_ASSERT(aRet == 42);
+			CPPUNIT_ASSERT(aBuf1.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE+sizeof(unsigned long));
+			CPPUNIT_ASSERT(aBuf1.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
 
 			//create buffer from void
 			Buffer buf2;
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
-			CPPUNIT_ASSERT(ret == 42);
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
+			CPPUNIT_ASSERT(aRet == 42);
 			CPPUNIT_ASSERT(buf2.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE+sizeof(unsigned long));
 			CPPUNIT_ASSERT(buf2.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
 
 			//improve big buffer effective size
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&magic,sizeof(unsigned long));
-			ret = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
-			CPPUNIT_ASSERT(ret == 42);
-			ret = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER)));
-			CPPUNIT_ASSERT(ret == 42);
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&aMagic,sizeof(unsigned long));
+			aRet = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE)));
+			CPPUNIT_ASSERT(aRet == 42);
+			aRet = *(static_cast<const unsigned long*>(buf2.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER)));
+			CPPUNIT_ASSERT(aRet == 42);
 			CPPUNIT_ASSERT(buf2.size() == SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER+sizeof(unsigned long));
 			CPPUNIT_ASSERT(buf2.effectiveSize() == SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER);
 		}
 
 		void Test::testGarbage(){
-			unsigned long magic = 42;
+			unsigned long aMagic = 42;
 			
 			//first garbage in order to not be impacted by over tests
 			BufferManager::Instance()->garbage();
 			
-			Buffer buf1;
-			buf1.setAt(0,&magic,sizeof(unsigned long));
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&magic,sizeof(unsigned long));
+			Buffer aBuf1;
+			aBuf1.setAt(0,&aMagic,sizeof(unsigned long));
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&aMagic,sizeof(unsigned long));
 
 			CPPUNIT_ASSERT(BufferManager::Instance()->garbage()==SCREEN_MEMORY_DEFAULT_MIN_SIZE);
 
 			Buffer buf2;
-			buf2.setAt(0,&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,2),&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,3),&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,4),&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,5),&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&magic,sizeof(unsigned long));
-			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&magic,sizeof(unsigned long));
+			buf2.setAt(0,&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE,&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,2),&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,3),&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,4),&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE*power(SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,5),&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE,&aMagic,sizeof(unsigned long));
+			buf2.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER,&aMagic,sizeof(unsigned long));
 
 			unsigned int value = SCREEN_MEMORY_DEFAULT_MIN_SIZE+
 				SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER+
@@ -165,233 +165,232 @@ namespace screen {
 		}
 
 		void Test::testTypedBuffer(){
-			TypedBuffer<long> buf1;
-			CPPUNIT_ASSERT(buf1.size()==0);
-			CPPUNIT_ASSERT(buf1.getAt(0)==NULL);
-			CPPUNIT_ASSERT(buf1.getAt(4000)==NULL);
+			TypedBuffer<long> aBuf1;
+			CPPUNIT_ASSERT(aBuf1.size()==0);
+			CPPUNIT_ASSERT(aBuf1.getAt(0)==NULL);
+			CPPUNIT_ASSERT(aBuf1.getAt(4000)==NULL);
 
 			//simple tests
-			long magic = 42;
-			buf1.setAt(0,&magic,1);
+			long aMagic = 42;
+			aBuf1.setAt(0,&aMagic,1);
 
-			CPPUNIT_ASSERT(buf1.size()==1);
-			CPPUNIT_ASSERT(buf1.getAt(0)!=NULL);
-			CPPUNIT_ASSERT(*buf1.getAt(0)==42);
+			CPPUNIT_ASSERT(aBuf1.size()==1);
+			CPPUNIT_ASSERT(aBuf1.getAt(0)!=NULL);
+			CPPUNIT_ASSERT(*aBuf1.getAt(0)==42);
 			
-			long table[] = {1234, 5678};
-			buf1.setAt(1,table,2);
+			long aTable[] = {1234, 5678};
+			aBuf1.setAt(1,aTable,2);
 
-			CPPUNIT_ASSERT(buf1.size()==3);
-			CPPUNIT_ASSERT(buf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long));
-			CPPUNIT_ASSERT(buf1.getAt(0)!=NULL);
-			CPPUNIT_ASSERT(*buf1.getAt(0)==42);
-			CPPUNIT_ASSERT(*buf1.getAt(1)==1234);
-			CPPUNIT_ASSERT(*buf1.getAt(2)==5678);
+			CPPUNIT_ASSERT(aBuf1.size()==3);
+			CPPUNIT_ASSERT(aBuf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long));
+			CPPUNIT_ASSERT(aBuf1.getAt(0)!=NULL);
+			CPPUNIT_ASSERT(*aBuf1.getAt(0)==42);
+			CPPUNIT_ASSERT(*aBuf1.getAt(1)==1234);
+			CPPUNIT_ASSERT(*aBuf1.getAt(2)==5678);
 
 			//improve effective size
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long),&magic,1);
-			CPPUNIT_ASSERT(buf1.size()==SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long)+1);
-			CPPUNIT_ASSERT(buf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER/sizeof(long));
-			CPPUNIT_ASSERT(buf1.getAt(0)!=NULL);
-			CPPUNIT_ASSERT(*buf1.getAt(0)==42);
-			CPPUNIT_ASSERT(*buf1.getAt(1)==1234);
-			CPPUNIT_ASSERT(*buf1.getAt(2)==5678);
-			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long),&aMagic,1);
+			CPPUNIT_ASSERT(aBuf1.size()==SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long)+1);
+			CPPUNIT_ASSERT(aBuf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MIN_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER/sizeof(long));
+			CPPUNIT_ASSERT(aBuf1.getAt(0)!=NULL);
+			CPPUNIT_ASSERT(*aBuf1.getAt(0)==42);
+			CPPUNIT_ASSERT(*aBuf1.getAt(1)==1234);
+			CPPUNIT_ASSERT(*aBuf1.getAt(2)==5678);
+			CPPUNIT_ASSERT(*aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
 
 			//big buffer
-			buf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long),&magic,1);
-			CPPUNIT_ASSERT(buf1.size()==SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long)+1);
-			CPPUNIT_ASSERT(buf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER/sizeof(long));
-			CPPUNIT_ASSERT(buf1.getAt(0)!=NULL);
-			CPPUNIT_ASSERT(*buf1.getAt(0)==42);
-			CPPUNIT_ASSERT(*buf1.getAt(1)==1234);
-			CPPUNIT_ASSERT(*buf1.getAt(2)==5678);
-			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
-			CPPUNIT_ASSERT(*buf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long))==42);			
+			aBuf1.setAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long),&aMagic,1);
+			CPPUNIT_ASSERT(aBuf1.size()==SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long)+1);
+			CPPUNIT_ASSERT(aBuf1.effectiveSize()==SCREEN_MEMORY_DEFAULT_MAX_SIZE*SCREEN_MEMORY_DEFAULT_SIZE_MULTIPLIER/sizeof(long));
+			CPPUNIT_ASSERT(aBuf1.getAt(0)!=NULL);
+			CPPUNIT_ASSERT(*aBuf1.getAt(0)==42);
+			CPPUNIT_ASSERT(*aBuf1.getAt(1)==1234);
+			CPPUNIT_ASSERT(*aBuf1.getAt(2)==5678);
+			CPPUNIT_ASSERT(*aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MIN_SIZE/sizeof(long))==42);
+			CPPUNIT_ASSERT(*aBuf1.getAt(SCREEN_MEMORY_DEFAULT_MAX_SIZE/sizeof(long))==42);
 			
 			BufferManager::Instance()->garbage();
 		}
 		
 		void Test::testAllocator(){
-			std::vector<long,screen::memory::Allocator<long> > vec1;
-			vec1.push_back(42);
-			CPPUNIT_ASSERT(vec1[0]==42);
-			CPPUNIT_ASSERT(vec1.size()==1);			
+			std::vector<long,screen::memory::Allocator<long> > aVec1;
+			aVec1.push_back(42);
+			CPPUNIT_ASSERT(aVec1[0]==42);
+			CPPUNIT_ASSERT(aVec1.size()==1);
 			BufferManager::Instance()->garbage();
 		}
 		
 		template<class Alloc>
 		void testOneVector(){
-			std::vector<long,Alloc > vec1;
-			for(long i = 0; i<10000000; i++){
-				vec1.push_back(i);
+			std::vector<long,Alloc > aVec1;
+			for(long aIt = 0; aIt<10000000; aIt++){
+				aVec1.push_back(aIt);
 			}
 		}
 		
 		template<class Alloc>
 		void testMultiVector(){
-			std::vector<long,Alloc > vec1[1000];
-			for(int i = 0; i<1000; i++){
-				for(long j = 0; j<100000; j++){
-					vec1[i].push_back(j);
+			std::vector<long,Alloc > aVec1[1000];
+			for(int aIt = 0; aIt<1000; aIt++){
+				for(long aIt2 = 0; aIt2<100000; aIt2++){
+					aVec1[aIt].push_back(aIt2);
 				}
 			}
 		}
 		
 		template<class Alloc>
 		void testOneVectorManualSize(){
-			int size = 20;
-			std::vector<long,Alloc > vec1(size);
-			for(long i = 0; i<10000000; i++){
-				if(i>=size){
-					size*=2;
-					vec1.resize(size);
+			int aSize = 20;
+			std::vector<long,Alloc > aVec1(aSize);
+			for(long aIt = 0; aIt<10000000; aIt++){
+				if(aIt>=aSize){
+					aSize*=2;
+					aVec1.resize(aSize);
 				}
-				vec1[i]=i;
+				aVec1[aIt]=aIt;
 			}
 		}
-		
-	        template<class Alloc>
+
+		template<class Alloc>
 		void testMultiVectorManualSize(){
-			std::vector<long,Alloc > vec1[1000];
-			for(long i = 0; i<1000; i++){
-				int size = 20;
-				vec1[i].resize(size);
-				for(long j = 0; j<100000; j++){
-					if(j>=size){
-						size*=2;
-						vec1[i].resize(size);
+			std::vector<long,Alloc > aVec1[1000];
+			for(long aIt = 0; aIt<1000; aIt++){
+				int aSize = 20;
+				aVec1[aIt].resize(aSize);
+				for(long aIt2 = 0; aIt2<100000; aIt2++){
+					if(aIt2>=aSize){
+						aSize*=2;
+						aVec1[aIt].resize(aSize);
 					}
-					vec1[i][j] = j;
+					aVec1[aIt][aIt2] = aIt2;
 				}
 			}
 		}
 		
 		void Test::testStressAllocator(){
 			BufferManager::Instance()->garbage();
-			screen::utils::Timer timer;
+			screen::utils::Timer aTimer;
 			
-			double stlOne = 0.0;
-			double stlMulti = 0.0;
-			double stlOneManual = 0.0;
-			double stlMultiManual = 0.0;
-			double poolOne = 0.0;
-			double poolMulti = 0.0;
-			double poolOneManual = 0.0;
-			double poolMultiManual = 0.0;
-			double fastPoolOne = 0.0;
-			double fastPoolMulti = 0.0;
-			double fastPoolOneManual = 0.0;
-			double fastPoolMultiManual = 0.0;
-			double screenOne = 0.0;
-			double screenMulti = 0.0;
-			double screenOneManual = 0.0;
-			double screenMultiManual = 0.0;
+			double aStlOne = 0.0;
+			double aStlMulti = 0.0;
+			double aStlOneManual = 0.0;
+			double aStlMultiManual = 0.0;
+			double aPoolOne = 0.0;
+			double aPoolMulti = 0.0;
+			double aPoolOneManual = 0.0;
+			double aPoolMultiManual = 0.0;
+			double aFastPoolOne = 0.0;
+			double aFastPoolMulti = 0.0;
+			double aFastPoolOneManual = 0.0;
+			double aFastPoolMultiManual = 0.0;
+			double aScreenOne = 0.0;
+			double aScreenMulti = 0.0;
+			double aScreenOneManual = 0.0;
+			double aScreenMultiManual = 0.0;
 			
 			//stl stress test
 			{
-				timer.reset();
+				aTimer.reset();
 				testOneVector<std::allocator<long> >();
-				stlOne = timer.getSeconds();
+				aStlOne = aTimer.getSeconds();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVector<std::allocator<long> >();
-				stlMulti = timer.getSeconds();
+				aStlMulti = aTimer.getSeconds();
 				
-				timer.reset();
+				aTimer.reset();
 				testOneVectorManualSize<std::allocator<long> >();
-				stlOneManual = timer.getSeconds();
+				aStlOneManual = aTimer.getSeconds();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVectorManualSize<std::allocator<long> >();
-				stlMultiManual = timer.getSeconds();
+				aStlMultiManual = aTimer.getSeconds();
 			}
 			//boost pool stress test
 			{
-				timer.reset();
+				aTimer.reset();
 				testOneVector<boost::pool_allocator<long> >();
-				poolOne = timer.getSeconds();
+				aPoolOne = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVector<boost::pool_allocator<long> >();
-				poolMulti = timer.getSeconds();
+				aPoolMulti = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testOneVectorManualSize<boost::pool_allocator<long> >();
-				poolOneManual = timer.getSeconds();
+				aPoolOneManual = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVectorManualSize<boost::pool_allocator<long> >();
-				poolMultiManual = timer.getSeconds();
+				aPoolMultiManual = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::pool_allocator_tag, sizeof(long)>::release_memory();
 			}
 			//boost fast pool stress test
 			/*{
-				timer.reset();
+				aTimer.reset();
 				testOneVector<boost::fast_pool_allocator>();
-				fastPoolOne = timer.getSeconds();
+				aFastPoolOne = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVector<boost::fast_pool_allocator>();
-				fastPoolMulti = timer.getSeconds();
+				aFastPoolMulti = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testOneVectorManualSize<boost::fast_pool_allocator>();
-				fastPoolOneManual = timer.getSeconds();
+				aFastPoolOneManual = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVectorManualSize<boost::fast_pool_allocator>();
-				fastPoolMultiManual = timer.getSeconds();
+				aFastPoolMultiManual = aTimer.getSeconds();
 				
 				boost::singleton_pool<boost::fast_pool_allocator_tag, sizeof(long)>::release_memory();
 			}*/
 			//screen memory stress test
 			{
-				timer.reset();
+				aTimer.reset();
 				testOneVector<screen::memory::Allocator<long> >();
-				screenOne = timer.getSeconds();
+				aScreenOne = aTimer.getSeconds();
 				
 				BufferManager::Instance()->garbage();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVector<screen::memory::Allocator<long> >();
-				screenMulti = timer.getSeconds();
+				aScreenMulti = aTimer.getSeconds();
 				
 				BufferManager::Instance()->garbage();
 
-				timer.reset();
+				aTimer.reset();
 				testOneVectorManualSize<screen::memory::Allocator<long> >();
-				screenOneManual = timer.getSeconds();
+				aScreenOneManual = aTimer.getSeconds();
 				
 				BufferManager::Instance()->garbage();
 				
-				timer.reset();
+				aTimer.reset();
 				testMultiVectorManualSize<screen::memory::Allocator<long> >();
-				screenMultiManual = timer.getSeconds();
+				aScreenMultiManual = aTimer.getSeconds();
 				
 				BufferManager::Instance()->garbage();
-
 			}
 
 			
 			SCREEN_LOG_INFO("Stress Result : ");
-			SCREEN_LOG_INFO("    * STL : [" << stlOne << ", " << stlMulti << ", " << stlOneManual << ", " << stlMultiManual << "]");
-			SCREEN_LOG_INFO("    * Boost.pool : [" << poolOne << ", " << poolMulti << ", " << poolOneManual << ", " << poolMultiManual << "]");
-			//SCREEN_LOG_INFO("    * Boost.fast_pool : [" << fastPoolOne << ", " << fastPoolMulti << ", " << fastPoolOneManual << ", " << fastPoolMultiManual << "]");
-			SCREEN_LOG_INFO("    * Screen.Memory : [" << screenOne << ", " << screenMulti << ", " << screenOneManual << ", " << screenMultiManual << "]");
+			SCREEN_LOG_INFO("    * STL : [" << aStlOne << ", " << aStlMulti << ", " << aStlOneManual << ", " << aStlMultiManual << "]");
+			SCREEN_LOG_INFO("    * Boost.pool : [" << aPoolOne << ", " << aPoolMulti << ", " << aPoolOneManual << ", " << aPoolMultiManual << "]");
+			//SCREEN_LOG_INFO("    * Boost.fast_pool : [" << aFastPoolOne << ", " << aFastPoolMulti << ", " << aFastPoolOneManual << ", " << aFastPoolMultiManual << "]");
+			SCREEN_LOG_INFO("    * Screen.Memory : [" << aScreenOne << ", " << aScreenMulti << ", " << aScreenOneManual << ", " << aScreenMultiManual << "]");
 		}
 	}
 }

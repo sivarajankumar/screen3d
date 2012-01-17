@@ -33,34 +33,34 @@ namespace screen {
 	namespace memory {
 		namespace algorithms {
 			void Test::testBufferConverter(){
-				screen::memory::TypedBuffer<unsigned char> charBuffer;
+				screen::memory::TypedBuffer<unsigned char> aCharBuffer;
 
-				unsigned char fourtyTwo = 42;
-				unsigned char sexyNumber = 69;
-				charBuffer.setAt(0,&fourtyTwo,1);
-				charBuffer.setAt(1,&sexyNumber,1);
+				unsigned char aFourtyTwo = 42;
+				unsigned char aSexyNumber = 69;
+				aCharBuffer.setAt(0,&aFourtyTwo,1);
+				aCharBuffer.setAt(1,&aSexyNumber,1);
 
-				CPPUNIT_ASSERT(charBuffer.size() == 2);
+				CPPUNIT_ASSERT(aCharBuffer.size() == 2);
 
-				screen::memory::TypedBuffer<unsigned long> longBuffer;
+				screen::memory::TypedBuffer<unsigned long> aLongBuffer;
 
-				CPPUNIT_ASSERT(longBuffer.size() == 0);
+				CPPUNIT_ASSERT(aLongBuffer.size() == 0);
 
 				screen::memory::algorithms::TypedBufferConverter<
 						unsigned char,
 						unsigned long,
 						screen::memory::algorithms::DefautTypedBufferConverterFunc
 							<unsigned char, unsigned long> >
-					converter;
+					aConverter;
 
-				converter.convert(charBuffer,longBuffer);
+				aConverter.convert(aCharBuffer,aLongBuffer);
 
-				CPPUNIT_ASSERT(longBuffer.size() == 2);
+				CPPUNIT_ASSERT(aLongBuffer.size() == 2);
 
-				unsigned long* longTable = longBuffer.getAt(0);
+				unsigned long* aLongTable = aLongBuffer.getAt(0);
 
-				CPPUNIT_ASSERT(longTable[0] == 42);
-				CPPUNIT_ASSERT(longTable[1] == 69);
+				CPPUNIT_ASSERT(aLongTable[0] == 42);
+				CPPUNIT_ASSERT(aLongTable[1] == 69);
 
 				screen::memory::BufferManager::Instance()->garbage();
 			}
