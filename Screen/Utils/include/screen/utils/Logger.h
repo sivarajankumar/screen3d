@@ -208,6 +208,9 @@ namespace screen {
 # ifdef USE_SCREEN_LOG_CALL_TRACER
 #  define SCREEN_LOG_CALL(p,t,c,f,a) screen::utils::Logger::Instance()->call(p,t,c,f,a);
 #  define SCREEN_SCOPE_CALL(t,c,f,a) screen::utils::ScopeLog _scopeLog(t,c,f,a);
+#else
+#  define SCREEN_LOG_CALL(p,t,c,f,a)
+#  define SCREEN_SCOPE_CALL(t,c,f,a)
 # endif
 
 #endif
