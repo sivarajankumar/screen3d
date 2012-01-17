@@ -16,35 +16,35 @@ int main(){
 	SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 	
 	// Create the event manager and test controller
-	CPPUNIT_NS::TestResult controller;
+	CPPUNIT_NS::TestResult aController;
 	
 	// Add a listener that collects test result
-	CPPUNIT_NS::TestResultCollector result;
+	CPPUNIT_NS::TestResultCollector aResult;
 	
-	controller.addListener(&result);
+	aController.addListener(&aResult);
 	
 	// Add a listener that print dots as test run.
-	CPPUNIT_NS::BriefTestProgressListener progress;
+	CPPUNIT_NS::BriefTestProgressListener aProgress;
 	
-	controller.addListener(&progress);
+	aController.addListener(&aProgress);
 	
 	// Add the top suite to the test runner
-	CPPUNIT_NS::TestRunner runner;
-	runner.addTest(CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
-	runner.run(controller);
+	CPPUNIT_NS::TestRunner aRunner;
+	aRunner.addTest(CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
+	aRunner.run(aController);
 	
 	// Print test in a compiler compatible format.
-	CPPUNIT_NS::CompilerOutputter outputter(&result, CPPUNIT_NS::stdCOut());
-	outputter.write();
+	CPPUNIT_NS::CompilerOutputter aOutputter(&aResult, CPPUNIT_NS::stdCOut());
+	aOutputter.write();
 	
 	// Uncomment this for XML output
-	std::ofstream file("cppunit-report.xml");
+	std::ofstream aFile("cppunit-report.xml");
 	
-	CPPUNIT_NS::XmlOutputter xml(&result, file);
+	CPPUNIT_NS::XmlOutputter aXml(&aResult, aFile);
 	
-	xml.write();
+	aXml.write();
 	
-	file.close();
+	aFile.close();
 	
-	return 0;
+	return EXIT_SUCCESS;
 }
