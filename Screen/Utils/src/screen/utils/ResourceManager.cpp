@@ -18,12 +18,24 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/ResourceManager.cpp
+ * \brief Screen/Utils resource manager source file
+ * \author
+ *
+ */
 
 #include <screen/utils/ResourceManager.h>
 #include <screen/utils/Logger.h>
 #include <screen/utils/Exception.h>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all utility classes
+	 */
 	namespace utils {
 		SINGLETON_IMPL(UniqueSingleton,ResourceManager)
 	
@@ -33,34 +45,34 @@ namespace screen {
 		
 		ResourceManager::~ResourceManager(){
 			//SCREEN_DECL_DESTRUCTOR(~ResourceManager)
-		    if (!resourceMap.empty()){
+			if (!_resourceMap.empty()){
 		        SCREEN_LOG_WARNING("Undeleted Resources :")
-		        for (ResourceMap::const_iterator i = resourceMap.begin(); i != resourceMap.end(); ++i){
-		            SCREEN_LOG_WARNING(" - " + i->second->getName())
+				for (ResourceMap::const_iterator aIt = _resourceMap.begin(); aIt != _resourceMap.end(); ++aIt){
+					SCREEN_LOG_WARNING(" - " + aIt->second->getName())
 		        }
 		    }
 		}
 		
-		void ResourceManager::add(const std::string& name, ResourceBase* resource){
+		void ResourceManager::add(const std::string& iName, ResourceBase* ioResource){
 		    SCREEN_DECL_METHOD(add)
-            SCREEN_ASSERT(resource != NULL);
+			SCREEN_ASSERT(ioResource != NULL);
 
-		    if (resourceMap.find(name) != resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Already loaded resource !")
+			if (_resourceMap.find(iName) != _resourceMap.end()){
+				SCREEN_LOG_WARNING(iName + " : Already loaded resource !")
 		    }
 
-		    resourceMap[name] = resource;
-			resource->_name = name;
+			_resourceMap[iName] = ioResource;
+			ioResource->_name = iName;
 		}
 		
-		void ResourceManager::remove(const std::string& name){
+		void ResourceManager::remove(const std::string& iName){
 			SCREEN_DECL_METHOD(remove)
-		    ResourceMap::iterator i = resourceMap.find(name);
+			ResourceMap::iterator aIt = _resourceMap.find(iName);
 
-		    if (i == resourceMap.end()){
-		    	SCREEN_LOG_WARNING(name + " : Delete unloaded resource !")
+			if (aIt == _resourceMap.end()){
+				SCREEN_LOG_WARNING(iName + " : Delete unloaded resource !")
 		    } else
-		    	resourceMap.erase(i);
+				_resourceMap.erase(aIt);
 		}
 	}
 }
