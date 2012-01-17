@@ -18,6 +18,12 @@
  * Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA, or go to   *
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
+/**
+ * \file screen/utils/Resource.h
+ * \brief Screen/Utils resource base header file
+ * \author
+ *
+ */
 
 #ifndef SCREEN_RESOURCE_H
 #define SCREEN_RESOURCE_H
@@ -27,72 +33,122 @@
 #include <screen/utils/Export.h>
 #include <string>
 
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
-    namespace utils {
+	/**
+	 * Namespace for all utility classes
+	 */
+	namespace utils {
     
-    	/*!  \class ResourceBase
-		 *   \brief 
-		 *   \author Ratouit Thomas
-		 *   \date 20 sept. 09
+		/**
+		 * \brief Interface for all resource instances
 		 */
-
 		class SCREEN_UTILS_EXPORT ResourceBase {
 			SCREEN_DECL_CLASS(screen::utils::ResourceBase)
             friend class ResourceManager;
 		protected:
+
+			/**
+			 * \brief Default constructor
+			 */
 			ResourceBase();
+
+			/**
+			 * \brief Destructor
+			 */
 			virtual ~ResourceBase();
 			
+			/**
+			 * \brief Resource name accessor
+			 *
+			 * \return The name string
+			 */
 			const std::string& getName() const;
+
+			/**
+			 * \brief Indicate the resource is used in a new context
+			 */
 			virtual void add() = 0;
+
+			/**
+			 * \brief Indicate the resource is unused in a context
+			 *
+			 * \return Indicates is the resource instance has been deleted
+			 */
 			virtual bool remove() = 0;
 		private:
-            std::string name;
+			std::string _name; ///< Resource name string
 		};
 
-        /*!  \class Resource
-          *  \brief herited class for a ressource
-          *  \author Ratouit Thomas
-          *  \version 1.0
-          *  \date 2008
-          *
-          *  The resource is managed by ResourceManager \n
-          *  The behaviour of allocation and unallocation is specified by the life-time policy
-          */
-
-        template<class LifeTimePolicy = ReferenceCountLifeTime>
+		/**
+		 * \brief Lifetime policy based Resource class
+		 *
+		 * \tparam LifeTimePolicy Policy to determine when the resource instance is deleted
+		 */
+		template<class LifeTimePolicy = ReferenceCountLifeTime>
         class Resource : public ResourceBase {
         	SCREEN_DECL_CLASS(screen::utils::Resource)
         public:
-            Resource()
+			/**
+			 * \brief Default constructor
+			 */
+			Resource()
             	:ResourceBase(){
             	SCREEN_DECL_CONSTRUCTOR(Resource)
-                lifeTime.instanciated();
+				_lifeTime.instanciated();
             }
             
-            virtual ~Resource(){
+			/**
+			 * \brief Destructor
+			 */
+			virtual ~Resource(){
             	SCREEN_DECL_DESTRUCTOR(~Resource)
             }
             
-            void add(){
+			/**
+			 * \brief Indicate the resource is used in a new context
+			 */
+			void add(){
             	SCREEN_DECL_METHOD(add)
-                lifeTime.instanceUsed();
+				_lifeTime.instanceUsed();
             }
             
-            bool remove(){
+			/**
+			 * \brief Indicate the resource is unused in a context
+			 *
+			 * \return Indicates is the resource instance has been deleted
+			 */
+			bool remove(){
             	SCREEN_DECL_METHOD(remove)
-                lifeTime.deleted();
-                bool ret = lifeTime.isAuthorisedDeletion();
-            	if(ret)
+				_lifeTime.deleted();
+				bool aToDelete = _lifeTime.isAuthorisedDeletion();
+				if(aToDelete)
             		delete this;
-            	return ret;
+				return aToDelete;
             }
         private:
-            Resource(Resource&) {}
-            Resource& operator =(Resource& r) {
-                return r;
+			/**
+			 * \brief Copy constructor
+			 *
+			 * Private constructor to forbid copy of the resource
+			 */
+			Resource(Resource&) {}
+
+			/**
+			 * \brief Copy operator
+			 *
+			 * Private operator to forbid copy of the resource
+			 *
+			 * \param[in] iR A dummy resource
+			 * \return The same dummy resource
+			 */
+			Resource& operator =(Resource& iR) {
+				return iR;
             }
-            LifeTimePolicy lifeTime;
+
+			LifeTimePolicy _lifeTime; ///< Lifetime policy instance
         };
     }
 }
