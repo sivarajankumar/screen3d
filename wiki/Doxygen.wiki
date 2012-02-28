@@ -140,7 +140,7 @@ We will not use \class, \fn .. commands, because in Screen project you will alwa
 /**
  * \file Sample.h
  * \brief sample class for Doxygen comments
- * \author pjdemaret
+ * \author user
  *
  * This class is used to present some of the Doxygen ways to do comments for Screen 
  * (this is a long description). 
