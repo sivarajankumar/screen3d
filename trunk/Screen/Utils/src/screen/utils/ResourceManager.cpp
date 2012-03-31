@@ -46,9 +46,9 @@ namespace screen {
 		ResourceManager::~ResourceManager(){
 			//SCREEN_DECL_DESTRUCTOR(~ResourceManager)
 			if (!_resourceMap.empty()){
-		        SCREEN_LOG_WARNING("Undeleted Resources :")
+				SCREEN_LOG_WARNING("Undeleted Resources :");
 				for (ResourceMap::const_iterator aIt = _resourceMap.begin(); aIt != _resourceMap.end(); ++aIt){
-					SCREEN_LOG_WARNING(" - " + aIt->second->getName())
+					SCREEN_LOG_WARNING(" - " + aIt->second->getName());
 		        }
 		    }
 		}
@@ -58,7 +58,7 @@ namespace screen {
 			SCREEN_ASSERT(ioResource != NULL);
 
 			if (_resourceMap.find(iName) != _resourceMap.end()){
-				SCREEN_LOG_WARNING(iName + " : Already loaded resource !")
+				SCREEN_LOG_WARNING(iName + " : Already loaded resource !");
 		    }
 
 			_resourceMap[iName] = ioResource;
@@ -70,7 +70,7 @@ namespace screen {
 			ResourceMap::iterator aIt = _resourceMap.find(iName);
 
 			if (aIt == _resourceMap.end()){
-				SCREEN_LOG_WARNING(iName + " : Delete unloaded resource !")
+				SCREEN_LOG_WARNING(iName + " : Delete unloaded resource !");
 		    } else
 				_resourceMap.erase(aIt);
 		}

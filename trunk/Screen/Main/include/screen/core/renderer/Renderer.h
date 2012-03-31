@@ -113,7 +113,7 @@ namespace screen {
 		inline VertexBuffer<T> Renderer::createVertexBuffer(unsigned long size, screen::core::BufferFlag flags, const T* data, const VertexFormat::SmartPtr& vf) const{
 			SCREEN_DECL_METHOD(createVertexBuffer)
 			if(!vf->isLocked()){
-				SCREEN_LOG_WARNING("Vertex format isn't locked while creating a VertexBuffer => forced lock")
+				SCREEN_LOG_WARNING("Vertex format isn't locked while creating a VertexBuffer => forced lock");
 				VertexFormat& fmt = const_cast<VertexFormat&>(*(vf.get()));
 				fmt.lock();
 			}

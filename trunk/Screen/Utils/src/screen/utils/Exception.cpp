@@ -37,17 +37,30 @@ namespace screen {
     namespace utils {
 
         Exception::Exception(const std::string& iMessage) throw ()
-                :std::exception(), _message("[screen exception] "+iMessage) {
+			:std::exception(),
+			_message("[screen exception] "+iMessage),
+			_file(),_line(0){
         }
 
         Exception::Exception(const std::string& iFile, int iLine, const std::string& iMessage) throw ()
-                :std::exception(),_message("") {
+			:std::exception(),_message(),_file(iFile), _line(0) {
             std::ostringstream aStream;
-            aStream << "screen exception = file : " << iFile;
-            aStream << " , line : " << iLine;
-            aStream << " / " << iMessage;
-            _message = aStream.str();
+			aStream << iMessage;
+			fillMessage(iFile, iLine, aStream);
         }
+
+		Exception::Exception(const std::string& iFile, int iLine, std::ostringstream& iStreamMessage) throw ()
+				:std::exception(),_message(),_file(iFile), _line(0) {
+			fillMessage(iFile, iLine, iStreamMessage);
+		}
+
+		void Exception::fillMessage(const std::string& iFile, int iLine, std::ostringstream& iStreamMessage){
+			std::ostringstream aStream;
+			aStream << "screen exception = file : " << iFile;
+			aStream << " , line : " << iLine;
+			aStream << " / " << iStreamMessage;
+			_message = aStream.str();
+		}
 
         Exception::~Exception() throw() {}
 
@@ -55,11 +68,20 @@ namespace screen {
             return _message.c_str();
         }
 
+		/***********************************************************************/
+
         AssertException::AssertException(const std::string& iFile, int iLine, const std::string& iMessage) throw ()
                 :Exception(iFile, iLine, "Assertion failed : "+iMessage){
         }
 
         AssertException::~AssertException() throw (){}
+
+
+		/***********************************************************************/
+
+		LoadingException::LoadingException(const std::string& iFile, int iLine, const std::string& iMessage) throw ()
+			:Exception(iFile, iLine, "Unable to load file : "+iMessage){
+		}
 
         LoadingException::LoadingException(const std::string& iFileName, const std::string& iMessage) throw ()
             :Exception("Unable to load file : "+iFileName+" / "+iMessage){
