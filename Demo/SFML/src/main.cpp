@@ -39,15 +39,18 @@
 
 int main() {
 	try{
+		// Init log and profiler
 		SCREEN_ATTACH_LOGGER_REPORTER(new screen::utils::FileLoggerReporter("out.log"))
 		SCREEN_ATTACH_PROFILE_REPORTER(new screen::utils::FileProfilerReporter("profiler.log"))
 		
 		SCREEN_LOG_DEBUG("Hello world !!");
 		
+		// load dynamic libraries and ressources
 		screen::core::Renderer::load("ScreenOpenGL");
 		screen::core::TextureManager::Instance()->registerLoader<screen::core::objects::Image>(new screen::image::il::ImageLoader, "jpg|png|bmp|tga");
 		screen::core::TextureManager::Instance()->addPath(".");
 		
+		// rendering
 		screen::utils::SmartPtr<screen::core::Root> root(new SFMLRoot());
 		screen::utils::SmartPtr<screen::core::RenderWindow> rw(new screen::utils::SFMLOpenGLRenderWindow());
 		screen::utils::SmartPtr<screen::core::FPSCounter> fc(new screen::core::FPSCounter(2.0,std::cout));
@@ -56,6 +59,7 @@ int main() {
 		root->init();
 		root->startRendering();
 		
+		//clean
 		screen::core::TextureManager::Instance()->unregisterLoader<screen::core::objects::Image>("jpg|png|bmp|tga");
 
 	}catch(const screen::utils::Exception& e){

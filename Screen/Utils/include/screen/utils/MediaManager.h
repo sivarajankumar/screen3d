@@ -49,45 +49,45 @@ namespace screen {
 	    	template <class T> void registerLoader(Loader<T>* loader, const std::string& extensions){
 	    		SCREEN_DECL_METHOD(registerLoader)
 	    		
-	    		SCREEN_LOG_DEBUG("Register " << loader->_selfType() << " As " << loader->_loadedType() << " loader for the following extensions :")
+				SCREEN_LOG_DEBUG("Register " << loader->_selfType() << " As " << loader->_loadedType() << " loader for the following extensions :");
 	    		
 		    	// extensions parsing
 		    	typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 		    	boost::char_separator<char> sep("|");
 		    	Tokenizer tokens(extensions, sep);
 		    	
-		    	SCREEN_LOG_DEBUG("<list>")
+				SCREEN_LOG_DEBUG("<list>");
 		    	
 		        // add extensions to media manager
 		    	
 		    	SmartPtr<Loader<T> > ptr = loader;
 		    	for (Tokenizer::iterator i = tokens.begin(); i != tokens.end(); ++i){
-		    		SCREEN_LOG_DEBUG("\t" << *i)
+					SCREEN_LOG_DEBUG("\t" << *i);
 		    		MediaHolder<T>::loaderMap[*i] = ptr;
 		    	}
 		    	
-		    	SCREEN_LOG_DEBUG("</list>")
+				SCREEN_LOG_DEBUG("</list>");
 	    	}
 	    	
 	    	template <class T> void unregisterLoader(const std::string& extensions){
 	    		SCREEN_DECL_METHOD(unregisterLoader)
 	    		
-	    		SCREEN_LOG_DEBUG("Unregister loaders with the following extensions :")
+				SCREEN_LOG_DEBUG("Unregister loaders with the following extensions :");
 	    		
 		    	// extensions parsing
 		    	typedef boost::tokenizer<boost::char_separator<char> > Tokenizer;
 		    	boost::char_separator<char> sep("|");
 		    	Tokenizer tokens(extensions, sep);
 		    	
-		    	SCREEN_LOG_DEBUG("<list>")
+				SCREEN_LOG_DEBUG("<list>");
 
 		        // delete extensions to media manager
 		    	for (Tokenizer::iterator i = tokens.begin(); i != tokens.end(); ++i){
-		    		SCREEN_LOG_DEBUG("\t" << *i << " | " << (MediaHolder<T>::loaderMap[*i]==NULL ? "nothing" : MediaHolder<T>::loaderMap[*i]->_selfType()))
+					SCREEN_LOG_DEBUG("\t" << *i << " | " << (MediaHolder<T>::loaderMap[*i]==NULL ? "nothing" : MediaHolder<T>::loaderMap[*i]->_selfType()));
 		    		MediaHolder<T>::loaderMap.erase(*i);  
 		    	}
 		    	
-		    	SCREEN_LOG_DEBUG("</list>")
+				SCREEN_LOG_DEBUG("</list>");
 	    	}
 	    	
 	    	void addPath(const Path& path){
@@ -112,18 +112,18 @@ namespace screen {
 	        
 	    	template <class T> T* loadMediaFromFile(const File& filename) const{
 	    		SCREEN_DECL_METHOD(loadMediaFromFile)
-	    		SCREEN_LOG_INFO("Load media : " << filename.getFullname())
+				SCREEN_LOG_INFO("Load media : " << filename.getFullname());
 	    		
 	    		typename MediaHolder<T>::LoaderMap::const_iterator i =  MediaHolder<T>::loaderMap.find(filename.getExtension());
 
 		        if (i != MediaHolder<T>::loaderMap.end())
 		        	if(i->second != NULL){
 		        		const SmartPtr<Loader<T> >& ptr = (i->second);
-		        		SCREEN_LOG_DEBUG("Loader found :")
-		        		SCREEN_LOG_DEBUG("\tLoader type : " << ptr->_selfType())
+						SCREEN_LOG_DEBUG("Loader found :");
+						SCREEN_LOG_DEBUG("\tLoader type : " << ptr->_selfType());
 		        		File file = findMedia(filename);
 		        		T* ret = ptr->loadFromFile(file.getFullname());
-		        		SCREEN_LOG_INFO((ret!=NULL ? "Load successful" : "Load failed (NULL pointer)"))
+						SCREEN_LOG_INFO((ret!=NULL ? "Load successful" : "Load failed (NULL pointer)"));
 		        		return ret;
 		        	}
 		        

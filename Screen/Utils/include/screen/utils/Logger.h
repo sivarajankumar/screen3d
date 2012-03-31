@@ -182,25 +182,25 @@ namespace screen {
 # endif
 
 # if defined(USE_SCREEN_LOG_DEBUG)
-#  define SCREEN_LOG_DEBUG(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->debug(_ss.str());}
+#  define SCREEN_LOG_DEBUG(s)	do{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->debug(_ss.str());} while(0)
 # else
 #  define SCREEN_LOG_DEBUG(s)
 # endif
 
 # if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO)
-#  define SCREEN_LOG_INFO(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->info(_ss.str());}
+#  define SCREEN_LOG_INFO(s)	do {std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->info(_ss.str());} while(0)
 # else
 #  define SCREEN_LOG_INFO(s)
 # endif
 
 # if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO) || defined(USE_SCREEN_LOG_WARNING)
-#  define SCREEN_LOG_WARNING(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->warning(_ss.str());}
+#  define SCREEN_LOG_WARNING(s)	do{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->warning(_ss.str());} while(0)
 # else
 #  define SCREEN_LOG_WARNING(s)
 # endif
 
 # if defined(USE_SCREEN_LOG_DEBUG) || defined(USE_SCREEN_LOG_INFO) || defined(USE_SCREEN_LOG_WARNING) || defined(USE_SCREEN_LOG_ERROR)
-#  define SCREEN_LOG_ERROR(s)	{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->error(_ss.str());}
+#  define SCREEN_LOG_ERROR(s)	do{std::stringstream _ss; _ss << s; screen::utils::Logger::Instance()->error(_ss.str());} while(0)
 # else
 #  define SCREEN_LOG_ERROR(s)
 # endif

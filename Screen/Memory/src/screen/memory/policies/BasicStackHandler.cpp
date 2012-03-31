@@ -32,7 +32,7 @@
 
 #ifdef USE_SCREEN_LOG_DEBUG
 #define LOG_STACKS \
-	SCREEN_LOG_DEBUG("stacks :") \
+	SCREEN_LOG_DEBUG("stacks :"); \
 	for(int aIter=0; aIter<NUMBER_OF_STACKS; aIter++){ \
 		SCREEN_LOG_DEBUG("\tall  #" << aIter << " " << _buffers[aIter].size()); \
 		SCREEN_LOG_DEBUG("\tfree #" << aIter << " " << _unlockedBuffers[aIter].size()); \
@@ -155,7 +155,7 @@ namespace screen{
 						aTotalFreeSize += _interface->calculateSizeFromStack(aStackNumber);
 					}
 				}
-				SCREEN_LOG_DEBUG("garbage => free " << aTotalFreeSize << " bytes")
+				SCREEN_LOG_DEBUG("garbage => free " << aTotalFreeSize << " bytes");
 				return aTotalFreeSize;
 			}
 

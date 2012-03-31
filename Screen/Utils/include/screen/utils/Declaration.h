@@ -31,6 +31,7 @@
 #include <screen/utils/Logger.h>
 #include <screen/utils/Profiler.h>
 #include <screen/utils/Export.h>
+#include <screen/utils/Exception.h>
 #include <string>
 
 //class

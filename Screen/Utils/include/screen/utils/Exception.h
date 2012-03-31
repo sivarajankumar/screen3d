@@ -66,6 +66,16 @@ namespace screen {
              */
             Exception(const std::string& iFile, int iLine, const std::string& iMessage) throw ();
 
+			/**
+			 * \brief Constructor with file name, line number and exception message as stream
+			 *
+			 * Commonly used with __FILE__ and __LINE__ macros
+			 *
+			 * \param[in] iFile file name
+			 * \param[in] iLine line number
+			 * \param[in] iStreamMessage exception message as stream
+			 */
+			Exception(const std::string& iFile, int iLine, std::ostringstream& iMessage) throw ();
 
             /**
              * \brief Destructor
@@ -78,8 +88,41 @@ namespace screen {
              * \return Returns the exception message
              */
             virtual const char* what() const throw();
+
+			/**
+			 * \brief Get file where the exception has been thrown
+			 *
+			 * \return name of the code file which has thrown the exception; or an empty string if unknown
+			 */
+			std::string getFile() const{
+				return _file;
+			}
+
+			/**
+			 * \brief Get line where the exception has been thrown
+			 *
+			 * \return line of the code file which has thrown the exception; or 0 if unknown
+			 */
+			int getLine() const{
+				return _line;
+			}
+
+
+		protected:
+
+			/**
+			 * \brief fill exception message, adding file, line and a header in the exception message
+			 *
+			 * \param[in] iFile file name
+			 * \param[in] iLine line number
+			 * \param[in] iStreamMessage exception message as stream
+			 */
+			virtual void fillMessage(const std::string& iFile, int iLine, std::ostringstream& iStreamMessage);
+
         private:
             std::string _message; ///< exception message string
+			std::string _file; ///< file where the exception has been thrown (empty if not set)
+			int _line; ///< line where the exception has been thrown (0 if not set)
         };
 
 
@@ -118,6 +161,20 @@ namespace screen {
          * Must be used for file IO errors
          */
         struct SCREEN_UTILS_EXPORT LoadingException : public Exception {
+
+
+			/**
+			 * \brief Constructor with file name, line number and exception message
+			 *
+			 * File and line are filed by SCREEN_ASSERT macro
+			 *
+			 * \param[in] iFile file name
+			 * \param[in] iLine line number
+			 * \param[in] iMessage exception message
+			 */
+			LoadingException(const std::string& iFile, int iLine, const std::string& iMessage) throw ();
+
+
             /**
              * \brief Constructor with file name, line number and exception message
              *
