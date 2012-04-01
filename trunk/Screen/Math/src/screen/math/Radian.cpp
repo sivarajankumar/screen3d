@@ -30,11 +30,14 @@
 #include <screen/math/Radian.h>
 #include <screen/math/Degree.h>
 
-namespace screen {
-	namespace math {
+// Utils include
+#include <screen/utils/Constants.h>
 
-		// TODO move Pi somewhere else (global access)
-		const float Pi = 3.141592654f;
+namespace screen {
+
+	using namespace utils;
+
+	namespace math {
 
 		Radian::Radian ( const Degree& iDegree )
 			: _value(iDegree.getRadianValue()){

@@ -19,66 +19,25 @@
  * http://www.gnu.org/copyleft/lesser.txt.                                   *
  *****************************************************************************/
 /**
- * \file Degree.cpp
- * \brief The class used to represent the Degree unit
+ * \file Constants.h
+ * \brief Some usefull constants. Can be mathematical constants, or environmental constants...
  * \author pjdemaret
- *
- * This class is used to represent the Degree unit used for angles representation.
  */
+#ifndef SCREEN_CONSTANTS_H
+#define SCREEN_CONSTANTS_H
 
-// Math includes
-#include <screen/math/Degree.h>
-#include <screen/math/Radian.h>
-
-// Utils include
-#include <screen/utils/Constants.h>
-
+/**
+ * Namespace for all screen classes
+ */
 namespace screen {
+	/**
+	 * Namespace for all utility classes
+	 */
+	namespace utils {
 
-	using namespace utils;
-
-	namespace math {
-
-		Degree::Degree ( const Radian& iRadian )
-			: _value(iRadian.getDegreeValue()){
-		}
-
-		inline
-		Degree& Degree::operator = ( const Radian& iRadian ){
-			_value = iRadian.getDegreeValue();
-			return *this;
-		}
-
-		float Degree::getRadianValue() const{
-			return Degree::ToRadian(_value);
-		}
-
-		inline
-		Degree Degree::operator + ( const Radian& iRadian ) const{
-			return Degree( _value + iRadian.getDegreeValue());
-		}
-
-		inline
-		Degree& Degree::operator += ( const Radian& iRadian ){
-			_value += iRadian.getDegreeValue();
-			return *this;
-		}
-
-		inline
-		Degree Degree::operator - ( const Radian& iRadian ) const{
-			return Degree( _value + iRadian.getDegreeValue());
-		}
-
-		inline
-		Degree& Degree::operator -= ( const Radian& iRadian ){
-			_value -= iRadian.getDegreeValue();
-			return *this;
-		}
-
-		inline
-		float Degree::ToRadian(const float iDegree) {
-			return iDegree / 180 * Pi;
-		}
+	const float Pi = 3.141592654f;
 
 	}
 }
+
+#endif // SCREEN_CONSTANTS_H

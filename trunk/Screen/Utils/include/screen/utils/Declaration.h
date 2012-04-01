@@ -61,7 +61,7 @@
 #	define SCREEN_DECL_METHOD_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "method | " << _getClassName() << "::" << #m << "() | " << this; \
-		SCREEN_SCOPE_PROFILE(_internal_ss2.str())
+		SCREEN_SCOPE_PROFILE(_internal_ss2.str());
 #else
 #	define SCREEN_DECL_METHOD_PROFILE(m)
 #endif
@@ -84,7 +84,7 @@
 #	define SCREEN_DECL_STATIC_METHOD_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "static method | " << _getClassName() << "::" << #m << "()"; \
-		SCREEN_SCOPE_PROFILE(_internal_ss2.str())
+		SCREEN_SCOPE_PROFILE(_internal_ss2.str());
 #else
 #	define SCREEN_DECL_STATIC_METHOD_PROFILE(m)
 #endif
@@ -109,7 +109,7 @@
 #	define SCREEN_DECL_CONSTRUCTOR_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "constructor | " << _getClassName() << "::" << #m << "() | " << this; \
-		SCREEN_SCOPE_PROFILE(_internal_ss2.str())
+		SCREEN_SCOPE_PROFILE(_internal_ss2.str());
 #else
 #	define SCREEN_DECL_CONSTRUCTOR_PROFILE(m)
 #endif
@@ -134,7 +134,7 @@
 #	define SCREEN_DECL_DESTRUCTOR_PROFILE(m) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "destructor | " << _getClassName() << "::" << #m << "() | " << this; \
-		SCREEN_SCOPE_PROFILE(_internal_ss2.str())
+		SCREEN_SCOPE_PROFILE(_internal_ss2.str());
 #else
 #	define SCREEN_DECL_DESTRUCTOR_PROFILE(m)
 #endif
@@ -156,7 +156,7 @@
 #	define SCREEN_DECL_FUNCTION_PROFILE(f) \
 		std::stringstream _internal_ss2; \
 		_internal_ss2 << "function | " << #f << "()"; \
-		SCREEN_SCOPE_PROFILE(_internal_ss2.str())
+		SCREEN_SCOPE_PROFILE(_internal_ss2.str());
 #else
 #	define SCREEN_DECL_FUNCTION_PROFILE(f)
 #endif

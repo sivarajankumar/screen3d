@@ -38,6 +38,8 @@
 
 //glm
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
+#include <glm/core/func_geometric.hpp>
 
 namespace screen {
 	namespace core {
@@ -45,39 +47,45 @@ namespace screen {
 
 			Camera::Camera(const std::string& iName, screen::core::Scene* iScene)
 			: _name(iName), _scene(iScene),
-			  _position(0.0f, 0.0f, 0.0f), _center(0.0f, 0.0f, 0.0f), _up(0.0f, 0.0f, 0.0f),
-			  _fov(45.0f), _aspect(800.0f/600.0f),
-			  _near(0.1f), _far(100.0f)
+			  _position(0.0f, 0.0f, 0.0f), _eye(0.0f, 0.0f, 1.0f), _up(0.0f, 1.0f, 0.0f),
+			  _fov(45.0f), _aspectRatio(4.0f/3.0f),
+			  _near(0.1f), _far(100.0f), _projectionNeedsUpdate(true),
+			  _viewNeedsUpdate(true)
 			{
-				SCREEN_DECL_CONSTRUCTOR(Camera)
+				SCREEN_DECL_CONSTRUCTOR(Camera);
+				updateProjection();
+				updateView();
 			}
 
 			Camera::~Camera(){
-				SCREEN_DECL_DESTRUCTOR(~Camera)
+				SCREEN_DECL_DESTRUCTOR(~Camera);
 			}
 
 
 			const std::string& Camera::getName() const{
-				SCREEN_DECL_METHOD(getName)
+				SCREEN_DECL_METHOD(getName);
 				return _name;
 			}
 
 			inline
-			screen::core::Scene* Camera::getScene() const{
-				SCREEN_DECL_METHOD(getScene)
-				return _scene;
+			screen::core::Scene& Camera::getScene() const{
+				SCREEN_DECL_METHOD(getScene);
+				if (_scene == NULL)
+					throw screen::utils::Exception( __FILE__, __LINE__, "Trying to get a NULL scene from the the camera (" + getName() + ")");
+				return *_scene;
 			}
 
 			inline
 			bool Camera::isActive() const{
-				SCREEN_DECL_METHOD(isActive)
-				return (_scene->getActiveCamera() == this);
+				SCREEN_DECL_METHOD(isActive);
+				return (&_scene->getActiveCamera() == this);
 			}
 
 			inline
 			void Camera::setPosition(const glm::vec3& iVectorPosition){
-				SCREEN_DECL_METHOD(setPosition)
+				SCREEN_DECL_METHOD(setPosition);
 				_position = iVectorPosition;
+				_viewNeedsUpdate = true;
 			}
 
 			inline
@@ -87,20 +95,162 @@ namespace screen {
 
 			inline
 			const glm::vec3& Camera::getPosition() const{
-				SCREEN_DECL_METHOD(getPosition)
+				SCREEN_DECL_METHOD(getPosition);
 				return _position;
 			}
 
-			inline
-			const glm::mat4x4 Camera::getProjection() const{
-				SCREEN_DECL_METHOD(getProjection)
-				return glm::perspective(_fov, _aspect, _near, _far);
+			void Camera::move(const glm::vec3& iVectorMove){
+				SCREEN_DECL_METHOD(move);
+				_position += iVectorMove;
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::translateZ(const float iDistance){
+				SCREEN_DECL_METHOD(translateZ);
+				_position += (iDistance * getDirection());
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::translateY(const float iDistance){
+				SCREEN_DECL_METHOD(translateY);
+				_position += (iDistance * getUp());
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::translateX(const float iDistance){
+				SCREEN_DECL_METHOD(translateX);
+				_position += (iDistance * getRight());
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::translate(const float iDistance, const glm::vec3& iAxis){
+				SCREEN_DECL_METHOD(translate);
+				_position += (iDistance * glm::normalize(iAxis));
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::setDirection(const glm::vec3& iVectorDirection){
+				SCREEN_DECL_METHOD(setDirection);
+				_eye = glm::normalize(iVectorDirection);
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::setDirection(const float x, const float y, const float z){
+				setDirection( glm::vec3(x, y, z));
+			}
+
+			const glm::vec3& Camera::getDirection() const{
+				SCREEN_DECL_METHOD(getDirection);
+				return _eye;
 			}
 
 			inline
-			const glm::mat4x4 Camera::getView() const {
-				SCREEN_DECL_METHOD(getView)
-				return glm::lookAt(_position, _center, _up);
+			const glm::vec3& Camera::getUp() const{
+				SCREEN_DECL_METHOD(getUp);
+				return _up;
+			}
+
+			glm::vec3 Camera::getRight() const{
+				SCREEN_DECL_METHOD(getRight);
+				return glm::normalize(glm::cross(_eye, _up));
+			}
+
+			// rotation local z
+			void Camera::roll(const screen::math::Degree& iAngle){
+				SCREEN_DECL_METHOD(roll);
+				rotate(getDirection(), iAngle);
+			}
+
+			// rotation local y
+			void Camera::yaw(const screen::math::Degree& iAngle){
+				SCREEN_DECL_METHOD(yaw);
+				rotate(getUp(), iAngle);
+			}
+
+			// rotation local x
+			void Camera::pitch(const screen::math::Degree& iAngle){
+				SCREEN_DECL_METHOD(pitch);
+				rotate(getRight(), iAngle);
+			}
+
+			void Camera::rotate(const glm::vec3& iAxis, const screen::math::Degree& iAngle){
+				SCREEN_DECL_METHOD(rotate);
+				_eye = glm::normalize(glm::rotate(_eye, iAngle.getValue(), iAxis));
+				_up = glm::normalize(glm::rotate(_up, iAngle.getValue(), iAxis));
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::lookAt(const glm::vec3& iPoint){
+				SCREEN_DECL_METHOD(lookAt);
+				_eye = iPoint - _position;
+				_viewNeedsUpdate = true;
+			}
+
+			void Camera::lookAt(const float x, const float y, const float z){
+				lookAt(glm::vec3(x, y, z));
+			}
+
+			const glm::mat4x4& Camera::getView() {
+				SCREEN_DECL_METHOD(getView);
+				updateView();
+				return _view;
+			}
+
+			inline
+			float Camera::getAspectRatio() const{
+				SCREEN_DECL_METHOD(getAspectRatio);
+				return _aspectRatio;
+			}
+
+			inline
+			void Camera::setAspectRatio(const float iAspectRatio){
+				SCREEN_DECL_METHOD(setAspectRatio);
+				_aspectRatio = iAspectRatio;
+				_projectionNeedsUpdate = true;
+			}
+
+			inline
+			float  Camera::getNearClipDistance() const{
+				SCREEN_DECL_METHOD(getNearClipDistance);
+				return _near;
+			}
+
+			inline
+			void  Camera::setNearClipDistance(const float iNear){
+				SCREEN_DECL_METHOD(setNearClipDistance);
+				_near = iNear;
+				_projectionNeedsUpdate = true;
+			}
+
+			inline
+			float  Camera::getFarClipDistance() const{
+				SCREEN_DECL_METHOD(getFarClipDistance);
+				return _far;
+			}
+
+			inline
+			void  Camera::setFarClipDistance(const float iFar){
+				SCREEN_DECL_METHOD(setFarClipDistance);
+				_far = iFar;
+				_projectionNeedsUpdate = true;
+			}
+
+			const glm::mat4x4& Camera::getProjection(){
+				SCREEN_DECL_METHOD(getProjection);
+				updateProjection();
+				return _projection;
+			}
+
+			void Camera::updateProjection(){
+				SCREEN_DECL_METHOD(updateProjection);
+				if (_projectionNeedsUpdate)
+					_projection = glm::perspective(_fov, _aspectRatio, _near, _far);
+			}
+
+			void Camera::updateView(){
+				SCREEN_DECL_METHOD(updateView);
+				if (_viewNeedsUpdate)
+					_view = glm::lookAt(_eye, _position, _up);
 			}
 
 		}
