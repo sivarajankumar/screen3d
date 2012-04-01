@@ -40,7 +40,7 @@ namespace screen {
 
 			// create default camera
 			std::string aDefaultCameraName = "DefaultCamera"+iSceneName;
-			_activeCamera = createCamera(aDefaultCameraName);
+			_activeCamera = &createCamera(aDefaultCameraName);
 		}
 
 
@@ -64,13 +64,15 @@ namespace screen {
 		}
 
 		inline
-		screen::core::objects::Camera* Scene::getActiveCamera() const{
-			SCREEN_DECL_METHOD(getActiveCamera)
-			return _activeCamera;
+		screen::core::objects::Camera& Scene::getActiveCamera() const{
+			SCREEN_DECL_METHOD(getActiveCamera);
+			if (_activeCamera == NULL)
+				throw screen::utils::Exception( __FILE__, __LINE__, "Trying to get a NULL camera from the the scene (" + getName() + ")");
+			return *_activeCamera;
 		}
 
 		void Scene::setActiveCamera(const std::string& iCameraName){
-			SCREEN_DECL_METHOD(setActiveCamera)
+			SCREEN_DECL_METHOD(setActiveCamera);
 			std::map<std::string, screen::core::objects::Camera*>::iterator it;
 			it = _cameraMap.find(iCameraName);
 			if (it == _cameraMap.end())
@@ -79,13 +81,13 @@ namespace screen {
 		}
 
 		void Scene::setActiveCamera(const screen::core::objects::Camera& iCamera){
-			SCREEN_DECL_METHOD(setActiveCamera)
+			SCREEN_DECL_METHOD(setActiveCamera);
 
 			setActiveCamera(iCamera.getName());
 		}
 
-		screen::core::objects::Camera* Scene::createCamera(const std::string& iCameraName){
-			SCREEN_DECL_METHOD(createCamera)
+		screen::core::objects::Camera& Scene::createCamera(const std::string& iCameraName){
+			SCREEN_DECL_METHOD(createCamera);
 			std::map<std::string, screen::core::objects::Camera*>::iterator it;
 			it = _cameraMap.find(iCameraName);
 			if (it != _cameraMap.end()){
@@ -95,7 +97,20 @@ namespace screen {
 
 			screen::core::objects::Camera* aNewCamera = new screen::core::objects::Camera(iCameraName, this);
 			_cameraMap[iCameraName] = aNewCamera;
-			return aNewCamera;
+			return *aNewCamera;
+		}
+
+		void Scene::dropCamera(const std::string& iCameraName){
+			SCREEN_DECL_METHOD(dropCamera);
+			std::map<std::string, screen::core::objects::Camera*>::iterator it;
+			it = _cameraMap.find(iCameraName);
+			if (it == _cameraMap.end()){
+				throw screen::utils::Exception( __FILE__, __LINE__, "Trying to drop a camera (" + iCameraName
+												+ ") that doesn't exist in the scene (" + getName() + ")");
+			}
+
+			delete (*it).second;
+			_cameraMap.erase(it);
 		}
 
 	}

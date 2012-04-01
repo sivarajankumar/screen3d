@@ -30,12 +30,19 @@
 #ifndef SCREEN_CAMERA_H
 #define SCREEN_CAMERA_H
 
+//utils
 #include <screen/utils/Declaration.h>
 
+// maths
+#include <screen/math/Angles.h>
+
+//main
 #include <screen/main/Export.h>
 
+// glm
 #include <glm/glm.hpp>
 
+// stl
 #include <iostream>
 
 /**
@@ -60,6 +67,8 @@ namespace screen {
 			 * Object describe the view from which a scene is rendered.
 			 * The camera must be attached to a scene. A scene can have several cameras
 			 * but only one camera can be active.
+			 * Default aspect ratio is 4/3. Default near clip distance is 1. Default far clip distance is 100.
+			 * Default fov is 45. Default position is (0,0,0). Default direction is (0,0,1). Default up is (0,1,0).
 			 */
 			class SCREEN_MAIN_EXPORT Camera {
 				SCREEN_DECL_CLASS(screen::core::objects::Camera)
@@ -77,7 +86,7 @@ namespace screen {
 				 * \brief Get the scene holding the camera
 				 * \return scene holding the camera
 				 */
-				screen::core::Scene* getScene() const;
+				screen::core::Scene& getScene() const;
 
 				/**
 				 * \brief Check if the camera is active in its scene
@@ -86,36 +95,178 @@ namespace screen {
 				bool isActive() const;
 
 				/**
-				 * Set the position of the camera
+				 * \brief Set the position of the camera
 				 * \param[in] iVectorPosition position given as a vector
 				 */
 				void setPosition(const glm::vec3& iVectorPosition);
 
 				/**
-				 * Set the position of the camera
-				 * \param[in] x
-				 * \param[in] y
-				 * \param[in] z
+				 * \brief Set the position of the camera
+				 * \param[in] x (horizontal)
+				 * \param[in] y (up)
+				 * \param[in] z (depth)
 				 */
 				void setPosition(const float x, const float y, const float z);
 
 				/**
-				 * Get the absolute position of the camera
+				 * \brief Get the absolute position of the camera
 				 * \return vector repesenting the position of the camera
 				 */
 				const glm::vec3& getPosition() const;
 
 				/**
-				 * Get camera projection
-				 * \return camera projection matrix
+				 * \brief Move the camera by the given vector
+				 * \param[in] iVectorMove vector used to move the camera
 				 */
-				const glm::mat4x4 getProjection() const;
+				void move(const glm::vec3& iVectorMove);
 
 				/**
-				 * Get camera view
+				 * \brief Move the camera on its local z axis
+				 * \param[in] iDistance distance of the camera movement
+				 */
+				void translateZ(const float iDistance);
+
+				/**
+				 * \brief Move the camera on its local y axis
+				 * \param[in] iDistance distance of the camera movement
+				 */
+				void translateY(const float iDistance);
+
+				/**
+				 * \brief Move the camera on its local x axis
+				 * \param[in] iDistance distance of the camera movement
+				 */
+				void translateX(const float iDistance);
+
+				/**
+				 * \brief Move the camera on an axis
+				 * \param[in] iDistance distance of the camera movement
+				 * \param[in] iAxis axis on which the camera is moving
+				 */
+				void translate(const float iDistance, const glm::vec3& iAxis);
+
+				/**
+				 * \brief Set the direction of the camera
+				 * \param[in] iVectorDirection position given as a vector
+				 */
+				void setDirection(const glm::vec3& iVectorDirection);
+
+				/**
+				 * \brief Set the direction of the camera
+				 * \param[in] x (horizontal)
+				 * \param[in] y (up)
+				 * \param[in] z (depth)
+				 */
+				void setDirection(const float x, const float y, const float z);
+
+				/**
+				 * \brief Get the absolute direction of the camera
+				 * \return vector repesenting the direction of the camera (normalized)
+				 */
+				const glm::vec3& getDirection() const;
+
+				/**
+				 * \brief Get the absolute up vector of the camera
+				 * \return vector repesenting the up vector of the camera (normalized)
+				 */
+				const glm::vec3& getUp() const;
+
+				/**
+				 * \brief Get the absolute right vector of the camera
+				 * \return vector repesenting the right vector of the camera (normalized)
+				 */
+				glm::vec3 getRight() const;
+
+				/**
+				 * \brief Rotate anticlockwise arount its local z axis
+				 * \param[in] iDegree angle in Degree
+				 */
+				void roll(const screen::math::Degree& iAngle);
+
+				/**
+				 * \brief Rotate anticlockwise arount its local y axis
+				 * \param[in] iDegree angle in Degree
+				 */
+				void yaw(const screen::math::Degree& iAngle);
+
+				/**
+				 * \brief Rotate anticlockwise arount its local x axis
+				 * \param[in] iDegree angle in Degree
+				 */
+				void pitch(const screen::math::Degree& iAngle);
+
+				/**
+				 * \brief Rotate the camera around a given axis
+				 * \param[in] iAxis vector representing the axis
+				 * \param[in] iDegree angle in Degree
+				 */
+				void rotate(const glm::vec3& iAxis, const screen::math::Degree& iAngle);
+
+				/**
+				 * \brief Make the camera look at a point in space
+				 *
+				 * Make the camera look at a point in space. Does not change the up vector of the camera.
+				 * \param[in] iPoint point ot look at
+				 */
+				void lookAt(const glm::vec3& iPoint);
+
+				/**
+				 * \brief Make the camera look at a point in space
+				 *
+				 * Make the camera look at a point in space. Does not change the up vector of the camera.
+				 * \param[in] x
+				 * \param[in] y
+				 * \param[in] z
+				 */
+				void lookAt(const float x, const float y, const float z);
+
+				/**
+				 * \brief Get camera view
 				 * \return camera view matrix
 				 */
-				const glm::mat4x4 getView() const;
+				const glm::mat4x4& getView();
+
+				/**
+				 * \brief Get the aspect ratio
+				 * \return aspect ratio
+				 */
+				float getAspectRatio() const;
+
+				/**
+				 * \brief Set the aspect ratio
+				 * \param[in] iAspectRatio aspect ratio
+				 */
+				void setAspectRatio(const float iAspectRatio);
+
+				/**
+				 * \brief Get near clip distance
+				 * \return near clip distance
+				 */
+				float getNearClipDistance() const;
+
+				/**
+				 * \brief Set near clip distance
+				 * \param[in] iNear near clip distance
+				 */
+				void setNearClipDistance(const float iNear);
+
+				/**
+				 * \brief Get far clip distance
+				 * \return far clip distance
+				 */
+				float getFarClipDistance() const;
+
+				/**
+				 * \brief Set far clip distance
+				 * \param[in] iFar far clip distance
+				 */
+				void setFarClipDistance(const float iFar);
+
+				/**
+				 * \brief Get camera projection
+				 * \return camera projection matrix
+				 */
+				const glm::mat4x4& getProjection();
 
 			protected:
 
@@ -139,14 +290,37 @@ namespace screen {
 
 			private:
 
-				glm::vec3 _position;				///< camera position
-				// TODO find definition of those values
-				glm::vec3 _center;					///< camera view center
-				glm::vec3 _up;						///< camera view up
+				/**
+				 * \brief Update projection matrix
+				 *
+				 * Compute projection matrix. Should be called after each modification of
+				 * one of the values used for the projection
+				 */
+				void updateProjection();
+
+				/**
+				 * \brief Compute view matrix
+				 *
+				 * Compute view matrix. Should be called after each modification of
+				 * one of the values used for the view
+				 */
+				void updateView();
+
+				/**********************************************************************/
+
+				glm::vec3 _position;				///< camera position, also used as the position of the eye (center)
+				glm::vec3 _eye;						///< camera view eye, direction of the eye (view direction) (normalized vector)
+				glm::vec3 _up;						///< camera view up, direction of the up vector (normalized vector)
 				float _fov;							///< camera field of view
-				float _aspect;
-				float _near;
-				float _far;
+				float _aspectRatio;					///< camera	perspective's aspect ratio
+				float _near;						///< camera perspective's near
+				float _far;							///< camera perspective's far
+				bool _projectionNeedsUpdate;		///< true if the projection matrix needs to be re-compute
+				bool _viewNeedsUpdate;				///< true if the view matrix needs to be re-compute
+
+				/* do not call directly, those values are not updated automatically, use the getters */
+				glm::mat4x4 _projection;			///< camera projection transformation matrix
+				glm::mat4x4 _view;					///< camera view matrix
 
 				// DO NOT USE
 				/**
@@ -158,19 +332,11 @@ namespace screen {
 				 * \brief const assignment operator
 				 */
 				Camera& operator= (const Camera &iSource);
-				/**
-				 * \brief assignment operator
-				 */
-				Camera& operator= (Camera &iSource);
 
 				/**
 				 * \brief const copy constructor
 				 */
 				Camera(const Camera& iSource);
-				/**
-				 * \brief copy constructor
-				 */
-				Camera(Camera& iSource);
 
 		    };	
 		}

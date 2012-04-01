@@ -80,11 +80,11 @@ namespace screen {
 			virtual const std::string& getName() const;
 
 			/**
-			 * \brief Get the current cative camera.
+			 * \brief Get the current active camera.
 			 * The active camera is the camera rendering the scene if this scene is currently being rendered
-			 * \return pointer on the active camera
+			 * \return reference on the active camera
 			 */
-			screen::core::objects::Camera* getActiveCamera() const;
+			screen::core::objects::Camera& getActiveCamera() const;
 
 			/**
 			 * \brief Set a camera as the active one
@@ -103,10 +103,17 @@ namespace screen {
 			/**
 			 * \brief Create a camera and attach it to the scene
 			 *
-			 * \param[in] iCameraName name of the nez camera
+			 * \param[in] iCameraName name of the  new camera
 			 * \exception screen::utils::Exception camera already exists
 			 */
-			screen::core::objects::Camera* createCamera(const std::string& iCameraName);
+			screen::core::objects::Camera& createCamera(const std::string& iCameraName);
+
+			/**
+			 * \brief Drop a camera attached to the scene
+			 * \param[in] iCameraName name of the  new camera
+			 * \exception screen::utils::Exception camera doesn't exists
+			 */
+			void dropCamera(const std::string& iCameraName);
 
 		protected:
 
