@@ -33,6 +33,9 @@
 //objects includes
 #include <screen/core/objects/Camera.h>
 
+// maths
+#include <screen/math/Angles.h>
+
 //stl
 #include <iostream>
 
@@ -50,9 +53,10 @@ namespace screen {
 			  _position(0.0f, 0.0f, 0.0f), _eye(0.0f, 0.0f, 1.0f), _up(0.0f, 1.0f, 0.0f),
 			  _fov(45.0f), _aspectRatio(4.0f/3.0f),
 			  _near(0.1f), _far(100.0f), _projectionNeedsUpdate(true),
-			  _viewNeedsUpdate(true)
+			  _viewNeedsUpdate(true), _rightNeedsUpdate(true)
 			{
 				SCREEN_DECL_CONSTRUCTOR(Camera);
+				updateRight();
 				updateProjection();
 				updateView();
 			}
@@ -68,8 +72,14 @@ namespace screen {
 			}
 
 			inline
-			screen::core::Scene& Camera::getScene() const{
+			const screen::core::Scene& Camera::getScene() const{
 				SCREEN_DECL_METHOD(getScene);
+				return accessScene();
+			}
+
+			inline
+			screen::core::Scene& Camera::accessScene() const{
+				SCREEN_DECL_METHOD(accessScene);
 				if (_scene == NULL)
 					throw screen::utils::Exception( __FILE__, __LINE__, "Trying to get a NULL scene from the the camera (" + getName() + ")");
 				return *_scene;
@@ -133,6 +143,7 @@ namespace screen {
 				SCREEN_DECL_METHOD(setDirection);
 				_eye = glm::normalize(iVectorDirection);
 				_viewNeedsUpdate = true;
+				_rightNeedsUpdate =  true;
 			}
 
 			void Camera::setDirection(const float x, const float y, const float z){
@@ -150,9 +161,11 @@ namespace screen {
 				return _up;
 			}
 
-			glm::vec3 Camera::getRight() const{
+			inline
+			const glm::vec3& Camera::getRight(){
 				SCREEN_DECL_METHOD(getRight);
-				return glm::normalize(glm::cross(_eye, _up));
+				updateRight();
+				return _right;
 			}
 
 			// rotation local z
@@ -178,12 +191,14 @@ namespace screen {
 				_eye = glm::normalize(glm::rotate(_eye, iAngle.getValue(), iAxis));
 				_up = glm::normalize(glm::rotate(_up, iAngle.getValue(), iAxis));
 				_viewNeedsUpdate = true;
+				_rightNeedsUpdate = true;
 			}
 
 			void Camera::lookAt(const glm::vec3& iPoint){
 				SCREEN_DECL_METHOD(lookAt);
 				_eye = iPoint - _position;
 				_viewNeedsUpdate = true;
+				_rightNeedsUpdate = true;
 			}
 
 			void Camera::lookAt(const float x, const float y, const float z){
@@ -243,14 +258,26 @@ namespace screen {
 
 			void Camera::updateProjection(){
 				SCREEN_DECL_METHOD(updateProjection);
-				if (_projectionNeedsUpdate)
+				if (_projectionNeedsUpdate){
 					_projection = glm::perspective(_fov, _aspectRatio, _near, _far);
+					_projectionNeedsUpdate = false;
+				}
 			}
 
 			void Camera::updateView(){
 				SCREEN_DECL_METHOD(updateView);
-				if (_viewNeedsUpdate)
+				if (_viewNeedsUpdate){
 					_view = glm::lookAt(_eye, _position, _up);
+					_viewNeedsUpdate = false;
+				}
+			}
+
+			void Camera::updateRight(){
+				SCREEN_DECL_METHOD(updateRight);
+				if (_rightNeedsUpdate){
+					_right = glm::normalize(glm::cross(_eye, _up));
+					_rightNeedsUpdate = false;
+				}
 			}
 
 		}
