@@ -33,9 +33,6 @@
 //utils
 #include <screen/utils/Declaration.h>
 
-// maths
-#include <screen/math/Angles.h>
-
 //main
 #include <screen/main/Export.h>
 
@@ -49,6 +46,11 @@
  * Namespace all screen classes
  */
 namespace screen {
+
+	namespace math {
+		class Degree;
+	}
+
 	/**
 	 * Namespace for the core classes of the engine
 	 */
@@ -86,7 +88,13 @@ namespace screen {
 				 * \brief Get the scene holding the camera
 				 * \return scene holding the camera
 				 */
-				screen::core::Scene& getScene() const;
+				const screen::core::Scene& getScene() const;
+
+				/**
+				 * \brief Access the scene holding the camera
+				 * \return scene holding the camera
+				 */
+				screen::core::Scene& accessScene() const;
 
 				/**
 				 * \brief Check if the camera is active in its scene
@@ -173,9 +181,11 @@ namespace screen {
 
 				/**
 				 * \brief Get the absolute right vector of the camera
-				 * \return vector repesenting the right vector of the camera (normalized)
+				 *
+				 * This vector is computed when get is called
+				 * \return vector representing the right vector of the camera (normalized)
 				 */
-				glm::vec3 getRight() const;
+				const glm::vec3& getRight();
 
 				/**
 				 * \brief Rotate anticlockwise arount its local z axis
@@ -222,6 +232,8 @@ namespace screen {
 
 				/**
 				 * \brief Get camera view
+				 *
+				 * The matrix is computed when get is called
 				 * \return camera view matrix
 				 */
 				const glm::mat4x4& getView();
@@ -264,6 +276,8 @@ namespace screen {
 
 				/**
 				 * \brief Get camera projection
+				 *
+				 * The matrix is computed when get is called
 				 * \return camera projection matrix
 				 */
 				const glm::mat4x4& getProjection();
@@ -293,20 +307,30 @@ namespace screen {
 				/**
 				 * \brief Update projection matrix
 				 *
-				 * Compute projection matrix. Should be called after each modification of
-				 * one of the values used for the projection
+				 * Compute projection matrix. Should be called before each access to the
+				 * matrix
 				 */
 				void updateProjection();
 
 				/**
 				 * \brief Compute view matrix
 				 *
-				 * Compute view matrix. Should be called after each modification of
-				 * one of the values used for the view
+				 * Compute view matrix. hould be called before each access to the
+				 * matrix
 				 */
 				void updateView();
 
+				/**
+				 * \brief Compute right vector
+				 *
+				 * Compute right vector. hould be called before each access to the
+				 * vector
+				 */
+				void updateRight();
+
 				/**********************************************************************/
+
+			protected:
 
 				glm::vec3 _position;				///< camera position, also used as the position of the eye (center)
 				glm::vec3 _eye;						///< camera view eye, direction of the eye (view direction) (normalized vector)
@@ -317,8 +341,12 @@ namespace screen {
 				float _far;							///< camera perspective's far
 				bool _projectionNeedsUpdate;		///< true if the projection matrix needs to be re-compute
 				bool _viewNeedsUpdate;				///< true if the view matrix needs to be re-compute
+				bool _rightNeedsUpdate;				///< true if the right vector needs to be re-compute
+
+			private:
 
 				/* do not call directly, those values are not updated automatically, use the getters */
+				glm::vec3 _right;					///< camera right vector.
 				glm::mat4x4 _projection;			///< camera projection transformation matrix
 				glm::mat4x4 _view;					///< camera view matrix
 
