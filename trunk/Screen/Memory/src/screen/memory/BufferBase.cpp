@@ -50,6 +50,7 @@ namespace screen {
 			BufferBase& aBase = const_cast<BufferBase&>(iBufferBase);
 			std::swap(_bufferPtr,aBase._bufferPtr);
 			std::swap(_size,aBase._size);
+			return *this;
 		}
 		
         BufferBase::~BufferBase(){

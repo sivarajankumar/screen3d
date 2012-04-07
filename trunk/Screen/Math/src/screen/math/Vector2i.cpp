@@ -141,15 +141,20 @@ namespace screen {
         	return operator int*()[i];
         }
 
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 4717 )//disable a Visual Studio warning
+#endif
 
         const int& Vector2i::operator()(unsigned int i) const{
         	SCREEN_DECL_METHOD(operator ())
         	return operator const int *()[i];
         }
  
+#ifdef _MSC_VER
 #pragma warning( pop ) 
+#endif
+
        
         Vector2i::operator int* (){
         	SCREEN_DECL_METHOD(operator int*)
