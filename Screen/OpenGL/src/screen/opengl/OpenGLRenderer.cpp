@@ -265,6 +265,12 @@ namespace screen {
                         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
                         glTexCoordPointer(size[(*i)->getType()], type[(*i)->getType()], stride, BUFFER_OFFSET(offset + minVertex * stride));
                         break;
+
+					// default
+					default:
+						throw screen::utils::Exception(__FILE__, __LINE__, "Unhandled vertex usage");
+						break;
+
                 }
                 offset += offsetInc[(*i)->getType()];
             }

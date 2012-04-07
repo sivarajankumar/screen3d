@@ -65,7 +65,7 @@ namespace screen {
 		unsigned int power(unsigned int value1, unsigned int value2){
 	        unsigned int ret = 1;
 
-	        for(int i=0; i<value2; i++){
+			for(unsigned int i=0; i<value2; i++){
 				ret *= value1;
 			}
 

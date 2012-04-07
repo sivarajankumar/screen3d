@@ -53,6 +53,7 @@ namespace screen{
 				IndexBufferHandler& operator = (const typename IndexBuffer<T>::SmartPtr& vb){
 					SCREEN_DECL_METHOD(operator =)
 					any = vb;
+					return *this;
 				}
 				
 				template<class T>
@@ -60,6 +61,7 @@ namespace screen{
 					SCREEN_DECL_METHOD(operator =)
 					typename IndexBuffer<T>::SmartPtr sp = vb;
 					any = sp;
+					return *this;
 				}
 				
 				template<class T>

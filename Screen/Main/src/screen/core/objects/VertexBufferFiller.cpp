@@ -57,13 +57,13 @@ namespace screen{
 			}
 			
 #define SET_VECTOR(vertexUsage,inputSize) \
-	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
+	int cur = i*stepSize + vertexInfo[vertexUsage].first; \
 	const unsigned long* longBuffer = reinterpret_cast<const unsigned long*>(&vector[0]); \
 	buffer.setAt(cur, longBuffer, inputSize);
 			
 #define GET_VECTOR(vertexUsage,inputSize) \
-	unsigned int cur = i*stepSize + vertexInfo[vertexUsage].first; \
-	for(unsigned int j=0; j<vertexInfo[vertexUsage].second; j++){ \
+	int cur = i*stepSize + vertexInfo[vertexUsage].first; \
+	for(int j=0; j<vertexInfo[vertexUsage].second; j++){ \
 		float val; \
 		::memcpy(&val,buffer.getAt(cur+j),sizeof(float)); \
 		vector[j] = val; \

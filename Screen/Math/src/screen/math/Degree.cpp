@@ -41,42 +41,50 @@ namespace screen {
 
 		Degree::Degree ( const Radian& iRadian )
 			: _value(iRadian.getDegreeValue()){
+			SCREEN_DECL_CONSTRUCTOR(Degree);
 		}
 
 		inline
 		Degree& Degree::operator = ( const Radian& iRadian ){
+			SCREEN_DECL_METHOD(operator =);
 			_value = iRadian.getDegreeValue();
 			return *this;
 		}
 
 		float Degree::getRadianValue() const{
+			SCREEN_DECL_METHOD(getRadianValue);
 			return Degree::ToRadian(_value);
 		}
 
 		inline
 		Degree Degree::operator + ( const Radian& iRadian ) const{
+			SCREEN_DECL_METHOD(operator +);
 			return Degree( _value + iRadian.getDegreeValue());
 		}
 
 		inline
 		Degree& Degree::operator += ( const Radian& iRadian ){
+			SCREEN_DECL_METHOD(operator +=);
 			_value += iRadian.getDegreeValue();
 			return *this;
 		}
 
 		inline
 		Degree Degree::operator - ( const Radian& iRadian ) const{
+			SCREEN_DECL_METHOD(operator -);
 			return Degree( _value + iRadian.getDegreeValue());
 		}
 
 		inline
 		Degree& Degree::operator -= ( const Radian& iRadian ){
+			SCREEN_DECL_METHOD(operator -=);
 			_value -= iRadian.getDegreeValue();
 			return *this;
 		}
 
 		inline
 		float Degree::ToRadian(const float iDegree) {
+			SCREEN_DECL_METHOD(ToRadian);
 			return iDegree / 180 * Pi;
 		}
 
