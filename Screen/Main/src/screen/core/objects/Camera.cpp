@@ -48,42 +48,26 @@ namespace screen {
 	namespace core {
 		namespace objects {
 
-			Camera::Camera(const std::string& iName, screen::core::Scene* iScene)
-			: _name(iName), _scene(iScene),
-			  _position(0.0f, 0.0f, 0.0f), _eye(0.0f, 0.0f, 1.0f), _up(0.0f, 1.0f, 0.0f),
+			//-----------------------------------------------------------------------
+
+			Camera::Camera(const std::string& iName, screen::core::Scene& iScene)
+			: SceneNode(iName, iScene, NULL),
 			  _fov(45.0f), _aspectRatio(4.0f/3.0f),
 			  _near(0.1f), _far(100.0f), _projectionNeedsUpdate(true),
-			  _viewNeedsUpdate(true), _rightNeedsUpdate(true)
+			  _viewNeedsUpdate(true)
 			{
 				SCREEN_DECL_CONSTRUCTOR(Camera);
-				updateRight();
 				updateProjection();
 				updateView();
 			}
+
+			//-----------------------------------------------------------------------
 
 			Camera::~Camera(){
 				SCREEN_DECL_DESTRUCTOR(~Camera);
 			}
 
-
-			const std::string& Camera::getName() const{
-				SCREEN_DECL_METHOD(getName);
-				return _name;
-			}
-
-			inline
-			const screen::core::Scene& Camera::getScene() const{
-				SCREEN_DECL_METHOD(getScene);
-				return accessScene();
-			}
-
-			inline
-			screen::core::Scene& Camera::accessScene() const{
-				SCREEN_DECL_METHOD(accessScene);
-				if (_scene == NULL)
-					throw screen::utils::Exception( __FILE__, __LINE__, "Trying to get a NULL scene from the the camera (" + getName() + ")");
-				return *_scene;
-			}
+			//-----------------------------------------------------------------------
 
 			inline
 			bool Camera::isActive() const{
@@ -91,23 +75,16 @@ namespace screen {
 				return (&_scene->getActiveCamera() == this);
 			}
 
+			//-----------------------------------------------------------------------
+
 			inline
 			void Camera::setPosition(const glm::vec3& iVectorPosition){
 				SCREEN_DECL_METHOD(setPosition);
-				_position = iVectorPosition;
+				SceneNode::setPosition(iVectorPosition);
 				_viewNeedsUpdate = true;
 			}
 
-			inline
-			void Camera::setPosition(const float x, const float y, const float z){
-				setPosition(glm::vec3(x,y,z));
-			}
-
-			inline
-			const glm::vec3& Camera::getPosition() const{
-				SCREEN_DECL_METHOD(getPosition);
-				return _position;
-			}
+			//-----------------------------------------------------------------------
 
 			void Camera::move(const glm::vec3& iVectorMove){
 				SCREEN_DECL_METHOD(move);
@@ -115,11 +92,15 @@ namespace screen {
 				_viewNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::translateZ(const float iDistance){
 				SCREEN_DECL_METHOD(translateZ);
 				_position += (iDistance * getDirection());
 				_viewNeedsUpdate = true;
 			}
+
+			//-----------------------------------------------------------------------
 
 			void Camera::translateY(const float iDistance){
 				SCREEN_DECL_METHOD(translateY);
@@ -127,17 +108,23 @@ namespace screen {
 				_viewNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::translateX(const float iDistance){
 				SCREEN_DECL_METHOD(translateX);
 				_position += (iDistance * getRight());
 				_viewNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::translate(const float iDistance, const glm::vec3& iAxis){
 				SCREEN_DECL_METHOD(translate);
 				_position += (iDistance * glm::normalize(iAxis));
 				_viewNeedsUpdate = true;
 			}
+
+			//-----------------------------------------------------------------------
 
 			void Camera::setDirection(const glm::vec3& iVectorDirection){
 				SCREEN_DECL_METHOD(setDirection);
@@ -146,14 +133,20 @@ namespace screen {
 				_rightNeedsUpdate =  true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::setDirection(const float x, const float y, const float z){
 				setDirection( glm::vec3(x, y, z));
 			}
+
+			//-----------------------------------------------------------------------
 
 			const glm::vec3& Camera::getDirection() const{
 				SCREEN_DECL_METHOD(getDirection);
 				return _eye;
 			}
+
+			//-----------------------------------------------------------------------
 
 			inline
 			const glm::vec3& Camera::getUp() const{
@@ -161,18 +154,24 @@ namespace screen {
 				return _up;
 			}
 
+			//-----------------------------------------------------------------------
+
 			inline
-			const glm::vec3& Camera::getRight(){
+			const glm::vec3& Camera::getRight() const{
 				SCREEN_DECL_METHOD(getRight);
 				updateRight();
 				return _right;
 			}
+
+			//-----------------------------------------------------------------------
 
 			// rotation local z
 			void Camera::roll(const screen::math::Degree& iAngle){
 				SCREEN_DECL_METHOD(roll);
 				rotate(getDirection(), iAngle);
 			}
+
+			//-----------------------------------------------------------------------
 
 			// rotation local y
 			void Camera::yaw(const screen::math::Degree& iAngle){
@@ -186,6 +185,8 @@ namespace screen {
 				rotate(getRight(), iAngle);
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::rotate(const glm::vec3& iAxis, const screen::math::Degree& iAngle){
 				SCREEN_DECL_METHOD(rotate);
 				_eye = glm::normalize(glm::rotate(_eye, iAngle.getValue(), iAxis));
@@ -194,6 +195,8 @@ namespace screen {
 				_rightNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::lookAt(const glm::vec3& iPoint){
 				SCREEN_DECL_METHOD(lookAt);
 				_eye = iPoint - _position;
@@ -201,21 +204,29 @@ namespace screen {
 				_rightNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			void Camera::lookAt(const float x, const float y, const float z){
 				lookAt(glm::vec3(x, y, z));
 			}
 
-			const glm::mat4x4& Camera::getView() {
+			//-----------------------------------------------------------------------
+
+			const glm::mat4x4& Camera::getView() const {
 				SCREEN_DECL_METHOD(getView);
 				updateView();
 				return _view;
 			}
+
+			//-----------------------------------------------------------------------
 
 			inline
 			float Camera::getAspectRatio() const{
 				SCREEN_DECL_METHOD(getAspectRatio);
 				return _aspectRatio;
 			}
+
+			//-----------------------------------------------------------------------
 
 			inline
 			void Camera::setAspectRatio(const float iAspectRatio){
@@ -224,11 +235,15 @@ namespace screen {
 				_projectionNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			inline
 			float  Camera::getNearClipDistance() const{
 				SCREEN_DECL_METHOD(getNearClipDistance);
 				return _near;
 			}
+
+			//-----------------------------------------------------------------------
 
 			inline
 			void  Camera::setNearClipDistance(const float iNear){
@@ -237,11 +252,15 @@ namespace screen {
 				_projectionNeedsUpdate = true;
 			}
 
+			//-----------------------------------------------------------------------
+
 			inline
 			float  Camera::getFarClipDistance() const{
 				SCREEN_DECL_METHOD(getFarClipDistance);
 				return _far;
 			}
+
+			//-----------------------------------------------------------------------
 
 			inline
 			void  Camera::setFarClipDistance(const float iFar){
@@ -250,13 +269,17 @@ namespace screen {
 				_projectionNeedsUpdate = true;
 			}
 
-			const glm::mat4x4& Camera::getProjection(){
+			//-----------------------------------------------------------------------
+
+			const glm::mat4x4& Camera::getProjection() const{
 				SCREEN_DECL_METHOD(getProjection);
 				updateProjection();
 				return _projection;
 			}
 
-			void Camera::updateProjection(){
+			//-----------------------------------------------------------------------
+
+			void Camera::updateProjection() const {
 				SCREEN_DECL_METHOD(updateProjection);
 				if (_projectionNeedsUpdate){
 					_projection = glm::perspective(_fov, _aspectRatio, _near, _far);
@@ -264,7 +287,9 @@ namespace screen {
 				}
 			}
 
-			void Camera::updateView(){
+			//-----------------------------------------------------------------------
+
+			void Camera::updateView() const{
 				SCREEN_DECL_METHOD(updateView);
 				if (_viewNeedsUpdate){
 					_view = glm::lookAt(_eye, _position, _up);
@@ -272,13 +297,17 @@ namespace screen {
 				}
 			}
 
-			void Camera::updateRight(){
+			//-----------------------------------------------------------------------
+
+			void Camera::updateRight() const{
 				SCREEN_DECL_METHOD(updateRight);
 				if (_rightNeedsUpdate){
 					_right = glm::normalize(glm::cross(_eye, _up));
 					_rightNeedsUpdate = false;
 				}
 			}
+
+			//-----------------------------------------------------------------------
 
 		}
 	}

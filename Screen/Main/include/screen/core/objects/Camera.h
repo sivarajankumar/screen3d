@@ -30,11 +30,14 @@
 #ifndef SCREEN_CAMERA_H
 #define SCREEN_CAMERA_H
 
-//utils
+// utils
 #include <screen/utils/Declaration.h>
 
-//main
+// main
 #include <screen/main/Export.h>
+
+// objects
+#include <screen/core/objects/SceneNode.h>
 
 // glm
 #include <glm/glm.hpp>
@@ -55,12 +58,12 @@ namespace screen {
 	 * Namespace for the core classes of the engine
 	 */
 	namespace core {
-		/**
-		 * Namespace for the objects of the engine
-		 */
 
 		class Scene;
 
+		/**
+		 * Namespace for the objects of the engine
+		 */
 		namespace objects {
 
 			/**
@@ -72,29 +75,11 @@ namespace screen {
 			 * Default aspect ratio is 4/3. Default near clip distance is 1. Default far clip distance is 100.
 			 * Default fov is 45. Default position is (0,0,0). Default direction is (0,0,1). Default up is (0,1,0).
 			 */
-			class SCREEN_MAIN_EXPORT Camera {
+			class SCREEN_MAIN_EXPORT Camera: virtual public SceneNode{
 				SCREEN_DECL_CLASS(screen::core::objects::Camera)
 			public:
 
 				friend class screen::core::Scene;
-
-				/**
-				 * \brief Get the name of the camera
-				 * \return Name of the camera
-				 */
-		        const std::string& getName() const;
-
-				/**
-				 * \brief Get the scene holding the camera
-				 * \return scene holding the camera
-				 */
-				const screen::core::Scene& getScene() const;
-
-				/**
-				 * \brief Access the scene holding the camera
-				 * \return scene holding the camera
-				 */
-				screen::core::Scene& accessScene() const;
 
 				/**
 				 * \brief Check if the camera is active in its scene
@@ -103,24 +88,10 @@ namespace screen {
 				bool isActive() const;
 
 				/**
-				 * \brief Set the position of the camera
+				 * \brief Set the absolute position of the camera
 				 * \param[in] iVectorPosition position given as a vector
 				 */
-				void setPosition(const glm::vec3& iVectorPosition);
-
-				/**
-				 * \brief Set the position of the camera
-				 * \param[in] x (horizontal)
-				 * \param[in] y (up)
-				 * \param[in] z (depth)
-				 */
-				void setPosition(const float x, const float y, const float z);
-
-				/**
-				 * \brief Get the absolute position of the camera
-				 * \return vector repesenting the position of the camera
-				 */
-				const glm::vec3& getPosition() const;
+				virtual void setPosition(const glm::vec3& iVectorPosition);
 
 				/**
 				 * \brief Move the camera by the given vector
@@ -185,7 +156,7 @@ namespace screen {
 				 * This vector is computed when get is called
 				 * \return vector representing the right vector of the camera (normalized)
 				 */
-				const glm::vec3& getRight();
+				const glm::vec3& getRight() const;
 
 				/**
 				 * \brief Rotate anticlockwise arount its local z axis
@@ -236,7 +207,7 @@ namespace screen {
 				 * The matrix is computed when get is called
 				 * \return camera view matrix
 				 */
-				const glm::mat4x4& getView();
+				const glm::mat4x4& getView() const;
 
 				/**
 				 * \brief Get the aspect ratio
@@ -280,7 +251,7 @@ namespace screen {
 				 * The matrix is computed when get is called
 				 * \return camera projection matrix
 				 */
-				const glm::mat4x4& getProjection();
+				const glm::mat4x4& getProjection() const;
 
 			protected:
 
@@ -290,7 +261,7 @@ namespace screen {
 				 * \param[in] iName name of the camera
 				 * \param[in] iScene scene where the camera is attached
 				 */
-				Camera(const std::string& iName, screen::core::Scene* iScene);
+				Camera(const std::string& iName, screen::core::Scene& iScene);
 
 				/**
 				 * Destructor
@@ -304,13 +275,14 @@ namespace screen {
 
 			private:
 
+				// update are const inorder to have const getter methods
 				/**
 				 * \brief Update projection matrix
 				 *
 				 * Compute projection matrix. Should be called before each access to the
 				 * matrix
 				 */
-				void updateProjection();
+				void updateProjection() const;
 
 				/**
 				 * \brief Compute view matrix
@@ -318,7 +290,7 @@ namespace screen {
 				 * Compute view matrix. hould be called before each access to the
 				 * matrix
 				 */
-				void updateView();
+				void updateView() const;
 
 				/**
 				 * \brief Compute right vector
@@ -326,7 +298,7 @@ namespace screen {
 				 * Compute right vector. hould be called before each access to the
 				 * vector
 				 */
-				void updateRight();
+				void updateRight() const;
 
 				/**********************************************************************/
 
@@ -339,16 +311,16 @@ namespace screen {
 				float _aspectRatio;					///< camera	perspective's aspect ratio
 				float _near;						///< camera perspective's near
 				float _far;							///< camera perspective's far
-				bool _projectionNeedsUpdate;		///< true if the projection matrix needs to be re-compute
-				bool _viewNeedsUpdate;				///< true if the view matrix needs to be re-compute
-				bool _rightNeedsUpdate;				///< true if the right vector needs to be re-compute
+				mutable bool _projectionNeedsUpdate;///< true if the projection matrix needs to be re-compute
+				mutable bool _viewNeedsUpdate;		///< true if the view matrix needs to be re-compute
+				mutable bool _rightNeedsUpdate;		///< true if the right vector needs to be re-compute
 
 			private:
 
 				/* do not call directly, those values are not updated automatically, use the getters */
-				glm::vec3 _right;					///< camera right vector.
-				glm::mat4x4 _projection;			///< camera projection transformation matrix
-				glm::mat4x4 _view;					///< camera view matrix
+				mutable glm::vec3 _right;			///< camera right vector.
+				mutable glm::mat4x4 _projection;	///< camera projection transformation matrix
+				mutable glm::mat4x4 _view;			///< camera view matrix
 
 				// DO NOT USE
 				/**

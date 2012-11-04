@@ -34,6 +34,8 @@
 namespace screen {
 	namespace core {
 
+		//-----------------------------------------------------------------------
+
 		Scene::Scene(const std::string& iSceneName)
 			: _name(iSceneName), _activeCamera(NULL){
 			SCREEN_DECL_CONSTRUCTOR(Scene)
@@ -42,6 +44,8 @@ namespace screen {
 			std::string aDefaultCameraName = "DefaultCamera"+iSceneName;
 			_activeCamera = &createCamera(aDefaultCameraName);
 		}
+
+		//-----------------------------------------------------------------------
 
 
 		Scene::~Scene() {
@@ -57,11 +61,14 @@ namespace screen {
 			_cameraMap.clear();
 		}
 
+		//-----------------------------------------------------------------------
 
 		const std::string& Scene::getName() const{
 			SCREEN_DECL_METHOD(getName)
 			return _name;
 		}
+
+		//-----------------------------------------------------------------------
 
 		inline
 		screen::core::objects::Camera& Scene::getActiveCamera() const{
@@ -70,6 +77,8 @@ namespace screen {
 				throw screen::utils::Exception( __FILE__, __LINE__, "Trying to get a NULL camera from the the scene (" + getName() + ")");
 			return *_activeCamera;
 		}
+
+		//-----------------------------------------------------------------------
 
 		void Scene::setActiveCamera(const std::string& iCameraName){
 			SCREEN_DECL_METHOD(setActiveCamera);
@@ -80,11 +89,15 @@ namespace screen {
 											   + ") not attached to the scene (" + getName() + ")");
 		}
 
+		//-----------------------------------------------------------------------
+
 		void Scene::setActiveCamera(const screen::core::objects::Camera& iCamera){
 			SCREEN_DECL_METHOD(setActiveCamera);
 
 			setActiveCamera(iCamera.getName());
 		}
+
+		//-----------------------------------------------------------------------
 
 		screen::core::objects::Camera& Scene::createCamera(const std::string& iCameraName){
 			SCREEN_DECL_METHOD(createCamera);
@@ -95,10 +108,12 @@ namespace screen {
 											   + ") that already exists in the scene (" + getName() + ")");
 			}
 
-			screen::core::objects::Camera* aNewCamera = new screen::core::objects::Camera(iCameraName, this);
+			screen::core::objects::Camera* aNewCamera = new screen::core::objects::Camera(iCameraName, *this);
 			_cameraMap[iCameraName] = aNewCamera;
 			return *aNewCamera;
 		}
+
+		//-----------------------------------------------------------------------
 
 		void Scene::dropCamera(const std::string& iCameraName){
 			SCREEN_DECL_METHOD(dropCamera);
@@ -112,6 +127,8 @@ namespace screen {
 			delete (*it).second;
 			_cameraMap.erase(it);
 		}
+
+		//-----------------------------------------------------------------------
 
 	}
 }
